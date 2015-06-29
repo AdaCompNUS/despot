@@ -41,7 +41,8 @@ Go to the package's root directory, type
 
   make
 
-which creates a binary executable `bin/despot`.
+it creates a binary executable `bin/despot_pomdpx`, which reads pomdpx format file
+outputs results. And it also generate despot library `lib/despot.a`.
 
 
 ??? Give instructions to run Tiger using a data file
@@ -53,9 +54,9 @@ which creates a binary executable `bin/despot`.
 ??? Quick start is NOT meant for such verbose writeup. Otherwise it's no longer "quick".
 
 DESPOT can be used to solve a POMDP specified in the POMDPX format using the
-following command:
+following command: (The POMDPX format files can be found in `src/pomdpx_files`.)
 
-  bin/despot -q pomdpx -m <POMDPX file> --runs <N> [OPTION]...
+  bin/despot_pomdpx -m <POMDPX file> --runs <N> [OPTION]...
 
 The above command performs N simulations. Each simulation consists of
 iterations of online search and action execution. The search is done with
@@ -80,33 +81,40 @@ verbosity level is 0.
 DESPOT can also be used be solve a POMDP specified using C++. The model is
 required to implemet the DSPOMDP interface in the package. The package comes
 with C++ models for several benchmark problems, and they can be solved using
-commands similar to the one for a POMDPX model. For example, to solve Tag:
+commands similar to the one for a POMDPX model. There are several example models
+implemented for you in `src/example_models`. For example, to generate program 
+solving Tag, go to `src/example_models/tag`, and run the makefile in the directory:
 
-  bin/despot -q tag --runs <N> [OPTION]...
+  make
+
+To solve tag, run the following command:
+
+  bin/tag --runs <N> [OPTION]...
 
 ================================================================================
 IMPLEMENTED C++ MODELS
 ================================================================================
 C++ models have been included in the package for the following problems:
-adventurer, bridge, tag, lasertag, rocksample, pocman.
+adventurer, bridge, tag, lasertag, rocksample, pocman. Generate the program in the 
+respective directory.
 
 The following commands can be used to obtain results in [1]:
 
-  bin/despot -q adventurer --runs 2000 
-  bin/despot -q adventurer -p 10 --runs 2000
-  bin/despot -q bridge --runs 2000
-  bin/despot -q tag --runs 2000
-  bin/despot -q lasertag --runs 2000
-  bin/despot -q rocksample --size 7 --number 8 --runs 2000
-  bin/despot -q rocksample --size 11 --number 11 --runs 2000
-  bin/despot -q rocksample --size 15 --number 15 --runs 2000
-  bin/despot -q pocman --runs 2000
+  bin/adventurer --runs 2000 
+  bin/adventurer -p 10 --runs 2000
+  bin/bridge --runs 2000
+  bin/tag --runs 2000
+  bin/lasertag --runs 2000
+  bin/rocksample --size 7 --number 8 --runs 2000
+  bin/rocksample --size 11 --number 11 --runs 2000
+  bin/rocksample --size 15 --number 15 --runs 2000
+  bin/pocman --runs 2000
 
 Note that doing 2000 runs can take a long time. It is better to do fewer runs
 using multiple commands. For example, we can use 20 commands like the
 following to do 2000 runs:
   
-	bin/despot -q tag --runs 100 -r <seed>
+	bin/tag --runs 100 -r <seed>
 
 Use a random number for the seed used in each command.
 
@@ -114,7 +122,6 @@ Use a random number for the seed used in each command.
 COMMAND LINE OPTIONS
 ================================================================================
           --help                     Print usage and exit.
--q <arg>  --problem <arg>            Problem name.
 -m <arg>  --model-params <arg>       Path to model-parameters file, if any.
 -d <arg>  --depth <arg>              Maximum depth of search tree (default 90).
 -g <arg>  --discount <arg>           Discount factor (default 0.95).

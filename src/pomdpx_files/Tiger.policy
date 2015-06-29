@@ -1,0 +1,74 @@
+# This file is a POMDP policy, represented as a set of "lower bound
+# planes", each of which consists of the value of the observed state
+# variable, an alpha vector and a corresponding action.
+# Given a particular value of the observed state variable x
+# and a belief b, this information can be used to answer two queries
+# of interest:
+#
+#   1. What is a lower bound on the expected long-term reward starting
+#        from state value x and belief b?
+#   2. What is an action that achieves that expected reward lower bound?
+#
+# Each lower bound plane is only defined over a subset of the belief
+# simplex--it is defined for those beliefs b such that the non-zero
+# entries of b are a subset of the entries present in the plane's alpha
+# vector.  If this condition holds we say the plane is 'applicable' to b.
+#
+# Given a belief b, both of the queries above can be answered by the
+# following process: first, throw out all the planes that are not
+# applicable to b.  Then, for each of the remaining planes, take the inner
+# product of the plane's alpha vector with b.  The highest inner product
+# value is the expected long-term reward lower bound, and the action label
+# for that plane is the action that achieves the bound.
+
+{
+  policyType => "MaxPlanesLowerBoundWithObservedState",
+  numPlanes => 5,
+  planes => [
+    {
+      action => 0,
+      observed state val => 0,
+      numEntries => 2,
+      entries => [
+        0, 24.6954,
+        1, 3.01448
+      ]
+    },
+    {
+      action => 2,
+      observed state val => 0,
+      numEntries => 2,
+      entries => [
+        0, 28.4025,
+        1, -81.5975
+      ]
+    },
+    {
+      action => 1,
+      observed state val => 0,
+      numEntries => 2,
+      entries => [
+        0, -81.5975,
+        1, 28.4025
+      ]
+    },
+    {
+      action => 0,
+      observed state val => 0,
+      numEntries => 2,
+      entries => [
+        0, 3.0145,
+        1, 24.6954
+      ]
+    },
+    {
+      action => 0,
+      observed state val => 0,
+      numEntries => 2,
+      entries => [
+        0, 19.3711,
+        1, 19.3711
+      ]
+    }
+  ]
+}

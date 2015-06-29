@@ -1,0 +1,4850 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<pomdpx version="1.0" id="RockSample78" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="pomdpx.xsd">
+
+<Description>RockSample problem for map size 7 x 7
+Robot's initial position is at (0 3).
+Modified using Trey Smith's original RockSample script by Png Shao Wei
+Email : pngshaowei@gmail.com.Rock0 is at (2,0) Rock1 is at (0,1) Rock2 is at (3,1) Rock3 is at (6,3) Rock4 is at (2,4) Rock5 is at (3,4) Rock6 is at (5,5) Rock7 is at (1,6) 
+</Description>
+
+<Discount>0.95</Discount>
+
+<Variable>
+
+	<StateVar vnamePrev="robot_0" vnameCurr= "robot_1" fullyObs="true">
+		<ValueEnum>s00 s01 s02 s03 s04 s05 s06 s10 s11 s12 s13 s14 s15 s16 s20 s21 s22 s23 s24 s25 s26 s30 s31 s32 s33 s34 s35 s36 s40 s41 s42 s43 s44 s45 s46 s50 s51 s52 s53 s54 s55 s56 s60 s61 s62 s63 s64 s65 s66 st</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock0_0" vnameCurr= "rock0_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock1_0" vnameCurr= "rock1_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock2_0" vnameCurr= "rock2_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock3_0" vnameCurr= "rock3_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock4_0" vnameCurr= "rock4_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock5_0" vnameCurr= "rock5_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock6_0" vnameCurr= "rock6_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<StateVar vnamePrev="rock7_0" vnameCurr= "rock7_1" fullyObs="false">
+		<ValueEnum>bad good</ValueEnum>
+	</StateVar>
+
+	<ObsVar vname="obs_sensor">
+		<ValueEnum>ogood obad</ValueEnum>
+	</ObsVar>
+
+	<ActionVar vname="action_robot">
+		<ValueEnum>amn ame ams amw ac0 ac1 ac2 ac3 ac4 ac5 ac6 ac7 as</ValueEnum>
+	</ActionVar>
+
+	<RewardVar vname="reward_robot"/>
+
+</Variable>
+
+<InitialStateBelief>
+	<CondProb>
+		<Var>robot_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock0_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock1_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock2_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock3_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock4_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock5_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock6_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+		<Var>rock7_0</Var>
+		<Parent>null</Parent>
+		<Parameter type = "TBL">
+			<Entry>
+				<Instance>-</Instance>
+					<ProbTable>uniform</ProbTable>
+			</Entry>
+		</Parameter>
+	</CondProb>
+
+
+
+</InitialStateBelief>
+
+<StateTransitionFunction>
+
+	<CondProb>
+		<Var>robot_1</Var>
+		<Parent>action_robot robot_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>amn s00 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s00 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s00 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s00 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s00 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s00 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s01 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s01 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s01 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s01 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s01 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s02 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s02 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s02 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s02 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s02 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s02 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s03 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s03 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s03 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s03 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s03 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s03 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s04 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s04 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s04 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s04 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s04 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s04 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s05 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s05 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s05 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s05 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s05 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s05 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s06 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s06 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s06 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s06 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s06 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s06 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s10 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s10 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s10 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s10 s00</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s10 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s10 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s11 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s11 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s11 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s11 s01</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s11 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s11 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s12 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s12 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s12 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s12 s02</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s12 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s12 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s13 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s13 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s13 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s13 s03</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s13 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s13 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s14 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s14 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s14 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s14 s04</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s14 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s14 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s15 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s15 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s15 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s15 s05</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s15 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s15 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s16 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s16 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s16 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s16 s06</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s16 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s20 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s20 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s20 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s20 s10</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s20 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s21 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s21 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s21 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s21 s11</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s21 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s21 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s22 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s22 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s22 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s22 s12</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s22 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s22 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s23 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s23 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s23 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s23 s13</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s23 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s23 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s24 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s24 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s24 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s24 s14</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s24 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s25 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s25 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s25 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s25 s15</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s25 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s25 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s26 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s26 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s26 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s26 s16</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s26 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s26 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s30 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s30 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s30 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s30 s20</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s30 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s30 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s31 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s31 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s31 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s31 s21</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s31 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s32 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s32 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s32 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s32 s22</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s32 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s32 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s33 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s33 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s33 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s33 s23</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s33 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s33 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s34 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s34 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s34 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s34 s24</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s34 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s35 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s35 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s35 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s35 s25</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s35 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s35 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s36 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s36 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s36 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s36 s26</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s36 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s36 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s40 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s40 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s40 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s40 s30</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s40 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s40 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s41 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s41 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s41 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s41 s31</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s41 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s41 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s42 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s42 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s42 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s42 s32</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s42 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s42 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s43 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s43 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s43 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s43 s33</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s43 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s43 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s44 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s44 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s44 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s44 s34</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s44 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s44 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s45 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s45 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s45 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s45 s35</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s45 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s45 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s46 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s46 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s46 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s46 s36</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s46 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s46 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s50 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s50 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s50 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s50 s40</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s50 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s50 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s51 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s51 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s51 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s51 s41</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s51 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s51 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s52 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s52 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s52 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s52 s42</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s52 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s52 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s53 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s53 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s53 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s53 s43</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s53 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s53 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s54 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s54 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s54 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s54 s44</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s54 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s54 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s55 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s55 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s55 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s55 s45</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s55 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s56 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s56 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s56 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s56 s46</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s56 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s56 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s60 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s60 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s60 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s60 s50</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s60 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s60 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s61 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s61 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s61 s60</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s61 s51</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s61 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s61 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s62 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s62 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s62 s61</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s62 s52</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s62 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s62 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s63 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s63 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s63 s62</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s63 s53</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s63 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s64 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s64 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s64 s63</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s64 s54</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s64 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s64 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s65 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s65 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s65 s64</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s65 s55</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s65 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s65 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s66 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s66 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s66 s65</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s66 s56</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s66 s66</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s66 st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>* st st</Instance>
+				<ProbTable>1.0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock0_1</Var>
+		<Parent>action_robot robot_0 rock0_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s20 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock1_1</Var>
+		<Parent>action_robot robot_0 rock1_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s01 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock2_1</Var>
+		<Parent>action_robot robot_0 rock2_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s31 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock3_1</Var>
+		<Parent>action_robot robot_0 rock3_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s63 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock4_1</Var>
+		<Parent>action_robot robot_0 rock4_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s24 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock5_1</Var>
+		<Parent>action_robot robot_0 rock5_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s34 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock6_1</Var>
+		<Parent>action_robot robot_0 rock6_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s55 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+
+	<CondProb>
+	<Var>rock7_1</Var>
+		<Parent>action_robot robot_0 rock7_0</Parent>
+		<Parameter type="TBL">
+
+			<Entry>
+				<Instance>* * - -</Instance>
+				<ProbTable>1 0 0 1</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as s16 * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+</StateTransitionFunction>
+
+
+<ObsFunction>
+	<CondProb>
+		<Var>obs_sensor</Var>
+		<Parent>action_robot robot_1 rock0_1 rock1_1 rock2_1 rock3_1 rock4_1 rock5_1 rock6_1 rock7_1</Parent>
+		<Parameter type="TBL">
+			<Entry>
+				<Instance>amn * * * * * * * * * -</Instance>
+				<ProbTable>1.0 0.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ame * * * * * * * * * -</Instance>
+				<ProbTable>1.0 0.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ams * * * * * * * * * -</Instance>
+				<ProbTable>1.0 0.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>amw * * * * * * * * * -</Instance>
+				<ProbTable>1.0 0.0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s00 - * * * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s01 - * * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s02 - * * * * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s03 - * * * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s04 - * * * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s05 - * * * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s06 - * * * * * * * -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s10 - * * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s11 - * * * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s12 - * * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s13 - * * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s14 - * * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s15 - * * * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s16 - * * * * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s20 - * * * * * * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s21 - * * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s22 - * * * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s23 - * * * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s24 - * * * * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s25 - * * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s26 - * * * * * * * -</Instance>
+				<ProbTable>0.093874 0.906126 0.906126 0.093874</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s30 - * * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s31 - * * * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s32 - * * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s33 - * * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s34 - * * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s35 - * * * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s36 - * * * * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s40 - * * * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s41 - * * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s42 - * * * * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s43 - * * * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s44 - * * * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s45 - * * * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s46 - * * * * * * * -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s50 - * * * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s51 - * * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s52 - * * * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s53 - * * * * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s54 - * * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s55 - * * * * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s56 - * * * * * * * -</Instance>
+				<ProbTable>0.103721 0.896279 0.896279 0.103721</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s60 - * * * * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s61 - * * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s62 - * * * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s63 - * * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s64 - * * * * * * * -</Instance>
+				<ProbTable>0.089015 0.910985 0.910985 0.089015</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s65 - * * * * * * * -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 s66 - * * * * * * * -</Instance>
+				<ProbTable>0.110568 0.889432 0.889432 0.110568</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac0 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s00 * - * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s01 * - * * * * * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s02 * - * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s03 * - * * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s04 * - * * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s05 * - * * * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s06 * - * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s10 * - * * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s11 * - * * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s12 * - * * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s13 * - * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s14 * - * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s15 * - * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s16 * - * * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s20 * - * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s21 * - * * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s22 * - * * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s23 * - * * * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s24 * - * * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s25 * - * * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s26 * - * * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s30 * - * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s31 * - * * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s32 * - * * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s33 * - * * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s34 * - * * * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s35 * - * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s36 * - * * * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s40 * - * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s41 * - * * * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s42 * - * * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s43 * - * * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s44 * - * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s45 * - * * * * * * -</Instance>
+				<ProbTable>0.089015 0.910985 0.910985 0.089015</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s46 * - * * * * * * -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s50 * - * * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s51 * - * * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s52 * - * * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s53 * - * * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s54 * - * * * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s55 * - * * * * * * -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s56 * - * * * * * * -</Instance>
+				<ProbTable>0.108673 0.891327 0.891327 0.108673</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s60 * - * * * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s61 * - * * * * * * -</Instance>
+				<ProbTable>0.093874 0.906126 0.906126 0.093874</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s62 * - * * * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s63 * - * * * * * * -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s64 * - * * * * * * -</Instance>
+				<ProbTable>0.103721 0.896279 0.896279 0.103721</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s65 * - * * * * * * -</Instance>
+				<ProbTable>0.110568 0.889432 0.889432 0.110568</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 s66 * - * * * * * * -</Instance>
+				<ProbTable>0.118571 0.881429 0.881429 0.118571</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac1 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s00 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s01 * * - * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s02 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s03 * * - * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s04 * * - * * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s05 * * - * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s06 * * - * * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s10 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s11 * * - * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s12 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s13 * * - * * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s14 * * - * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s15 * * - * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s16 * * - * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s20 * * - * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s21 * * - * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s22 * * - * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s23 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s24 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s25 * * - * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s26 * * - * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s30 * * - * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s31 * * - * * * * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s32 * * - * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s33 * * - * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s34 * * - * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s35 * * - * * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s36 * * - * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s40 * * - * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s41 * * - * * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s42 * * - * * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s43 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s44 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s45 * * - * * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s46 * * - * * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s50 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s51 * * - * * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s52 * * - * * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s53 * * - * * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s54 * * - * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s55 * * - * * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s56 * * - * * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s60 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s61 * * - * * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s62 * * - * * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s63 * * - * * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s64 * * - * * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s65 * * - * * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 s66 * * - * * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac2 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s00 * * * - * * * * -</Instance>
+				<ProbTable>0.103721 0.896279 0.896279 0.103721</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s01 * * * - * * * * -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s02 * * * - * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s03 * * * - * * * * -</Instance>
+				<ProbTable>0.093874 0.906126 0.906126 0.093874</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s04 * * * - * * * * -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s05 * * * - * * * * -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s06 * * * - * * * * -</Instance>
+				<ProbTable>0.103721 0.896279 0.896279 0.103721</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s10 * * * - * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s11 * * * - * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s12 * * * - * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s13 * * * - * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s14 * * * - * * * * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s15 * * * - * * * * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s16 * * * - * * * * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s20 * * * - * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s21 * * * - * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s22 * * * - * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s23 * * * - * * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s24 * * * - * * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s25 * * * - * * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s26 * * * - * * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s30 * * * - * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s31 * * * - * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s32 * * * - * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s33 * * * - * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s34 * * * - * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s35 * * * - * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s36 * * * - * * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s40 * * * - * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s41 * * * - * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s42 * * * - * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s43 * * * - * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s44 * * * - * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s45 * * * - * * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s46 * * * - * * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s50 * * * - * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s51 * * * - * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s52 * * * - * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s53 * * * - * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s54 * * * - * * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s55 * * * - * * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s56 * * * - * * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s60 * * * - * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s61 * * * - * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s62 * * * - * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s63 * * * - * * * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s64 * * * - * * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s65 * * * - * * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 s66 * * * - * * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac3 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s00 * * * * - * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s01 * * * * - * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s02 * * * * - * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s03 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s04 * * * * - * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s05 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s06 * * * * - * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s10 * * * * - * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s11 * * * * - * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s12 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s13 * * * * - * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s14 * * * * - * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s15 * * * * - * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s16 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s20 * * * * - * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s21 * * * * - * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s22 * * * * - * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s23 * * * * - * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s24 * * * * - * * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s25 * * * * - * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s26 * * * * - * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s30 * * * * - * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s31 * * * * - * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s32 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s33 * * * * - * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s34 * * * * - * * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s35 * * * * - * * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s36 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s40 * * * * - * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s41 * * * * - * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s42 * * * * - * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s43 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s44 * * * * - * * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s45 * * * * - * * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s46 * * * * - * * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s50 * * * * - * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s51 * * * * - * * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s52 * * * * - * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s53 * * * * - * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s54 * * * * - * * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s55 * * * * - * * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s56 * * * * - * * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s60 * * * * - * * * -</Instance>
+				<ProbTable>0.089015 0.910985 0.910985 0.089015</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s61 * * * * - * * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s62 * * * * - * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s63 * * * * - * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s64 * * * * - * * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s65 * * * * - * * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 s66 * * * * - * * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac4 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s00 * * * * * - * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s01 * * * * * - * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s02 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s03 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s04 * * * * * - * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s05 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s06 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s10 * * * * * - * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s11 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s12 * * * * * - * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s13 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s14 * * * * * - * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s15 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s16 * * * * * - * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s20 * * * * * - * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s21 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s22 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s23 * * * * * - * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s24 * * * * * - * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s25 * * * * * - * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s26 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s30 * * * * * - * * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s31 * * * * * - * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s32 * * * * * - * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s33 * * * * * - * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s34 * * * * * - * * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s35 * * * * * - * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s36 * * * * * - * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s40 * * * * * - * * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s41 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s42 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s43 * * * * * - * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s44 * * * * * - * * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s45 * * * * * - * * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s46 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s50 * * * * * - * * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s51 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s52 * * * * * - * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s53 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s54 * * * * * - * * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s55 * * * * * - * * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s56 * * * * * - * * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s60 * * * * * - * * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s61 * * * * * - * * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s62 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s63 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s64 * * * * * - * * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s65 * * * * * - * * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 s66 * * * * * - * * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac5 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s00 * * * * * * - * -</Instance>
+				<ProbTable>0.108673 0.891327 0.891327 0.108673</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s01 * * * * * * - * -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s02 * * * * * * - * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s03 * * * * * * - * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s04 * * * * * * - * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s05 * * * * * * - * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s06 * * * * * * - * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s10 * * * * * * - * -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s11 * * * * * * - * -</Instance>
+				<ProbTable>0.089015 0.910985 0.910985 0.089015</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s12 * * * * * * - * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s13 * * * * * * - * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s14 * * * * * * - * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s15 * * * * * * - * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s16 * * * * * * - * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s20 * * * * * * - * -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s21 * * * * * * - * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s22 * * * * * * - * -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s23 * * * * * * - * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s24 * * * * * * - * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s25 * * * * * * - * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s26 * * * * * * - * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s30 * * * * * * - * -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s31 * * * * * * - * -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s32 * * * * * * - * -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s33 * * * * * * - * -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s34 * * * * * * - * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s35 * * * * * * - * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s36 * * * * * * - * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s40 * * * * * * - * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s41 * * * * * * - * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s42 * * * * * * - * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s43 * * * * * * - * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s44 * * * * * * - * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s45 * * * * * * - * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s46 * * * * * * - * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s50 * * * * * * - * -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s51 * * * * * * - * -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s52 * * * * * * - * -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s53 * * * * * * - * -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s54 * * * * * * - * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s55 * * * * * * - * -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s56 * * * * * * - * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s60 * * * * * * - * -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s61 * * * * * * - * -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s62 * * * * * * - * -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s63 * * * * * * - * -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s64 * * * * * * - * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s65 * * * * * * - * -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 s66 * * * * * * - * -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac6 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s00 * * * * * * * - -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s01 * * * * * * * - -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s02 * * * * * * * - -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s03 * * * * * * * - -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s04 * * * * * * * - -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s05 * * * * * * * - -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s06 * * * * * * * - -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s10 * * * * * * * - -</Instance>
+				<ProbTable>0.093874 0.906126 0.906126 0.093874</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s11 * * * * * * * - -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s12 * * * * * * * - -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s13 * * * * * * * - -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s14 * * * * * * * - -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s15 * * * * * * * - -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s16 * * * * * * * - -</Instance>
+				<ProbTable>0 1 1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s20 * * * * * * * - -</Instance>
+				<ProbTable>0.095037 0.904963 0.904963 0.095037</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s21 * * * * * * * - -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s22 * * * * * * * - -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s23 * * * * * * * - -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s24 * * * * * * * - -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s25 * * * * * * * - -</Instance>
+				<ProbTable>0.023916 0.976084 0.976084 0.023916</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s26 * * * * * * * - -</Instance>
+				<ProbTable>0.017032 0.982968 0.982968 0.017032</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s30 * * * * * * * - -</Instance>
+				<ProbTable>0.0984159999999999 0.901584 0.901584 0.0984159999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s31 * * * * * * * - -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s32 * * * * * * * - -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s33 * * * * * * * - -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s34 * * * * * * * - -</Instance>
+				<ProbTable>0.046687 0.953313 0.953313 0.046687</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s35 * * * * * * * - -</Instance>
+				<ProbTable>0.037285 0.962715 0.962715 0.037285</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s36 * * * * * * * - -</Instance>
+				<ProbTable>0.033484 0.966516 0.966516 0.033484</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s40 * * * * * * * - -</Instance>
+				<ProbTable>0.103721 0.896279 0.896279 0.103721</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s41 * * * * * * * - -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s42 * * * * * * * - -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s43 * * * * * * * - -</Instance>
+				<ProbTable>0.06837 0.93163 0.93163 0.06837</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s44 * * * * * * * - -</Instance>
+				<ProbTable>0.058733 0.941267 0.941267 0.058733</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s45 * * * * * * * - -</Instance>
+				<ProbTable>0.051902 0.948098 0.948098 0.051902</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s46 * * * * * * * - -</Instance>
+				<ProbTable>0.0493749999999999 0.950625 0.950625 0.0493749999999999</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s50 * * * * * * * - -</Instance>
+				<ProbTable>0.110568 0.889432 0.889432 0.110568</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s51 * * * * * * * - -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s52 * * * * * * * - -</Instance>
+				<ProbTable>0.089015 0.910985 0.910985 0.089015</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s53 * * * * * * * - -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s54 * * * * * * * - -</Instance>
+				<ProbTable>0.071789 0.928211 0.928211 0.071789</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s55 * * * * * * * - -</Instance>
+				<ProbTable>0.066578 0.933422 0.933422 0.066578</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s56 * * * * * * * - -</Instance>
+				<ProbTable>0.064725 0.935275 0.935275 0.064725</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s60 * * * * * * * - -</Instance>
+				<ProbTable>0.118571 0.881429 0.881429 0.118571</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s61 * * * * * * * - -</Instance>
+				<ProbTable>0.108673 0.891327 0.891327 0.108673</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s62 * * * * * * * - -</Instance>
+				<ProbTable>0.099508 0.900492 0.900492 0.099508</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s63 * * * * * * * - -</Instance>
+				<ProbTable>0.091487 0.908513 0.908513 0.091487</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s64 * * * * * * * - -</Instance>
+				<ProbTable>0.085127 0.914873 0.914873 0.085127</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s65 * * * * * * * - -</Instance>
+				<ProbTable>0.080992 0.919008 0.919008 0.080992</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 s66 * * * * * * * - -</Instance>
+				<ProbTable>0.079552 0.920448 0.920448 0.079552</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>ac7 st * * * * * * * * -</Instance>
+				<ProbTable>1 0</ProbTable>
+			</Entry>
+			<Entry>
+				<Instance>as * * * * * * * * * -</Instance>
+				<ProbTable>1.0 0.0</ProbTable>
+			</Entry>
+
+		</Parameter>
+	</CondProb>
+</ObsFunction>
+
+<RewardFunction>
+	<Func>
+		<Var>reward_robot</Var>
+		<Parent>action_robot robot_0 rock0_0 rock1_0 rock2_0 rock3_0 rock4_0 rock5_0 rock6_0 rock7_0</Parent>
+		<Parameter type= "TBL">
+
+			<Entry>
+				<Instance>ams s00 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s00 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s00 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s01 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s01 * bad * * * * * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s01 * good * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s02 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s02 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s03 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s03 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s04 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s04 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s05 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s05 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s06 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amw s06 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s06 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s10 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s10 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s11 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s12 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s13 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s14 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s15 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s16 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s16 * * * * * * * bad</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s16 * * * * * * * good</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s20 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s20 bad * * * * * * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s20 good * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s21 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s22 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s23 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s24 * * * * bad * * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s24 * * * * good * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s25 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s26 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s26 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s30 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s30 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s31 * * bad * * * * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s31 * * good * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s32 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s33 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s34 * * * * * bad * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s34 * * * * * good * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s35 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s36 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s36 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s40 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s40 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s41 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s42 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s43 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s44 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s45 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s46 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s46 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s50 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s50 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s51 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s52 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s53 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s54 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s55 * * * * * * bad *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s55 * * * * * * good *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s56 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s56 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s60 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ams s60 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s60 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s61 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s61 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s62 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s62 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s63 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s63 * * * bad * * * *</Instance>
+				<ValueTable>-10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s63 * * * good * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s64 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s64 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s65 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s65 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>amn s66 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>ame s66 * * * * * * * *</Instance>
+				<ValueTable>10</ValueTable>
+			</Entry>
+			<Entry>
+				<Instance>as s66 * * * * * * * *</Instance>
+				<ValueTable>-100</ValueTable>
+			</Entry>
+	</Parameter>
+	</Func>
+</RewardFunction>
+
+
+</pomdpx>
