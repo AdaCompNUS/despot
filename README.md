@@ -31,7 +31,6 @@ Tested Compilers:         gcc/g++ 4.2.1 or above
 * General
   GNU make is required for building.
   The code uses features of the C++11 standard.
-  ??? Do you still require C++11?
 
 ================================================================================
 QUICK START
@@ -183,4 +182,4 @@ RELEASE NOTES
 ================================================================================
 * 2014/xx/xx Initial release.
 
-[1] Somani A, Ye N, Hsu D, et al. Despot: Online pomdp planning with regularization[C]//Advances In Neural Information Processing Systems. 2013: 1772-1780.
+[1] Somani A, Ye N, Hsu D, et al. Despot: Online pomdp planning with regularization[C], Advances In Neural Information Processing Systems. 2013: 1772-1780.
