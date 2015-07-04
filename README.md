@@ -42,16 +42,8 @@ Go to the package's root directory, type
 	make
 
 it creates a binary executable `bin/despot_pomdpx`, which reads pomdpx format file
-outputs results. And it also generate despot library `lib/despot.a`.
+then outputs results. And it also generates despot library `lib/despot.a`.
 
-
-??? Give instructions to run Tiger using a data file
-
-??? Give instructions to run Tiger using the API. 
-
-
-
-??? Quick start is NOT meant for such verbose writeup. Otherwise it's no longer "quick".
 
 DESPOT can be used to solve a POMDP specified in the POMDPX format using the
 following command: (The POMDPX format files can be found in `src/pomdpx_files`.)
@@ -137,9 +129,9 @@ COMMAND LINE OPTIONS
 
 	-g <arg>  --discount <arg>           Discount factor (default 0.95).
 
-		--size <arg>               Size of a problem (problem specific).
+			--size <arg>               Size of a problem (problem specific).
 
-		--number <arg>             Number of elements of a problem (problem specific).
+			--number <arg>             Number of elements of a problem (problem specific).
 
 	-r <arg>  --seed <arg>               Random number seed (default is random).
 
@@ -149,35 +141,35 @@ COMMAND LINE OPTIONS
 
 	-p <arg>  --prune <arg>              Pruning constant (default no pruning).
 
-		--xi <arg>                 Gap constant (default to 0.95).
+			--xi <arg>                 Gap constant (default to 0.95).
 
 	-s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0 = infinite).
 
-		--simulator <arg>          Use IPPC server or a POMDP model as the simulator.
+			--simulator <arg>          Use IPPC server or a POMDP model as the simulator.
 
-		--max-policy-simlen <arg>  Number of steps to simulate the default
+			--max-policy-simlen <arg>  Number of steps to simulate the default
                                      policy. (default 90).
 
-		--default-action <arg>     Type of default action to use. (default
+			--default-action <arg>     Type of default action to use. (default
                                      none).
 
-		--runs <arg>               Number of runs. (default 1).
+			--runs <arg>               Number of runs. (default 1).
 
-		--lbtype <arg>             Lower bound strategy, if applicable.
+			--lbtype <arg>             Lower bound strategy, if applicable.
 
 	-l <arg>  --blbtype <arg>            Base lower bound, if applicable.
 
 	-u <arg>  --ubtype <arg>             Upper bound strategy, if applicable.
 
-		--bubtype <arg>            Base upper bound, if applicable.
+			--bubtype <arg>            Base upper bound, if applicable.
 
 	-b <arg>  --belief <arg>             Belief update strategy, if applicable.
 
 	-v <arg>  --verbosity <arg>          Verbosity level.
 
-		--silence                  Reduce default output to minimal.
+			--silence                  Reduce default output to minimal.
 
-		--noise <arg>              Noise level for transition in POMDPX belief update.
+			--noise <arg>              Noise level for transition in POMDPX belief update.
 
 ================================================================================
 ACKNOWLEDGEMENTS
