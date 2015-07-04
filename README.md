@@ -56,7 +56,7 @@ outputs results. And it also generate despot library `lib/despot.a`.
 DESPOT can be used to solve a POMDP specified in the POMDPX format using the
 following command: (The POMDPX format files can be found in `src/pomdpx_files`.)
 
-  bin/despot_pomdpx -m <POMDPX file> --runs <N> [OPTION]...
+	bin/despot_pomdpx -m <POMDPX file> --runs <N> [OPTION]...
 
 The above command performs N simulations. Each simulation consists of
 iterations of online search and action execution. The search is done with
@@ -78,7 +78,7 @@ There are 6 different levels of verbosity: NONE, WARN, ERROR, INFO, DEBUG,
 VERBOSE, which correpond to values from 0 to 5 respectively. The default
 verbosity level is 0.
 
-DESPOT can also be used be solve a POMDP specified using C++. The model is
+DESPOT can also be used to solve a POMDP specified using C++. The model is
 required to implemet the DSPOMDP interface in the package. The package comes
 with C++ models for several benchmark problems, and they can be solved using
 commands similar to the one for a POMDPX model. There are several example models
@@ -129,55 +129,55 @@ Use a random number for the seed used in each command.
 ================================================================================
 COMMAND LINE OPTIONS
 ================================================================================
---help                     Print usage and exit.
+	--help                     Print usage and exit.
 
--m <arg>  --model-params <arg>       Path to model-parameters file, if any.
+	-m <arg>  --model-params <arg>       Path to model-parameters file, if any.
 
--d <arg>  --depth <arg>              Maximum depth of search tree (default 90).
+	-d <arg>  --depth <arg>              Maximum depth of search tree (default 90).
 
--g <arg>  --discount <arg>           Discount factor (default 0.95).
+	-g <arg>  --discount <arg>           Discount factor (default 0.95).
 
-          --size <arg>               Size of a problem (problem specific).
+		--size <arg>               Size of a problem (problem specific).
 
-          --number <arg>             Number of elements of a problem (problem specific).
+		--number <arg>             Number of elements of a problem (problem specific).
 
--r <arg>  --seed <arg>               Random number seed (default is random).
+	-r <arg>  --seed <arg>               Random number seed (default is random).
 
--t <arg>  --timeout <arg>            Search time per move, in seconds (default 1).
+	-t <arg>  --timeout <arg>            Search time per move, in seconds (default 1).
 
--n <arg>  --nparticles <arg>         Number of particles (default 500).
+	-n <arg>  --nparticles <arg>         Number of particles (default 500).
 
--p <arg>  --prune <arg>              Pruning constant (default no pruning).
+	-p <arg>  --prune <arg>              Pruning constant (default no pruning).
 
-          --xi <arg>                 Gap constant (default to 0.95).
+		--xi <arg>                 Gap constant (default to 0.95).
 
--s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0 = infinite).
+	-s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0 = infinite).
 
-          --simulator <arg>          Use IPPC server or a POMDP model as the simulator.
+		--simulator <arg>          Use IPPC server or a POMDP model as the simulator.
 
-          --max-policy-simlen <arg>  Number of steps to simulate the default
+		--max-policy-simlen <arg>  Number of steps to simulate the default
                                      policy. (default 90).
 
-          --default-action <arg>     Type of default action to use. (default
+		--default-action <arg>     Type of default action to use. (default
                                      none).
 
-          --runs <arg>               Number of runs. (default 1).
+		--runs <arg>               Number of runs. (default 1).
 
-          --lbtype <arg>             Lower bound strategy, if applicable.
+		--lbtype <arg>             Lower bound strategy, if applicable.
 
--l <arg>  --blbtype <arg>            Base lower bound, if applicable.
+	-l <arg>  --blbtype <arg>            Base lower bound, if applicable.
 
--u <arg>  --ubtype <arg>             Upper bound strategy, if applicable.
+	-u <arg>  --ubtype <arg>             Upper bound strategy, if applicable.
 
-          --bubtype <arg>            Base upper bound, if applicable.
+		--bubtype <arg>            Base upper bound, if applicable.
 
--b <arg>  --belief <arg>             Belief update strategy, if applicable.
+	-b <arg>  --belief <arg>             Belief update strategy, if applicable.
 
--v <arg>  --verbosity <arg>          Verbosity level.
+	-v <arg>  --verbosity <arg>          Verbosity level.
 
-          --silence                  Reduce default output to minimal.
+		--silence                  Reduce default output to minimal.
 
-          --noise <arg>              Noise level for transition in POMDPX belief update.
+		--noise <arg>              Noise level for transition in POMDPX belief update.
 
 ================================================================================
 ACKNOWLEDGEMENTS
@@ -191,3 +191,4 @@ RELEASE NOTES
 ================================================================================
 * 2014/xx/xx Initial release.
 
+[1] Somani A, Ye N, Hsu D, et al. Despot: Online pomdp planning with regularization[C]//Advances In Neural Information Processing Systems. 2013: 1772-1780.
