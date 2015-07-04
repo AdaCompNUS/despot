@@ -39,7 +39,7 @@ QUICK START
 
 Go to the package's root directory, type 
 
-  make
+	make
 
 it creates a binary executable `bin/despot_pomdpx`, which reads pomdpx format file
 outputs results. And it also generate despot library `lib/despot.a`.
@@ -85,11 +85,11 @@ commands similar to the one for a POMDPX model. There are several example models
 implemented for you in `src/example_models`. For example, to generate program 
 solving Tag, go to `src/example_models/tag`, and run the makefile in the directory:
 
-  make
+	make
 
 To solve tag, run the following command:
 
-  bin/tag --runs <N> [OPTION]...
+	bin/tag --runs <N> [OPTION]...
 
 ================================================================================
 IMPLEMENTED C++ MODELS
@@ -100,15 +100,23 @@ respective directory.
 
 The following commands can be used to obtain results in [1]:
 
-  bin/adventurer --runs 2000 
-  bin/adventurer -p 10 --runs 2000
-  bin/bridge --runs 2000
-  bin/tag --runs 2000
-  bin/lasertag --runs 2000
-  bin/rocksample --size 7 --number 8 --runs 2000
-  bin/rocksample --size 11 --number 11 --runs 2000
-  bin/rocksample --size 15 --number 15 --runs 2000
-  bin/pocman --runs 2000
+	bin/adventurer --runs 2000 
+
+	bin/adventurer -p 10 --runs 2000
+
+	bin/bridge --runs 2000
+
+	bin/tag --runs 2000
+
+	bin/lasertag --runs 2000
+
+	bin/rocksample --size 7 --number 8 --runs 2000
+
+	bin/rocksample --size 11 --number 11 --runs 2000
+
+	bin/rocksample --size 15 --number 15 --runs 2000
+
+	bin/pocman --runs 2000
 
 Note that doing 2000 runs can take a long time. It is better to do fewer runs
 using multiple commands. For example, we can use 20 commands like the
@@ -121,37 +129,56 @@ Use a random number for the seed used in each command.
 ================================================================================
 COMMAND LINE OPTIONS
 ================================================================================
-          --help                     Print usage and exit.
+--help                     Print usage and exit.
+
 -m <arg>  --model-params <arg>       Path to model-parameters file, if any.
+
 -d <arg>  --depth <arg>              Maximum depth of search tree (default 90).
+
 -g <arg>  --discount <arg>           Discount factor (default 0.95).
+
           --size <arg>               Size of a problem (problem specific).
-          --number <arg>             Number of elements of a problem (problem
-                                     specific).
+
+          --number <arg>             Number of elements of a problem (problem specific).
+
 -r <arg>  --seed <arg>               Random number seed (default is random).
--t <arg>  --timeout <arg>            Search time per move, in seconds (default
-                                     1).
+
+-t <arg>  --timeout <arg>            Search time per move, in seconds (default 1).
+
 -n <arg>  --nparticles <arg>         Number of particles (default 500).
+
 -p <arg>  --prune <arg>              Pruning constant (default no pruning).
+
           --xi <arg>                 Gap constant (default to 0.95).
--s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0
-                                     = infinite).
-          --simulator <arg>          Use IPPC server or a POMDP model as the
-                                     simulator.
+
+-s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0 = infinite).
+
+          --simulator <arg>          Use IPPC server or a POMDP model as the simulator.
+
           --max-policy-simlen <arg>  Number of steps to simulate the default
                                      policy. (default 90).
+
           --default-action <arg>     Type of default action to use. (default
                                      none).
+
           --runs <arg>               Number of runs. (default 1).
+
           --lbtype <arg>             Lower bound strategy, if applicable.
+
 -l <arg>  --blbtype <arg>            Base lower bound, if applicable.
+
 -u <arg>  --ubtype <arg>             Upper bound strategy, if applicable.
+
           --bubtype <arg>            Base upper bound, if applicable.
+
 -b <arg>  --belief <arg>             Belief update strategy, if applicable.
+
 -v <arg>  --verbosity <arg>          Verbosity level.
+
           --silence                  Reduce default output to minimal.
-          --noise <arg>              Noise level for transition in POMDPX belief
-                                     update.
+
+          --noise <arg>              Noise level for transition in POMDPX belief update.
+
 ================================================================================
 ACKNOWLEDGEMENTS
 ================================================================================
