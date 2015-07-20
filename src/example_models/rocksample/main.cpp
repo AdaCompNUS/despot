@@ -12,24 +12,31 @@ DSPOMDP* InitializeModel(option::Option* options)
 	DSPOMDP* model = NULL;
 
 
-	int size = 7, number = 8;
-	if (options[E_SIZE])
-		size = atoi(options[E_SIZE].arg);
-	else 
+	if (options[E_PARAMS_FILE]) 
 	{
-		cerr << "Specify map size using --size option" << endl;
-		exit(0);
-	}
-	if (options[E_NUMBER]) 
-	{
-		number = atoi(options[E_NUMBER].arg);
+		model = new RockSample(options[E_PARAMS_FILE].arg);
 	} 
 	else 
 	{
-		cerr << "Specify number of rocks using --number option" << endl;
-		exit(0);
+		int size = 7, number = 8;
+		if (options[E_SIZE])
+			size = atoi(options[E_SIZE].arg);
+		else 
+		{
+			cerr << "Specify map size using --size option" << endl;
+			exit(0);
+		}
+		if (options[E_NUMBER]) 
+		{
+			number = atoi(options[E_NUMBER].arg);
+		} 
+		else 
+		{
+			cerr << "Specify number of rocks using --number option" << endl;
+			exit(0);
+		}
+		model = new RockSample(size, number);
 	}
-	model = new RockSample(size, number);
 	
 
 	return model;

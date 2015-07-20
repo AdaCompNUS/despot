@@ -12,7 +12,8 @@ DSPOMDP* InitializeModel(option::Option* options)
 	DSPOMDP* model = NULL;
 
 	int num_goals = options[E_SIZE] ? atoi(options[E_SIZE].arg) : 50;
-	model =	new Adventurer(num_goals);
+	model =	!options[E_PARAMS_FILE] ?
+			new Adventurer(num_goals) : new Adventurer(options[E_PARAMS_FILE].arg);
 
 	return model;
 }

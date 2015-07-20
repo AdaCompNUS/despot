@@ -11,7 +11,8 @@ DSPOMDP* InitializeModel(option::Option* options)
 
 	DSPOMDP* model = NULL;
 
-	model = new Tag();
+	model = !options[E_PARAMS_FILE] ?
+				new Tag() : new Tag(options[E_PARAMS_FILE].arg);
 
 	return model;
 }

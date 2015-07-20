@@ -11,7 +11,8 @@ DSPOMDP* InitializeModel(option::Option* options)
 
 	DSPOMDP* model = NULL;
 
-	model = new Chain();
+	model = !options[E_PARAMS_FILE] ?
+				new Chain() : new Chain(options[E_PARAMS_FILE].arg);
 
 	return model;
 }
