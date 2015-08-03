@@ -45,7 +45,7 @@ then outputs results. And it also generates despot library `lib/despot.a`.
 
 
 DESPOT can be used to solve a POMDP specified in the POMDPX format using the
-following command: (The POMDPX format files can be found in `src/pomdpx_files`.)
+following command: (The POMDPX format files can be found in `pomdpx_files`.)
 
 	bin/despot_pomdpx -m <POMDPX file> --runs <N> [OPTION]...
 
@@ -73,8 +73,8 @@ DESPOT can also be used to solve a POMDP specified using C++. The model is
 required to implemet the DSPOMDP interface in the package. The package comes
 with C++ models for several benchmark problems, and they can be solved using
 commands similar to the one for a POMDPX model. There are several example models
-implemented for you in `src/example_models`. For example, to generate program 
-solving Tag, go to `src/example_models/tag`, and run the makefile in the directory:
+implemented for you in `example_models`. For example, to generate program 
+solving Tag, go to `example_models/tag`, and run the makefile in the directory:
 
 	make
 
