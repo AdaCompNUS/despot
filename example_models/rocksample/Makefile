@@ -15,7 +15,7 @@ BINDIR = $(SRCDIR)/bin
 OBJDIR = $(SRCDIR)/build
 DEPDIR = $(SRCDIR)/.deps
 PROG = $(BINDIR)/rocksample
-INCLUDE_PATH = ../../despot_library
+INCLUDE_PATH = ../../src/despot_library
 
 # -----
 # Files
@@ -40,7 +40,7 @@ DIR_TGTS:
 	mkdir -p $(BINDIR) $(OBJDIR) $(DEPDIR)
 
 $(PROG): $(OBJS)
-	$(CXX) $(OBJS) $(LDFLAGS) $(INCL) -o $(PROG) ../../../lib/despot.a; \
+	$(CXX) $(OBJS) $(LDFLAGS) $(INCL) -o $(PROG) ../../lib/despot.a; \
 #	rm -r build
 
 $(DEPDIR)/%.d: %.cpp
