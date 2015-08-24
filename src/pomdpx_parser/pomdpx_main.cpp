@@ -68,6 +68,8 @@ void run(int argc, char* argv[])
 		return;
 	}
 
+	cout<<"Preprocessing... Please be patient"<<endl;
+
 	/* =========================
 	 * initialize model
 	 * =========================*/
