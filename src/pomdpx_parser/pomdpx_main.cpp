@@ -9,6 +9,7 @@ DSPOMDP* InitializeModel(option::Option* options)
 
 	DSPOMDP* model = NULL;
 
+
 	if (options[E_PARAMS_FILE]) 
 	{
 		model = new POMDPX(options[E_PARAMS_FILE].arg);
@@ -59,6 +60,13 @@ void run(int argc, char* argv[])
 	unsigned world_seed = Seeds::Next();
 	unsigned seed = Seeds::Next();
 	Random::RANDOM = Random(seed);
+
+
+	if (options[E_HELP]) 
+	{
+		option::printUsage(std::cout, usage);
+		return;
+	}
 
 	/* =========================
 	 * initialize model

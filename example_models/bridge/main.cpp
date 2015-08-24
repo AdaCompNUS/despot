@@ -55,6 +55,12 @@ void run(int argc, char* argv[])
 	unsigned seed = Seeds::Next();
 	Random::RANDOM = Random(seed);
 
+	if (options[E_HELP]) 
+	{
+		option::printUsage(std::cout, usage);
+		return;
+	}
+
 	/* =========================
 	 * initialize model
 	 * =========================*/
