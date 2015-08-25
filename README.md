@@ -114,12 +114,16 @@ The following commands can be used to obtain results in [1]:
 	bin/pocman --runs 2000
 
 Note that doing 2000 runs can take a long time. It is better to do fewer runs
-using multiple commands. For example, we can use 20 commands like the
-following to do 2000 runs:
+using multiple commands, i.e., run multiple commands in parallel. For example, we 
+can use 20 commands like the following to do 2000 runs:
   
 	bin/tag --runs 100 -r <seed>
 
 Use a random number for the seed used in each command.
+
+Note that there are some parameters important for improving the performance, such as 
+lower/upper bound type, number of particles, etc. See the following command line options 
+to learn to set those parameters.
 
 ================================================================================
 COMMAND LINE OPTIONS
