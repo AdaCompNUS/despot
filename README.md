@@ -24,12 +24,15 @@ REQUIREMENTS
 ================================================================================
 
 Operating systems:        Linux
+
                           Mac OS X
 
 Tested Compilers:         gcc/g++ 4.2.1 or above
 
 * General
+
   GNU make is required for building.
+
   The code uses features of the C++11 standard.
 
 ================================================================================
