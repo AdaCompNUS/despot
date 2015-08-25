@@ -23,9 +23,7 @@ TABLE OF CONTENTS
 REQUIREMENTS
 ================================================================================
 
-Operating systems:        Linux
-
-                          Mac OS X
+Operating systems: Linux, Mac OS X
 
 Tested Compilers:         gcc/g++ 4.2.1 or above
 
