@@ -231,7 +231,9 @@ void FastTag::PrintTransitions() const {
 }
 
 State* FastTag::CreateStartState(string type) const { 
-	return start_state_;
+//	start_state_=RandomStartState();
+//	return start_state_;
+	return RandomStartState();
 }
 
 State* FastTag::RandomStartState() const {
