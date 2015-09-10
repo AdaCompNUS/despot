@@ -221,8 +221,6 @@ SyntaxHighlighter.defaults.toolbar = false;
 	2.3.2 <a href="#ntoc2.3.2">Custom Bounds</a></span><br>
 <span class="toc1">
 	3. <a href="#ntoc3">References</a></span><br>
-<span class="toc1">
-	4. <a href="#ntoc4">Appendix. Code</a></span><br>
 </div>
 
 <h1><a name="ntoc1" id="ntoc1"></a>1. Overview</h1><p style="margin-top: 0px;"></p>
@@ -315,35 +313,43 @@ for (int run = 0; run < 100; run ++) {
 </pre>
 
 In fact, the user only need to write something like the first line in the above code 
-as the remaining snippet is already included the solver package.
-Go to the root directory of the solver package.
-Put the model files, say simple_rock_sample.h and simple_rock_sample.cpp, at src/problems.
-Open src/main.cpp, add the lines for including header files and initializing the model:
+as the remaining snippet (and more) is already included in the <code>SimpleTUI</code> class in the solver package.
+See Listing 2.
+Command line options are parsed and stored in the object <code>Globals::config</code>. 
+One can use <code>InitializeDefaultParameters</code> to set problem specific default values for the options.
+A default option value will be overridden if it is set in command line.
 
 <div class="vspace">
-<strong>Listing 2. Adding a model to the solver package.</strong>
+<strong>Listing 2. Code for running <code>DESPOT</code> on the <code>SimpleRockSample</code> model.</strong>
 <pre class="brush:cpp">
-...
-#include "src/problems/simple_rock_sample.h"
-...
-DSPOMDP* InitializeModel(string problem, option::Option* options) {
-	DSPOMDP* model = NULL;
-	...
-	} else if (problem == "simplerocksample") {
-		model = new SimpleRockSample();
-	}
-	...
-	return model;
+class TUI: public SimpleTUI {
+public:
+  TUI() {
+  }
+
+  DSPOMDP* InitializeModel(option::Option* options) {
+    DSPOMDP* model = new SimpleRockSample();
+    return model;
+  }
+
+  /* Set problem specific default values for variables in Globals::config.*/
+  void InitializeDefaultParameters() {
+  }
+};
+
+int main(int argc, char* argv[]) {
+  return TUI().run(argc, argv);
 }
-...
 </pre>
 
-Recompile the solver, and then simulations can be done using the following command
+The files needed for this example can be found in the problems/simple_rock_sample directory of the software package.
+Running make in that directory will generate a binary <strong>simple_rs</strong>.
+Simulations can then be done using the following command.
 
 <div class="vspace">
 <strong>Listing 3. Command for running simulations on the added model.</strong>
 <pre class="brush:cpp">
-bin/despot -q simplerocksample --runs &lt;N&gt; [OPTION]...
+simple_rs --runs &lt;N&gt; [OPTION]...
 </pre>
 </div>
 
@@ -355,7 +361,7 @@ randomly drawn from the initial belief, and the simulation is terminated when
 a terminal state is encountered or after a default of 90 steps. There are
 various command line options that can be used, including specifying the discount 
 factor, the maximum number of simulation steps, the search horizon.
-Run <em>bin/despot</em> for available options with brief descriptions.
+Run <em>simple_rs --help</em> for available options with brief descriptions.
 </div>
 
 <div class="vspace">
@@ -367,13 +373,12 @@ These outputs can be silenced by using the command line option <strong>--silence
 When coding a model, these outputs are pretty useful for checking correctness.
 In addition, more outputs can be generated using the <strong>--verbosity</strong> or <strong>-v</strong> option.
 There are 6 different levels of verbosity: NONE, WARN, ERROR, INFO, DEBUG, VERBOSE, which correpond to values from 0 to 5 respectively.
-The default verbosity level is 0.
+The default verbosity level is 0 (NONE).
 </div>
 
 <h2><a name="ntoc2.2" id="ntoc2.2"></a>2.2. Essentials</h2><p style="margin-top: 0px;"></p>
 The following code snippet shows the essential functions in the <code>DSPOMDP</code> interface.
-<b>Note that we do not cover functions that have to be implemented (pure virtual) but are not required by the solver to work correctly,
-such as the <code>PrintAction</code> and <code>PrintState</code> in the <code>DSPOMDP</code> class.</b>
+<b>Note that we do not cover functions that have to be implemented (pure virtual) but are not required by the solver to work correctly, such as the <code>PrintAction</code> and <code>PrintState</code> in the <code>DSPOMDP</code> class.</b>
 
 <div class='vspace'>
 <strong>Listing 4. Essential functions in the DSPOMDP interface</strong>
@@ -437,7 +442,7 @@ public:
 
 private:
 	mutable MemoryPool&lt;SimpleState&gt; memory_pool_;
-};
+}
 </pre>
 </div>
 
@@ -734,6 +739,8 @@ void SimpleRockSample::Free(State* particle) const {
 }
 </pre>
 
+<b>Note: <code>Copy</code> should return a deep copy of the particle. If the particle contains a pointer, the default assignment operator = does not work, because the pointers in the original particle and its copy will point to the same content. Avoid the use of pointers in a <code>State</code> class to simplify implementation, or provide your own code for making deep copies if you have to use pointers.</b>
+
 <h2><a name="ntoc2.3" id="ntoc2.3"></a>2.3. Improving Performance</h2><p style="margin-top: 0px;"></p>
 Accurate belief tracking and good bounds are important for getting good performance. 
 An important feature of the DESPOT software package is the flexibility that it provides for defining custom beliefs and custom bounds.
@@ -907,14 +914,14 @@ ScenarioLowerBound* SimpleRockSample::CreateScenarioLowerBound(string name = "DE
 
 <div class='vspace'>
 Once a lower bound is added, and the solver package is recompiled, then users can choose to 
-use it when running bin/despot by setting the <b>-l</b> option or the <b>--plb</b> option.
+use it when running simple_rs by setting the <b>-l</b> option or the <b>--plb</b> option.
 For example, both of the following commands use <code>SimpleRockSampleEastPolicy</code>.
 </div>
 
 <div class='vspace'>
 <pre class="brush:cpp">
-bin/despot -q simplerocksample --runs 100
-bin/despot -q simplerocksample --runs 100 -l EAST
+simple_rs --runs 100
+simple_rs --runs 100 -l EAST
 </pre>
 </div>
 
@@ -922,10 +929,6 @@ bin/despot -q simplerocksample --runs 100 -l EAST
 <p><a name='refHSVI' id='refDESPOT'></a>[1] A. Somani and N. Ye and D. Hsu and W.S. Lee. DESPOT: Online POMDP Planning with Regularization. In Advances In Neural Information Processing Systems, 2013.</p>
 <p><a name='refHSVI' id='refHSVI'></a>[2] T. Smith and R. Simmons. Heuristic Search Value Iteration for POMDPs. In Proc. Uncertainty in Artificial Intelligence, 2004.</p>
 		
-<h1><a name="ntoc4" id="ntoc4"></a>4. Appendix. Code</h1><p style="margin-top: 0px;"></p>
-<a href="simple_rock_sample.h">simple_rock_sample.h</a><br>
-<a href="simple_rock_sample.cpp">simple_rock_sample.cpp</a><br>
-
 <div class="vspace"></div>
 
     </div>

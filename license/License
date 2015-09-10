@@ -1,0 +1,5 @@
+LICENSE
+
+Files in src/util/tinyxml and include/util/tinyxml are from TinyXML
+(http://www.grinninglizard.com/tinyxml/) released under zlib License. All the
+other files are original.

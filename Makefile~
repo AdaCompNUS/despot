@@ -28,8 +28,8 @@ PROBLEMS = $(addprefix problems/, $(shell ls problems))
 core: directory $(DEPS) $(OBJS) pomdpx
 
 pomdpx:
-	make -C pomdpx
-#	$(cd pomdpx && make)
+#	make -C pomdpx
+	$(cd pomdpx && make)
 
 # Rule for creating directories needed for build
 directory:
