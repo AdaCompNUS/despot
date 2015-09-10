@@ -42,16 +42,23 @@ DESPOT can be used to solve a POMDP specified in the POMDPX format or a POMDP
 specified in C++ according to the API. We illustrate this on the Tag problem.
 
 1. Tag specified in POMDPX format
+
 (a) Go to the problems/pomdpx in the package's root directory 
-(b) Type `make in the command line 
+
+(b) Type 'make' in the command line 
+
 (c) Run the following command
 
 	pomdpx -m data/tag.pomdpx --runs <N> [OPTION]...
 
 2. Tag specified in C++ 
+
 (a) Go to the problems/tag in the package's root directory 
-(b) Type `make in the command line 
+
+(b) Type 'make' in the command line 
+
 (c) Run the following command
+
 
 	tag --runs <N> [OPTION]...
 
@@ -63,10 +70,11 @@ the command line options section in this file for details on the options.
 IMPLEMENTED C++ MODELS
 ================================================================================
 C++ models have been included in the package for the following problems:
+
 adventurer, bridge, tag, lasertag, rocksample, pocman.
 
-The following commands can be used to obtain results in [1] (assuming you are
-in the right subdirectory in the problems directory):
+The following commands can be used to obtain results in [1], assuming you are
+in the right subdirectory in the problems directory:
 
 	./adventurer --runs 2000 
 
@@ -87,8 +95,8 @@ in the right subdirectory in the problems directory):
 	./pocman --runs 2000
 
 Note that doing 2000 runs can take a long time. It is better to do fewer runs
-using multiple commands. For example, we can use 20 commands like the
-following to do 2000 runs:
+using multiple commands, i.e., run in parallel. For example, we can use 20 
+commands like the following to do 2000 runs:
   
 	./tag --runs 100 -r <seed>
 
