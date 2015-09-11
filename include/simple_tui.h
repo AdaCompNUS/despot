@@ -147,7 +147,7 @@ public:
 
   int run(int argc, char* argv[]);
 
-  void optionParse(option::Option* options, int& num_runs,
+  void OptionParse(option::Option* options, int& num_runs,
                    string& simulator_type, string& belief_type, int& time_limit,
                    string& solver_type, bool& search_solver);
 
@@ -157,14 +157,14 @@ public:
                            string belief_type, int time_limit,
                            string solver_type);
 
-  void displayParameters(option::Option* options, DSPOMDP* model);
+  void DisplayParameters(option::Option* options, DSPOMDP* model);
 
-  void runEvaluator(DSPOMDP* model, Evaluator* simulator,
+  void RunEvaluator(DSPOMDP* model, Evaluator* simulator,
                     option::Option* options, int num_runs, bool search_solver,
                     Solver*& solver, string simulator_type,
                     clock_t main_clock_start, int start_run);
 
-  void printResult(int num_runs, Evaluator* simulator,
+  void PrintResult(int num_runs, Evaluator* simulator,
                    clock_t main_clock_start);
 };
 

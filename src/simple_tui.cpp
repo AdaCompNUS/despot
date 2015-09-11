@@ -80,7 +80,7 @@ Solver *SimpleTUI::InitializeSolver(DSPOMDP *model, string solver_type,
   return solver;
 }
 
-void SimpleTUI::optionParse(option::Option *options, int &num_runs,
+void SimpleTUI::OptionParse(option::Option *options, int &num_runs,
                             string &simulator_type, string &belief_type,
                             int &time_limit, string &solver_type,
                             bool &search_solver) {
@@ -168,7 +168,7 @@ void SimpleTUI::InitializeEvaluator(Evaluator *&simulator,
   }
 }
 
-void SimpleTUI::displayParameters(option::Option *options, DSPOMDP *model) {
+void SimpleTUI::DisplayParameters(option::Option *options, DSPOMDP *model) {
 
   string lbtype = options[E_LBTYPE] ? options[E_LBTYPE].arg : "DEFAULT";
   string ubtype = options[E_UBTYPE] ? options[E_UBTYPE].arg : "DEFAULT";
@@ -191,7 +191,7 @@ void SimpleTUI::displayParameters(option::Option *options, DSPOMDP *model) {
   // << "Solver = " << typeid(*solver).name() << endl << endl;
 }
 
-void SimpleTUI::runEvaluator(DSPOMDP *model, Evaluator *simulator,
+void SimpleTUI::RunEvaluator(DSPOMDP *model, Evaluator *simulator,
                              option::Option *options, int num_runs,
                              bool search_solver, Solver *&solver,
                              string simulator_type, clock_t main_clock_start,
@@ -272,7 +272,7 @@ void SimpleTUI::runEvaluator(DSPOMDP *model, Evaluator *simulator,
   }
 }
 
-void SimpleTUI::printResult(int num_runs, Evaluator *simulator,
+void SimpleTUI::PrintResult(int num_runs, Evaluator *simulator,
                             clock_t main_clock_start) {
 
   cout << "\nCompleted " << num_runs << " run(s)." << endl;
@@ -326,7 +326,7 @@ int SimpleTUI::run(int argc, char *argv[]) {
     option::printUsage(std::cout, usage);
     return 0;
   }
-  optionParse(options, num_runs, simulator_type, belief_type, time_limit,
+  OptionParse(options, num_runs, simulator_type, belief_type, time_limit,
               solver_type, search_solver);
 
   /* =========================
@@ -362,17 +362,17 @@ int SimpleTUI::run(int argc, char *argv[]) {
   /* =========================
    * Display parameters
    * =========================*/
-  displayParameters(options, model);
+  DisplayParameters(options, model);
 
   /* =========================
    * run simulator
    * =========================*/
-  runEvaluator(model, simulator, options, num_runs, search_solver, solver,
+  RunEvaluator(model, simulator, options, num_runs, search_solver, solver,
                simulator_type, main_clock_start, start_run);
 
   simulator->End();
 
-  printResult(num_runs, simulator, main_clock_start);
+  PrintResult(num_runs, simulator, main_clock_start);
 
   return 0;
 }
