@@ -41,7 +41,7 @@ QUICK START
 DESPOT can be used to solve a POMDP specified in the POMDPX format or a POMDP
 specified in C++ according to the API. We illustrate this on the Tag problem.
 
-1. Tag specified in POMDPX format
+1.Tag specified in POMDPX format
 
 (a) Go to the problems/pomdpx in the package's root directory 
 
@@ -51,7 +51,7 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 
 	pomdpx -m data/tag.pomdpx --runs <N> [OPTION]...
 
-2. Tag specified in C++ 
+2.Tag specified in C++ 
 
 (a) Go to the problems/tag in the package's root directory 
 
