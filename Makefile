@@ -23,13 +23,12 @@ PROBLEMS = $(addprefix problems/, $(shell ls problems))
 
 ##### Targets
 
-.PHONY: core directory library problems clean
+.PHONY: core directory library problems clean pomdpx
 
 core: directory $(DEPS) $(OBJS) pomdpx
 
 pomdpx:
 	make -C pomdpx
-#	$(cd pomdpx && make)
 
 # Rule for creating directories needed for build
 directory:

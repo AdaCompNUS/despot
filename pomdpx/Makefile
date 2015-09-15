@@ -28,7 +28,6 @@ BIN = $(DESPOTHOME)/bin/pomdpx
 .PHONY: all clean 
 
 all:
-	@cd $(DESPOTHOME) && make
 	mkdir -p $(DESPOTHOME)/bin/
 	$(CXX) $(LDFLAGS) $(SOURCES) -I $(INCDIR) $(LIBDIR)/*.o -o $(BIN)
 

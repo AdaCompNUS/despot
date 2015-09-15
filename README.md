@@ -19,6 +19,7 @@ build        Compiled object files and library file
 include      Header files
 problems     POMDP models implemented in C++
 src          Source files
+pomdpx       Source files for generating pomdpx parser
 tutorial     Tutorial on using the software package
 ````
 ================================================================================
@@ -43,13 +44,13 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 
 1.Tag specified in POMDPX format
 
-(a) Go to the problems/pomdpx in the package's root directory 
+(a) Go to the package's root directory 
 
 (b) Type 'make' in the command line 
 
 (c) Run the following command
 
-	pomdpx -m data/tag.pomdpx --runs <N> [OPTION]...
+	bin/pomdpx -m pomdpx/data/tag.pomdpx --runs <N> [OPTION]...
 
 2.Tag specified in C++ 
 
@@ -62,7 +63,7 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 
 	tag --runs <N> [OPTION]...
 
-Both commands simulate DESPOT's policy for <N> times and reports the
+Both commands simulate DESPOT's policy for N times and report the
 performance. See tutorial/tutorial.htm for explanation of the command. See
 the command line options section in this file for details on the options.
 
