@@ -115,6 +115,7 @@ public:
 	virtual void InitRound() = 0;
 
 	bool RunStep();
+	bool RunStep(int step, int round);
 
 	virtual double EndRound() = 0; // Return total undiscounted reward for this round.
 	virtual bool ExecuteAction(int action, double& reward, OBS_TYPE& obs) = 0;

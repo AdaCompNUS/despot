@@ -234,12 +234,13 @@ void SimpleTUI::RunEvaluator(DSPOMDP *model, Evaluator *simulator,
     simulator->InitRound();
 
     for (int i = 0; i < Globals::config.sim_len; i++) {
+      /*
       default_out << "-----------------------------------Round " << round
                   << " Step " << i << "-----------------------------------"
-                  << endl;
+                  << endl;*/
       double step_start_t = get_time_second();
 
-      bool terminal = simulator->RunStep();
+      bool terminal = simulator->RunStep(i, round);
 
       if (terminal)
         break;
@@ -253,7 +254,7 @@ void SimpleTUI::RunEvaluator(DSPOMDP *model, Evaluator *simulator,
            << endl;
       logi << "[main] Plan time ratio set to " << EvalLog::plan_time_ratio
            << endl;
-      default_out << endl;
+    //  default_out << endl;
     }
 
     default_out << "Simulation terminated in " << simulator->step() << " steps"
