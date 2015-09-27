@@ -61,7 +61,7 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 (c) Run the following command
 
 
-	tag --runs <N> [OPTION]...
+	./tag --runs <N> [OPTION]...
 
 Both commands simulate DESPOT's policy for N times and report the
 performance. See tutorial/tutorial.htm for explanation of the command. See
