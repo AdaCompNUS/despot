@@ -6,7 +6,7 @@ This software package is a C++ implementation of the DESPOT algorithm [1].
 
 For bug reports and suggestions, please email motion@comp.nus.edu.sg.
 
-[1] Online POMDP Planning with Regularization.
+[1] Online POMDP Planning with Regularization. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
 
 
 ================================================================================
@@ -21,7 +21,7 @@ problems     POMDP models implemented in C++
 src          Source files
 pomdpx       Source files for generating pomdpx parser
 tutorial     Tutorial on using the software package
-````
+```
 ================================================================================
 REQUIREMENTS
 ================================================================================
@@ -64,7 +64,7 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 	./tag --runs <N> [OPTION]...
 
 Both commands simulate DESPOT's policy for N times and report the
-performance. See tutorial/tutorial.htm for explanation of the command. See
+performance. See tutorial/tutorial.htm for an explanation of the command output. See
 the command line options section in this file for details on the options.
 
 ================================================================================
@@ -151,5 +151,5 @@ Silver's POMCP code, which is available at
 ================================================================================
 RELEASE NOTES
 ================================================================================
-* 2015/xx/xx Initial release.
+* 2015/09/28 Initial release.
 
