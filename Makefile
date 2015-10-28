@@ -19,16 +19,13 @@ VPATH = $(shell find -L $(INCDIR) $(SRCDIR) -type d \( ! -name '.*' \))
 SOURCES = $(shell find -L $(SRCDIR) -name '*.cpp')
 OBJS = $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.cpp=.o)))
 DEPS = $(addprefix $(DEPDIR)/, $(notdir $(SOURCES:.cpp=.d)))
-PROBLEMS = $(addprefix problems/, $(shell ls problems))
+CPPEXAMPLE = $(addprefix examples/cpp_models/, $(shell ls examples/cpp_models))
 
 ##### Targets
 
-.PHONY: core directory library problems clean pomdpx
+.PHONY: core directory library cpp_models clean
 
 core: directory $(DEPS) $(OBJS) pomdpx
-
-pomdpx:
-	make -C pomdpx
 
 # Rule for creating directories needed for build
 directory:
@@ -51,9 +48,9 @@ $(OBJDIR)/%.o: %.cpp
 lib: $(OBJS)
 	$(CXX) $(OBJS) $(LDFLAGS) -I $(INCDIR) -o $(OBJDIR)/libdespot.so
 
-# Rules for compiling the executables for problems
-problems:
-	$(foreach var, $(PROBLEMS), make -C $(var);)
+# Rules for compiling the executables for the cpp models in examples/cpp_models
+cpp_models:
+	$(foreach var, $(CPPEXAMPLE), make -C $(var);)
 
 # Rule for installing the library
 install:

@@ -1,0 +1,30 @@
+The following commands can be used to obtain results in [1], assuming you are
+in the right subdirectory in the problems directory:
+
+	./adventurer --runs 2000 
+
+	./adventurer -p 10 --runs 2000
+
+	./bridge --runs 2000
+
+	./tag --runs 2000
+
+	./lasertag --runs 2000
+
+	./rocksample --size 7 --number 8 --runs 2000
+
+	./rocksample --size 11 --number 11 --runs 2000
+
+	./rocksample --size 15 --number 15 --runs 2000
+
+	./pocman --runs 2000
+
+Note that doing 2000 runs can take a long time. It is better to do fewer runs
+using multiple commands, i.e., run in parallel. For example, we can use 20 
+commands like the following to do 2000 runs:
+  
+	./tag --runs 100 -r <seed>
+
+Use a random number for the seed used in each command.
+
+[1] Online POMDP Planning with Regularization. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
