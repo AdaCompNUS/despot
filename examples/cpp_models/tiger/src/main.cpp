@@ -1,4 +1,4 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "tiger.h"
 
 class TUI: public SimpleTUI {

@@ -1,7 +1,7 @@
 #ifndef TIGER_H
 #define TIGER_H
 
-#include "core/pomdp.h"
+#include <despot/core/pomdp.h>
 
 /* =============================================================================
  * TigerState class

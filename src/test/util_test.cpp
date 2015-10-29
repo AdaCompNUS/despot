@@ -1,4 +1,4 @@
-#include "test/util_test.h"
+#include <despot/test/util_test.h>
 
 void TestSortByValue() {
 	map<string, double> map;

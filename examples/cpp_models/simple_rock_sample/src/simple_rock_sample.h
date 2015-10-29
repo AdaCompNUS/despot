@@ -1,8 +1,8 @@
 #ifndef SIMPLEROCKSAMPLE_H
 #define SIMPLEROCKSAMPLE_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
 
 /* =============================================================================
  * SimpleState class

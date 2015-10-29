@@ -1,4 +1,4 @@
-#include "util/gamma.h"
+#include <despot/util/gamma.h>
 
 Gamma::Gamma(double k, double theta) {
 	k_ = k;

@@ -1,4 +1,4 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 
 using namespace std;
 

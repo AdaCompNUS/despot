@@ -1,11 +1,11 @@
 #ifndef BASEROCKSAMPLE_H
 #define BASEROCKSAMPLE_H
 
-#include "core/pomdp.h"
-#include "solver/pomcp.h"
-#include "core/mdp.h"
-#include "util/coord.h"
-#include "util/grid.h"
+#include <despot/core/pomdp.h>
+#include <despot/solver/pomcp.h>
+#include <despot/core/mdp.h>
+#include <despot/util/coord.h>
+#include <despot/util/grid.h>
 
 /* =============================================================================
  * RockSampleState class

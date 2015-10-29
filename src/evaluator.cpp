@@ -1,4 +1,4 @@
-#include "evaluator.h"
+#include <despot/evaluator.h>
 
 /* =============================================================================
  * EvalLog class

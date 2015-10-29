@@ -1,5 +1,5 @@
-#include "core/node.h"
-#include "solver/despot.h"
+#include <despot/core/node.h>
+#include <despot/solver/despot.h>
 
 /* =============================================================================
  * VNode class

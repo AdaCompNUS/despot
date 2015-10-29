@@ -1,6 +1,6 @@
-#include "core/upper_bound.h"
-#include "core/pomdp.h"
-#include "core/mdp.h"
+#include <despot/core/upper_bound.h>
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
 
 
 /* =============================================================================

@@ -1,7 +1,7 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
 
-#include "core/pomdp.h"
+#include <despot/core/pomdp.h>
 
 /* =============================================================================
  * BridgeState class

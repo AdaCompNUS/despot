@@ -1,9 +1,9 @@
 #ifndef REG_DEMO_H
 #define REG_DEMO_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
-#include "util/coord.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
+#include <despot/util/coord.h>
 
 /* ==============================================================================
  * RegDemoState class

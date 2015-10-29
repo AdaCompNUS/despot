@@ -29,7 +29,7 @@
 #include <iostream>
 #endif
 
-#include "util/tinyxml/tinyxml.h"
+#include <despot/util/tinyxml/tinyxml.h>
 
 bool TiXmlBase::condenseWhiteSpace = true;
 

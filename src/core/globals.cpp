@@ -1,4 +1,4 @@
-#include "core/globals.h"
+#include <despot/core/globals.h>
 
 namespace Globals {
 Config config;

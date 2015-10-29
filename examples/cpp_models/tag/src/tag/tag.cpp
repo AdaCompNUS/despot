@@ -1,8 +1,8 @@
 #include <queue>
 
 #include "tag.h"
-#include "util/coord.h"
-#include "util/floor.h"
+#include <despot/util/coord.h>
+#include <despot/util/floor.h>
 
 using namespace std;
 

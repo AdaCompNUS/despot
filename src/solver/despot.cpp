@@ -1,5 +1,5 @@
-#include "solver/despot.h"
-#include "solver/pomcp.h"
+#include <despot/solver/despot.h>
+#include <despot/solver/pomcp.h>
 
 DESPOT::DESPOT(const DSPOMDP* model, ScenarioLowerBound* lb, ScenarioUpperBound* ub, Belief* belief) :
 	Solver(model, belief),

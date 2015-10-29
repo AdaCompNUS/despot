@@ -1,5 +1,5 @@
-#include "random_streams.h"
-#include "util/seeds.h"
+#include <despot/random_streams.h>
+#include <despot/util/seeds.h>
 #include <vector>
 
 using namespace std;

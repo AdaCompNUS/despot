@@ -1,11 +1,11 @@
 #ifndef FVRS_H
 #define FVRS_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
+#include <despot/util/coord.h>
+#include <despot/util/grid.h>
 #include "base/base_rock_sample.h"
-#include "util/coord.h"
-#include "util/grid.h"
 
 /* =============================================================================
  * FVRS class

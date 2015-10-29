@@ -1,5 +1,5 @@
-#include "core/policy.h"
-#include "core/pomdp.h"
+#include <despot/core/policy.h>
+#include <despot/core/pomdp.h>
 #include <unistd.h>
 
 /* =============================================================================

@@ -1,5 +1,5 @@
-#include "solver/pomcp.h"
-#include "util/logging.h"
+#include <despot/solver/pomcp.h>
+#include <despot/util/logging.h>
 
 
 /* =============================================================================

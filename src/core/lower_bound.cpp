@@ -1,7 +1,7 @@
-#include "core/lower_bound.h"
-#include "core/pomdp.h"
-#include "core/node.h"
-#include "solver/pomcp.h"
+#include <despot/core/lower_bound.h>
+#include <despot/core/pomdp.h>
+#include <despot/core/node.h>
+#include <despot/solver/pomcp.h>
 
 /* =============================================================================
  * ValuedAction class

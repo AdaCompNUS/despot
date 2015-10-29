@@ -1,10 +1,10 @@
 #ifndef POCMAN_H
 #define POCMAN_H
 
-#include "core/pomdp.h"
-#include "solver/pomcp.h"
-#include "util/coord.h"
-#include "util/grid.h"
+#include <despot/core/pomdp.h>
+#include <despot/solver/pomcp.h>
+#include <despot/util/coord.h>
+#include <despot/util/grid.h>
 
 /* ==============================================================================
  * AdventurerState class

@@ -1,10 +1,10 @@
 #ifndef TAG_H
 #define TAG_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
-#include "util/coord.h"
-#include "util/floor.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
+#include <despot/util/coord.h>
+#include <despot/util/floor.h>
 #include "base/base_tag.h"
 
 /* =============================================================================

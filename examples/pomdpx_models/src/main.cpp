@@ -1,5 +1,5 @@
-#include "simple_tui.h"
-#include "pomdpx/pomdpx.h"
+#include <despot/simple_tui.h>
+#include <despot/pomdpx/pomdpx.h>
 
 class TUI: public SimpleTUI {
 public:

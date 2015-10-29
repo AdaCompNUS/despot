@@ -1,9 +1,9 @@
 #include <queue>
 
 #include "base_tag.h"
-#include "util/coord.h"
-#include "util/floor.h"
-#include "solver/pomcp.h"
+#include <despot/util/coord.h>
+#include <despot/util/floor.h>
+#include <despot/solver/pomcp.h>
 
 using namespace std;
 

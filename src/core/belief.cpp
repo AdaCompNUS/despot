@@ -1,5 +1,5 @@
-#include "core/belief.h"
-#include "core/pomdp.h"
+#include <despot/core/belief.h>
+#include <despot/core/pomdp.h>
 
 /* =============================================================================
  * ParticleBelief class

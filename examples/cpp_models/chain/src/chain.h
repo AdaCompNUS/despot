@@ -1,8 +1,8 @@
 #ifndef CHAIN_H
 #define CHAIN_H
 
-#include "core/pomdp.h"
-#include "util/dirichlet.h"
+#include <despot/core/pomdp.h>
+#include <despot/util/dirichlet.h>
 
 /* =============================================================================
  * ChainState class

@@ -1,7 +1,7 @@
 #include <queue>
 
 #include "reg_demo.h"
-#include "util/coord.h"
+#include <despot/util/coord.h>
 
 using namespace std;
 

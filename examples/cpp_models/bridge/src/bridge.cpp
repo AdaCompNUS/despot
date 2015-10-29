@@ -1,5 +1,5 @@
 #include "bridge.h"
-#include "solver/pomcp.h"
+#include <despot/solver/pomcp.h>
 
 /* =============================================================================
  * BridgeState class

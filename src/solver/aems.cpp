@@ -1,4 +1,4 @@
-#include "solver/aems.h"
+#include <despot/solver/aems.h>
 
 AEMS::AEMS(const DSPOMDP* model, BeliefLowerBound* lower_bound,
 	BeliefUpperBound* upper_bound, Belief* belief) :

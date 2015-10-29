@@ -1,5 +1,5 @@
-#include "pomdpx/pomdpx.h"
-#include "solver/pomcp.h"
+#include <despot/pomdpx/pomdpx.h>
+#include <despot/solver/pomcp.h>
 
 /* =============================================================================
  * POMDPXState class

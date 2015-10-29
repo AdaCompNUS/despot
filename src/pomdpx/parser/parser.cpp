@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cstdlib>
-#include "util/random.h"
-#include "pomdpx/parser/parser.h"
-#include "core/pomdp.h"
+#include <despot/util/random.h>
+#include <despot/pomdpx/parser/parser.h>
+#include <despot/core/pomdp.h>
 
 Parser::Parser(const Parser&) {
 }

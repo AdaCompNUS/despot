@@ -1,10 +1,10 @@
 #ifndef ADVENTURER_H
 #define ADVENTURER_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
-#include "util/coord.h"
-#include "solver/pomcp.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
+#include <despot/util/coord.h>
+#include <despot/solver/pomcp.h>
 
 /* ==============================================================================
  * AdventurerState class

@@ -1,4 +1,4 @@
-#include "util/dirichlet.h"
+#include <despot/util/dirichlet.h>
 
 Dirichlet::Dirichlet(vector<double> alpha) {
 	alpha_ = alpha;

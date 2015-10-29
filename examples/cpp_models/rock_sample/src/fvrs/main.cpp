@@ -1,4 +1,4 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "fvrs.h"
 
 class TUI: public SimpleTUI {

@@ -1,4 +1,4 @@
-#include "core/mdp.h"
+#include <despot/core/mdp.h>
 
 MDP::~MDP() {
 }

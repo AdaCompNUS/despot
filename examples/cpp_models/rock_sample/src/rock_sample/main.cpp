@@ -1,4 +1,4 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "rock_sample.h"
 
 class TUI: public SimpleTUI {

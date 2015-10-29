@@ -1,4 +1,4 @@
-#include "pomdpx/parser/function.h"
+#include <despot/pomdpx/parser/function.h>
 #include <stdexcept>
 
 /* =============================================================================
