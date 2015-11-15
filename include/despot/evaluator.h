@@ -13,9 +13,9 @@
 
 class EvalLog {
 private:
-	vector<string> runned_instances;
-	vector<int> num_of_completed_runs;
-	string log_file_;
+  std::vector<std::string> runned_instances;
+	std::vector<int> num_of_completed_runs;
+	std::string log_file_;
 
 public:
 	static time_t start_time;
@@ -29,20 +29,20 @@ public:
 	static double allocated_time;
 	static double plan_time_ratio;
 
-	EvalLog(string log_file);
+	EvalLog(std::string log_file);
 
 	void Save();
-	void IncNumOfCompletedRuns(string problem);
+	void IncNumOfCompletedRuns(std::string problem);
 	int GetNumCompletedRuns() const;
 	int GetNumRemainingRuns() const;
-	int GetNumCompletedRuns(string instance) const;
-	int GetNumRemainingRuns(string instance) const;
+	int GetNumCompletedRuns(std::string instance) const;
+	int GetNumRemainingRuns(std::string instance) const;
 	double GetUsedTimeInSeconds() const;
 	double GetRemainingTimeInSeconds() const;
 
 	// Pre-condition: curr_inst_start_time is initialized
-	void SetInitialBudget(string instance);
-	double GetRemainingBudget(string instance) const;
+	void SetInitialBudget(std::string instance);
+	double GetRemainingBudget(std::string instance) const;
 };
 
 /* =============================================================================
@@ -55,34 +55,34 @@ public:
 class Evaluator {
 protected:
 	DSPOMDP* model_;
-	string belief_type_;
+	std::string belief_type_;
 	Solver* solver_;
 	clock_t start_clockt_;
 	State* state_;
 	int step_;
 	double target_finish_time_;
-	ostream* out_;
+	std::ostream* out_;
 
-	vector<double> discounted_round_rewards_;
-	vector<double> undiscounted_round_rewards_;
+	std::vector<double> discounted_round_rewards_;
+	std::vector<double> undiscounted_round_rewards_;
 	double reward_;
 	double total_discounted_reward_;
 	double total_undiscounted_reward_;
 
 public:
-	Evaluator(DSPOMDP* model, string belief_type, Solver* solver,
-		clock_t start_clockt, ostream* out);
+	Evaluator(DSPOMDP* model, std::string belief_type, Solver* solver,
+		clock_t start_clockt, std::ostream* out);
 	virtual ~Evaluator();
 
-	inline void out(ostream* o) {
+	inline void out(std::ostream* o) {
 		out_ = o;
 	}
 
-	inline void rewards(vector<double> rewards) {
+	inline void rewards(std::vector<double> rewards) {
 		undiscounted_round_rewards_ = rewards;
 	}
 
-	inline vector<double> rewards() {
+	inline std::vector<double> rewards() {
 		return undiscounted_round_rewards_;
 	}
 
@@ -111,7 +111,7 @@ public:
 	virtual inline void world_seed(unsigned seed) {
 	}
 
-	virtual int Handshake(string instance) = 0; // Initialize simulator and return number of runs.
+	virtual int Handshake(std::string instance) = 0; // Initialize simulator and return number of runs.
 	virtual void InitRound() = 0;
 
 	bool RunStep();
@@ -140,31 +140,31 @@ private:
 	POMDPX* pomdpx_;
 	Client* client_;
 	EvalLog log_;
-	string instance_;
-	string hostname_;
-	string port_;
+	std::string instance_;
+	std::string hostname_;
+	std::string port_;
 
 public:
-	IPPCEvaluator(DSPOMDP* model, string belief_type, Solver* solver,
-		clock_t start_clockt, string hostname, string port, string log,
-		ostream* out);
+	IPPCEvaluator(DSPOMDP* model, std::string belief_type, Solver* solver,
+		clock_t start_clockt, std::string hostname, std::string port, std::string log,
+		std::ostream* out);
 	~IPPCEvaluator();
 
-	void port_number(string port);
+	void port_number(std::string port);
 	int GetNumCompletedRuns() const {
 		return log_.GetNumCompletedRuns();
 	}
-	int GetNumCompletedRuns(string instance) const {
+	int GetNumCompletedRuns(std::string instance) const {
 		return log_.GetNumCompletedRuns(instance);
 	}
 
-	int Handshake(string instance);
+	int Handshake(std::string instance);
 	void InitRound();
 	double EndRound();
 	bool ExecuteAction(int action, double& reward, OBS_TYPE& obs);
 	// void ReportStepReward();
 	double End();
-	void UpdateTimeInfo(string instance);
+	void UpdateTimeInfo(std::string instance);
 	void UpdateTimePerMove(double step_time);
 };
 
@@ -178,8 +178,8 @@ protected:
 	Random random_;
 
 public:
-	POMDPEvaluator(DSPOMDP* model, string belief_type, Solver* solver,
-		clock_t start_clockt, ostream* out, double target_finish_time = -1,
+	POMDPEvaluator(DSPOMDP* model, std::string belief_type, Solver* solver,
+		clock_t start_clockt, std::ostream* out, double target_finish_time = -1,
 		int num_steps = -1);
 	~POMDPEvaluator();
 
@@ -187,7 +187,7 @@ public:
 		random_ = Random(seed);
 	}
 
-	int Handshake(string instance);
+	int Handshake(std::string instance);
 	void InitRound();
 	double EndRound();
 	bool ExecuteAction(int action, double& reward, OBS_TYPE& obs);

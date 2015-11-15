@@ -10,22 +10,22 @@
 
 class ChainState: public State {
 private:
-	vector<vector<vector<double> > > mdp_transitions_; //mdp_transitions_[s1][a][s2] = P(s2|s1,a)
+  std::vector<std::vector<std::vector<double> > > mdp_transitions_; //mdp_transitions_[s1][a][s2] = P(s2|s1,a)
 
 public:
 	int mdp_state;
-	vector<ValuedAction> policy;// optimal policy
+	std::vector<ValuedAction> policy;// optimal policy
 
 	ChainState();
 
 	void Init(int num_mdp_states, int num_mdp_actions);
 	bool IsValid() const;
 
-	void SetTransition(int state, int action, vector<double> row);
+	void SetTransition(int state, int action, std::vector<double> row);
 	void SetTransition(int state1, int action, int state2, double value) {
 		mdp_transitions_[state1][action][state2] = value;
 	}
-	vector<double> GetTransition(int state, int action) {
+	std::vector<double> GetTransition(int state, int action) {
 		return mdp_transitions_[state][action];
 	}
 	inline double GetTransition(int state1, int action, int state2) {
@@ -34,7 +34,7 @@ public:
 
 	void ComputeOptimalPolicy();
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -47,7 +47,7 @@ private:
 		SUCCESS, SLIP
 	};
 	//alpha_[a]: Dirichlet hyper-parameter for P(R|a), R = success, slip
-	vector<vector<double> > alpha_;
+	std::vector<std::vector<double> > alpha_;
 	int cur_state_;
 
 public:
@@ -56,11 +56,11 @@ public:
 
 	void Update(int action, OBS_TYPE obs);
 
-	vector<State*> Sample(int num_particles) const;
+	std::vector<State*> Sample(int num_particles) const;
 
 	Belief* MakeCopy() const;
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -70,7 +70,7 @@ public:
 class FullChainBelief: public Belief {
 private:
 	//alpha_[s][a]: Dirichlet hyper-parameter for P(s'|s,a)
-	vector<vector<vector<double> > > alpha_;
+	std::vector<std::vector<std::vector<double> > > alpha_;
 	int cur_state_;
 
 public:
@@ -78,11 +78,11 @@ public:
 
 	void Update(int action, OBS_TYPE obs);
 
-	vector<State*> Sample(int num_particles) const;
+	std::vector<State*> Sample(int num_particles) const;
 
 	Belief* MakeCopy() const;
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -103,7 +103,7 @@ public:
 	const static int INITIAL_MDP_STATE = 0;
 
 	Chain();
-	Chain(string fn);
+	Chain(std::string fn);
 
 	bool Step(State& s, double random_num, int action, double& reward,
 		OBS_TYPE& obs) const;
@@ -112,27 +112,27 @@ public:
 	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 
 	State* DefaultStartState() const;
-	State* CreateStartState(string type = "DEFAULT") const;
-	Belief* InitialBelief(const State* start, string type) const;
+	State* CreateStartState(std::string type = "DEFAULT") const;
+	Belief* InitialBelief(const State* start, std::string type) const;
 
 	inline double GetMaxReward() const {
 		return 10;
 	}
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(ACTION_B, 0);
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	void ComputeOptimalValue(ChainState& state) const;
 
-	void PrintState(const State& s, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& s, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	virtual State* Allocate(int state_id, double weight) const;
 	virtual State* Copy(const State* particle) const;

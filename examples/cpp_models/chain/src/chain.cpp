@@ -1,5 +1,7 @@
 #include "chain.h"
 
+using namespace std;
+
 /* =============================================================================
  * ChainState class
  * =============================================================================*/
@@ -302,8 +304,8 @@ public:
 	double Value(const State& s) const {
 		const ChainState& state = static_cast<const ChainState&>(s);
 		if (state.mdp_state == Chain::NUM_MDP_STATES - 1)
-			return 10.0 / (1 - Discount());
-		return 2 + 10 * Discount() / (1 - Discount());
+			return 10.0 / (1 - Globals::Discount());
+		return 2 + 10 * Globals::Discount() / (1 - Globals::Discount());
 	}
 };
 
@@ -395,7 +397,7 @@ public:
 				chain_model_->Step(*copy, streams.Entry(copy->scenario_id),
 					policy[copy->mdp_state].action, reward, obs);
 				value += copy->weight * reward * discount;
-				discount *= Discount();
+				discount *= Globals::Discount();
 				streams.Advance();
 				sim_len++;
 			}
@@ -508,7 +510,7 @@ void Chain::ComputeOptimalValue(ChainState& state) const {
 				for (int nexts = 0; nexts < NUM_MDP_STATES; nexts++) {
 					v += state.GetTransition(s, a, nexts)
 						* (Reward(s, a, nexts)
-							+ Discount() * policy[nexts].value);
+							+ Globals::Discount() * policy[nexts].value);
 				}
 
 				if (v > next_policy[s].value) {

@@ -5,8 +5,6 @@
 #include <despot/util/util.h>
 #include <despot/core/globals.h>
 
-using namespace std;
-
 /**
  * Action-observation history.
  */
@@ -54,7 +52,7 @@ public:
 		return history;
 	}
 
-	friend ostream& operator<<(ostream& os, const History& history) {
+	friend std::ostream& operator<<(std::ostream& os, const History& history) {
 		for (int i = 0; i < history.Size(); i++)
 			os << "(" << history.Action(i) << ", " << history.Observation(i)
 				<< ") ";
@@ -62,8 +60,8 @@ public:
 	}
 
 private:
-	vector<int> actions_;
-	vector<OBS_TYPE> observations_;
+  std::vector<int> actions_;
+	std::vector<OBS_TYPE> observations_;
 };
 
 namespace std {

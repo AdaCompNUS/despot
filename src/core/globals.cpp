@@ -1,5 +1,7 @@
 #include <despot/core/globals.h>
 
+using namespace std;
+
 namespace Globals {
 Config config;
 ExecTracker tracker;

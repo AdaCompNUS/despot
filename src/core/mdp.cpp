@@ -1,5 +1,7 @@
 #include <despot/core/mdp.h>
 
+using namespace std;
+
 MDP::~MDP() {
 }
 
@@ -32,7 +34,7 @@ void MDP::ComputeOptimalPolicyUsingVI() {
 				for (int i = 0; i < transition.size(); i++) {
 					const State& next = transition[i];
 					assert(next.state_id >= 0);
-					v += next.weight * Discount()
+					v += next.weight * Globals::Discount()
 						* policy_[next.state_id].value;
 				}
 
@@ -73,7 +75,7 @@ void MDP::ComputeBlindAlpha() {
 		}
 
 		for (int s = 0; s < num_states; s++)
-			cur[s] = min / (1 - Discount());
+			cur[s] = min / (1 - Globals::Discount());
 
 		double tol = 0;
 		int iter = 0;
@@ -92,7 +94,7 @@ void MDP::ComputeBlindAlpha() {
 					assert(next.state_id >= 0);
 					cur[s] += next.weight * prev[next.state_id];
 				}
-				cur[s] = Reward(s, action) + Discount() * cur[s];
+				cur[s] = Reward(s, action) + Globals::Discount() * cur[s];
 
 				tol += abs(cur[s] - prev[s]);
 			}

@@ -3,7 +3,6 @@
 
 #include <string>
 #include <iostream>
-using namespace std;
 
 struct Coord {
 	int x, y;
@@ -16,7 +15,7 @@ struct Coord {
 	friend const Coord operator +(const Coord& first, const Coord& second);
 	friend bool operator ==(const Coord& first, const Coord& second);
 	friend bool operator !=(const Coord& first, const Coord& second);
-	friend ostream& operator<<(ostream& os, const Coord& coord);
+	friend std::ostream& operator<<(std::ostream& os, const Coord& coord);
 
 	static double EuclideanDistance(Coord c1, Coord c2);
 	static int ManhattanDistance(Coord c1, Coord c2);
@@ -31,7 +30,7 @@ struct Compass {
 	};
 
 	static const Coord DIRECTIONS[];
-	static const string CompassString[];
+	static const std::string CompassString[];
 	static int Opposite(int dir);
 	static bool Opposite(int dir1, int dir2);
 };

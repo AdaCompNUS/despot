@@ -5,22 +5,20 @@
 #include <despot/core/mdp.h>
 #include <despot/pomdpx/parser/parser.h>
 
-using namespace std;
-
 /* ==============================================================================
  * POMDPXState class
  * ==============================================================================*/
 
 class POMDPXState: public State {
 public:
-	vector<int> vec_id;
+  std::vector<int> vec_id;
 
 	POMDPXState();
 	~POMDPXState();
 
-	POMDPXState(vector<int> state);
+	POMDPXState(std::vector<int> state);
 
-	string text() const;
+	std::string text() const;
 };
 
 /* ==============================================================================
@@ -43,9 +41,9 @@ private:
 	ValuedAction min_reward_action_;
 	ValuedAction max_reward_action_;
 
-	vector<POMDPXState*> states_;
-	vector<vector<vector<State> > > transition_probabilities_;
-	mutable vector<vector<double> > rewards_;
+	std::vector<POMDPXState*> states_;
+	std::vector<std::vector<std::vector<State> > > transition_probabilities_;
+	mutable std::vector<std::vector<double> > rewards_;
 
 	mutable MemoryPool<POMDPXState> memory_pool_;
 
@@ -54,18 +52,18 @@ private:
 	void PrintTransitions();
 	void InitRewards();
 
-	mutable vector<int> default_action_;
-	void ComputeDefaultActions(string type) const;
+	mutable std::vector<int> default_action_;
+	void ComputeDefaultActions(std::string type) const;
 	void PrintDefaultActions();
 
-	void PrintModel(ostream& out = cout) const;
+	void PrintModel(std::ostream& out = std::cout) const;
 
 public:
 	static POMDPX* current_;
 	static int STATE_NUM_THRESHOLD;
 
 	POMDPX();
-	POMDPX(string file);
+	POMDPX(std::string file);
 
 	inline Parser* parser() const {
 		return parser_;
@@ -79,15 +77,15 @@ public:
 	int GetIndex(const State* state) const;
 	const State* GetState(int index) const;
 
-	const vector<State>& TransitionProbability(int s, int a) const;
+	const std::vector<State>& TransitionProbability(int s, int a) const;
 	double Reward(int s, int action) const;
 
 	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
 
-	State* CreateStartState(string type) const;
-	vector<State*> ExactInitialParticleSet() const;
-	vector<State*> ApproxInitialParticleSet() const;
-	Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	State* CreateStartState(std::string type) const;
+  std::vector<State*> ExactInitialParticleSet() const;
+  std::vector<State*> ApproxInitialParticleSet() const;
+	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	inline int GetAction(const State& state) const {
 		const POMDPXState& pomdpx_state = static_cast<const POMDPXState&>(state);
@@ -97,20 +95,20 @@ public:
 	inline double GetMaxReward() const {
 		return max_reward_action_.value;
 	}
-	ParticleUpperBound* CreateParticleUpperBound(string name = "DEFAULT") const;
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ParticleUpperBound* CreateParticleUpperBound(std::string name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	inline ValuedAction GetMinRewardAction() const {
 		return min_reward_action_;
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;
@@ -119,12 +117,12 @@ public:
 
 	virtual DSPOMDP* MakeCopy() const;
 
-	void PrintMDPBound(const vector<ValuedAction>& policy, const char* fn);
+	void PrintMDPBound(const std::vector<ValuedAction>& policy, const char* fn);
 
 	// For server-client messages in IPPC competition
-	const string& GetActionName();
-	const string& GetEnumedAction(int action);
-	OBS_TYPE GetPOMDPXObservation(map<string, string>& observe);
+	const std::string& GetActionName();
+	const std::string& GetEnumedAction(int action);
+	OBS_TYPE GetPOMDPXObservation(std::map<std::string, std::string>& observe);
 };
 
 #endif

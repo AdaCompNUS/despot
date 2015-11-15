@@ -15,7 +15,7 @@ public:
 	NavigationState();
 	NavigationState(int _state_id);
 
-	string text() const;
+  std::string text() const;
 };
 
 /* ==============================================================================
@@ -33,23 +33,23 @@ protected:
 	int xsize_, ysize_;
 	int goal_pos_, trap_pos_;
 
-	vector<double> trap_prob_; // trap_prob_[y * xsize_ + x]
-	vector<OBS_TYPE> obs_; // obs_[y * xsize_ + x]
-	vector<NavigationState*> states_;
+	std::vector<double> trap_prob_; // trap_prob_[y * xsize_ + x]
+	std::vector<OBS_TYPE> obs_; // obs_[y * xsize_ + x]
+	std::vector<NavigationState*> states_;
 
-	vector<vector<vector<State> > > transition_probabilities_; //state, action, [state, weight]
+	std::vector<std::vector<std::vector<State> > > transition_probabilities_; //state, action, [state, weight]
 
 	mutable MemoryPool<NavigationState> memory_pool_;
 
-	vector<int> default_action_;
+	std::vector<int> default_action_;
 
 protected:
-	void Init(istream& is);
+	void Init(std::istream& is);
 	int NextPosition(int pos, int action) const;
 
 public:
 	Navigation();
-	Navigation(string params_file);
+	Navigation(std::string params_file);
 
 	virtual bool Step(State& state, double random_num, int action,
 		double& reward, OBS_TYPE& obs) const;
@@ -65,29 +65,29 @@ public:
 	}
 
 	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
-	const vector<State>& TransitionProbability(int s, int a) const;
+	const std::vector<State>& TransitionProbability(int s, int a) const;
 	double Reward(int s, int a) const;
 
-	State* CreateStartState(string type) const;
-	virtual Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	State* CreateStartState(std::string type) const;
+	virtual Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	inline double GetMaxReward() const {
 		return 0;
 	}
-	ParticleUpperBound* CreateParticleUpperBound(string name = "DEFAULT") const;
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ParticleUpperBound* CreateParticleUpperBound(std::string name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(0, -1);
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	virtual void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	virtual void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	void PrintTransitions() const;
 	void PrintMDPPolicy() const;
@@ -97,7 +97,7 @@ public:
 	void Free(State* particle) const;
 	int NumActiveParticles() const;
 
-	void ComputeDefaultActions(string type);
+	void ComputeDefaultActions(std::string type);
 	int GetAction(const State& navistate) const;
 };
 

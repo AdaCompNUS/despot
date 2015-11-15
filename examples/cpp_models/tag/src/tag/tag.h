@@ -13,10 +13,10 @@
 
 class Tag: public BaseTag {
 private:
-	vector<OBS_TYPE> obs_;
+  std::vector<OBS_TYPE> obs_;
 public:
 	Tag();
-	Tag(string params_file);
+	Tag(std::string params_file);
 
 	bool Step(State& state, double random_num, int action, double& reward,
 		OBS_TYPE& obs) const;
@@ -25,12 +25,12 @@ public:
 
 	Belief* ExactPrior() const;
 	Belief* ApproxPrior() const;
-	Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	void Observe(const Belief* belief, int action,
-		map<OBS_TYPE, double>& obss) const;
+		std::map<OBS_TYPE, double>& obss) const;
 
-	void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
+	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
 };
 
 #endif

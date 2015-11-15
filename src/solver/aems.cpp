@@ -1,5 +1,7 @@
 #include <despot/solver/aems.h>
 
+using namespace std;
+
 AEMS::AEMS(const DSPOMDP* model, BeliefLowerBound* lower_bound,
 	BeliefUpperBound* upper_bound, Belief* belief) :
 	Solver(model, belief),
@@ -86,7 +88,7 @@ VNode* AEMS::FindMaxApproxErrorLeaf(VNode* root) {
 void AEMS::FindMaxApproxErrorLeaf(VNode* vnode, double likelihood,
 	double& bestAE, VNode*& bestNode) {
 	if (vnode->IsLeaf()) {
-		double curAE = likelihood * vnode->likelihood * Discount(vnode->depth())
+		double curAE = likelihood * vnode->likelihood * Globals::Discount(vnode->depth())
 			* (vnode->upper_bound() - vnode->lower_bound());
 		if (curAE > bestAE) {
 			bestAE = curAE;
@@ -158,8 +160,8 @@ void AEMS::Update(QNode* qnode) {
 			it != children.end(); it++) {
 		VNode* vnode = it->second;
 
-		lower += Discount() * vnode->likelihood * vnode->lower_bound();
-		upper += Discount() * vnode->likelihood * vnode->upper_bound();
+		lower += Globals::Discount() * vnode->likelihood * vnode->lower_bound();
+		upper += Globals::Discount() * vnode->likelihood * vnode->upper_bound();
 	}
 
 	if (lower > qnode->lower_bound())
@@ -248,8 +250,8 @@ void AEMS::Expand(QNode* qnode, BeliefLowerBound* lb, BeliefUpperBound* ub,
 		InitLowerBound(vnode, lb, history);
 		InitUpperBound(vnode, ub, history);
 
-		lower_bound += weight * Discount() * vnode->lower_bound();
-		upper_bound += weight * Discount() * vnode->upper_bound();
+		lower_bound += weight * Globals::Discount() * vnode->lower_bound();
+		upper_bound += weight * Globals::Discount() * vnode->upper_bound();
 	}
 
 	qnode->step_reward = step_reward;

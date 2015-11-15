@@ -15,7 +15,7 @@ public:
 
 	TigerState(int position);
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -31,7 +31,7 @@ public:
 	static const double NOISE;
 
 	Tiger();
-	Tiger(string params_file);
+	Tiger(std::string params_file);
 
 	bool Step(State& s, double random_num, int action, double& reward,
 		OBS_TYPE& obs) const;
@@ -39,8 +39,8 @@ public:
 	int NumActions() const;
 	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
 
-	State* CreateStartState(string type) const;
-	Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	State* CreateStartState(std::string type) const;
+	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	inline double GetMaxReward() const {
 		return 10;
@@ -49,13 +49,13 @@ public:
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(LISTEN, -1);
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;

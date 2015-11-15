@@ -6,69 +6,67 @@
 #include <map>
 #include <iterator>
 
-using namespace std;
-
 class NamedVar;
 class StateVar;
 
 class Variable {
 protected:
-	vector<string> values_; // Possible values of the variable
-	map<string, int> index_;
+  std::vector<std::string> values_; // Possible values of the variable
+	std::map<std::string, int> index_;
 
 public:
 	int curr_value;
 
 	Variable();
 	virtual ~Variable();
-	void values(const vector<string>& values);
-	void values(string prefix, int num);
-	inline const vector<string>& values() const {
+	void values(const std::vector<std::string>& values);
+	void values(std::string prefix, int num);
+	inline const std::vector<std::string>& values() const {
 		return values_;
 	}
-	int IndexOf(string val) const;
-	const bool HasValue(string val) const;
-	inline const string& GetValue(int v) const {
+	int IndexOf(std::string val) const;
+	const bool HasValue(std::string val) const;
+	inline const std::string& GetValue(int v) const {
 		return values_[v];
 	}
 	inline int Size() const {
 		return values_.size();
 	}
 
-	friend ostream& operator<<(ostream& os, const Variable& var);
+	friend std::ostream& operator<<(std::ostream& os, const Variable& var);
 
-	static vector<int> ComputeIndexVec(const vector<Variable*>& vars,
+	static std::vector<int> ComputeIndexVec(const std::vector<Variable*>& vars,
 		int index);
-	static vector<int> ComputeIndexVec(const vector<NamedVar*>& vars,
+	static std::vector<int> ComputeIndexVec(const std::vector<NamedVar*>& vars,
 		int index);
-	static vector<int> ComputeIndexVec(const vector<StateVar*>& vars,
+	static std::vector<int> ComputeIndexVec(const std::vector<StateVar*>& vars,
 		int index);
-	static int ComputeCurrentIndex(const vector<Variable*>& vars);
-	static int ComputeCurrentIndex(const vector<NamedVar*>& vars);
-	static bool IsVariableName(string name, const vector<NamedVar>& vars);
-	static bool IsVariableName(string name, const vector<StateVar>& vars);
-	static bool IsVariableCurrName(string name, const vector<StateVar>& vars);
-	static bool IsVariablePrevName(string name, const vector<StateVar>& vars);
+	static int ComputeCurrentIndex(const std::vector<Variable*>& vars);
+	static int ComputeCurrentIndex(const std::vector<NamedVar*>& vars);
+	static bool IsVariableName(std::string name, const std::vector<NamedVar>& vars);
+	static bool IsVariableName(std::string name, const std::vector<StateVar>& vars);
+	static bool IsVariableCurrName(std::string name, const std::vector<StateVar>& vars);
+	static bool IsVariablePrevName(std::string name, const std::vector<StateVar>& vars);
 };
 
 /*---------------------------------------------------------------------------*/
 
 class NamedVar: public Variable {
 protected:
-	string name_;
+	std::string name_;
 
 public:
 	NamedVar();
-	NamedVar(string name);
+	NamedVar(std::string name);
 	virtual ~NamedVar();
-	inline void name(string str) {
+	inline void name(std::string str) {
 		name_ = str;
 	}
-	inline const string& name() const {
+	inline const std::string& name() const {
 		return name_;
 	}
 
-	friend ostream& operator<<(ostream& os, const NamedVar& var);
+	friend std::ostream& operator<<(std::ostream& os, const NamedVar& var);
 };
 
 #define ObsVar NamedVar
@@ -79,24 +77,24 @@ public:
 
 class StateVar: public NamedVar {
 protected:
-	string prev_name_;
-	string curr_name_;
+	std::string prev_name_;
+	std::string curr_name_;
 	bool observed_;
 
 public:
 	StateVar();
 	~StateVar();
-	inline void prev_name(string str) {
+	inline void prev_name(std::string str) {
 		name_ = str;
 		prev_name_ = str;
 	}
-	inline const string& prev_name() const {
+	inline const std::string& prev_name() const {
 		return prev_name_;
 	}
-	inline void curr_name(string str) {
+	inline void curr_name(std::string str) {
 		curr_name_ = str;
 	}
-	inline const string& curr_name() const {
+	inline const std::string& curr_name() const {
 		return curr_name_;
 	}
 	inline void observed(bool o) {
@@ -106,7 +104,7 @@ public:
 		return observed_;
 	}
 
-	friend ostream& operator<<(ostream& os, const StateVar& var);
+	friend std::ostream& operator<<(std::ostream& os, const StateVar& var);
 };
 
 #endif

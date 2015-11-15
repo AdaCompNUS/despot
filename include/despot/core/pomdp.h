@@ -12,8 +12,6 @@
 #include <despot/util/seeds.h>
 #include <despot/util/util.h>
 
-using namespace Globals;
-
 /* =============================================================================
  * State class
  * =============================================================================*/
@@ -30,11 +28,11 @@ public:
 	State(int _state_id, double weight);
 	virtual ~State();
 
-	friend ostream& operator<<(ostream& os, const State& state);
+	friend std::ostream& operator<<(std::ostream& os, const State& state);
 
-	virtual string text() const;
+	virtual std::string text() const;
 
-	static double Weight(const vector<State*>& particles);
+	static double Weight(const std::vector<State*>& particles);
 
 	State* operator()(int state_id, double weight) {
 		this->state_id = state_id;
@@ -80,7 +78,7 @@ class MMAPInferencer {
 public:
 	virtual ~MMAPInferencer();
 
-	virtual const State* GetMMAP(const vector<State*>& particles) const = 0;
+	virtual const State* GetMMAP(const std::vector<State*>& particles) const = 0;
 };
 
 class POMCPPrior;
@@ -138,13 +136,13 @@ public:
 	/**
 	 * Returns a starting state.
 	 */
-	virtual State* CreateStartState(string type = "DEFAULT") const = 0;
+	virtual State* CreateStartState(std::string type = "DEFAULT") const = 0;
 
 	/**
 	 * Returns the initial belief.
 	 */
 	virtual Belief* InitialBelief(const State* start,
-		string type = "DEFAULT") const = 0;
+		std::string type = "DEFAULT") const = 0;
 
 	/* ========================================================================
 	 * Bound-related functions.
@@ -153,9 +151,9 @@ public:
 	 * Returns the maximum reward.
 	 */
 	virtual double GetMaxReward() const = 0;
-	virtual ParticleUpperBound* CreateParticleUpperBound(string name = "DEFAULT") const;
-	virtual ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	virtual ParticleUpperBound* CreateParticleUpperBound(std::string name = "DEFAULT") const;
+	virtual ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	/**
 	 * Returns (a, v), where a is an action with largest minimum reward when it is
@@ -163,11 +161,11 @@ public:
 	 * R(a', s), and v = \min_{s} R(a, s).
 	 */
 	virtual ValuedAction GetMinRewardAction() const = 0;
-	virtual ParticleLowerBound* CreateParticleLowerBound(string name = "DEFAULT") const;
-	virtual ScenarioLowerBound* CreateScenarioLowerBound(string bound_name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	virtual ParticleLowerBound* CreateParticleLowerBound(std::string name = "DEFAULT") const;
+	virtual ScenarioLowerBound* CreateScenarioLowerBound(std::string bound_name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	virtual POMCPPrior* CreatePOMCPPrior(string name = "DEFAULT") const;
+	virtual POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 
 	/* ========================================================================
 	 * Display
@@ -175,24 +173,24 @@ public:
 	/**
 	 * Prints a state.
 	 */
-	virtual void PrintState(const State& state, ostream& out = cout) const = 0;
+	virtual void PrintState(const State& state, std::ostream& out = std::cout) const = 0;
 
 	/**
 	 * Prints an observation.
 	 */
 	virtual void PrintObs(const State& state, OBS_TYPE obs,
-		ostream& out = cout) const = 0;
+		std::ostream& out = std::cout) const = 0;
 
 	/**
 	 * Prints an action.
 	 */
-	virtual void PrintAction(int action, ostream& out = cout) const = 0;
+	virtual void PrintAction(int action, std::ostream& out = std::cout) const = 0;
 
 	/**
 	 * Prints a belief.
 	 */
 	virtual void PrintBelief(const Belief& belief,
-		ostream& out = cout) const = 0;
+		std::ostream& out = std::cout) const = 0;
 
 	/* ========================================================================
 	 * Memory management.
@@ -215,7 +213,7 @@ public:
 	/**
 	 * Returns a copy of the particles.
 	 */
-	vector<State*> Copy(const vector<State*>& particles) const;
+	std::vector<State*> Copy(const std::vector<State*>& particles) const;
 
 	/**
 	 * Returns number of allocated particles.
@@ -245,8 +243,8 @@ public:
 	BeliefMDP();
 	virtual ~BeliefMDP();
 
-	virtual BeliefLowerBound* CreateBeliefLowerBound(string name) const;
-	virtual BeliefUpperBound* CreateBeliefUpperBound(string name) const;
+	virtual BeliefLowerBound* CreateBeliefLowerBound(std::string name) const;
+	virtual BeliefUpperBound* CreateBeliefUpperBound(std::string name) const;
 
   /**
    * Transition function for the belief MDP.
@@ -258,7 +256,7 @@ public:
    * Observation function for the belief MDP.
    */
 	virtual void Observe(const Belief* belief, int action,
-		map<OBS_TYPE, double>& obss) const = 0;
+		std::map<OBS_TYPE, double>& obss) const = 0;
 
   /**
    * Reward function for the belief MDP.

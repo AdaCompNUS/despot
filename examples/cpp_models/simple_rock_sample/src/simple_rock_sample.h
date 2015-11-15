@@ -17,7 +17,7 @@ public:
 	SimpleState(int rover_position, int rock_status);
 	~SimpleState();
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -28,9 +28,9 @@ class SimpleRockSample: public DSPOMDP {
 protected:
 	mutable MemoryPool<SimpleState> memory_pool_;
 
-	vector<SimpleState*> states_;
+	std::vector<SimpleState*> states_;
 
-	mutable vector<ValuedAction> mdp_policy_;
+	mutable std::vector<ValuedAction> mdp_policy_;
 
 public:
 	enum { // action
@@ -49,16 +49,16 @@ public:
 
 	/* Functions related to beliefs and starting states.*/
 	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
-	State* CreateStartState(string type = "DEFAULT") const;
-	Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	State* CreateStartState(std::string type = "DEFAULT") const;
+	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	/* Bound-related functions.*/
 	double GetMaxReward() const;
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 	ValuedAction GetMinRewardAction() const;
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	/* Memory management.*/
 	State* Allocate(int state_id, double weight) const;
@@ -67,11 +67,11 @@ public:
 	int NumActiveParticles() const;
 
 	/* Display.*/
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
-		ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+		std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 };
 
 #endif

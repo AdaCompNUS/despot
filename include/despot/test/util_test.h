@@ -4,8 +4,6 @@
 #include <despot/util/util.h>
 #include <iostream>
 
-using namespace std;
-
 void TestSortByValue();
 void TestSortByKey();
 

@@ -1,6 +1,8 @@
 #include <despot/solver/despot.h>
 #include <despot/solver/pomcp.h>
 
+using namespace std;
+
 DESPOT::DESPOT(const DSPOMDP* model, ScenarioLowerBound* lb, ScenarioUpperBound* ub, Belief* belief) :
 	Solver(model, belief),
 	root_(NULL), 
@@ -188,7 +190,7 @@ void DESPOT::InitLowerBound(VNode* vnode, ScenarioLowerBound* lower_bound,
 	RandomStreams& streams, History& history) {
 	streams.position(vnode->depth());
 	ValuedAction move = lower_bound->Value(vnode->particles(), streams, history);
-	move.value *= Discount(vnode->depth());
+	move.value *= Globals::Discount(vnode->depth());
 	vnode->default_move(move);
 	vnode->lower_bound(move.value);
 }
@@ -197,8 +199,8 @@ void DESPOT::InitUpperBound(VNode* vnode, ScenarioUpperBound* upper_bound,
 	RandomStreams& streams, History& history) {
 	streams.position(vnode->depth());
 	double upper = upper_bound->Value(vnode->particles(), streams, history);
-	vnode->utility_upper_bound = upper * Discount(vnode->depth());
-	upper = upper * Discount(vnode->depth()) - Globals::config.pruning_constant;
+	vnode->utility_upper_bound = upper * Globals::Discount(vnode->depth());
+	upper = upper * Globals::Discount(vnode->depth()) - Globals::config.pruning_constant;
 	vnode->upper_bound(upper);
 }
 
@@ -668,7 +670,7 @@ void DESPOT::Expand(QNode* qnode, ScenarioLowerBound* lb,
 			model->Free(copy);
 		}
 	}
-	step_reward = Discount(parent->depth()) * step_reward
+	step_reward = Globals::Discount(parent->depth()) * step_reward
 		- Globals::config.pruning_constant;//pruning_constant is used for regularization
 
 	double lower_bound = step_reward;
@@ -731,7 +733,7 @@ ValuedAction DESPOT::Evaluate(VNode* root, vector<State*>& particles,
 				action, reward, obs);
 
 			val += discount * reward;
-			discount *= Discount();
+			discount *= Globals::Discount();
 
 			if (!terminal) {
 				prior->Add(action, obs);

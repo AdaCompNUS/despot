@@ -17,13 +17,13 @@ class QNode;
  */
 class VNode {
 protected:
-	vector<State*> particles_; // Used in DESPOT
+  std::vector<State*> particles_; // Used in DESPOT
 	Belief* belief_; // Used in AEMS
 	int depth_;
 	QNode* parent_;
 	OBS_TYPE edge_;
 
-	vector<QNode*> children_;
+	std::vector<QNode*> children_;
 
 	ValuedAction default_move_; // Value and action given by default policy
 	double lower_bound_;
@@ -38,7 +38,7 @@ public:
 	double likelihood; // Used in AEMS
 	double utility_upper_bound;
 
-	VNode(vector<State*>& particles, int depth = 0, QNode* parent = NULL,
+	VNode(std::vector<State*>& particles, int depth = 0, QNode* parent = NULL,
 		OBS_TYPE edge = -1);
 	VNode(Belief* belief, int depth = 0, QNode* parent = NULL, OBS_TYPE edge =
 		-1);
@@ -47,7 +47,7 @@ public:
 	~VNode();
 
 	Belief* belief() const;
-	const vector<State*>& particles() const;
+	const std::vector<State*>& particles() const;
 	void depth(int d);
 	int depth() const;
 	void parent(QNode* parent);
@@ -56,8 +56,8 @@ public:
 
 	double Weight() const;
 
-	const vector<QNode*>& children() const;
-	vector<QNode*>& children();
+	const std::vector<QNode*>& children() const;
+	std::vector<QNode*>& children();
 	const QNode* Child(int action) const;
 	QNode* Child(int action);
 	int Size() const;
@@ -78,8 +78,8 @@ public:
 	void value(double v);
 	double value() const;
 
-	void PrintTree(int depth = -1, ostream& os = cout);
-	void PrintPolicyTree(int depth = -1, ostream& os = cout);
+	void PrintTree(int depth = -1, std::ostream& os = std::cout);
+	void PrintPolicyTree(int depth = -1, std::ostream& os = std::cout);
 
 	void Free(const DSPOMDP& model);
 };
@@ -95,7 +95,7 @@ class QNode {
 protected:
 	VNode* parent_;
 	int edge_;
-	map<OBS_TYPE, VNode*> children_;
+	std::map<OBS_TYPE, VNode*> children_;
 	double lower_bound_;
 	double upper_bound_;
 
@@ -117,7 +117,7 @@ public:
 	void parent(VNode* parent);
 	VNode* parent();
 	int edge();
-	map<OBS_TYPE, VNode*>& children();
+	std::map<OBS_TYPE, VNode*>& children();
 	VNode* Child(OBS_TYPE obs);
 	int Size() const;
 	int PolicyTreeSize() const;

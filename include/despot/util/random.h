@@ -3,8 +3,6 @@
 
 #include <vector>
 
-using namespace std;
-
 class Random {
 private:
 	unsigned seed_;
@@ -26,14 +24,14 @@ public:
 
 	double NextGaussian();
 
-	int NextCategory(const vector<double>& category_probs);
+	int NextCategory(const std::vector<double>& category_probs);
 
 	template<class T>
-	T NextElement(const vector<T>& vec) {
+	T NextElement(const std::vector<T>& vec) {
 		return vec[NextInt(vec.size())];
 	}
 
-	static int GetCategory(const vector<double>& category_probs,
+	static int GetCategory(const std::vector<double>& category_probs,
 		double rand_num);
 };
 

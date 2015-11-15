@@ -1,6 +1,8 @@
 #include <despot/ippc/client.h>
 #include <iostream>
 
+using namespace std;
+
 Client::Client(void) {
 }
 

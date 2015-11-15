@@ -11,8 +11,6 @@
 #include <despot/pomdpx/parser/variable.h>
 #include <despot/util/util.h>
 
-using namespace std;
-
 /* =============================================================================
  * Function class
  * =============================================================================*/
@@ -29,26 +27,26 @@ class Function {
 
 protected:
 	NamedVar* child_;
-	vector<NamedVar*> parents_;
+  std::vector<NamedVar*> parents_;
 
-	vector<vector<double> > values_; // values_[parents][child]
-	vector<map<int, double> > map_; // map_[parents][child]
+  std::vector<std::vector<double> > values_; // values_[parents][child]
+  std::vector<std::map<int, double> > map_; // map_[parents][child]
 
-	bool SetValue(vector<string>& keys, int key_pos, int pid, int cid,
-		const vector<double>& values, int start, int end);
+	bool SetValue(std::vector<std::string>& keys, int key_pos, int pid, int cid,
+		const std::vector<double>& values, int start, int end);
 
 public:
 	Function();
-	Function(NamedVar* child, vector<NamedVar*> parents);
+	Function(NamedVar* child, std::vector<NamedVar*> parents);
 	virtual ~Function();
 
-	virtual bool SetValue(const vector<string>& keys,
-		const vector<double>& values);
+	virtual bool SetValue(const std::vector<std::string>& keys,
+		const std::vector<double>& values);
 	virtual void SetValue(int pid, int cid, double value);
 	virtual double GetValue(int pid, int cid) const;
 	virtual double GetValue(int cid = 0) const;
 
-	virtual const vector<NamedVar*>& parents() const;
+	virtual const std::vector<NamedVar*>& parents() const;
 	virtual int ParentSize() const;
 	virtual const NamedVar* child() const;
 	virtual int ChildSize() const;
@@ -58,7 +56,7 @@ public:
 	virtual double ComputeConstrainedMinimum(const NamedVar* var,
 		int value) const;
 
-	friend ostream& operator<<(std::ostream& os, const Function& func);
+	friend std::ostream& operator<<(std::ostream& os, const Function& func);
 };
 
 /* =============================================================================
@@ -87,10 +85,10 @@ class TabularCPT: public CPT {
 	friend class HierarchyCPT;
 
 protected:
-	vector<vector<pair<int, double> > > sparse_values_;
+  std::vector<std::vector<std::pair<int, double> > > sparse_values_;
 
 public:
-	TabularCPT(NamedVar* child, vector<NamedVar*> parents);
+	TabularCPT(NamedVar* child, std::vector<NamedVar*> parents);
 
 	bool Validate() const;
 	int ComputeIndex(int pid, double& sum) const;
@@ -111,18 +109,18 @@ public:
  */
 class HierarchyCPT: public CPT {
 protected:
-	vector<TabularCPT*> cpts_;
+  std::vector<TabularCPT*> cpts_;
 
 public:
-	HierarchyCPT(NamedVar* child, vector<NamedVar*> parents);
+	HierarchyCPT(NamedVar* child, std::vector<NamedVar*> parents);
 	virtual ~HierarchyCPT();
 
-	void SetParents(int val, vector<NamedVar*> parents);
+	void SetParents(int val, std::vector<NamedVar*> parents);
 
-	virtual bool SetValue(int val, const vector<string>& keys,
-		const vector<double>& values);
-	inline bool SetValue(const vector<string>& keys,
-		const vector<double>& values) {
+	virtual bool SetValue(int val, const std::vector<std::string>& keys,
+		const std::vector<double>& values);
+	inline bool SetValue(const std::vector<std::string>& keys,
+		const std::vector<double>& values) {
 		assert(false);
 		return false;
 	}
@@ -164,7 +162,7 @@ public:
 	}
 	;
 
-	friend ostream& operator<<(std::ostream& os, const HierarchyCPT& cpt);
+	friend std::ostream& operator<<(std::ostream& os, const HierarchyCPT& cpt);
 };
 
 #endif

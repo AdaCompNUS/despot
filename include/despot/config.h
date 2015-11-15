@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 struct Config {
 	int search_depth;
 	double discount;
@@ -14,7 +12,7 @@ struct Config {
 	double pruning_constant;
 	double xi; // xi * gap(root) is the target uncertainty at the root.
 	int sim_len; // Number of steps to run the simulation for.
-	string default_action;
+  std::string default_action;
 	int max_policy_sim_len; // Maximum number of steps for simulating the default policy
 	double noise;
 	bool silence;

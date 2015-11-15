@@ -24,8 +24,6 @@
 #include <despot/util/exec_tracker.h>
 #include <despot/util/logging.h>
 
-using namespace std;
-
 typedef uint64_t OBS_TYPE;
 
 namespace Globals {
@@ -38,7 +36,7 @@ extern Config config;
 extern ExecTracker tracker;
 
 inline bool Fequals(double a, double b) {
-	return fabs(a - b) < TINY;
+	return std::fabs(a - b) < TINY;
 }
 
 inline double Discount() {
@@ -46,14 +44,14 @@ inline double Discount() {
 }
 
 inline double Discount(int d) {
-	return pow(config.discount, d);
+	return std::pow(config.discount, d);
 }
 
-inline void Track(string addr, string loc) {
+inline void Track(std::string addr, std::string loc) {
 	tracker.Track(addr, loc);
 }
 
-inline void Untrack(string addr) {
+inline void Untrack(std::string addr) {
 	tracker.Untrack(addr);
 }
 

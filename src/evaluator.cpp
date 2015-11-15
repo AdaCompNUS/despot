@@ -1,5 +1,7 @@
 #include <despot/evaluator.h>
 
+using namespace std;
+
 /* =============================================================================
  * EvalLog class
  * =============================================================================*/
@@ -480,7 +482,7 @@ bool IPPCEvaluator::ExecuteAction(int action, double& reward, OBS_TYPE& obs) {
 	//get step reward from turn message: added by wkg
 	reward = client_->getStepReward(turnMes);
 	reward_ = reward;
-	total_discounted_reward_ += Discount(step_) * reward;
+	total_discounted_reward_ += Globals::Discount(step_) * reward;
 	total_undiscounted_reward_ += reward;
 
 	map<string, string> observs = client_->processTurnMes(turnMes);
@@ -645,7 +647,7 @@ bool POMDPEvaluator::ExecuteAction(int action, double& reward, OBS_TYPE& obs) {
 	bool terminal = model_->Step(*state_, random_num, action, reward, obs);
 
 	reward_ = reward;
-	total_discounted_reward_ += Discount(step_) * reward;
+	total_discounted_reward_ += Globals::Discount(step_) * reward;
 	total_undiscounted_reward_ += reward;
 
 	return terminal;

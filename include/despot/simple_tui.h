@@ -14,8 +14,6 @@
 
 #include <despot/evaluator.h>
 
-using namespace std;
-
 void disableBufferedIO(void);
 
 enum OptionIndex {
@@ -141,26 +139,26 @@ public:
   virtual DSPOMDP* InitializeModel(option::Option* options) = 0;
   virtual void InitializeDefaultParameters() = 0;
 
-  Solver* InitializeSolver(DSPOMDP* model, string solver_type,
+  Solver* InitializeSolver(DSPOMDP* model, std::string solver_type,
                            option::Option* options);
 
   int run(int argc, char* argv[]);
 
   void OptionParse(option::Option* options, int& num_runs,
-                   string& simulator_type, string& belief_type, int& time_limit,
-                   string& solver_type, bool& search_solver);
+                   std::string& simulator_type, std::string& belief_type, int& time_limit,
+                   std::string& solver_type, bool& search_solver);
 
   void InitializeEvaluator(Evaluator*& simulator, option::Option* options,
                            DSPOMDP* model, Solver* solver, int num_runs,
-                           clock_t main_clock_start, string simulator_type,
-                           string belief_type, int time_limit,
-                           string solver_type);
+                           clock_t main_clock_start, std::string simulator_type,
+                           std::string belief_type, int time_limit,
+                           std::string solver_type);
 
   void DisplayParameters(option::Option* options, DSPOMDP* model);
 
   void RunEvaluator(DSPOMDP* model, Evaluator* simulator,
                     option::Option* options, int num_runs, bool search_solver,
-                    Solver*& solver, string simulator_type,
+                    Solver*& solver, std::string simulator_type,
                     clock_t main_clock_start, int start_run);
 
   void PrintResult(int num_runs, Evaluator* simulator,

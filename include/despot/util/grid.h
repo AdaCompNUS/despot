@@ -111,7 +111,7 @@ public:
 
 private:
 	int xsize_, ysize_;
-	vector<T> grid_;
+  std::vector<T> grid_;
 };
 
 #endif // GRID_H

@@ -13,9 +13,9 @@
 class PocmanState: public State {
 public:
 	Coord pocman_pos;
-	vector<Coord> ghost_pos;
-	vector<int> ghost_dir;
-	vector<bool> food; // bit vector
+	std::vector<Coord> ghost_pos;
+	std::vector<int> ghost_dir;
+	std::vector<bool> food; // bit vector
 	int num_food;
 	int power_steps;
 };
@@ -31,7 +31,7 @@ protected:
 public:
 	static int num_particles;
 
-	PocmanBelief(vector<State*> particles, const DSPOMDP* model, Belief* prior =
+	PocmanBelief(std::vector<State*> particles, const DSPOMDP* model, Belief* prior =
 		NULL);
 	void Update(int action, OBS_TYPE obs);
 };
@@ -51,30 +51,30 @@ public:
 	int NumActions() const;
 	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 
-	virtual State* CreateStartState(string type = "DEFAULT") const;
+	virtual State* CreateStartState(std::string type = "DEFAULT") const;
 	virtual Belief* InitialBelief(const State* start,
-		string type = "PARTICLE") const;
+		std::string type = "PARTICLE") const;
 
 	inline double GetMaxReward() const {
 		return reward_clear_level_;
 	}
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(0, reward_hit_wall_);
 	}
-	ParticleLowerBound* CreateParticleLowerBound(string name = "DEFAULT") const;
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ParticleLowerBound* CreateParticleLowerBound(std::string name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	POMCPPrior* CreatePOMCPPrior(string name = "DEFAULT") const;
+	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 
-	virtual void PrintState(const State& state, ostream& out = cout) const;
+	virtual void PrintState(const State& state, std::ostream& out = std::cout) const;
 	virtual void PrintObs(const State& state, OBS_TYPE observation,
-		ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	virtual void PrintAction(int action, ostream& out = cout) const;
+		std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	virtual void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	virtual State* Copy(const State* particle) const;

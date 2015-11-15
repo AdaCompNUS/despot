@@ -2,6 +2,8 @@
 #include <math.h>
 #include <cmath>
 
+using namespace std;
+
 const OBS_TYPE ONE = 1;
 int LaserTag::NBEAMS = 8;
 int LaserTag::BITS_PER_READING = 7;

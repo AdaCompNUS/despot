@@ -14,8 +14,8 @@ protected:
 	const DSPOMDP* model_;
 	History history_;
 	double exploration_constant_;
-	vector<int> preferred_actions_;
-	vector<int> legal_actions_;
+	std::vector<int> preferred_actions_;
+	std::vector<int> legal_actions_;
 
 public:
 	POMCPPrior(const DSPOMDP* model);
@@ -55,8 +55,8 @@ public:
 
 	virtual void ComputePreference(const State& state) = 0;
 
-	const vector<int>& preferred_actions() const;
-	const vector<int>& legal_actions() const;
+	const std::vector<int>& preferred_actions() const;
+	const std::vector<int>& legal_actions() const;
 
 	int GetAction(const State& state);
 };
@@ -102,7 +102,7 @@ public:
 		POMCPPrior* prior);
 	static double Rollout(State* particle, RandomStreams& streams, int depth,
 		const DSPOMDP* model, POMCPPrior* prior);
-	static ValuedAction Evaluate(VNode* root, vector<State*>& particles,
+	static ValuedAction Evaluate(VNode* root, std::vector<State*>& particles,
 		RandomStreams& streams, const DSPOMDP* model, POMCPPrior* prior);
 	static int UpperBoundAction(const VNode* vnode, double explore_constant);
 	static ValuedAction OptimalAction(const VNode* vnode);
@@ -118,7 +118,7 @@ public:
 	DPOMCP(const DSPOMDP* model, POMCPPrior* prior, Belief* belief = NULL);
 
 	virtual ValuedAction Search(double timeout);
-	static VNode* ConstructTree(vector<State*>& particles,
+	static VNode* ConstructTree(std::vector<State*>& particles,
 		RandomStreams& streams, const DSPOMDP* model, POMCPPrior* prior,
 		History& history, double timeout);
 

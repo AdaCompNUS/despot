@@ -6,15 +6,13 @@
 #include <stdlib.h>
 #include <despot/util/random.h>
 
-using namespace std;
-
 /**
  * A RandomStreams object represents multiple random number sequences, where each
  * entry is independently and identically drawn from [0, 1].
  */
 class RandomStreams {
 private:
-	vector<vector<double> > streams_; // streams_[i] is associated with i-th particle
+  std::vector<std::vector<double> > streams_; // streams_[i] is associated with i-th particle
 	mutable int position_;
 
 public:
@@ -47,7 +45,7 @@ public:
 	double Entry(int stream) const;
 	double Entry(int stream, int position) const;
 
-	friend ostream& operator<<(ostream& os, const RandomStreams& stream);
+	friend std::ostream& operator<<(std::ostream& os, const RandomStreams& stream);
 };
 
 #endif

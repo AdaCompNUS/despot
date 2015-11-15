@@ -5,8 +5,6 @@
 #include <cstdlib>
 #include <despot/util/random.h>
 
-using namespace std;
-
 class Gamma {
 private:
 	double k_;

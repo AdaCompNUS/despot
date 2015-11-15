@@ -13,7 +13,7 @@
 
 class RockSample: public BaseRockSample {
 public:
-	RockSample(string map);
+	RockSample(std::string map);
 	RockSample(int size, int rocks);
 
 	bool Step(State& state, double rand_num, int action, double& reward,
@@ -21,7 +21,7 @@ public:
 	int NumActions() const;
 	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
-		ostream& out = cout) const;
+		std::ostream& out = std::cout) const;
 };
 
 #endif

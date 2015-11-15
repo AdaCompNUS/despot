@@ -15,8 +15,6 @@
 #include <despot/core/globals.h>
 #include <despot/core/pomdp.h>
 
-using namespace std;
-
 class State;
 class StateIndexer;
 class StatePolicy;
@@ -34,7 +32,7 @@ struct ValuedAction {
 	ValuedAction();
 	ValuedAction(int _action, double _value);
 
-	friend ostream& operator<<(ostream& os, const ValuedAction& va);
+	friend std::ostream& operator<<(std::ostream& os, const ValuedAction& va);
 };
 
 /* =============================================================================
@@ -46,7 +44,7 @@ private:
 	mutable int initial_depth_;
 	ParticleLowerBound* particle_lower_bound_;
 
-	ValuedAction RecursiveValue(const vector<State*>& particles,
+	ValuedAction RecursiveValue(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const;
 
 public:
@@ -55,12 +53,12 @@ public:
 	virtual ~Policy();
 
 	void Reset();
-	virtual int Action(const vector<State*>& particles, RandomStreams& streams,
+	virtual int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const = 0;
 
 	ParticleLowerBound* particle_lower_bound() const;
 
-	ValuedAction Value(const vector<State*>& particles, RandomStreams& streams,
+	ValuedAction Value(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 
 	virtual ValuedAction Search();
@@ -78,7 +76,7 @@ public:
 	BlindPolicy(const DSPOMDP* model, int action, ParticleLowerBound*
 		particle_lower_bound, Belief* belief = NULL);
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 
 	ValuedAction Search();
@@ -91,16 +89,16 @@ public:
 
 class RandomPolicy: public Policy {
 private:
-	vector<double> action_probs_;
+	std::vector<double> action_probs_;
 
 public:
 	RandomPolicy(const DSPOMDP* model, ParticleLowerBound* ParticleLowerBound,
 		Belief* belief = NULL);
-	RandomPolicy(const DSPOMDP* model, const vector<double>& action_probs,
+	RandomPolicy(const DSPOMDP* model, const std::vector<double>& action_probs,
 		ParticleLowerBound* ParticleLowerBound,
 		Belief* belief = NULL);
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 
 	ValuedAction Search();
@@ -115,14 +113,14 @@ class ModeStatePolicy: public Policy {
 private:
 	const StateIndexer& indexer_;
 	const StatePolicy& policy_;
-	mutable vector<double> state_probs_;
+	mutable std::vector<double> state_probs_;
 
 public:
 	ModeStatePolicy(const DSPOMDP* model, const StateIndexer& indexer,
 		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
 		Belief* belief = NULL);
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 
@@ -140,7 +138,7 @@ public:
 		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
 		Belief* belief = NULL);
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 
@@ -156,7 +154,7 @@ public:
 	MajorityActionPolicy(const DSPOMDP* model, const StatePolicy& policy,
 		ParticleLowerBound* particle_lower_bound, Belief* belief = NULL);
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 

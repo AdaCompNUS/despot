@@ -1,5 +1,7 @@
 #include <despot/test/util_test.h>
 
+using namespace std;
+
 void TestSortByValue() {
 	map<string, double> map;
 	map["p1"] = 2.0;

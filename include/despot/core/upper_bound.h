@@ -25,7 +25,7 @@ public:
 
 	virtual void Init(const RandomStreams& streams);
 
-	virtual double Value(const vector<State*>& particles,
+	virtual double Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const = 0;
 };
 
@@ -44,7 +44,7 @@ public:
 	 */
 	virtual double Value(const State& state) const = 0;
 
-	virtual double Value(const vector<State*>& particles,
+	virtual double Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const;
 };
 
@@ -61,7 +61,7 @@ public:
 
 	double Value(const State& state) const;
 
-	virtual double Value(const vector<State*>& particles,
+	virtual double Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const;
 };
 
@@ -73,7 +73,7 @@ class LookaheadUpperBound: public ScenarioUpperBound {
 protected:
 	const DSPOMDP* model_;
 	const StateIndexer& indexer_;
-	vector<vector<vector<double> > > bounds_;
+	std::vector<std::vector<std::vector<double> > > bounds_;
 	ParticleUpperBound* particle_upper_bound_;
 
 public:
@@ -82,7 +82,7 @@ public:
 
 	virtual void Init(const RandomStreams& streams);
 
-	double Value(const vector<State*>& particles,
+	double Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const;
 };
 
@@ -119,7 +119,7 @@ class MDPUpperBound: public ParticleUpperBound, public BeliefUpperBound {
 protected:
 	const MDP* model_;
 	const StateIndexer& indexer_;
-	vector<ValuedAction> policy_;
+	std::vector<ValuedAction> policy_;
 
 public:
 	MDPUpperBound(const MDP* model, const StateIndexer& indexer);

@@ -13,7 +13,7 @@
 
 class FVRS: public BaseRockSample {
 public:
-	FVRS(string map);
+	FVRS(std::string map);
 	FVRS(int size, int rocks);
 
 	bool Step(State& state, double rand_num, int action, double& reward,
@@ -22,7 +22,7 @@ public:
 	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 	int GetObservation(double rand_num, const RockSampleState& rockstate) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
-		ostream& out = cout) const;
+		std::ostream& out = std::cout) const;
 };
 
 #endif

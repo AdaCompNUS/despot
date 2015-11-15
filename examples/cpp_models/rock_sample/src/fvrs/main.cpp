@@ -1,6 +1,8 @@
 #include <despot/simple_tui.h>
 #include "fvrs.h"
 
+using namespace std;
+
 class TUI: public SimpleTUI {
 public:
   TUI() {

@@ -1,6 +1,8 @@
 #include <despot/util/floor.h>
 #include <queue>
 
+using namespace std;
+
 int Floor::INVALID = -1;
 
 Floor::Floor() :

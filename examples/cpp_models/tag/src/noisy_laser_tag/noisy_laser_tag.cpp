@@ -2,6 +2,8 @@
 #include <math.h>
 #include <cmath>
 
+using namespace std;
+
 const OBS_TYPE ONE = 1;
 int NoisyLaserTag::NBEAMS = 8;
 int NoisyLaserTag::BITS_PER_READING = 7;

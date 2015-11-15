@@ -1,6 +1,8 @@
 #include <despot/core/belief.h>
 #include <despot/core/pomdp.h>
 
+using namespace std;
+
 /* =============================================================================
  * ParticleBelief class
  * =============================================================================*/

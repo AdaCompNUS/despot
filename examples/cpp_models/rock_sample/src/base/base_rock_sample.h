@@ -16,7 +16,7 @@ public:
 	RockSampleState();
 	RockSampleState(int _state_id);
 
-	string text() const;
+	std::string text() const;
 };
 
 /* =============================================================================
@@ -40,7 +40,7 @@ class BaseRockSample: public MDP,
 
 protected:
 	Grid<int> grid_;
-	vector<Coord> rock_pos_;
+	std::vector<Coord> rock_pos_;
 	int size_, num_rocks_;
 	Coord start_pos_;
 	double half_efficiency_distance_;
@@ -48,7 +48,7 @@ protected:
 	RockSampleState* rock_state_;
 	mutable MemoryPool<RockSampleState> memory_pool_;
 
-	vector<RockSampleState*> states_;
+	std::vector<RockSampleState*> states_;
 protected:
 	void InitGeneral();
 	void Init_4_4();
@@ -60,9 +60,9 @@ protected:
 	bool GetObservation(double rand_num, const RockSampleState& rockstate,
 		int rock) const;
 
-	vector<vector<vector<State> > > transition_probabilities_;
-	vector<vector<double> > alpha_vectors_; // For blind policy
-	mutable vector<ValuedAction> mdp_policy_;
+	std::vector<std::vector<std::vector<State> > > transition_probabilities_;
+	std::vector<std::vector<double> > alpha_vectors_; // For blind policy
+	mutable std::vector<ValuedAction> mdp_policy_;
 
 public:
 	enum { // FRAGILE: Don't change!
@@ -76,7 +76,7 @@ public:
 	};
 
 public:
-	BaseRockSample(string map);
+	BaseRockSample(std::string map);
 	BaseRockSample(int size, int rocks);
 
 	virtual bool Step(State& state, double rand_num, int action,
@@ -84,35 +84,35 @@ public:
 	virtual int NumActions() const = 0;
 	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const = 0;
 
-	const vector<State>& TransitionProbability(int s, int a) const;
+	const std::vector<State>& TransitionProbability(int s, int a) const;
 	int NextState(int s, int a) const;
 	double Reward(int s, int a) const;
 
-	State* CreateStartState(string type = "DEFAULT") const;
-	vector<State*> InitialParticleSet() const;
-	vector<State*> NoisyInitialParticleSet() const;
-	Belief* InitialBelief(const State* start, string type = "PARTICLE") const;
+	State* CreateStartState(std::string type = "DEFAULT") const;
+	std::vector<State*> InitialParticleSet() const;
+	std::vector<State*> NoisyInitialParticleSet() const;
+	Belief* InitialBelief(const State* start, std::string type = "PARTICLE") const;
 
 	inline double GetMaxReward() const {
 		return 10;
 	}
-	ScenarioUpperBound* CreateScenarioUpperBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
-	BeliefUpperBound* CreateBeliefUpperBound(string name = "DEFAULT") const;
+	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
+	BeliefUpperBound* CreateBeliefUpperBound(std::string name = "DEFAULT") const;
 
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(E_SAMPLE+1, 0);
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
-	BeliefLowerBound* CreateBeliefLowerBound(string name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
+	BeliefLowerBound* CreateBeliefLowerBound(std::string name = "DEFAULT") const;
 
-	POMCPPrior* CreatePOMCPPrior(string name = "DEFAULT") const;
+	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	virtual void PrintObs(const State& state, OBS_TYPE observation, ostream& out = cout) const = 0;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	virtual void PrintObs(const State& state, OBS_TYPE observation, std::ostream& out = std::cout) const = 0;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;
@@ -120,7 +120,7 @@ public:
 	int NumActiveParticles() const;
 
 	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
-	void Observe(const Belief* belief, int action, map<OBS_TYPE, double>& obss) const;
+	void Observe(const Belief* belief, int action, std::map<OBS_TYPE, double>& obss) const;
 	double StepReward(const Belief* belief, int action) const;
 
 	int NumStates() const;
@@ -146,8 +146,8 @@ protected:
 	void InitializeTransitions();
 	Coord IndexToCoord(int pos) const;
 	int CoordToIndex(Coord c) const;
-	vector<ValuedAction>& ComputeOptimalSamplingPolicy() const;
-	RockSampleState* MajorityRockSampleState(const vector<State*>& particles) const;
+	std::vector<ValuedAction>& ComputeOptimalSamplingPolicy() const;
+	RockSampleState* MajorityRockSampleState(const std::vector<State*>& particles) const;
 };
 
 #endif

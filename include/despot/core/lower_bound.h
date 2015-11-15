@@ -42,7 +42,7 @@ public:
 	 * @return (a, v), where v is the lower bound and a is the first action needed
 	 * to obtain the lower bound.
 	 */
-	virtual ValuedAction Value(const vector<State*>& particles,
+	virtual ValuedAction Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const = 0;
 };
 
@@ -67,7 +67,7 @@ public:
 	POMCPScenarioLowerBound(const DSPOMDP* model, POMCPPrior* prior,
 		Belief* belief = NULL);
 
-	ValuedAction Value(const vector<State*>& particles, RandomStreams& streams,
+	ValuedAction Value(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 
@@ -91,9 +91,9 @@ public:
 	 * inifnite. The first action that need to be followed to obtain the bound is
 	 * also returned.
 	 */
-	virtual ValuedAction Value(const vector<State*>& particles) const = 0;
+	virtual ValuedAction Value(const std::vector<State*>& particles) const = 0;
 
-	ValuedAction Value(const vector<State*>& particles,
+	ValuedAction Value(const std::vector<State*>& particles,
 		RandomStreams& streams, History& history) const;
 };
 
@@ -106,7 +106,7 @@ public:
 	TrivialParticleLowerBound(const DSPOMDP* model);
 
 public:
-	virtual ValuedAction Value(const vector<State*>& particles) const;
+	virtual ValuedAction Value(const std::vector<State*>& particles) const;
 };
 
 /* =============================================================================

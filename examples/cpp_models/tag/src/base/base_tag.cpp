@@ -322,8 +322,8 @@ public:
 			Coord rob = floor.GetCell(tag_model_->rob_[s]), opp = floor.GetCell(
 				tag_model_->opp_[s]);
 			int dist = Coord::ManhattanDistance(rob, opp);
-			value_[s] = -(1 - Discount(dist)) / (1 - Discount())
-				+ tag_model_->TAG_REWARD * Discount(dist);
+			value_[s] = -(1 - Globals::Discount(dist)) / (1 - Globals::Discount())
+				+ tag_model_->TAG_REWARD * Globals::Discount(dist);
 		}
 	}
 
@@ -364,8 +364,8 @@ public:
 		for (int s = 0; s < tag_model_->NumStates(); s++) {
 			int rob = tag_model_->rob_[s], opp = tag_model_->opp_[s];
 			int dist = (int) floor.Distance(rob, opp);
-			value_[s] = -(1 - Discount(dist)) / (1 - Discount())
-				+ tag_model_->TAG_REWARD * Discount(dist);
+			value_[s] = -(1 - Globals::Discount(dist)) / (1 - Globals::Discount())
+				+ tag_model_->TAG_REWARD * Globals::Discount(dist);
 		}
 	}
 

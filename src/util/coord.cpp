@@ -3,6 +3,8 @@
 #include <cmath>
 #include <cassert>
 
+using namespace std;
+
 Coord::Coord() :
 	x(0),
 	y(0) {

@@ -6,8 +6,6 @@
 #include <unistd.h>
 #include <assert.h>
 
-using namespace std;
-
 /* Compile with -lpthread*/
 
 class Timer {

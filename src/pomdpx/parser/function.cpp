@@ -1,6 +1,8 @@
 #include <despot/pomdpx/parser/function.h>
 #include <stdexcept>
 
+using namespace std;
+
 /* =============================================================================
  * Function class
  * =============================================================================*/

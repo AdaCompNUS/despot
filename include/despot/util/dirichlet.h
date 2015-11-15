@@ -4,17 +4,15 @@
 #include <vector>
 #include <despot/util/gamma.h>
 
-using namespace std;
-
 class Dirichlet {
 private:
-	vector<double> alpha_;
+  std::vector<double> alpha_;
 public:
-	Dirichlet(vector<double> alpha);
+	Dirichlet(std::vector<double> alpha);
 
-	vector<double> alpha();
-	vector<double> Next();
-	static vector<double> Next(vector<double> alpha);
+	std::vector<double> alpha();
+	std::vector<double> Next();
+	static std::vector<double> Next(std::vector<double> alpha);
 };
 
 #endif

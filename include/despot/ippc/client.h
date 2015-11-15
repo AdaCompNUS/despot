@@ -11,8 +11,6 @@
 
 #include <despot/util/tinyxml/tinyxml.h>
 
-using namespace std;
-
 class Client {
 public:
 	Client(void);
@@ -20,14 +18,14 @@ public:
 
 private:
 	int socketfd;
-	string HOSTNAME;
-	string PORT;
+  std::string HOSTNAME;
+	std::string PORT;
 	struct addrinfo host_info; // The struct that getaddrinfo() fills up with data.^M
 	struct addrinfo *host_info_list;
 
 public:
-	void setHostName(string hostname);
-	void setPort(string port);
+	void setHostName(std::string hostname);
+	void setPort(std::string port);
 
 	void initializeSocket();
 
@@ -35,29 +33,29 @@ public:
 
 	void closeConnection();
 
-	void sendMessage(string sendbuf);
+	void sendMessage(std::string sendbuf);
 
-	string recvMessage();
+  std::string recvMessage();
 
-	string recvMessageTwice();
+  std::string recvMessageTwice();
 
-	string createSessionRequestMes(string problemName);
+  std::string createSessionRequestMes(std::string problemName);
 
-	int processSessionInitMes(string mes);
+	int processSessionInitMes(std::string mes);
 
-	string createRoundRequestMes();
+  std::string createRoundRequestMes();
 
-	void processRoundInitMes(string mes);
+	void processRoundInitMes(std::string mes);
 
-	map<string, string> processTurnMes(string mes);
+  std::map<std::string, std::string> processTurnMes(std::string mes);
 
 	//get step reward from turn message: added by wkg
-	double getStepReward(string mes);
+	double getStepReward(std::string mes);
 
-	string createActionMes(const string actionName, string actionValue);
+  std::string createActionMes(const std::string actionName, std::string actionValue);
 
-	double processRoundEndMes(string mes);
+	double processRoundEndMes(std::string mes);
 
-	double processSessionEndMes(string mes);
+	double processSessionEndMes(std::string mes);
 };
 

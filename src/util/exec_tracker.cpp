@@ -1,5 +1,7 @@
 #include <despot/util/exec_tracker.h>
 
+using namespace std;
+
 ExecTracker::ExecTracker() {
 }
 

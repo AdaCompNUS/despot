@@ -5,6 +5,8 @@
 #include <despot/pomdpx/parser/parser.h>
 #include <despot/core/pomdp.h>
 
+using namespace std;
+
 Parser::Parser(const Parser&) {
 }
 

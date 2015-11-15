@@ -4,8 +4,6 @@
 #include <vector>
 #include <despot/util/random.h>
 
-using namespace std;
-
 class Seeds {
 private:
 	static unsigned root_seed_;
@@ -17,7 +15,7 @@ public:
 
 	static unsigned Next();
 
-	static vector<unsigned> Next(int n);
+	static std::vector<unsigned> Next(int n);
 };
 
 #endif

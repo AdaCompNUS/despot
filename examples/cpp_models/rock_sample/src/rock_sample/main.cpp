@@ -1,6 +1,8 @@
 #include <despot/simple_tui.h>
 #include "rock_sample.h"
 
+using namespace std;
+
 class TUI: public SimpleTUI {
 public:
   TUI() {

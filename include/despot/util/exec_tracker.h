@@ -6,18 +6,16 @@
 #include <map>
 #include <set>
 
-using namespace std;
-
 class ExecTracker {
 private:
-	map<string, string> creation_loc_;
+  std::map<std::string, std::string> creation_loc_;
 public:
 	ExecTracker();
 
-	void Track(string addr, string position);
-	void Untrack(string addr);
-	void Print(ostream& out = cout) const;
-	void PrintLocs(ostream& out = cout) const;
+	void Track(std::string addr, std::string position);
+	void Untrack(std::string addr);
+	void Print(std::ostream& out = std::cout) const;
+	void PrintLocs(std::ostream& out = std::cout) const;
 };
 
 #endif

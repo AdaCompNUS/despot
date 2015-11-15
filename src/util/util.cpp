@@ -1,5 +1,7 @@
 #include <despot/util/util.h>
 
+using namespace std;
+
 string repeat(string str, int n) {
 	ostringstream oss;
 	for (int i = 0; i < n; i++)

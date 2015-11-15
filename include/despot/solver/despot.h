@@ -31,7 +31,7 @@ public:
 	ScenarioLowerBound* lower_bound() const;
 	ScenarioUpperBound* upper_bound() const;
 
-	static VNode* ConstructTree(vector<State*>& particles, RandomStreams& streams,
+	static VNode* ConstructTree(std::vector<State*>& particles, RandomStreams& streams,
 		ScenarioLowerBound* lower_bound, ScenarioUpperBound* upper_bound,
 		const DSPOMDP* model, History& history, double timeout,
 		SearchStatistics* statistics = NULL);
@@ -74,7 +74,7 @@ protected:
 	static QNode* SelectBestUpperBoundNode(VNode* vnode);
 	static ValuedAction OptimalAction(VNode* vnode);
 
-	static ValuedAction Evaluate(VNode* root, vector<State*>& particles,
+	static ValuedAction Evaluate(VNode* root, std::vector<State*>& particles,
 		RandomStreams& streams, POMCPPrior* prior, const DSPOMDP* model);
 };
 

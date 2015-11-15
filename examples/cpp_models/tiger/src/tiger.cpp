@@ -1,5 +1,7 @@
 #include "tiger.h"
 
+using namespace std;
+
 const int Tiger::LEFT = 0;
 const int Tiger::RIGHT = 1;
 const int Tiger::LISTEN = 2;

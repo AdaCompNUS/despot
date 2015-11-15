@@ -3,6 +3,8 @@
 #include <despot/core/pomdp.h>
 #include <despot/core/belief.h>
 
+using namespace std;
+
 /* =============================================================================
  * SearchStatistics class
  * =============================================================================*/

@@ -29,7 +29,7 @@ struct SearchStatistics {
 
 	SearchStatistics();
 
-	friend ostream& operator<<(ostream& os, const SearchStatistics& statitics);
+	friend std::ostream& operator<<(std::ostream& os, const SearchStatistics& statitics);
 };
 
 /* =============================================================================

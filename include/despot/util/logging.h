@@ -5,20 +5,18 @@
 #include <sstream>
 #include <vector>
 
-using namespace std;
-
 class log_ostream: public std::ostream {
 private:
 	class log_buf: public std::stringbuf {
 	private:
-		ostream& out_;
-		string marker_;
+    std::ostream& out_;
+		std::string marker_;
 
 	public:
-		log_buf(ostream& out, string marker = "");
+		log_buf(std::ostream& out, std::string marker = "");
 		~log_buf();
 
-		virtual streambuf* setbuf(char* s, streamsize n);
+		virtual std::streambuf* setbuf(char* s, std::streamsize n);
 		virtual int sync();
 	};
 
@@ -27,16 +25,16 @@ private:
 protected:
 
 public:
-	log_ostream(ostream& out, string marker = "");
+	log_ostream(std::ostream& out, std::string marker = "");
 };
 
 class logging {
 private:
 	static int verbosity_;
 
-	static vector<log_ostream*> streams_;
-	static vector<log_ostream*> InitializeLogStreams();
-	static const string markers_[];
+	static std::vector<log_ostream*> streams_;
+	static std::vector<log_ostream*> InitializeLogStreams();
+	static const std::string markers_[];
 
 public:
 	static const int NONE, ERROR, WARN, INFO, DEBUG, VERBOSE;
@@ -45,7 +43,7 @@ public:
 	static void level(int verbosity);
 	static int level();
 	static log_ostream& stream(int level);
-	static void stream(int level, ostream& out);
+	static void stream(int level, std::ostream& out);
 };
 
 #define LOG(lv) \

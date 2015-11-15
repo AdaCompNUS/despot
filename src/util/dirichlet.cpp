@@ -1,5 +1,7 @@
 #include <despot/util/dirichlet.h>
 
+using namespace std;
+
 Dirichlet::Dirichlet(vector<double> alpha) {
 	alpha_ = alpha;
 }

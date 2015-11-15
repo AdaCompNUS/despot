@@ -1,6 +1,8 @@
 #include <despot/pomdpx/pomdpx.h>
 #include <despot/solver/pomcp.h>
 
+using namespace std;
+
 /* =============================================================================
  * POMDPXState class
  * =============================================================================*/

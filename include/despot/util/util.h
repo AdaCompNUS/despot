@@ -10,7 +10,6 @@
 // #include <chrono>
 #include <locale>
 
-using namespace std;
 // using namespace chrono;
 
 /*
@@ -45,14 +44,14 @@ string concat(vector<T> v) {
 */
 
 template<typename T>
-string to_string(T t) {
-	ostringstream oss;
+std::string to_string(T t) {
+  std::ostringstream oss;
 	oss << t;
 	return oss.str();
 }
 
 template<typename T>
-bool operator<(const vector<T>& first, const vector<T>& second) {
+bool operator<(const std::vector<T>& first, const std::vector<T>& second) {
 	for (int i = 0; i < first.size(); i++) {
 		if (first[i] != second[i]) {
 			return first[i] < second[i];
@@ -63,34 +62,34 @@ bool operator<(const vector<T>& first, const vector<T>& second) {
 }
 
 template<typename K, typename V>
-bool CompareFirst(pair<K, V> p1, pair<K, V> p2) {
+bool CompareFirst(std::pair<K, V> p1, std::pair<K, V> p2) {
 	return p1.first > p2.first;
 }
 
 template<typename K, typename V>
-bool CompareSecond(pair<K, V> p1, pair<K, V> p2) {
+bool CompareSecond(std::pair<K, V> p1, std::pair<K, V> p2) {
 	return p1.second > p2.second;
 }
 
 template<typename K, typename V>
-vector<pair<K, V> > SortByValue(map<K, V> m) {
-	vector<pair<K, V> > v;
-	for (typename map<K, V>::iterator it = m.begin(); it != m.end();
+std::vector<std::pair<K, V> > SortByValue(std::map<K, V> m) {
+	std::vector<std::pair<K, V> > v;
+	for (typename std::map<K, V>::iterator it = m.begin(); it != m.end();
 		it++) {
-		v.push_back(pair<K, V>(it->first, it->second));
+		v.push_back(std::pair<K, V>(it->first, it->second));
 	}
-	sort(v.begin(), v.end(), CompareSecond<K, V>);
+	std::sort(v.begin(), v.end(), CompareSecond<K, V>);
 	return v;
 }
 
 template<typename K, typename V>
-vector<pair<K, V> > SortByKey(map<K, V> m) {
-	vector<pair<K, V> > v;
-	for (typename map<K, V>::iterator it = m.begin(); it != m.end();
+std::vector<std::pair<K, V> > SortByKey(std::map<K, V> m) {
+	std::vector<std::pair<K, V> > v;
+	for (typename std::map<K, V>::iterator it = m.begin(); it != m.end();
 		it++) {
-		v.push_back(pair<K, V>(it->first, it->second));
+		v.push_back(std::pair<K, V>(it->first, it->second));
 	}
-	sort(v.begin(), v.end(), CompareFirst<K, V>);
+	std::sort(v.begin(), v.end(), CompareFirst<K, V>);
 	return v;
 }
 
@@ -113,15 +112,15 @@ inline double get_time_second() {
 }
 */
 
-inline string lower(string str) {
-	locale loc;
-	string copy = str;
+inline std::string lower(std::string str) {
+  std::locale loc;
+	std::string copy = str;
 	for (int i = 0; i < copy.length(); i++)
-		copy[i] = tolower(copy[i], loc);
+		copy[i] = std::tolower(copy[i], loc);
 	return copy;
 }
 
-string repeat(string str, int n);
+std::string repeat(std::string str, int n);
 
 double erf(double x);
 double gausscdf(double x, double mean, double sigma);
@@ -136,17 +135,17 @@ inline void UnsetFlag(int& flags, int bit) {
 	flags = flags & ~(1 << bit);
 }
 
-vector<string> Tokenize(string line, char delim);
-vector<string> Tokenize(const string& str, const string& delimiters = " ");
+std::vector<std::string> Tokenize(std::string line, char delim);
+std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters = " ");
 
 template<typename K, typename V>
-ostream& operator<<(ostream& os, pair<K, V> p) {
+std::ostream& operator<<(std::ostream& os, std::pair<K, V> p) {
 	os << "(" << p.first << ", " << p.second << ")";
 	return os;
 }
 
 template<typename T>
-ostream& operator<<(ostream& os, vector<T> vec) {
+std::ostream& operator<<(std::ostream& os, std::vector<T> vec) {
 	os << "[";
 	for (int i = 0; i < vec.size(); i++)
 		os << (i == 0 ? "" : ", ") << vec[i];
@@ -155,14 +154,14 @@ ostream& operator<<(ostream& os, vector<T> vec) {
 }
 
 template<typename T>
-void SetSize(vector<vector<T> > v, int d1, int d2) {
+void SetSize(std::vector<std::vector<T> > v, int d1, int d2) {
 	v.resize(d1);
 	for (int i = 0; i < d1; i++)
 		v[i].resize(d2);
 }
 
 template<typename T>
-void SetSize(vector<vector<vector<T> > >& v, int d1, int d2, int d3) {
+void SetSize(std::vector<std::vector<std::vector<T> > >& v, int d1, int d2, int d3) {
 	v.resize(d1);
 	for(int i=0; i<d1; i++) {
 		v[i].resize(d2);
@@ -172,9 +171,9 @@ void SetSize(vector<vector<vector<T> > >& v, int d1, int d2, int d3) {
 }
 
 template<typename K, typename V>
-vector<K>* GetKeys(const map<K, V> m) {
-	vector<K>* k = new vector<K>();
-	for (typename map<K, V>::iterator it = m.begin(); it != m.end(); it++)
+std::vector<K>* GetKeys(const std::map<K, V> m) {
+	std::vector<K>* k = new std::vector<K>();
+	for (typename std::map<K, V>::iterator it = m.begin(); it != m.end(); it++)
 		k->push_back(it->first);
 	return k;
 }
