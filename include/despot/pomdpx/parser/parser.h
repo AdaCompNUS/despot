@@ -7,6 +7,8 @@
 #include <despot/pomdpx/parser/variable.h>
 #include <despot/pomdpx/parser/function.h>
 
+namespace despot {
+
 #define REWARD_VAR_VALUE "rew"
 #define XML_INPUT_ERROR -1
 
@@ -183,5 +185,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const Parser& parser);
 	void Check();
 };
+
+} // namespace despot
 
 #endif

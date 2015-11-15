@@ -5,6 +5,8 @@
 #include <despot/util/util.h>
 #include <despot/core/globals.h>
 
+namespace despot {
+
 /**
  * Action-observation history.
  */
@@ -64,6 +66,8 @@ private:
 	std::vector<OBS_TYPE> observations_;
 };
 
+} // namespace despot
+
 namespace std {
 /*
 // NOTE: disabled C++11 feature
@@ -81,8 +85,8 @@ struct hash<History> {
 */
 
 template<>
-struct less<History> {
-	bool operator()(const History& h1, const History& h2) const {
+struct less<despot::History> {
+	bool operator()(const despot::History& h1, const despot::History& h2) const {
 		int N = h1.Size() < h2.Size() ? h1.Size() : h2.Size();
 
 		for (int i = 0; i < N; i++) {
@@ -98,5 +102,6 @@ struct less<History> {
 		return false;
 	}
 };
+
 }
 #endif

@@ -4,6 +4,8 @@
 #include <despot/util/coord.h>
 #include <vector>
 
+namespace despot {
+
 class Floor {
 private:
 	int num_rows_, num_cols_;
@@ -41,5 +43,7 @@ public:
 	int num_cols() const;
 	int NumCells() const;
 };
+
+} // namespace despot
 
 #endif

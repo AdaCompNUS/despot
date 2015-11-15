@@ -4,6 +4,8 @@
 #include <vector>
 #include <despot/util/gamma.h>
 
+namespace despot {
+
 class Dirichlet {
 private:
   std::vector<double> alpha_;
@@ -15,5 +17,6 @@ public:
 	static std::vector<double> Next(std::vector<double> alpha);
 };
 
-#endif
+} // namespace despot
 
+#endif

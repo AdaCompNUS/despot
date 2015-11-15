@@ -11,6 +11,8 @@
 #include <despot/pomdpx/parser/variable.h>
 #include <despot/util/util.h>
 
+namespace despot {
+
 /* =============================================================================
  * Function class
  * =============================================================================*/
@@ -164,5 +166,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const HierarchyCPT& cpt);
 };
+
+} // namespace despot
 
 #endif

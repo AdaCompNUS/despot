@@ -1,6 +1,8 @@
 #include <despot/simple_tui.h>
 #include "adventurer.h"
 
+using namespace despot;
+
 class TUI: public SimpleTUI {
 public:
 	TUI() {

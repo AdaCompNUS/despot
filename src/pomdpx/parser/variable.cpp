@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 Variable::Variable() {
 }
 
@@ -177,3 +179,5 @@ ostream& operator<<(ostream& os, const StateVar& var) {
 	}
 	return os;
 }
+
+} // namespace despot

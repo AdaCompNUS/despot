@@ -9,6 +9,8 @@
 #include <despot/core/history.h>
 #include <despot/random_streams.h>
 
+namespace despot {
+
 class DESPOT: public Solver {
 friend class VNode;
 
@@ -77,5 +79,7 @@ protected:
 	static ValuedAction Evaluate(VNode* root, std::vector<State*>& particles,
 		RandomStreams& streams, POMCPPrior* prior, const DSPOMDP* model);
 };
+
+} // namespace despot
 
 #endif

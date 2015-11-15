@@ -12,6 +12,8 @@
 #include <despot/util/seeds.h>
 #include <despot/util/util.h>
 
+namespace despot {
+
 /* =============================================================================
  * State class
  * =============================================================================*/
@@ -263,5 +265,7 @@ public:
    */
 	virtual double StepReward(const Belief* belief, int action) const = 0;
 };
+
+} // namespace despot
 
 #endif

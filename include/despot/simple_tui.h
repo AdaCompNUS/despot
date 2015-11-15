@@ -14,6 +14,8 @@
 
 #include <despot/evaluator.h>
 
+namespace despot {
+
 void disableBufferedIO(void);
 
 enum OptionIndex {
@@ -164,5 +166,7 @@ public:
   void PrintResult(int num_runs, Evaluator* simulator,
                    clock_t main_clock_start);
 };
+
+} // namespace despot
 
 #endif

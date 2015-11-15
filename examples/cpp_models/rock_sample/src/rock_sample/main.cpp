@@ -2,6 +2,7 @@
 #include "rock_sample.h"
 
 using namespace std;
+using namespace despot;
 
 class TUI: public SimpleTUI {
 public:

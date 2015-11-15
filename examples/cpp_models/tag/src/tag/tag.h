@@ -7,6 +7,8 @@
 #include <despot/util/floor.h>
 #include "base/base_tag.h"
 
+namespace despot {
+
 /* =============================================================================
  * Tag class
  * =============================================================================*/
@@ -32,5 +34,7 @@ public:
 
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
 };
+
+} // namespace despot
 
 #endif

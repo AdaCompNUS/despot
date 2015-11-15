@@ -5,6 +5,8 @@
 #include <despot/core/node.h>
 #include <despot/core/globals.h>
 
+namespace despot {
+
 /* =============================================================================
  * POMCPPrior class
  * =============================================================================*/
@@ -125,5 +127,7 @@ public:
 	virtual void belief(Belief* b);
 	virtual void Update(int action, OBS_TYPE obs);
 };
+
+} // namespace despot
 
 #endif

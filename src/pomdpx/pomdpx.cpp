@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * POMDPXState class
  * =============================================================================*/
@@ -586,3 +588,5 @@ DSPOMDP* POMDPX::MakeCopy() const {
 
 	return pomdpx;
 }
+
+} // namespace despot

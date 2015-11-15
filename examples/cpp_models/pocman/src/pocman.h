@@ -6,6 +6,8 @@
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>
 
+namespace despot {
+
 /* ==============================================================================
  * AdventurerState class
  * ==============================================================================*/
@@ -130,5 +132,7 @@ class FullPocman: public Pocman {
 public:
 	FullPocman();
 };
+
+} // namespace despot
 
 #endif

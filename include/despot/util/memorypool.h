@@ -5,6 +5,8 @@
 #include <vector>
 #include <ostream>
 
+namespace despot {
+
 class MemoryObject {
 public:
 	void SetAllocated() {
@@ -95,5 +97,7 @@ private:
 public:
 	int num_allocated_;
 };
+
+} // namespace despot
 
 #endif // MEMORYPOOL_H

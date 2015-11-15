@@ -15,6 +15,8 @@
 #include <despot/core/globals.h>
 #include <despot/core/pomdp.h>
 
+namespace despot {
+
 class State;
 class StateIndexer;
 class StatePolicy;
@@ -157,5 +159,7 @@ public:
 	int Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
+
+} // namespace despot
 
 #endif

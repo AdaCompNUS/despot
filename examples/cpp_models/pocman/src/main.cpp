@@ -1,6 +1,8 @@
 #include <despot/simple_tui.h>
 #include "pocman.h"
 
+using namespace despot;
+
 class TUI: public SimpleTUI {
 public:
   TUI() {

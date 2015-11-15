@@ -1,6 +1,8 @@
 #include <despot/simple_tui.h>
 #include "laser_tag.h"
 
+using namespace despot;
+
 class TUI: public SimpleTUI {
 public:
   TUI() {

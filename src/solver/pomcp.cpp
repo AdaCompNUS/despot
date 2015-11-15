@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * POMCPPrior class
  * =============================================================================*/
@@ -534,3 +536,5 @@ void DPOMCP::Update(int action, OBS_TYPE obs) {
 		<< action << ", observation " << obs
 		<< " in " << (get_time_second() - start) << "s" << endl;
 }
+
+} // namespace despot

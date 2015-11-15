@@ -7,6 +7,8 @@
  * LaserTag class
  * =============================================================================*/
 
+namespace despot {
+
 class LaserTag: public BaseTag {
 private:
 	static int NBEAMS;
@@ -40,5 +42,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const LaserTag& lasertag);
 };
+
+} // namespace despot
 
 #endif

@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * VNode class
  * =============================================================================*/
@@ -372,3 +374,5 @@ void QNode::value(double v) {
 double QNode::value() const {
 	return value_;
 }
+
+} // namespace despot

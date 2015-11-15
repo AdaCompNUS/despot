@@ -4,7 +4,11 @@
 #include <despot/util/util.h>
 #include <iostream>
 
+namespace despot {
+
 void TestSortByValue();
 void TestSortByKey();
+
+} // namespace despot
 
 #endif

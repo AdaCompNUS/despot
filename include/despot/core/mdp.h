@@ -3,6 +3,8 @@
 
 #include <despot/core/pomdp.h>
 
+namespace despot {
+
 /**
  * Interface for a discrete MDP. This class implements the following functions:
  * <ol>
@@ -32,5 +34,7 @@ public:
 		const StateIndexer& indexer, int action) const;
 	const std::vector<std::vector<double> >& blind_alpha() const;
 };
+
+} // namespace despot
 
 #endif

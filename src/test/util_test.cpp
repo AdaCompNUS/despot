@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 void TestSortByValue() {
 	map<string, double> map;
 	map["p1"] = 2.0;
@@ -25,3 +27,5 @@ void TestSortByKey() {
 	vector<pair<string, double> > v = SortByKey(map);
 	cout << v << endl;
 }
+
+} // namespace despot

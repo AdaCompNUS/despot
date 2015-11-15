@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 AEMS::AEMS(const DSPOMDP* model, BeliefLowerBound* lower_bound,
 	BeliefUpperBound* upper_bound, Belief* belief) :
 	Solver(model, belief),
@@ -294,3 +296,5 @@ void AEMS::belief(Belief* b) {
 	delete root_;
 	root_ = NULL;
 }
+
+} // namespace despot

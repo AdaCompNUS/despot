@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace despot {
+
 const OBS_TYPE ONE = 1;
 int NoisyLaserTag::NBEAMS = 8;
 int NoisyLaserTag::BITS_PER_READING = 7;
@@ -185,3 +187,5 @@ void NoisyLaserTag::Observe(const Belief* belief, int action,
 	cerr << "Exit: Two many observations!" << endl;
 	exit(0);
 }
+
+} //namespace despot

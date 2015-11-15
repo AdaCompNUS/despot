@@ -6,6 +6,8 @@
 #include <map>
 #include <set>
 
+namespace despot {
+
 class ExecTracker {
 private:
   std::map<std::string, std::string> creation_loc_;
@@ -17,5 +19,7 @@ public:
 	void Print(std::ostream& out = std::cout) const;
 	void PrintLocs(std::ostream& out = std::cout) const;
 };
+
+} // namespace despot
 
 #endif

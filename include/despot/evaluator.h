@@ -7,6 +7,8 @@
 #include <despot/ippc/client.h>
 #include <despot/util/util.h>
 
+namespace despot {
+
 /* =============================================================================
  * EvalLog class
  * =============================================================================*/
@@ -194,5 +196,7 @@ public:
 	double End();
 	void UpdateTimePerMove(double step_time);
 };
+
+} // namespace despot
 
 #endif

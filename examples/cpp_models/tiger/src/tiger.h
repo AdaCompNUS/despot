@@ -3,6 +3,8 @@
 
 #include <despot/core/pomdp.h>
 
+namespace despot {
+
 /* =============================================================================
  * TigerState class
  * =============================================================================*/
@@ -62,5 +64,7 @@ public:
 	void Free(State* particle) const;
 	int NumActiveParticles() const;
 };
+
+} // namespace despot
 
 #endif

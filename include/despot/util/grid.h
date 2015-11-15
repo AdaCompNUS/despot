@@ -3,6 +3,8 @@
 
 #include <despot/util/coord.h>
 
+namespace despot {
+
 template<class T>
 class Grid {
 public:
@@ -113,5 +115,7 @@ private:
 	int xsize_, ysize_;
   std::vector<T> grid_;
 };
+
+} // namespace despot
 
 #endif // GRID_H

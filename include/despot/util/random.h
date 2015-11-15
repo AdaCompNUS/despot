@@ -3,6 +3,8 @@
 
 #include <vector>
 
+namespace despot {
+
 class Random {
 private:
 	unsigned seed_;
@@ -34,5 +36,7 @@ public:
 	static int GetCategory(const std::vector<double>& category_probs,
 		double rand_num);
 };
+
+} // namespace despot
 
 #endif

@@ -7,6 +7,8 @@
 #include <despot/util/logging.h>
 #include <despot/core/history.h>
 
+namespace despot {
+
 class State;
 class StateIndexer;
 class DSPOMDP;
@@ -70,5 +72,7 @@ public:
 
 	virtual std::string text() const;
 };
+
+} // namespace despot
 
 #endif

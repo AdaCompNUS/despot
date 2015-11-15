@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 Coord::Coord() :
 	x(0),
 	y(0) {
@@ -80,3 +82,4 @@ bool Compass::Opposite(int dir1, int dir2) {
 	return DIRECTIONS[dir1] + DIRECTIONS[dir2] == Coord(0, 0);
 }
 
+} // namespace despot

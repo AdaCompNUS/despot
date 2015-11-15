@@ -5,6 +5,8 @@
 #include <sstream>
 #include <vector>
 
+namespace despot {
+
 class log_ostream: public std::ostream {
 private:
 	class log_buf: public std::stringbuf {
@@ -46,15 +48,17 @@ public:
 	static void stream(int level, std::ostream& out);
 };
 
-#define LOG(lv) \
-if (logging::level() < logging::ERROR || logging::level() < lv) ; \
-else logging::stream(lv)
+} // namespace despot
 
-#define loge LOG(logging::ERROR)
-#define logw LOG(logging::WARN)
-#define logi LOG(logging::INFO)
-#define logd LOG(logging::DEBUG)
-#define logv LOG(logging::VERBOSE)
+#define LOG(lv) \
+if (despot::logging::level() < despot::logging::ERROR || despot::logging::level() < lv) ; \
+else despot::logging::stream(lv)
+
+#define loge LOG(despot::logging::ERROR)
+#define logw LOG(despot::logging::WARN)
+#define logi LOG(despot::logging::INFO)
+#define logd LOG(despot::logging::DEBUG)
+#define logv LOG(despot::logging::VERBOSE)
 
 #define default_out \
 if (Globals::config.silence) ; \

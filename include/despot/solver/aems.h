@@ -7,6 +7,8 @@
 #include <despot/core/node.h>
 #include <despot/core/globals.h>
 
+namespace despot {
+
 class AEMS: public Solver {
 private:
 	VNode* root_;
@@ -47,5 +49,7 @@ private:
 	static double Likelihood(QNode* qnode);
 	static double AEMS2Likelihood(QNode* qnode);
 };
+
+} // namespace despot
 
 #endif

@@ -8,6 +8,8 @@
 
 /* Compile with -lpthread*/
 
+namespace despot {
+
 class Timer {
 private:
 	pthread_t timer;
@@ -43,5 +45,7 @@ public:
 		return done;
 	}
 };
+
+} // namespace despot
 
 #endif

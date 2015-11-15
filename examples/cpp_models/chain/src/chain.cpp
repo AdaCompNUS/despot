@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * ChainState class
  * =============================================================================*/
@@ -575,3 +577,5 @@ void Chain::Free(State* particle) const {
 int Chain::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
+
+} // namespace despot

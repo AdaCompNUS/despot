@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * ParticleBelief class
  * =============================================================================*/
@@ -426,3 +428,5 @@ string ParticleBelief::text() const {
 	}
 	return oss.str();
 }
+
+} // namespace despot

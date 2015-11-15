@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* ==============================================================================
  * AdventurerState class
  * ==============================================================================*/
@@ -604,3 +606,5 @@ void Adventurer::PrintPOMDPX() const {
 	cout << "</Parameter> </Func> </RewardFunction>" << endl;
 	cout << "</pomdpx>" << endl;
 }
+
+} // namespace despot

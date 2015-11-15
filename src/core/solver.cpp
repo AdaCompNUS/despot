@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * SearchStatistics class
  * =============================================================================*/
@@ -83,3 +85,5 @@ void Solver::belief(Belief* b) {
 Belief* Solver::belief() {
 	return belief_;
 }
+
+} // namespace despot

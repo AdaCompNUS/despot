@@ -3,6 +3,8 @@
 
 #include "base/base_tag.h"
 
+namespace despot {
+
 /* =============================================================================
  * NoisyLaserTag class
  * =============================================================================*/
@@ -40,5 +42,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const NoisyLaserTag& lasertag);
 };
+
+} //namespace despot
 
 #endif

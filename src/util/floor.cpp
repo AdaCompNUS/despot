@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 int Floor::INVALID = -1;
 
 Floor::Floor() :
@@ -126,3 +128,5 @@ int Floor::num_cols() const {
 int Floor::NumCells() const {
 	return cells_.size();
 }
+
+} // namespace despot

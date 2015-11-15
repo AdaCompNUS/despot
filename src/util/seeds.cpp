@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 int Seeds::num_assigned_seeds_ = 0;
 unsigned Seeds::root_seed_ = 0;
 Random Seeds::seed_gen_ = Random((unsigned) 0);
@@ -22,3 +24,5 @@ vector<unsigned> Seeds::Next(int n) {
 		seeds.push_back(Next());
 	return seeds;
 }
+
+} // namespace despot

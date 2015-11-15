@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * SimpleState class
  * =============================================================================*/
@@ -278,3 +280,5 @@ void SimpleRockSample::PrintAction(int action, ostream& out) const {
 	if (action == A_WEST)
 		out << "West" << endl;
 }
+
+} // namespace despot

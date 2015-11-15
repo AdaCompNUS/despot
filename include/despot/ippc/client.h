@@ -11,6 +11,8 @@
 
 #include <despot/util/tinyxml/tinyxml.h>
 
+namespace despot {
+
 class Client {
 public:
 	Client(void);
@@ -58,4 +60,6 @@ public:
 
 	double processSessionEndMes(std::string mes);
 };
+
+} // namespace despot
 

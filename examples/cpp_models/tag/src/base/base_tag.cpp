@@ -7,6 +7,8 @@
 
 using namespace std;
 
+namespace despot {
+
 BaseTag* BaseTag::current_ = NULL;
 
 /* ==============================================================================
@@ -1007,3 +1009,5 @@ double BaseTag::Reward(int s, int action) const {
 	}
 	return reward;
 }
+
+} // namespace despot

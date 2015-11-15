@@ -4,6 +4,8 @@
 #include <despot/core/pomdp.h>
 #include <despot/util/dirichlet.h>
 
+namespace despot {
+
 /* =============================================================================
  * ChainState class
  * =============================================================================*/
@@ -139,5 +141,7 @@ public:
 	virtual void Free(State* particle) const;
 	int NumActiveParticles() const;
 };
+
+} // namespace despot
 
 #endif

@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * BridgeState class
  * =============================================================================*/
@@ -252,3 +254,5 @@ POMCPPrior* Bridge::CreatePOMCPPrior(string name) const {
 		return NULL;
 	}
 }
+
+} // namespace despot

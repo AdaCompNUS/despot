@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <despot/util/random.h>
 
+namespace despot {
+
 /**
  * A RandomStreams object represents multiple random number sequences, where each
  * entry is independently and identically drawn from [0, 1].
@@ -47,5 +49,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const RandomStreams& stream);
 };
+
+} // namespace despot
 
 #endif

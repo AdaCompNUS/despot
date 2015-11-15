@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * ScenarioUpperBound
  * =============================================================================*/
@@ -168,3 +170,5 @@ double MDPUpperBound::Value(const Belief* belief) const {
 	}
 	return value;
 }
+
+} // namespace despot

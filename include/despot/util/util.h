@@ -10,6 +10,8 @@
 // #include <chrono>
 #include <locale>
 
+namespace despot {
+
 // using namespace chrono;
 
 /*
@@ -215,4 +217,7 @@ struct hash<vector<T> > {
 };
 }
 */
+
+} // namespace despot
+
 #endif

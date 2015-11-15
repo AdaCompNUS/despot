@@ -6,6 +6,8 @@
 #include <despot/random_streams.h>
 #include <despot/util/logging.h>
 
+namespace despot {
+
 class QNode;
 
 /* =============================================================================
@@ -135,5 +137,7 @@ public:
 	void value(double v);
 	double value() const;
 };
+
+} // namespace despot
 
 #endif

@@ -6,6 +6,8 @@
 #include <despot/util/coord.h>
 #include <despot/solver/pomcp.h>
 
+namespace despot {
+
 /* ==============================================================================
  * AdventurerState class
  * ==============================================================================*/
@@ -117,5 +119,7 @@ public:
 
 	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };
+
+} // namespace despot
 
 #endif

@@ -7,6 +7,8 @@
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>
 
+namespace despot {
+
 /* =============================================================================
  * RockSampleState class
  * =============================================================================*/
@@ -149,5 +151,7 @@ protected:
 	std::vector<ValuedAction>& ComputeOptimalSamplingPolicy() const;
 	RockSampleState* MajorityRockSampleState(const std::vector<State*>& particles) const;
 };
+
+} // namespace despot
 
 #endif

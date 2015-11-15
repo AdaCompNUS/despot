@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * Function class
  * =============================================================================*/
@@ -511,3 +513,5 @@ ostream& operator<<(std::ostream& os, const HierarchyCPT& hcpt) {
 			<< " " << *(hcpt.cpts_[i]) << endl;
 	return os;
 }
+
+} // namespace despot

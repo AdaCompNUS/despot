@@ -4,6 +4,8 @@
 #include <despot/core/pomdp.h>
 #include <despot/core/mdp.h>
 
+namespace despot {
+
 /* =============================================================================
  * SimpleState class
  * =============================================================================*/
@@ -73,5 +75,7 @@ public:
 		std::ostream& out = std::cout) const;
 	void PrintAction(int action, std::ostream& out = std::cout) const;
 };
+
+} // namespace despot
 
 #endif

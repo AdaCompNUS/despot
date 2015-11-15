@@ -6,6 +6,8 @@
 #include <despot/core/mdp.h>
 #include <despot/util/coord.h>
 
+namespace despot {
+
 /* ==============================================================================
  * NavigationState class
  * ==============================================================================*/
@@ -100,5 +102,7 @@ public:
 	void ComputeDefaultActions(std::string type);
 	int GetAction(const State& navistate) const;
 };
+
+} // namespace despot
 
 #endif

@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * ValuedAction class
  * =============================================================================*/
@@ -142,3 +144,5 @@ ValuedAction TrivialBeliefLowerBound::Value(const Belief* belief) const {
 	va.value *= 1.0 / (1 - Globals::Discount());
 	return va;
 }
+
+} // namespace despot

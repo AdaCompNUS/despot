@@ -3,6 +3,8 @@
 
 using namespace std;
 
+namespace despot {
+
 const string logging::markers_[] = { "NONE", "ERROR", "WARN", "INFO", "DEBUG",
 	"VERBOSE" };
 const int logging::NONE = 0;
@@ -72,3 +74,5 @@ vector<log_ostream*> logging::InitializeLogStreams() {
 }
 
 vector<log_ostream*> logging::streams_ = logging::InitializeLogStreams();
+
+} // namespace despot

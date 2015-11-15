@@ -6,6 +6,8 @@
 #include <despot/core/history.h>
 #include <despot/core/solver.h>
 
+namespace despot {
+
 class State;
 class DSPOMDP;
 class VNode;
@@ -137,5 +139,7 @@ public:
 
 	virtual ValuedAction Value(const Belief* belief) const;
 };
+
+} // namespace despot
 
 #endif

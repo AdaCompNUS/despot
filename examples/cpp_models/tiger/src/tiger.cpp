@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 const int Tiger::LEFT = 0;
 const int Tiger::RIGHT = 1;
 const int Tiger::LISTEN = 2;
@@ -188,3 +190,5 @@ void Tiger::Free(State* particle) const {
 int Tiger::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
+
+} // namespace despot

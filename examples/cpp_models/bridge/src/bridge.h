@@ -3,6 +3,8 @@
 
 #include <despot/core/pomdp.h>
 
+namespace despot {
+
 /* =============================================================================
  * BridgeState class
  * =============================================================================*/
@@ -72,5 +74,7 @@ public:
 
 	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };
+
+} // namespace despot
 
 #endif

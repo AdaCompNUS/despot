@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 string repeat(string str, int n) {
 	ostringstream oss;
 	for (int i = 0; i < n; i++)
@@ -63,4 +65,6 @@ vector<string> Tokenize(const string& str, const string& delimiters) {
 	}
 	return tokens;
 }
+
+} // namespace despot
 

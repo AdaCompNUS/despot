@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+namespace despot {
+
 struct Coord {
 	int x, y;
 
@@ -34,5 +36,7 @@ struct Compass {
 	static int Opposite(int dir);
 	static bool Opposite(int dir1, int dir2);
 };
+
+} // namespace despot
 
 #endif

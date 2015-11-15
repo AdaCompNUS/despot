@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* ==============================================================================
  * NavigationState class
  * ==============================================================================*/
@@ -370,3 +372,5 @@ int Navigation::GetAction(const State& state) const {
 double Navigation::Reward(int s, int action) const {
 	return ((s >> flag_bits_) == goal_pos_) ? 0 : -1;
 }
+
+} // namespace despot

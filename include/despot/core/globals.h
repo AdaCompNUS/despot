@@ -24,6 +24,8 @@
 #include <despot/util/exec_tracker.h>
 #include <despot/util/logging.h>
 
+namespace despot {
+
 typedef uint64_t OBS_TYPE;
 
 namespace Globals {
@@ -59,5 +61,7 @@ inline void PrintLocs() {
 	tracker.PrintLocs();
 }
 } // namespace
+
+} // namespace despot
 
 #endif

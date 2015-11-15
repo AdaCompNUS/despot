@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * EvalLog class
  * =============================================================================*/
@@ -695,3 +697,5 @@ void POMDPEvaluator::UpdateTimePerMove(double step_time) {
 			* EvalLog::allocated_time;
 	}
 }
+
+} // namespace despot

@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace despot {
+
 struct Config {
 	int search_depth;
 	double discount;
@@ -32,5 +34,7 @@ struct Config {
 		silence(false) {
 	}
 };
+
+} // namespace despot
 
 #endif

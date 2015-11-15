@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* ==============================================================================
  * PocmanBelief class
  * ==============================================================================*/
@@ -878,3 +880,5 @@ void Pocman::Free(State* particle) const {
 int Pocman::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
+
+} // namespace despot

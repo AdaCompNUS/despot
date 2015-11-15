@@ -4,6 +4,8 @@
 #include <despot/core/globals.h>
 #include <despot/core/history.h>
 
+namespace despot {
+
 class DSPOMDP;
 class Belief;
 struct ValuedAction;
@@ -67,5 +69,7 @@ public:
 	virtual void belief(Belief* b);
 	Belief* belief();
 };
+
+} // namespace despot
 
 #endif

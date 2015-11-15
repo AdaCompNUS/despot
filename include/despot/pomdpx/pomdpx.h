@@ -5,6 +5,8 @@
 #include <despot/core/mdp.h>
 #include <despot/pomdpx/parser/parser.h>
 
+namespace despot {
+
 /* ==============================================================================
  * POMDPXState class
  * ==============================================================================*/
@@ -124,5 +126,7 @@ public:
 	const std::string& GetEnumedAction(int action);
 	OBS_TYPE GetPOMDPXObservation(std::map<std::string, std::string>& observe);
 };
+
+} // namespace despot
 
 #endif

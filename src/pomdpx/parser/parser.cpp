@@ -7,6 +7,8 @@
 
 using namespace std;
 
+namespace despot {
+
 Parser::Parser(const Parser&) {
 }
 
@@ -1381,3 +1383,5 @@ const string& Parser::GetActionName() {
 const string& Parser::GetEnumedAction(int action) {
 	return action_vars_[0].GetValue(action);
 }
+
+} // namespace despot

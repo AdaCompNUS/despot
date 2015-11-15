@@ -214,6 +214,8 @@
 #ifndef OPTIONPARSER_H_
 #define OPTIONPARSER_H_
 
+namespace despot {
+
 /** @brief The namespace of The Lean Mean C++ Option Parser. */
 namespace option {
 
@@ -2772,7 +2774,7 @@ void printUsage(Function* prn, Stream* stream, const Descriptor usage[],
 		last_column_min_percent, last_column_own_line_max_percent);
 }
 
-}
-// namespace option
+} // namespace option
+} // namespace despot
 
 #endif /* OPTIONPARSER_H_ */

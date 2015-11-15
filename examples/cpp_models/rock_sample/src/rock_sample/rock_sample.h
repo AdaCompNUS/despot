@@ -7,6 +7,8 @@
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>
 
+namespace despot {
+
 /* =============================================================================
  * RockSample class
  * =============================================================================*/
@@ -23,5 +25,7 @@ public:
 	void PrintObs(const State& state, OBS_TYPE observation,
 		std::ostream& out = std::cout) const;
 };
+
+} // namespace despot
 
 #endif

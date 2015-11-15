@@ -6,6 +6,8 @@
 #include <despot/util/coord.h>
 #include <despot/util/floor.h>
 
+namespace despot {
+
 /* ==============================================================================
  * TagState class
  * ==============================================================================*/
@@ -162,5 +164,7 @@ public:
 		NULL);
 	void Update(int action, OBS_TYPE obs);
 };
+
+} // namespace despot
 
 #endif

@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace despot {
+
 Random Random::RANDOM((unsigned) 0);
 
 Random::Random(double seed) :
@@ -57,3 +59,5 @@ int Random::GetCategory(const vector<double>& category_probs, double rand_num) {
 	}
 	return c;
 }
+
+} // namespace despot

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * State class
  * =============================================================================*/
@@ -166,3 +168,5 @@ BeliefUpperBound* BeliefMDP::CreateBeliefUpperBound(string name) const {
 		return NULL;
 	}
 }
+
+} // namespace despot

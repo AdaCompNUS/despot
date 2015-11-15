@@ -7,6 +7,8 @@
 #include <despot/random_streams.h>
 #include <despot/core/history.h>
 
+namespace despot {
+
 class State;
 class StateIndexer;
 class DSPOMDP;
@@ -130,5 +132,7 @@ public:
 
 	double Value(const Belief* belief) const;
 };
+
+} // namespace despot
 
 #endif

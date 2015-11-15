@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* ==============================================================================
  * RockSampleState class
  * ==============================================================================*/
@@ -1188,3 +1190,5 @@ RockSampleState* BaseRockSample::MajorityRockSampleState(
 
 	return new RockSampleState(state);
 }
+
+} // namespace despot

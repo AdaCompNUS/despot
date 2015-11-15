@@ -6,6 +6,8 @@
 #include <map>
 #include <iterator>
 
+namespace despot {
+
 class NamedVar;
 class StateVar;
 
@@ -106,5 +108,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const StateVar& var);
 };
+
+} // namespace despot
 
 #endif
