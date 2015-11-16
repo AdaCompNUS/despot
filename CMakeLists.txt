@@ -94,3 +94,8 @@ install(EXPORT "DespotTargets"
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/DespotConfig.cmake"
   DESTINATION "${CONFIG_INSTALL_PATH}"
 )
+
+# Install a 'package.xml' file to be compliant with REP-136.
+install(FILES package.xml
+  DESTINATION "share/${PROJECT_NAME}"
+)
