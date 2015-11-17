@@ -14,6 +14,7 @@
   <maintainer email="motion@comp.nus.edu.sg">Motion Modeling, Analysis, and Planning Lab</maintainer>
   <license>GPL</license>
   <buildtool_depend>cmake</buildtool_depend>
+  <depend>tinyxml</depend>
   <!-- These are required by REP-136. -->
   <exec_depend>catkin</exec_depend>
   <export>

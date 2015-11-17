@@ -10,10 +10,33 @@ set(DESPOT_BUILD_EXAMPLES ON CACHE BOOL "Build C++ model examples")
 set(DESPOT_BUILD_POMDPX ON CACHE BOOL "Build POMDPX example")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -mfpmath=sse")
+set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
-include_directories(
-  include
-)
+# Try to use the system version of TinyXML, if it is available. Otherwise, fall
+# back on the embedded version. Note that this may break linking with other
+# libraries that also dynamically link with TinyXML.
+find_package(TinyXML QUIET)
+
+if (${TinyXML_FOUND})
+  message(STATUS "Using system version of TinyXML.")
+
+  set(TinyXML_SOURCES "")
+else ()
+  message(STATUS "Using embedded version of TinyXML.")
+
+  set(TinyXML_SOURCES
+    src/util/tinyxml/tinystr.cpp
+    src/util/tinyxml/tinyxml.cpp
+    src/util/tinyxml/tinyxmlerror.cpp
+    src/util/tinyxml/tinyxmlparser.cpp
+  )
+
+  set(TinyXML_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/util/tinyxml")
+  set(TinyXML_LIBRARIES "")
+endif ()
+
+include_directories(SYSTEM ${TinyXML_INCLUDE_DIRS})
+include_directories(include)
 
 add_library("${PROJECT_NAME}" SHARED
   src/core/belief.cpp
@@ -45,11 +68,11 @@ add_library("${PROJECT_NAME}" SHARED
   src/util/logging.cpp
   src/util/random.cpp
   src/util/seeds.cpp
-  src/util/tinyxml/tinystr.cpp
-  src/util/tinyxml/tinyxml.cpp
-  src/util/tinyxml/tinyxmlerror.cpp
-  src/util/tinyxml/tinyxmlparser.cpp
   src/util/util.cpp
+  ${TinyXML_SOURCES}
+)
+target_link_libraries("${PROJECT_NAME}"
+  ${TinyXML_LIBRARIES}
 )
 
 if(DESPOT_BUILD_EXAMPLES)

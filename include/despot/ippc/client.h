@@ -9,7 +9,7 @@
 #include <string>
 #include <map>
 
-#include <despot/util/tinyxml/tinyxml.h>
+#include <tinyxml.h>
 
 namespace despot {
 
