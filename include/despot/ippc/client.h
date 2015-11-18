@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CLIENT_H_
+#define CLIENT_H_
 
 #include <cstring>      // Needed for memset
 #include <unistd.h>
@@ -63,3 +64,5 @@ public:
 
 } // namespace despot
 
+
+#endif
