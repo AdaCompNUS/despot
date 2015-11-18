@@ -9,6 +9,7 @@
 #include <math.h>
 // #include <chrono>
 #include <locale>
+#include <sys/time.h>
 
 namespace despot {
 
@@ -95,7 +96,6 @@ std::vector<std::pair<K, V> > SortByKey(std::map<K, V> m) {
 	return v;
 }
 
-#include <sys/time.h>
 inline double get_time_second() {
 	struct timeval tv;
 
