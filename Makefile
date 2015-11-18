@@ -7,7 +7,7 @@ DEPDIR = .deps
 
 ##### Compiler/linker options
 
-INCL = -I $(INCDIR) -I $(SRCDIR)
+INCL = -I $(INCDIR) -I $(INCDIR)/despot/util -I $(SRCDIR)
 CXX = g++
 CXXFLAGS = -O3 -c -Wall -Wno-sign-compare -fpic $(INCL) $(GPROF)
 #LDFLAGS = -O3 -Wno-sign-compare -shared
