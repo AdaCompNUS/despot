@@ -28,7 +28,7 @@
 
 #ifndef TIXML_USE_STL
 
-#include "util/tinyxml/tinystr.h"
+#include <despot/util/tinyxml/tinystr.h>
 
 // Error value for find primitive
 const TiXmlString::size_type TiXmlString::npos =

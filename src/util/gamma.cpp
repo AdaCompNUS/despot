@@ -1,4 +1,6 @@
-#include "util/gamma.h"
+#include <despot/util/gamma.h>
+
+namespace despot {
 
 Gamma::Gamma(double k, double theta) {
 	k_ = k;
@@ -41,3 +43,5 @@ double Gamma::Next(double k, double theta) {
 		}
 	}
 }
+
+} // namespace despot

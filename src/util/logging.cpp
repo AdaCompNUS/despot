@@ -1,7 +1,9 @@
-#include "util/logging.h"
+#include <despot/util/logging.h>
 // #include <thread>
 
 using namespace std;
+
+namespace despot {
 
 const string logging::markers_[] = { "NONE", "ERROR", "WARN", "INFO", "DEBUG",
 	"VERBOSE" };
@@ -72,3 +74,5 @@ vector<log_ostream*> logging::InitializeLogStreams() {
 }
 
 vector<log_ostream*> logging::streams_ = logging::InitializeLogStreams();
+
+} // namespace despot

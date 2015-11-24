@@ -1,9 +1,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cstdlib>
-#include "util/random.h"
-#include "pomdpx/parser/parser.h"
-#include "core/pomdp.h"
+#include <despot/util/random.h>
+#include <despot/pomdpx/parser/parser.h>
+#include <despot/core/pomdp.h>
+
+using namespace std;
+
+namespace despot {
 
 Parser::Parser(const Parser&) {
 }
@@ -1379,3 +1383,5 @@ const string& Parser::GetActionName() {
 const string& Parser::GetEnumedAction(int action) {
 	return action_vars_[0].GetValue(action);
 }
+
+} // namespace despot

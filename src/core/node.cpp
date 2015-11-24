@@ -1,5 +1,9 @@
-#include "core/node.h"
-#include "solver/despot.h"
+#include <despot/core/node.h>
+#include <despot/solver/despot.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * VNode class
@@ -370,3 +374,5 @@ void QNode::value(double v) {
 double QNode::value() const {
 	return value_;
 }
+
+} // namespace despot

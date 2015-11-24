@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * SimpleState class
  * =============================================================================*/
@@ -146,10 +148,10 @@ protected:
 public:
 	SimpleRockSampleParticleUpperBound(const DSPOMDP* model) {
 		upper_bounds_.resize(3);
-		upper_bounds_[0].push_back(Discount(1) * 10);
-		upper_bounds_[0].push_back(10 + Discount(2) * 10);
+		upper_bounds_[0].push_back(Globals::Discount(1) * 10);
+		upper_bounds_[0].push_back(10 + Globals::Discount(2) * 10);
 		upper_bounds_[1].push_back(10);
-		upper_bounds_[1].push_back(Discount(1) * 10 + Discount(3) * 10);
+		upper_bounds_[1].push_back(Globals::Discount(1) * 10 + Globals::Discount(3) * 10);
 		if (upper_bounds_[1][1] < 10)
 			upper_bounds_[1][1] = 10;
 		upper_bounds_[2].push_back(0);
@@ -278,3 +280,5 @@ void SimpleRockSample::PrintAction(int action, ostream& out) const {
 	if (action == A_WEST)
 		out << "West" << endl;
 }
+
+} // namespace despot

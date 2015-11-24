@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * RockSample class
  * =============================================================================*/
@@ -117,3 +119,5 @@ void RockSample::PrintObs(const State& state, OBS_TYPE observation,
 		break;
 	}
 }
+
+} // namespace despot

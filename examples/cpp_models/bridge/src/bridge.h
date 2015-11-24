@@ -1,7 +1,9 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
 
-#include "core/pomdp.h"
+#include <despot/core/pomdp.h>
+
+namespace despot {
 
 /* =============================================================================
  * BridgeState class
@@ -14,7 +16,7 @@ public:
 	BridgeState();
 	BridgeState(int _position);
 
-	string text() const;
+  std::string text() const;
 };
 
 /* =============================================================================
@@ -42,8 +44,8 @@ public:
 	int NumActions() const;
 	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
 
-	State* CreateStartState(string type = "DEFAULT") const;
-	Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
+	State* CreateStartState(std::string type = "DEFAULT") const;
+	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
 	inline double GetMaxReward() const {
 		return 0;
@@ -52,13 +54,13 @@ public:
 	inline ValuedAction GetMinRewardAction() const {
 		return ValuedAction(LEFT, -1);
 	}
-	ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-		string particle_bound_name = "DEFAULT") const;
+	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
+		std::string particle_bound_name = "DEFAULT") const;
 
-	void PrintState(const State& state, ostream& out = cout) const;
-	void PrintBelief(const Belief& belief, ostream& out = cout) const;
-	void PrintObs(const State& state, OBS_TYPE obs, ostream& out = cout) const;
-	void PrintAction(int action, ostream& out = cout) const;
+	void PrintState(const State& state, std::ostream& out = std::cout) const;
+	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
+	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
+	void PrintAction(int action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id = -1, double weight = 0.0) const;
 	State* Copy(const State* particle) const;
@@ -67,10 +69,12 @@ public:
 
 	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
 	void Observe(const Belief* belief, int action,
-		map<OBS_TYPE, double>& obss) const;
+		std::map<OBS_TYPE, double>& obss) const;
 	double StepReward(const Belief* belief, int action) const;
 
-	POMCPPrior* CreatePOMCPPrior(string name = "DEFAULT") const;
+	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };
+
+} // namespace despot
 
 #endif

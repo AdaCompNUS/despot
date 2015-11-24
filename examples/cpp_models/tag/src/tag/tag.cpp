@@ -1,10 +1,12 @@
 #include <queue>
 
 #include "tag.h"
-#include "util/coord.h"
-#include "util/floor.h"
+#include <despot/util/coord.h>
+#include <despot/util/floor.h>
 
 using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * Tag class
@@ -129,3 +131,5 @@ void Tag::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 		out << "Rob at (" << rob.x << ", " << rob.y << ")" << endl;
 	}
 }
+
+} // namespace despot

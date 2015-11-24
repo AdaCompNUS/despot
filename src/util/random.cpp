@@ -1,9 +1,11 @@
-#include "util/random.h"
-#include "stdlib.h"
+#include <despot/util/random.h>
+#include <stdlib.h>
 #include <iostream>
 #include <math.h>
 
 using namespace std;
+
+namespace despot {
 
 Random Random::RANDOM((unsigned) 0);
 
@@ -57,3 +59,5 @@ int Random::GetCategory(const vector<double>& category_probs, double rand_num) {
 	}
 	return c;
 }
+
+} // namespace despot

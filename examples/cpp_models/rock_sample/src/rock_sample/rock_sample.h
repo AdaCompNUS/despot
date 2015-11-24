@@ -1,11 +1,13 @@
 #ifndef ROCKSAMPLE_H
 #define ROCKSAMPLE_H
 
-#include "core/pomdp.h"
-#include "core/mdp.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
 #include "base/base_rock_sample.h"
-#include "util/coord.h"
-#include "util/grid.h"
+#include <despot/util/coord.h>
+#include <despot/util/grid.h>
+
+namespace despot {
 
 /* =============================================================================
  * RockSample class
@@ -13,7 +15,7 @@
 
 class RockSample: public BaseRockSample {
 public:
-	RockSample(string map);
+	RockSample(std::string map);
 	RockSample(int size, int rocks);
 
 	bool Step(State& state, double rand_num, int action, double& reward,
@@ -21,7 +23,9 @@ public:
 	int NumActions() const;
 	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
-		ostream& out = cout) const;
+		std::ostream& out = std::cout) const;
 };
+
+} // namespace despot
 
 #endif

@@ -1,7 +1,11 @@
-#include "core/solver.h"
-#include "util/logging.h"
-#include "core/pomdp.h"
-#include "core/belief.h"
+#include <despot/core/solver.h>
+#include <despot/util/logging.h>
+#include <despot/core/pomdp.h>
+#include <despot/core/belief.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * SearchStatistics class
@@ -81,3 +85,5 @@ void Solver::belief(Belief* b) {
 Belief* Solver::belief() {
 	return belief_;
 }
+
+} // namespace despot

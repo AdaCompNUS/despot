@@ -1,5 +1,8 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "fvrs.h"
+
+using namespace std;
+using namespace despot;
 
 class TUI: public SimpleTUI {
 public:

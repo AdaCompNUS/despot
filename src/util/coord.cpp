@@ -1,7 +1,11 @@
-#include "util/coord.h"
+#include <despot/util/coord.h>
 #include <cstdlib>
 #include <cmath>
 #include <cassert>
+
+using namespace std;
+
+namespace despot {
 
 Coord::Coord() :
 	x(0),
@@ -78,3 +82,4 @@ bool Compass::Opposite(int dir1, int dir2) {
 	return DIRECTIONS[dir1] + DIRECTIONS[dir2] == Coord(0, 0);
 }
 
+} // namespace despot

@@ -1,5 +1,9 @@
-#include "pomdpx/pomdpx.h"
-#include "solver/pomcp.h"
+#include <despot/pomdpx/pomdpx.h>
+#include <despot/solver/pomcp.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * POMDPXState class
@@ -584,3 +588,5 @@ DSPOMDP* POMDPX::MakeCopy() const {
 
 	return pomdpx;
 }
+
+} // namespace despot

@@ -1,5 +1,7 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "navigation.h"
+
+using namespace despot;
 
 class TUI: public SimpleTUI {
 public:

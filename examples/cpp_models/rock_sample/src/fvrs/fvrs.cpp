@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* =============================================================================
  * FVRS class
  * =============================================================================*/
@@ -129,3 +131,5 @@ void FVRS::PrintObs(const State& state, OBS_TYPE observation,
 		out << CheckFlag(observation, rock);
 	out << endl;
 }
+
+} // namespace despot

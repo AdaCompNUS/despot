@@ -1,7 +1,11 @@
-#include "core/lower_bound.h"
-#include "core/pomdp.h"
-#include "core/node.h"
-#include "solver/pomcp.h"
+#include <despot/core/lower_bound.h>
+#include <despot/core/pomdp.h>
+#include <despot/core/node.h>
+#include <despot/solver/pomcp.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * ValuedAction class
@@ -107,7 +111,7 @@ TrivialParticleLowerBound::TrivialParticleLowerBound(const DSPOMDP* model) :
 ValuedAction TrivialParticleLowerBound::Value(
 	const vector<State*>& particles) const {
 	ValuedAction va = model_->GetMinRewardAction();
-	va.value *= State::Weight(particles) / (1 - Discount());
+	va.value *= State::Weight(particles) / (1 - Globals::Discount());
 	return va;
 }
 
@@ -137,6 +141,8 @@ TrivialBeliefLowerBound::TrivialBeliefLowerBound(const DSPOMDP* model,
 
 ValuedAction TrivialBeliefLowerBound::Value(const Belief* belief) const {
 	ValuedAction va = model_->GetMinRewardAction();
-	va.value *= 1.0 / (1 - Discount());
+	va.value *= 1.0 / (1 - Globals::Discount());
 	return va;
 }
+
+} // namespace despot

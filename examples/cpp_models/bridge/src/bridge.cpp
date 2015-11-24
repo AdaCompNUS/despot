@@ -1,5 +1,9 @@
 #include "bridge.h"
-#include "solver/pomcp.h"
+#include <despot/solver/pomcp.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * BridgeState class
@@ -250,3 +254,5 @@ POMCPPrior* Bridge::CreatePOMCPPrior(string name) const {
 		return NULL;
 	}
 }
+
+} // namespace despot

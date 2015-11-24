@@ -1,4 +1,8 @@
-#include "util/util.h"
+#include <despot/util/util.h>
+
+using namespace std;
+
+namespace despot {
 
 string repeat(string str, int n) {
 	ostringstream oss;
@@ -61,4 +65,6 @@ vector<string> Tokenize(const string& str, const string& delimiters) {
 	}
 	return tokens;
 }
+
+} // namespace despot
 

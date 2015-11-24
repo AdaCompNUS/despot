@@ -1,8 +1,12 @@
-#include "core/pomdp.h"
-#include "core/policy.h"
-#include "core/lower_bound.h"
-#include "core/upper_bound.h"
-#include "solver/pomcp.h"
+#include <despot/core/pomdp.h>
+#include <despot/core/policy.h>
+#include <despot/core/lower_bound.h>
+#include <despot/core/upper_bound.h>
+#include <despot/solver/pomcp.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * State class
@@ -164,3 +168,5 @@ BeliefUpperBound* BeliefMDP::CreateBeliefUpperBound(string name) const {
 		return NULL;
 	}
 }
+
+} // namespace despot

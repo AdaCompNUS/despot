@@ -1,5 +1,9 @@
 #include "pocman.h"
 
+using namespace std;
+
+namespace despot {
+
 /* ==============================================================================
  * PocmanBelief class
  * ==============================================================================*/
@@ -59,8 +63,8 @@ public:
 	double Value(const State& state) const {
 		const PocmanState& pocstate = static_cast<const PocmanState&>(state);
 		return (pocman_->reward_eat_food_ + pocman_->reward_eat_ghost_)
-			* (1 - Discount(pocstate.num_food)) / (1 - Discount())
-			+ pocman_->reward_clear_level_ * Discount(pocstate.num_food);
+			* (1 - Globals::Discount(pocstate.num_food)) / (1 - Globals::Discount())
+			+ pocman_->reward_clear_level_ * Globals::Discount(pocstate.num_food);
 	}
 };
 
@@ -89,7 +93,7 @@ public:
 					continue;
 				Coord food_pos = pocman_->maze_.GetCoord(i);
 				int dist = Coord::ManhattanDistance(state.pocman_pos, food_pos);
-				value += pocman_->reward_eat_food_ * Discount(dist);
+				value += pocman_->reward_eat_food_ * Globals::Discount(dist);
 				max_dist = max(max_dist, dist);
 			}
 
@@ -97,8 +101,8 @@ public:
 			value += pocman_->reward_clear_level_ * pow(Globals::config.discount, max_dist);
 
 			// Default move-reward
-			value += pocman_->reward_default_ * (Discount() < 1
-					? (1 - Discount(max_dist)) / (1 - Discount())
+			value += pocman_->reward_default_ * (Globals::Discount() < 1
+					? (1 - Globals::Discount(max_dist)) / (1 - Globals::Discount())
 					: max_dist);
 
 			// If pocman is chasing a ghost, encourage it
@@ -112,7 +116,7 @@ public:
 						Coord ghost_pos = state.pocman_pos + Compass::DIRECTIONS[act] * dist;
 						for (int g = 0; g < pocman_->num_ghosts_; g++)
 							if (state.ghost_pos[g] == ghost_pos) {
-								value += pocman_->reward_eat_ghost_ * Discount(dist);
+								value += pocman_->reward_eat_ghost_ * Globals::Discount(dist);
 								seen_ghost = true;
 								break;
 							}
@@ -124,7 +128,7 @@ public:
 			double dist = 0;
 			for (int g = 0; g < pocman_->num_ghosts_; g++)
 				dist += Coord::ManhattanDistance(state.pocman_pos, state.ghost_pos[g]);
-			value += pocman_->reward_die_ * pow(Discount(), dist / pocman_->num_ghosts_);
+			value += pocman_->reward_die_ * pow(Globals::Discount(), dist / pocman_->num_ghosts_);
 
 			// Penalize for doubling back, but not so much as to prefer hitting a wall
 			if (history.Size() >= 2 &&
@@ -164,7 +168,7 @@ public:
 		return ValuedAction(legal[Random::RANDOM.NextInt(legal.size())],
 			State::Weight(particles)
 				* (pocman_->reward_die_
-					+ pocman_->reward_default_ / (1 - Discount())));
+					+ pocman_->reward_default_ / (1 - Globals::Discount())));
 	}
 };
 
@@ -876,3 +880,5 @@ void Pocman::Free(State* particle) const {
 int Pocman::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
+
+} // namespace despot

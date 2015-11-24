@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace despot {
+
 /* ==============================================================================
  * RockSampleState class
  * ==============================================================================*/
@@ -269,7 +271,7 @@ public:
 		int count = 0;
 		for (int rock = 0; rock < rs_model_->num_rocks_; rock++)
 			count += rs_model_->GetRock(&rockstate, rock);
-		return 10.0 * (1 - Discount(count + 1)) / (1 - Discount());
+		return 10.0 * (1 - Globals::Discount(count + 1)) / (1 - Globals::Discount());
 	}
 };
 
@@ -287,11 +289,11 @@ public:
 		double value = 0;
 		for (int rock = 0; rock < rs_model_->num_rocks_; rock++)
 			value += 10.0 * rs_model_->GetRock(&rockstate, rock)
-				* Discount(
+				* Globals::Discount(
 					Coord::ManhattanDistance(rs_model_->GetRobPos(&rockstate),
 						rs_model_->rock_pos_[rock]));
 		value += 10.0
-			* Discount(rs_model_->size_ - rs_model_->GetX(&rockstate));
+			* Globals::Discount(rs_model_->size_ - rs_model_->GetX(&rockstate));
 		return value;
 	}
 };
@@ -343,14 +345,14 @@ public:
 			if (id == -1)
 				break;
 
-			discount *= Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
+			discount *= Globals::Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
 			value += discount * 10.0;
 			visited[id] = true;
 			rob_pos = rock_pos;
 		}
 
 		value += 10.0 * discount
-			* Discount(rs_model_->size_ - rs_model_->GetX(&state));
+			* Globals::Discount(rs_model_->size_ - rs_model_->GetX(&state));
 		return value;
 	}
 };
@@ -391,7 +393,7 @@ public:
 		History& history) const {
 		return ValuedAction(Compass::EAST,
 			10 * State::Weight(particles)
-				* Discount(grid_.xsize() - rs_model_->GetX(particles[0]) - 1));
+				* Globals::Discount(grid_.xsize() - rs_model_->GetX(particles[0]) - 1));
 	}
 };
 
@@ -468,7 +470,7 @@ public:
 					action = rs_model_->E_SAMPLE;
 			}
 
-			discount *= Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
+			discount *= Globals::Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
 			value += discount * expected_sampling_value[rock];
 			rob_pos = rock_pos;
 		}
@@ -477,7 +479,7 @@ public:
 			action = Compass::EAST;
 
 		value += 10 * total_weight * discount
-			* Discount(grid_.xsize() - rob_pos.x);
+			* Globals::Discount(grid_.xsize() - rob_pos.x);
 
 		return ValuedAction(action, value);
 	}
@@ -534,7 +536,7 @@ public:
 			 int id = -1;
 			 Coord rock_pos(-1, -1);
 			 for (int rock=0; rock<rs_model_->num_rocks_; rock++) {
-			 double v = expected_sampling_value[rock] * Discount(Coord::ManhattanDistance(rob_pos, rs_model_->rock_pos_[rock]));
+			 double v = expected_sampling_value[rock] * Globals::Discount(Coord::ManhattanDistance(rob_pos, rs_model_->rock_pos_[rock]));
 			 if (v > best) {
 			 best = v;
 			 id = rock;
@@ -559,7 +561,7 @@ public:
 					action = rs_model_->E_SAMPLE;
 			}
 
-			discount *= Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
+			discount *= Globals::Discount(Coord::ManhattanDistance(rock_pos, rob_pos));
 			value += discount * expected_sampling_value[id];
 			expected_sampling_value[id] = -1; // set to bad rock
 			rob_pos = rock_pos;
@@ -568,7 +570,7 @@ public:
 		if (action == -1)
 			action = Compass::EAST;
 
-		value += 10 * weight * discount * Discount(grid_.xsize() - rob_pos.x);
+		value += 10 * weight * discount * Globals::Discount(grid_.xsize() - rob_pos.x);
 
 		return ValuedAction(action, value);
 	}
@@ -612,7 +614,7 @@ public:
 		const vector<State*>& particles =
 			static_cast<const ParticleBelief*>(belief)->particles();
 		return ValuedAction(Compass::EAST,
-			Discount(rs_model_->size_ - rs_model_->GetX(particles[0]) - 1) * 10);
+			Globals::Discount(rs_model_->size_ - rs_model_->GetX(particles[0]) - 1) * 10);
 	}
 };
 
@@ -1142,7 +1144,7 @@ vector<ValuedAction>& BaseRockSample::ComputeOptimalSamplingPolicy() const {
 
 			for (int a = 0; a <= E_SAMPLE; a++) {
 				double v = Reward(s, a)
-					+ Discount() * mdp_policy_[transition[s][a]].value;
+					+ Globals::Discount() * mdp_policy_[transition[s][a]].value;
 
 				if (v > next_policy[s].value) {
 					next_policy[s].value = v;
@@ -1188,3 +1190,5 @@ RockSampleState* BaseRockSample::MajorityRockSampleState(
 
 	return new RockSampleState(state);
 }
+
+} // namespace despot

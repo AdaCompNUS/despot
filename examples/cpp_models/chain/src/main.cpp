@@ -1,5 +1,7 @@
-#include "simple_tui.h"
+#include <despot/simple_tui.h>
 #include "chain.h"
+
+using namespace despot;
 
 class TUI: public SimpleTUI {
 public:

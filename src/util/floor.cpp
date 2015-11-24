@@ -1,5 +1,9 @@
-#include "util/floor.h"
+#include <despot/util/floor.h>
 #include <queue>
+
+using namespace std;
+
+namespace despot {
 
 int Floor::INVALID = -1;
 
@@ -124,3 +128,5 @@ int Floor::num_cols() const {
 int Floor::NumCells() const {
 	return cells_.size();
 }
+
+} // namespace despot

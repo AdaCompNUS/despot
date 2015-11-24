@@ -1,9 +1,11 @@
 #include <queue>
 
 #include "reg_demo.h"
-#include "util/coord.h"
+#include <despot/util/coord.h>
 
 using namespace std;
+
+namespace despot {
 
 /* ==============================================================================
  * RegDemoState class
@@ -295,3 +297,5 @@ double RegDemo::Reward(int s, int action) const {
 	return
 		(s == size_ - 1 && action == 0) ? goal_reward_ : (action == 0 ? 0 : -1);
 }
+
+} // namespace despot

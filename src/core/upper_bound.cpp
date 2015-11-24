@@ -1,7 +1,10 @@
-#include "core/upper_bound.h"
-#include "core/pomdp.h"
-#include "core/mdp.h"
+#include <despot/core/upper_bound.h>
+#include <despot/core/pomdp.h>
+#include <despot/core/mdp.h>
 
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * ScenarioUpperBound
@@ -48,12 +51,12 @@ TrivialParticleUpperBound::~TrivialParticleUpperBound() {
 }
 
 double TrivialParticleUpperBound::Value(const State& state) const {
-	return model_->GetMaxReward() / (1 - Discount());
+	return model_->GetMaxReward() / (1 - Globals::Discount());
 }
 
 double TrivialParticleUpperBound::Value(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
-	return State::Weight(particles) * model_->GetMaxReward() / (1 - Discount());
+	return State::Weight(particles) * model_->GetMaxReward() / (1 - Globals::Discount());
 }
 
 /* =============================================================================
@@ -94,7 +97,7 @@ void LookaheadUpperBound::Init(const RandomStreams& streams) {
 						bool terminal = model_->Step(*copy, streams.Entry(p, t),
 							a, reward);
 						model_->Free(copy);
-						reward += (!terminal) * Discount()
+						reward += (!terminal) * Globals::Discount()
 							* bounds_[p][t + 1][indexer_.GetIndex(copy)];
 
 						if (reward > best)
@@ -137,7 +140,7 @@ TrivialBeliefUpperBound::TrivialBeliefUpperBound(const DSPOMDP* model) :
 }
 
 double TrivialBeliefUpperBound::Value(const Belief* belief) const {
-	return model_->GetMaxReward() / (1 - Discount());
+	return model_->GetMaxReward() / (1 - Globals::Discount());
 }
 
 /* =============================================================================
@@ -167,3 +170,5 @@ double MDPUpperBound::Value(const Belief* belief) const {
 	}
 	return value;
 }
+
+} // namespace despot

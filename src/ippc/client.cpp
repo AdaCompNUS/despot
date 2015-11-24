@@ -1,5 +1,9 @@
-#include "ippc/client.h"
+#include <despot/ippc/client.h>
 #include <iostream>
+
+using namespace std;
+
+namespace despot {
 
 Client::Client(void) {
 }
@@ -318,3 +322,5 @@ double Client::processSessionEndMes(string mes) {
 	TiXmlElement * pNextSibling = root->FirstChild("total-reward")->ToElement();
 	return atof(pNextSibling->GetText());
 }
+
+} // namespace despot

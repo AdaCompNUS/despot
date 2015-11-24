@@ -1,6 +1,10 @@
-#include "core/policy.h"
-#include "core/pomdp.h"
+#include <despot/core/policy.h>
+#include <despot/core/pomdp.h>
 #include <unistd.h>
+
+using namespace std;
+
+namespace despot {
 
 /* =============================================================================
  * Policy class
@@ -63,7 +67,7 @@ ValuedAction Policy::RecursiveValue(const vector<State*>& particles,
 			history.Add(action, obs);
 			streams.Advance();
 			ValuedAction va = RecursiveValue(it->second, streams, history);
-			value += Discount() * va.value;
+			value += Globals::Discount() * va.value;
 			streams.Back();
 			history.RemoveLast();
 		}
@@ -244,3 +248,5 @@ int MMAPStatePolicy::Action(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	return policy_.GetAction(*inferencer_.GetMMAP(particles));
 }
+
+} // namespace despot
