@@ -11,7 +11,8 @@ INCL = -I $(INCDIR) -I $(INCDIR)/despot/util -I $(SRCDIR)
 CXX = g++
 CXXFLAGS = -O3 -c -Wall -Wno-sign-compare -fpic $(INCL) $(GPROF)
 #LDFLAGS = -O3 -Wno-sign-compare -shared
-LDFLAGS = -O3 -Wno-sign-compare -dynamiclib $(GPROF)
+#LDFLAGS = -O3 -Wno-sign-compare -dynamiclib $(GPROF)
+LDFLAGS = -O3 -Wno-sign-compare $(GPROF)
 
 ##### Files
 
@@ -25,7 +26,7 @@ CPPEXAMPLE = $(addprefix examples/cpp_models/, $(shell ls examples/cpp_models))
 
 .PHONY: core directory library cpp_models clean
 
-core: directory $(DEPS) $(OBJS) pomdpx
+core: directory $(DEPS) $(OBJS)
 
 # Rule for creating directories needed for build
 directory:
@@ -45,17 +46,21 @@ $(OBJDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $< -o $@ 
 
 # Rules for creating library from the object files
-lib: $(OBJS)
-	$(CXX) $(OBJS) $(LDFLAGS) -I $(INCDIR) -o $(OBJDIR)/libdespot.so
+#library: $(OBJS)
+#	$(CXX) $(OBJS) $(LDFLAGS) -I $(INCDIR) -o $(OBJDIR)/libdespot.so
 
 # Rules for compiling the executables for the cpp models in examples/cpp_models
 cpp_models:
 	$(foreach var, $(CPPEXAMPLE), make -C $(var);)
 
+# Rule for compiling the executable for the pomdpx model in examples/pomdpx_models
+pomdpx_model:
+	make -C examples/pomdpx_models
+
 # Rule for installing the library
-install:
-	sudo cp -r build/libdespot.so usr/lib/
-	sudo cp -r include /usr/include/despot
+#install:
+#	sudo cp -r build/libdespot.so usr/lib/
+#	sudo cp -r include /usr/include/despot
 
 # Rules for repository cleaning
 clean:
