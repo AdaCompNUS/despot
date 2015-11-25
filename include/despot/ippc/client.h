@@ -10,7 +10,7 @@
 #include <string>
 #include <map>
 
-#include <tinyxml.h>
+#include <despot/util/tinyxml/tinyxml.h>
 
 namespace despot {
 

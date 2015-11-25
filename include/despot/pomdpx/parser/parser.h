@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <tinyxml.h>
+#include <despot/util/tinyxml/tinyxml.h>
 #include <despot/util/util.h>
 #include <despot/core/globals.h>
 #include <despot/pomdpx/parser/variable.h>
