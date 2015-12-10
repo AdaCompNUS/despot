@@ -63,7 +63,6 @@ Solver::Solver(const DSPOMDP* model, Belief* belief) :
 
 Solver::~Solver() {
 	cout << "Destructing Solver" << endl;
-	delete belief_;
 }
 
 void Solver::Update(int action, OBS_TYPE obs) {
