@@ -1,13 +1,22 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <despot/util/tinyxml/tinyxml.h>
 #include <despot/util/util.h>
 #include <despot/core/globals.h>
 #include <despot/pomdpx/parser/variable.h>
 #include <despot/pomdpx/parser/function.h>
 
 namespace despot {
+
+namespace util {
+namespace tinyxml {
+
+class TiXmlBase;
+class TiXmlElement;
+class TiXmlHandle;
+
+} // namespace tinyxml 
+} // namespace util
 
 #define REWARD_VAR_VALUE "rew"
 #define XML_INPUT_ERROR -1
@@ -23,6 +32,10 @@ class Parser {
 	friend class Func;
 
 private:
+  typedef util::tinyxml::TiXmlBase TiXmlBase;
+  typedef util::tinyxml::TiXmlElement TiXmlElement;
+  typedef util::tinyxml::TiXmlHandle TiXmlHandle;
+
   std::string file_name_;
 
 	// Variables
@@ -60,13 +73,10 @@ private:
 	// Convenience and sanity-check functions for POMDPX
 	TiXmlElement* GetParameterElement(TiXmlElement* func_element);
 	inline std::string GetFirstChildText(TiXmlElement* elem,
-		const char* child) const {
-		return elem->FirstChildElement(child)->GetText();
-	}
+    const char* child) const;
 	inline TiXmlElement* GetFirstChildElement(TiXmlElement* elem,
-		const char* child) const {
-		return elem->FirstChildElement(child);
-	}
+		const char* child) const;
+
 	void Ensure(bool condition, std::string message, TiXmlBase* base = NULL) const;
 	// void EnsureIdentityIsValid(TiXmlBase* base, std::vector<std::string> tokens) const; // TODO
 	int ComputeNumOfEntries(const std::vector<std::string>& instance,

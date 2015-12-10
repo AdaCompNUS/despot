@@ -10,8 +10,6 @@
 #include <string>
 #include <map>
 
-#include <despot/util/tinyxml/tinyxml.h>
-
 namespace despot {
 
 class Client {

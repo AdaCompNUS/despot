@@ -30,6 +30,10 @@
 
 #include <despot/util/tinyxml/tinystr.h>
 
+namespace despot {
+namespace util {
+namespace tinyxml {
+
 // Error value for find primitive
 const TiXmlString::size_type TiXmlString::npos =
 	static_cast<TiXmlString::size_type>(-1);
@@ -97,5 +101,9 @@ TiXmlString operator +(const char* a, const TiXmlString & b) {
 	tmp += b;
 	return tmp;
 }
+
+} // namespace tinyxml
+} // namespace util
+} // namespace despot
 
 #endif	// TIXML_USE_STL
