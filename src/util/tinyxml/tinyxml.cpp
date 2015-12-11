@@ -31,6 +31,10 @@
 
 #include <despot/util/tinyxml/tinyxml.h>
 
+namespace despot {
+namespace util {
+namespace tinyxml {
+
 bool TiXmlBase::condenseWhiteSpace = true;
 
 // Microsoft compiler security
@@ -1592,3 +1596,6 @@ bool TiXmlPrinter::Visit(const TiXmlUnknown& unknown) {
 	return true;
 }
 
+} // namespace tinyxml
+} // namespace util
+} // namespace despot

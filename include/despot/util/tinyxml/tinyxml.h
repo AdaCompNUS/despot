@@ -81,6 +81,10 @@
 #endif
 #endif
 
+namespace despot {
+namespace util {
+namespace tinyxml {
+
 class TiXmlDocument;
 class TiXmlElement;
 class TiXmlComment;
@@ -2039,6 +2043,10 @@ private:
 	int depth;
 	bool simpleTextPrint;TIXML_STRING buffer;TIXML_STRING indent;TIXML_STRING lineBreak;
 };
+
+} // namespace tinyxml
+} // namespace util
+} // namespace despot
 
 #ifdef _MSC_VER
 #pragma warning( pop )

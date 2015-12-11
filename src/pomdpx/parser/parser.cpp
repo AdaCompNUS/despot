@@ -2,10 +2,12 @@
 #include <time.h>
 #include <cstdlib>
 #include <despot/util/random.h>
+#include <despot/util/tinyxml/tinyxml.h>
 #include <despot/pomdpx/parser/parser.h>
 #include <despot/core/pomdp.h>
 
 using namespace std;
+using namespace despot::util::tinyxml;
 
 namespace despot {
 
@@ -1004,6 +1006,16 @@ TiXmlElement* Parser::GetParameterElement(TiXmlElement* element) {
 	Ensure(param_type == "TBL", "Only parameter type \"TBL\" is supported.\n");
 
 	return e_Parameter;
+}
+
+string Parser::GetFirstChildText(TiXmlElement* elem,
+    const char* child) const {
+  return elem->FirstChildElement(child)->GetText();
+}
+
+TiXmlElement* Parser::GetFirstChildElement(TiXmlElement* elem,
+    const char* child) const {
+  return elem->FirstChildElement(child);
 }
 
 vector<int> Parser::CreateStateUniformly() const {

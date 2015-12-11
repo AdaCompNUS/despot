@@ -1,7 +1,9 @@
 #include <despot/ippc/client.h>
+#include <despot/util/tinyxml/tinyxml.h>
 #include <iostream>
 
 using namespace std;
+using namespace despot::util::tinyxml;
 
 namespace despot {
 

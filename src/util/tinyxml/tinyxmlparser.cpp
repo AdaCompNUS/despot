@@ -37,6 +37,10 @@
 #	endif
 #endif
 
+namespace despot {
+namespace util {
+namespace tinyxml {
+
 // Note tha "PutString" hardcodes the same list. This
 // is less flexible than it appears. Changing the entries
 // or order will break putstring.
@@ -1490,3 +1494,6 @@ bool TiXmlText::Blank() const {
 	return true;
 }
 
+} // namespace tinyxml
+} // namespace util
+} // namespace despot
