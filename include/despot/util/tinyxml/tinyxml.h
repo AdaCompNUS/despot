@@ -22,8 +22,8 @@
  distribution.
  */
 
-#ifndef TINYXML_INCLUDED
-#define TINYXML_INCLUDED
+#ifndef DESPOT_UTIL_TINYXML_INCLUDED
+#define DESPOT_UTIL_TINYXML_INCLUDED
 
 #ifdef _MSC_VER
 #pragma warning( push )
@@ -2053,4 +2053,3 @@ private:
 #endif
 
 #endif
-
