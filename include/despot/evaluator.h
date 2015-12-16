@@ -116,7 +116,6 @@ public:
 	virtual int Handshake(std::string instance) = 0; // Initialize simulator and return number of runs.
 	virtual void InitRound() = 0;
 
-	bool RunStep();
 	bool RunStep(int step, int round);
 
 	virtual double EndRound() = 0; // Return total undiscounted reward for this round.
