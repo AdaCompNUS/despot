@@ -102,10 +102,10 @@ public:
 	Coord NextPos(const Coord& from, int dir) const;
 
 private:
-	void MoveGhost(PocmanState& pocstate, int g, Random random) const;
-	void MoveGhostAggressive(PocmanState& pocstate, int g, Random random) const;
-	void MoveGhostDefensive(PocmanState& pocstate, int g, Random random) const;
-	void MoveGhostRandom(PocmanState& pocstate, int g, Random random) const;
+	void MoveGhost(PocmanState& pocstate, int g, Random &random) const;
+	void MoveGhostAggressive(PocmanState& pocstate, int g, Random &random) const;
+	void MoveGhostDefensive(PocmanState& pocstate, int g, Random &random) const;
+	void MoveGhostRandom(PocmanState& pocstate, int g, Random &random) const;
 	void NewLevel(PocmanState& pocstate) const;
 	int SeeGhost(const PocmanState& pocstate, int action) const;
 	bool HearGhost(const PocmanState& pocstate) const;

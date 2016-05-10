@@ -540,7 +540,7 @@ bool Pocman::LocalMove(State& state, const History& history, int obs) const {
 	return history.LastObservation() == observation;
 }
 
-void Pocman::MoveGhost(PocmanState& pocstate, int g, Random random) const {
+void Pocman::MoveGhost(PocmanState& pocstate, int g, Random &random) const {
 	if (Coord::ManhattanDistance(pocstate.pocman_pos, pocstate.ghost_pos[g])
 		< ghost_range_) {
 		if (pocstate.power_steps > 0)
@@ -553,7 +553,7 @@ void Pocman::MoveGhost(PocmanState& pocstate, int g, Random random) const {
 }
 
 void Pocman::MoveGhostAggressive(PocmanState& pocstate, int g,
-	Random random) const {
+	Random &random) const {
 	if (random.NextDouble() > chase_prob_) {
 		MoveGhostRandom(pocstate, g, random);
 		return;
@@ -578,7 +578,7 @@ void Pocman::MoveGhostAggressive(PocmanState& pocstate, int g,
 }
 
 void Pocman::MoveGhostDefensive(PocmanState& pocstate, int g,
-	Random random) const {
+	Random &random) const {
 	if (random.NextDouble() < defensive_slip_ && pocstate.ghost_dir[g] >= 0) {
 		pocstate.ghost_dir[g] = -1;
 		return;
@@ -603,7 +603,7 @@ void Pocman::MoveGhostDefensive(PocmanState& pocstate, int g,
 }
 
 void Pocman::MoveGhostRandom(PocmanState& pocstate, int g,
-	Random random) const {
+	Random &random) const {
 	// Never switch to opposite direction
 	// Currently assumes there are no dead-ends.
 	Coord newpos;
