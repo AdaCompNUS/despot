@@ -122,8 +122,8 @@ const option::Descriptor usage[] = {
   // { E_SEARCH_SOLVER, 0, "", "search-solver", option::Arg::None, "
   // \t--search-solver\tUse first few runs to select DESPOT or POMCP as the
   // solver for remaining runs." },
-  // { E_PRIOR, 0, "", "prior", option::Arg::Required, "  \t--prior <arg>
-  // \tPOMCP prior." },
+  { E_PRIOR, 0, "", "prior", option::Arg::Required, 
+    "  \t--prior <arg>  \tPOMCP prior." },
   // { E_SERVER, 0, "", "server", option::Arg::Required, "  \t--server <arg>
   // \tServer address." },
   // { E_PORT, 0, "", "port", option::Arg::Required, "  \t--port <arg>  \tPort
