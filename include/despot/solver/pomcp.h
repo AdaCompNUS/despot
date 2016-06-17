@@ -55,6 +55,10 @@ public:
 		history_.RemoveLast();
 	}
 
+  inline virtual void PopAll() {
+		history_.Truncate(0);
+	}
+
 	virtual void ComputePreference(const State& state) = 0;
 
 	const std::vector<int>& preferred_actions() const;

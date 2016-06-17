@@ -87,7 +87,7 @@ ValuedAction POMCP::Search(double timeout) {
 			logd << "[POMCP::Search] Starting simulation " << num_sims << endl;
 
 			Simulate(particle, root_, model_, prior_);
-
+ 
 			num_sims++;
 			logd << "[POMCP::Search] " << num_sims << " simulations done" << endl;
 			history_.Truncate(hist_size);
@@ -133,6 +133,7 @@ ValuedAction POMCP::Search() {
 void POMCP::belief(Belief* b) {
 	belief_ = b;
 	history_.Truncate(0);
+  prior_->PopAll();
 	delete root_;
 	root_ = NULL;
 }
@@ -287,8 +288,8 @@ double POMCP::Simulate(State* particle, RandomStreams& streams, VNode* vnode,
 			reward += Globals::Discount()
 				* Simulate(particle, streams, vnodes[obs], model, prior);
 		} else { // Rollout upon encountering a node not in curren tree, then add the node
-			reward += Rollout(particle, streams, vnode->depth() + 1, model,
-				prior);
+			reward += Globals::Discount() 
+        * Rollout(particle, streams, vnode->depth() + 1, model, prior);
 			vnodes[obs] = CreateVNode(vnode->depth() + 1, particle, prior,
 				model);
 		}
@@ -458,6 +459,7 @@ DPOMCP::DPOMCP(const DSPOMDP* model, POMCPPrior* prior, Belief* belief) :
 void DPOMCP::belief(Belief* b) {
 	belief_ = b;
 	history_.Truncate(0);
+  prior_->PopAll();
 }
 
 ValuedAction DPOMCP::Search(double timeout) {
