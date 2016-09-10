@@ -383,8 +383,16 @@ void ParticleBelief::Update(int action, OBS_TYPE obs) {
 			for (int i = 0; i < initial_particles_.size(); i ++)
 				particles_.push_back(model_->Copy(initial_particles_[i]));
 		}
+		
+		//Update total weight so that effective number of particles are computed correctly 
+		total_weight = 0;
+                for (int i = 0; i < particles_.size(); i++) {
+		    State* particle = particles_[i];
+                    total_weight = total_weight + particle->weight;
+                }
 	}
 
+	
 	double weight_square_sum = 0;
 	for (int i = 0; i < particles_.size(); i++) {
 		State* particle = particles_[i];
