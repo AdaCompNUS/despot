@@ -42,7 +42,7 @@ specified in C++ according to the API. We illustrate this on the Tag problem.
 
 1.To run Tag specified in POMDPX format, compile and run:
 
-```
+```bash
 cd <despot_dir>/examples/pomdpx_models
 
 mkdir build; cd build
@@ -57,7 +57,7 @@ performance for tag problem specified in POMDPX format. See doc/Usage.txt for
 more options.
 
 2.To run Tag specified in C++, compile and run: 
-```
+```bash
 cd <despot_dir>/examples/cpp_models/tag
 
 mkdir build; cd build
