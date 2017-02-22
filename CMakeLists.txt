@@ -6,9 +6,6 @@ set(LIBRARY_INSTALL_PATH "lib" CACHE PATH "Library install path")
 set(INCLUDE_INSTALL_PATH "include" CACHE PATH "Include install path")
 set(CONFIG_INSTALL_PATH "${LIBRARY_INSTALL_PATH}/${PROJECT_NAME}/cmake")
 
-set(DESPOT_BUILD_EXAMPLES ON CACHE BOOL "Build C++ model examples")
-set(DESPOT_BUILD_POMDPX ON CACHE BOOL "Build POMDPX example")
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -mfpmath=sse")
 set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -52,23 +49,6 @@ add_library("${PROJECT_NAME}" SHARED
 target_link_libraries("${PROJECT_NAME}"
   ${TinyXML_LIBRARIES}
 )
-
-if(DESPOT_BUILD_EXAMPLES)
-  add_subdirectory(examples/cpp_models/adventurer)
-  add_subdirectory(examples/cpp_models/bridge)
-  add_subdirectory(examples/cpp_models/chain)
-  add_subdirectory(examples/cpp_models/navigation)
-  add_subdirectory(examples/cpp_models/pocman)
-  add_subdirectory(examples/cpp_models/reg_demo)
-  add_subdirectory(examples/cpp_models/rock_sample)
-  add_subdirectory(examples/cpp_models/simple_rock_sample)
-  add_subdirectory(examples/cpp_models/tag)
-  add_subdirectory(examples/cpp_models/tiger)
-endif()
-
-if(DESPOT_BUILD_POMDPX)
-  add_subdirectory(examples/pomdpx_models)
-endif()
 
 install(TARGETS "${PROJECT_NAME}"
   EXPORT "DespotTargets"

@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-add_executable("${PROJECT_NAME}_chain"
+find_package(Despot CONFIG REQUIRED)
+
+add_executable("chain"
   src/chain.cpp
   src/main.cpp
 )
-target_link_libraries("${PROJECT_NAME}_chain"
-  "${PROJECT_NAME}"
+
+target_link_libraries("chain"
+  despot
 )
-install(TARGETS "${PROJECT_NAME}_chain"
-  RUNTIME DESTINATION "${BINARY_INSTALL_PATH}"
-)
+

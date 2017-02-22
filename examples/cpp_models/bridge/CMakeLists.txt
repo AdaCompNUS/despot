@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-add_executable("${PROJECT_NAME}_bridge"
+find_package(Despot CONFIG REQUIRED)
+
+add_executable("bridge"
   src/bridge.cpp
   src/main.cpp
 )
-target_link_libraries("${PROJECT_NAME}_bridge"
-  "${PROJECT_NAME}"
-)
-install(TARGETS "${PROJECT_NAME}_bridge"
-  RUNTIME DESTINATION "${BINARY_INSTALL_PATH}"
+
+target_link_libraries("bridge"
+  despot
 )

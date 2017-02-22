@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-add_executable("${PROJECT_NAME}_tiger"
+find_package(Despot CONFIG REQUIRED)
+
+add_executable("tiger"
   src/tiger.cpp
   src/main.cpp
 )
-target_link_libraries("${PROJECT_NAME}_tiger"
-  "${PROJECT_NAME}"
+
+target_link_libraries("tiger"
+  despot
 )
-install(TARGETS "${PROJECT_NAME}_tiger"
-  RUNTIME DESTINATION "${BINARY_INSTALL_PATH}"
-)
+
