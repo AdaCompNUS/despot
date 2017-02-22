@@ -12,7 +12,7 @@ Copyright &copy; 2014-2015 by National University of Singapore.
 
 ## Requirements
 
-Operating systems: 
+Operating systems:
 
 | Linux (14.04)| OS X (10.1)  | Windows  |
 | ------------- |:-------------:|: -----:|
