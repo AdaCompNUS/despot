@@ -3,24 +3,24 @@
 ## Overview
 Approximate POMDP Planning Online (APPL Online) Toolkit
 
-Copyright (c) 2014-2015 by National University of Singapore.
+This software package is a C++ implementation of the DESPOT algorithm <sup>1</sup>.
 
-This software package is a C++ implementation of the DESPOT algorithm [1].
+[1] [**Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee. 
+This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
 
-For bug reports and suggestions, please email motion@comp.nus.edu.sg.
-
-
-
-[1] **Online POMDP Planning with Regularization**. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
-
+Copyright &copy; 2014-2015 by National University of Singapore.
 
 ## Requirements
 
-Operating systems: Linux, Mac OS X
+Operating systems: 
 
-Tested Compilers:         gcc/g++ 4.2.1 or above
+| Linux (14.04)| OS X (10.1)  | Windows  |
+| ------------- |:-------------:|: -----:|
+| [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)      | [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) | Not Supported |
 
-CMake (2.8+)
+[CMake (2.8+)](https://cmake.org/install/)
+
+Tested Compilers: gcc/g++ 4.2.1 or above
 
 ## Installation
 
@@ -98,6 +98,9 @@ Pocman implementation and memorypool.h in the package are based on David
 Silver's POMCP code, which is available at
 
   http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Applications.html
+
+## Bugs and Suggestions
+Please use the issue tracker.
 
 ## Release Notes
 2015/09/28 Initial release.
