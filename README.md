@@ -6,7 +6,7 @@ This software package is a C++ implementation of the DESPOT algorithm [1].
 
 For bug reports and suggestions, please email motion@comp.nus.edu.sg.
 
-[1] Online POMDP Planning with Regularization. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
+[1] **Online POMDP Planning with Regularization**. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
 
 
 ================================================================================
