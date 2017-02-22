@@ -25,7 +25,7 @@ CMake (2.8+)
 ## Installation
 
 Clone, compile and install:
-```
+```bash
 git clone https://github.com/AdaCompNUS/despot.git
 cd despot
 
