@@ -8,18 +8,18 @@ This software package is a C++ implementation of the DESPOT algorithm <sup>1</su
 [1] [**Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee. 
 This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
 
-Copyright &copy; 2014-2015 by National University of Singapore.
+Copyright &copy; 2014-2015 by National University of Singapore, [Adaptive Computing](http://bigbird.comp.nus.edu.sg/m2ap/wordpress/).
 
 ## Requirements
 
 Operating systems:
 
-<!--| Linux (14.04)| OS X (10.1)  | Windows  |
+<!--| Linux 14.04| OS X (10.1)  | Windows  |
 |:------------- |:-------------:|: -----:|
 |[![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)| [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) | Not Supported |-->
 
-| Linux (14.04)        | OS X (12.1)           | Windows  |
-| ------------- |:-------------:| -----:|
+| Linux 14.04       | OS X 12.12           | Windows  |
+| :-------------: |:-------------:|:-----:|
 |[![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)      | [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) | Not Supported |
 
 [CMake (2.8+)](https://cmake.org/install/)
