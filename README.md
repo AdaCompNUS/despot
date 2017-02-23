@@ -59,7 +59,7 @@ make
 ```
 
 This command simulates DESPOT's policy for `N = 2` times and reports the
-performance for tag problem specified in POMDPX format. See doc/Usage.txt for 
+performance for tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
 
 2.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
@@ -77,9 +77,22 @@ This command simulates DESPOT's policy for `N = 2` times and reports the
 performance for tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 
+## Usage
+
+To integrate DESPOT into your project, add this to your `CMakeLists.txt` file:
+
+```CMake
+find_package(Despot CONFIG REQUIRED)
+
+target_link_libraries("YOUR_PROJECT_NAME"
+  despot
+)
+
+```
+
 ## Documentation
 
-Documentation can be found in the directory "doc". See PACKAGE CONTENTS for a detailed listing.
+Documentation can be found in the directory "doc". 
 
 
 ## Package Contents
