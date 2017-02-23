@@ -62,7 +62,7 @@ This command simulates DESPOT's policy for `N = 2` times and reports the
 performance for tag problem specified in POMDPX format. See doc/Usage.txt for 
 more options.
 
-2.To run Tag specified in , compile and run: 
+2.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
 ```bash
 cd <despot_dir>/examples/cpp_models/tag
 
@@ -74,7 +74,7 @@ make
 ```
 
 This command simulates DESPOT's policy for `N = 2` times and reports the
-performance for tag problem specified in C++ See [doc/Usage.txt]() for more options.
+performance for tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 
 ## Documentation
