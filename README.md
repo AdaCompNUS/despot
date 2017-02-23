@@ -40,6 +40,7 @@ cmake ../
 make
 sudo make install
 ```
+If you cannot use `sudo` or CMake, see [this guide](doc/without_sudo.md)
 
 ## Examples
 
