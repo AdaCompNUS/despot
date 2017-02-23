@@ -3,7 +3,7 @@
 ## Overview
 Approximate POMDP Planning Online (APPL Online) Toolkit
 
-This software package is a C++ implementation of the DESPOT algorithm <sup>1</sup>.
+This software package is a C++ implementation of the DESPOT algorithm<sup>1</sup>.
 
 [1] [**Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
 This extends our NIPS 2013 paper with an improved search algorithm, analysis and more empirical results.
@@ -60,7 +60,7 @@ make
 ```
 
 This command simulates DESPOT's policy for `N = 2` times and reports the
-performance for tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
+performance for the tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
 
 2.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
@@ -75,7 +75,7 @@ make
 ```
 
 This command simulates DESPOT's policy for `N = 2` times and reports the
-performance for tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
+performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 
 ## Usage
