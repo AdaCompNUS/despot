@@ -20,9 +20,9 @@ Tested Operating Systems:
 |:------------- |:-------------:|: -----:|
 |[![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)| [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) | Not Supported |-->
 
-| Ubuntu 14.04       | OS X 12.12           | Windows Cygwin  |
-| :-------------: |:-------------:|:-----:|
-|[![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)      | [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) | Not Supported |
+| Ubuntu 14.04       | OS X 12.12
+| :-------------: |:-------------:|
+|[![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges)      | [![Build Status](https://semaphoreapp.com/api/v1/projects/d4cca506-99be-44d2-b19e-176f36ec8cf1/128505/shields_badge.svg)](https://semaphoreapp.com/boennemann/badges) 
 
 Tested Compilers: gcc | g++ 4.2.1 or above
 
@@ -45,7 +45,7 @@ If you cannot use `sudo` or CMake, see [this guide](doc/without_sudo.md)
 ## Examples
 
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
-specified in **C++** according to the API. We illustrate this on the Tag problem.
+specified in **C++** according to the API. We illustrate this on the [Tag](http://www.cs.mcgill.ca/~jpineau/files/jpineau-ijcai03.pdf) problem.
 
 1.To run Tag specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
@@ -56,10 +56,10 @@ mkdir build; cd build
 cmake ../
 make
 
-./pomdpx -m ../data/tag.pomdpx --runs 2 [OPTIONS]...
+./pomdpx -m ../data/tag.pomdpx --runs 2 
 ```
 
-This command simulates DESPOT's policy for `N = 2` times and reports the
+This command simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
 
@@ -71,10 +71,10 @@ mkdir build; cd build
 cmake ../
 make
 
-./tag --runs 2 [OPTIONS]...
+./tag --runs 2 
 ```
 
-This command simulates DESPOT's policy for `N = 2` times and reports the
+This command simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 
