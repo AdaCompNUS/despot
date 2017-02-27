@@ -85,6 +85,10 @@ To integrate DESPOT into your project, add this to your `CMakeLists.txt` file:
 ```CMake
 find_package(Despot CONFIG REQUIRED)
 
+add_executable("YOUR_PROJECT_NAME"
+  <src_files>
+)
+
 target_link_libraries("YOUR_PROJECT_NAME"
   despot
 )
