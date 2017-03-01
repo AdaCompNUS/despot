@@ -11,11 +11,6 @@ namespace despot {
 SimpleState::SimpleState() {
 }
 
-SimpleState::SimpleState(int _rover_position, int _rock_status) {
-	rover_position = _rover_position;
-	rock_status = _rock_status;
-}
-
 SimpleState::~SimpleState() {
 }
 
@@ -44,45 +39,57 @@ int SimpleRockSample::NumActions() const {
  * ==============================*/
 
 bool SimpleRockSample::Step(State& state, double rand_num, int action,
-	double& reward, OBS_TYPE& obs) const {
-	SimpleState& simple_state = static_cast<SimpleState&>(state);
-	int& rover_position = simple_state.rover_position;
-	int& rock_status = simple_state.rock_status;
+        double& reward, OBS_TYPE& obs) const {
+    SimpleState& simple_state = static_cast < SimpleState& >(state);
+    int& rover_position = simple_state.rover_position;
+    int& rock_status = simple_state.rock_status;
+ 
+    if (rover_position == LEFT) {
+        if (action == A_SAMPLE) {
+            reward = (rock_status == R_GOOD) ? 10 : -10;
+            obs = O_GOOD;
+            rock_status = R_BAD;
+        } else if (action == A_CHECK) {
+            reward = 0;
+            // when the rover at LEFT, its observation is correct with probability 1
+            obs = (rock_status == R_GOOD) ? O_GOOD : O_BAD;  
+        } else if (action == A_WEST) {
+            reward = -100;
+            // moving does not incur observation, setting a default observation 
+            // note that we can also set the default observation to O_BAD, as long
+            // as it is consistent.
+            obs = O_GOOD;
+            return true; // Moving off the grid terminates the task. 
+        } else { // moving EAST
+            reward = 0;
+            // moving does not incur observation, setting a default observation
+            obs = O_GOOD;
+            rover_position = MIDDLE;
+        }
+    } else if (rover_position  == MIDDLE) {
+        if (action == A_SAMPLE) {
+            reward = -100;
+            // moving does not incur observation, setting a default observation 
+            obs = O_GOOD;
+            return true; // sampling in the grid where there is no rock terminates the task
+        } else if (action == A_CHECK) {
+            reward = 0;
+            // when the rover is at MIDDLE, its observation is correct with probability 0.8
+            obs =  (rand_num > 0.20) ? rock_status : (1 - rock_status);
+        } else if (action == A_WEST) {
+            reward = 0;
+            // moving does not incur observation, setting a default observation 
+            obs = O_GOOD;
+            rover_position = LEFT;
+        } else { //moving EAST to exit
+            reward = 10;
+            obs = O_GOOD;
+            rover_position = RIGHT;
+        }
+    }
 
-	obs = 1; // default observation
-	if (rover_position == 0) {
-		if (action == A_SAMPLE) {
-			reward = rock_status ? 10 : -10;
-			rock_status = 0;
-		} else if (action == A_CHECK) {
-			reward = 0;
-			obs = rock_status;
-		} else if (action == A_WEST) {
-			reward = -100;
-			rover_position = 2;
-		} else {
-			reward = 0;
-			rover_position = 1;
-		}
-	} else if (rover_position == 1) {
-		if (action == A_SAMPLE) {
-			reward = -100;
-			rover_position = 2;
-		} else if (action == A_CHECK) {
-			reward = 0;
-			obs = (rand_num > 0.20) ? rock_status : (1 - rock_status);
-		} else if (action == A_WEST) {
-			reward = 0;
-			rover_position = 0;
-		} else {
-			reward = 10;
-			rover_position = 2;
-		}
-	} else {
-		reward = 0;
-	}
-
-	return rover_position == 2;
+ 	if(rover_position == RIGHT) return true;
+ 	else return false;
 }
 
 /* ================================================
@@ -96,14 +103,18 @@ double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
 		int rover_position = simple_state.rover_position;
 		int rock_status = simple_state.rock_status;
 
-		if (rover_position == 0) {
+		if (rover_position == LEFT) {
+			// when the rover at LEFT, its observation is correct with probability 1
 			return obs == rock_status;
-		} else if (rover_position == 1) {
+		} else if (rover_position == MIDDLE) {
+			// when the rover at MIDDLE, its observation is correct with probability 0.8
 			return (obs == rock_status) ? 0.8 : 0.2;
 		}
 	}
 
-	return obs == 1;
+	// when the actions are not A_CHECK, the rover does not receive any observations.
+	// Assume it receives a default observation with probability 1.
+	return obs == O_GOOD;
 }
 
 State* SimpleRockSample::CreateStartState(string type) const {
@@ -190,7 +201,7 @@ public:
 
 	int Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
-		return 1; // move east
+		return A_EAST; // move east
 	}
 };
 

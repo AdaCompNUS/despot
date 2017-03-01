@@ -16,7 +16,10 @@ public:
 	int rock_status; // 1 is good, and 0 is bad
 
 	SimpleState();
-	SimpleState(int rover_position, int rock_status);
+	SimpleState(int _rover_position, int _rock_status) : 
+        rover_position(_rover_position),
+        rock_status(_rock_status) {
+    }
 	~SimpleState();
 
 	std::string text() const;
@@ -38,19 +41,28 @@ public:
 	enum { // action
 		A_SAMPLE = 0, A_EAST = 1, A_WEST = 2, A_CHECK = 3
 	};
+	enum { // observation
+		O_BAD = 0, O_GOOD = 1
+	};
+	enum { // rock status
+		R_BAD = 0, R_GOOD = 1
+	};
+	enum { // rover position
+		LEFT = 0, MIDDLE = 1, RIGHT = 2
+	};
 
 public:
 	SimpleRockSample();
 
 	/* Returns total number of actions.*/
-	virtual int NumActions() const;
+	int NumActions() const;
 
 	/* Deterministic simulative model.*/
-	virtual bool Step(State& state, double rand_num, int action, double& reward,
+	bool Step(State& state, double rand_num, int action, double& reward,
 		OBS_TYPE& obs) const;
 
 	/* Functions related to beliefs and starting states.*/
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 	State* CreateStartState(std::string type = "DEFAULT") const;
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
