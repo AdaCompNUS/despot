@@ -195,6 +195,9 @@ ValuedAction SimpleRockSample::GetMinRewardAction() const {
 
 class SimpleRockSampleEastPolicy: public Policy {
 public:
+	enum { // action
+		A_SAMPLE = 0, A_EAST = 1, A_WEST = 2, A_CHECK = 3
+	};
 	SimpleRockSampleEastPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
 		Policy(model, bound) {
 	}
