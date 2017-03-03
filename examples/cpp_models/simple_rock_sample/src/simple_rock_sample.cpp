@@ -126,13 +126,13 @@ Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
 		vector<State*> particles;
 
 		SimpleState* good_rock = static_cast<SimpleState*>(Allocate(-1, 0.5));
-		good_rock->rover_position = 1;
-		good_rock->rock_status = 1;
+		good_rock->rover_position = MIDDLE;
+		good_rock->rock_status = O_GOOD;
 		particles.push_back(good_rock);
 
 		SimpleState* bad_rock = static_cast<SimpleState*>(Allocate(-1, 0.5));
-		bad_rock->rover_position = 1;
-		bad_rock->rock_status = 0;
+		bad_rock->rover_position = MIDDLE;
+		bad_rock->rock_status = O_BAD;
 		particles.push_back(bad_rock);
 
 		return new ParticleBelief(particles, this);
