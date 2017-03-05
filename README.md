@@ -8,7 +8,7 @@ This software package is a C++ implementation of the DESPOT algorithm<sup>1</sup
 [1] [**DESPOT: Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
 This extends our NIPS 2013 paper with an improved search algorithm, analysis and more empirical results.
 
-Copyright &copy; 2014-2015 by National University of Singapore, [Adaptive Computing](http://bigbird.comp.nus.edu.sg/m2ap/wordpress/).
+[Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
 
 ## Requirements
 
