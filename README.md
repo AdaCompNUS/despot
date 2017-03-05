@@ -5,7 +5,7 @@ Approximate POMDP Planning Online (APPL Online) Toolkit
 
 This software package is a C++ implementation of the DESPOT algorithm<sup>1</sup>.
 
-[1] [**Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
+[1] [**DESPOT: Online POMDP Planning with Regularization**](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
 This extends our NIPS 2013 paper with an improved search algorithm, analysis and more empirical results.
 
 Copyright &copy; 2014-2015 by National University of Singapore, [Adaptive Computing](http://bigbird.comp.nus.edu.sg/m2ap/wordpress/).
@@ -47,7 +47,21 @@ If you cannot use `sudo` or CMake, see [this guide](doc/without_sudo.md)
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
 specified in **C++** according to the API. We illustrate this on the [Tag](http://www.cs.mcgill.ca/~jpineau/files/jpineau-ijcai03.pdf) problem.
 
-1.To run Tag specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
+1.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
+```bash
+cd <despot_dir>/examples/cpp_models/tag
+
+mkdir build; cd build
+cmake ../
+make
+
+./tag --runs 2 
+```
+
+This command simulates DESPOT's policy for `N = 2` runs and reports the
+performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
+
+2.To run Tag specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
 ```bash
 cd <despot_dir>/examples/pomdpx_models
@@ -62,20 +76,6 @@ make
 This command simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
-
-2.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
-```bash
-cd <despot_dir>/examples/cpp_models/tag
-
-mkdir build; cd build
-cmake ../
-make
-
-./tag --runs 2 
-```
-
-This command simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 
 ## Usage
