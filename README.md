@@ -45,23 +45,23 @@ If you cannot use `sudo` or CMake, see [this guide](doc/without_sudo.md)
 ## Examples
 
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
-specified in **C++** according to the API. We illustrate this on the [Tag](http://www.cs.mcgill.ca/~jpineau/files/jpineau-ijcai03.pdf) problem.
+specified in **C++** according to the API. We illustrate this on the [Tiger](http://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf) problem.
 
-1.To run Tag specified in [C++](doc/cpp_model_doc), compile and run: 
+1.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
 ```bash
-cd <despot_dir>/examples/cpp_models/tag
+cd <despot_dir>/examples/cpp_models/tiger
 
 mkdir build; cd build
 cmake ../
 make
 
-./tag --runs 2 
+./tiger
 ```
 
 This command simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
-2.To run Tag specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
+2.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
 ```bash
 cd <despot_dir>/examples/pomdpx_models
@@ -70,7 +70,7 @@ mkdir build; cd build
 cmake ../
 make
 
-./pomdpx -m ../data/tag.pomdpx --runs 2 
+./pomdpx -m ../data/Tiger.pomdpx --runs 2 
 ```
 
 This command simulates DESPOT's policy for `N = 2` runs and reports the
