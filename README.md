@@ -99,6 +99,8 @@ target_link_libraries("YOUR_PROJECT_NAME"
 
 Documentation can be found in the "[doc](doc/)" directory. 
 
+For more POMDP problems and example descriptions see [this](http://www.pomdp.org/examples/).
+
 
 ## Package Contents
 
