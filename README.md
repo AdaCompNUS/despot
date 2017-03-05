@@ -97,7 +97,7 @@ target_link_libraries("YOUR_PROJECT_NAME"
 
 ## Documentation
 
-Documentation can be found in the directory "doc". 
+Documentation can be found in the "[doc](doc/)" directory. 
 
 
 ## Package Contents
