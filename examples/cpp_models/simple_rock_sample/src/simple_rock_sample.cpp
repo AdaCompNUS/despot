@@ -145,7 +145,15 @@ Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
 /* ========================
  * Bound-related functions.
  * ========================*/
-
+/*
+Note: in the following bound-related functions, only GetMaxReward() and 
+GetMinRewardAction() functions are required to be implemented. The other 
+functions (or classes) are for custom bounds. You don't need to write them
+if you don't want to use your own custom bounds. However, it is highly 
+recommended that you build the bounds based on the domain knowledge because
+it often improves the performance. Read the tutorial for more details on how
+to custom your bounds.
+*/
 double SimpleRockSample::GetMaxReward() const {
 	return 10;
 }
