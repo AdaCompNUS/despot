@@ -58,8 +58,8 @@ make
 ./tiger
 ```
 
-This command simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tag problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
+This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
+performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
 2.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
@@ -73,8 +73,8 @@ make
 ./pomdpx -m ../data/Tiger.pomdpx --runs 2 
 ```
 
-This command simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tag problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
+This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
+performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
 
 
@@ -99,7 +99,7 @@ target_link_libraries("YOUR_PROJECT_NAME"
 
 Documentation can be found in the "[doc](doc/)" directory. 
 
-For more POMDP problems and example descriptions see [this](http://www.pomdp.org/examples/).
+For a description of our example domains and more POMDP problems see [the POMDP page](http://www.pomdp.org/examples/).
 
 
 ## Package Contents
@@ -132,4 +132,5 @@ Please use the issue tracker.
 
 ## Release Notes
 2015/09/28 Initial release.
+2017/03/07 Public release. Revised documentation.
 

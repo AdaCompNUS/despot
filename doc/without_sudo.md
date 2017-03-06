@@ -12,10 +12,13 @@ make
 
 ## Examples
 
-Compile using make:
+Compile example using make:
 ```bash
 cd <despot_dir>examples/pomdpx_models
 make
+```
 
-./pomdpx -m ../data/tag.pomdpx --runs 2 [OPTIONS]...
+Run the example:
+```
+./pomdpx -m ./data/tag.pomdpx --runs 2 [OPTIONS]...
 ```

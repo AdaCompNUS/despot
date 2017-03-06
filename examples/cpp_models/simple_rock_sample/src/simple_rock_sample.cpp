@@ -152,7 +152,7 @@ functions (or classes) are for custom bounds. You don't need to write them
 if you don't want to use your own custom bounds. However, it is highly 
 recommended that you build the bounds based on the domain knowledge because
 it often improves the performance. Read the tutorial for more details on how
-to custom your bounds.
+to implement custom bounds.
 */
 double SimpleRockSample::GetMaxReward() const {
 	return 10;

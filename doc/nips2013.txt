@@ -27,4 +27,4 @@ commands like the following to do 2000 runs:
 
 Use a random number for the seed used in each command.
 
-[1] Online POMDP Planning with Regularization. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. In preparation. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
+[1] Online POMDP Planning with Regularization. Nan Ye, Adihraj Somani, David Hsu and Wee Sun Lee. This extends our NIPS 2013 paper with an improved search algorithm, its analysis, and more empirical results.
