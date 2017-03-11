@@ -12,8 +12,6 @@ This extends our NIPS 2013 paper with an improved search algorithm, analysis and
 
 ## Requirements
 
-Dependencies: [CMake (2.8+)](https://cmake.org/install/)
-
 Tested Operating Systems:
 
 <!--| Linux 14.04| OS X (10.1)  | Windows  |
@@ -28,19 +26,16 @@ Tested Compilers: gcc | g++ 4.2.1 or above
 
 Tested Hardware: Intel Core i7 CPU, 2.0 GB RAM
 
+Other Dependencies: (Optional) [CMake (2.8+)](https://cmake.org/install/)
+
 ## Installation
 
-Clone, compile and install:
+Clone and compile:
 ```bash
-git clone https://github.com/AdaCompNUS/despot.git
-cd despot
-
-mkdir build; cd build
-cmake ../
-make
-sudo make install
+$ git clone https://github.com/AdaCompNUS/despot.git
+$ cd despot
+$ make
 ```
-If you cannot use `sudo` or CMake, see [this guide](doc/without_sudo.md)
 
 ## Examples
 
@@ -49,13 +44,9 @@ specified in **C++** according to the API. We illustrate this on the [Tiger](htt
 
 1.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
 ```bash
-cd <despot_dir>/examples/cpp_models/tiger
-
-mkdir build; cd build
-cmake ../
-make
-
-./tiger
+$ cd despot/examples/cpp_models/tiger
+$ make
+$ ./tiger
 ```
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
@@ -64,13 +55,9 @@ performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usag
 2.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
 ```bash
-cd <despot_dir>/examples/pomdpx_models
-
-mkdir build; cd build
-cmake ../
-make
-
-./pomdpx -m ../data/Tiger.pomdpx --runs 2 
+$ cd despot/examples/pomdpx_models
+$ make
+$ ./pomdpx -m ./data/Tiger.pomdpx --runs 2 
 ```
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
@@ -78,7 +65,16 @@ performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt
 more options.
 
 
-## Usage
+## Integration
+
+To install DESPOT libraries and header files for external usage, use the [CMakeLists.txt](CMakeLists.txt) provided:
+```bash
+$ cd despot
+$ mkdir build; cd build
+$ cmake ../
+$ make
+$ sudo make install
+```
 
 To integrate DESPOT into your project, add this to your `CMakeLists.txt` file:
 
