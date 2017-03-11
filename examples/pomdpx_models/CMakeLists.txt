@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-find_package(Despot CONFIG REQUIRED)
-
-add_executable("pomdpx"
+add_executable("${PROJECT_NAME}_pomdpx"
   src/main.cpp
 )
-
-target_link_libraries("pomdpx"
-  despot
+target_link_libraries("${PROJECT_NAME}_pomdpx"
+  "${PROJECT_NAME}"
+)
+install(TARGETS "${PROJECT_NAME}_pomdpx"
+  RUNTIME DESTINATION "${BINARY_INSTALL_PATH}"
 )
