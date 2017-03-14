@@ -46,7 +46,7 @@ specified in **C++** according to the API. We illustrate this on the [Tiger](htt
 ```bash
 $ cd despot/examples/cpp_models/tiger
 $ make
-$ ./tiger
+$ ./tiger --runs 2
 ```
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
