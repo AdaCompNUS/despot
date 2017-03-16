@@ -1,4 +1,4 @@
-#DESPOT
+# DESPOT
 
 ## Overview
 Approximate POMDP Planning Online (APPL Online) Toolkit
