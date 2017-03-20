@@ -30,14 +30,18 @@ Other Dependencies: (Optional) [CMake (2.8+)](https://cmake.org/install/)
 
 ## Installation
 
-Clone and compile:
+Clone OR [Download and Unzip](https://github.com/AdaCompNUS/despot/archive/master.zip):
 ```bash
 $ git clone https://github.com/AdaCompNUS/despot.git
+```
+
+Compile:
+```bash
 $ cd despot
 $ make
 ```
 
-## Examples
+## Quick Start
 
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
 specified in **C++** according to the API. We illustrate this on the [Tiger](http://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf) problem.
@@ -67,7 +71,9 @@ more options.
 
 ## Integration
 
-To install DESPOT libraries and header files for external usage, use the [CMakeLists.txt](CMakeLists.txt) provided:
+If you are interested in integrating DESPOT into an existing project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt) file.
+
+To install DESPOT libraries and header files:
 ```bash
 $ cd despot
 $ mkdir build; cd build
@@ -82,7 +88,7 @@ To integrate DESPOT into your project, add this to your `CMakeLists.txt` file:
 find_package(Despot CONFIG REQUIRED)
 
 add_executable("YOUR_PROJECT_NAME"
-  <src_files>
+  <your_src_files>
 )
 
 target_link_libraries("YOUR_PROJECT_NAME"
