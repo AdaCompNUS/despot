@@ -53,7 +53,7 @@ $ cd despot
 $ make
 ```
 
-This will generate libraries and header files inside a local folder in `despot`. To install them into your system directory, see [Integration](#integration)
+This will generate libraries and header files inside a local folder in `despot`. To install them into your system directory, see [Integration](#integration).
 
 ## Quick Start
 
