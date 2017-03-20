@@ -53,6 +53,8 @@ $ cd despot
 $ make
 ```
 
+This will generate libraries and header files inside a local folder in `despot`. To install them into your system directory, see [Integration](#integration)
+
 ## Quick Start
 
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
@@ -85,7 +87,7 @@ more options.
 
 If you are interested in integrating DESPOT into an existing project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt).
 
-To install DESPOT libraries and header files:
+To install DESPOT libraries and header files into your system directory:
 ```bash
 $ cd despot
 $ mkdir build; cd build
