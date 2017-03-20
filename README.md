@@ -10,6 +10,18 @@ This implementation extends our [NIPS 2013 paper](http://bigbird.comp.nus.edu.sg
 
 [Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
 
+## Table of Contents
+
+* [Requirements](#requirments)
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Integration](#integration)
+* [Documentation](#documentation)
+* [Package Contents](#package-contents)
+* [Acknowledgements](#acknowledgements)
+* [Bugs and Suggestions](#bugs-and-suggestions)
+* [Release Notes](#release-notes)
+
 ## Requirements
 
 Tested Operating Systems:
@@ -71,7 +83,7 @@ more options.
 
 ## Integration
 
-If you are interested in integrating DESPOT into an existing project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt) file.
+If you are interested in integrating DESPOT into an existing project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt).
 
 To install DESPOT libraries and header files:
 ```bash
@@ -94,7 +106,6 @@ add_executable("YOUR_PROJECT_NAME"
 target_link_libraries("YOUR_PROJECT_NAME"
   despot
 )
-
 ```
 
 ## Documentation
