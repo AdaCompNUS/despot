@@ -12,7 +12,7 @@ This implementation extends our [NIPS 2013 paper](http://bigbird.comp.nus.edu.sg
 
 ## Table of Contents
 
-* [Requirements](#requirments)
+* [Requirements](#requirements)
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Integration](#integration)
