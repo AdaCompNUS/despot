@@ -9,7 +9,9 @@ in the right subdirectory in the problems directory:
 
 	./tag --runs 2000
 
-	./lasertag --runs 2000
+	for i in $(seq 1 2000); do ./lasertag -r $RANDOM; done \
+		| grep "Total discounted"\
+		| awk '{ s += $5; s2 += $5^2; } END { printf "Average total discounted reward (stderr) = %f (%f)\n", s/NR, sqrt(s2 / NR^2 - s^2 / NR^3) }'
 
 	./rocksample --size 7 --number 8 --runs 2000
 
@@ -19,9 +21,13 @@ in the right subdirectory in the problems directory:
 
 	./pocman --runs 2000
 
-Note that doing 2000 runs can take a long time. It is better to do fewer runs
-using multiple commands, i.e., run in parallel. For example, we can use 20 
-commands like the following to do 2000 runs:
+For LaserTag, the command computes the average performance of DESPOT on 2000
+LaserTag instances with randomly chosen obstacle positions, that is, this is the
+average performance over 2000 random POMDPs, which is different from other
+commands in which we only evaluate DESPOT on a fixed POMDP. Also note that doing
+2000 runs can take a long time. It is better to do fewer runs using multiple
+commands, i.e., run in parallel. For example, we can use 20 commands like the
+following to do 2000 runs:
   
 	./tag --runs 100 -r <seed>
 
