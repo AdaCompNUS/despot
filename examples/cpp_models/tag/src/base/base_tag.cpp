@@ -789,9 +789,9 @@ void BaseTag::PrintBelief(const Belief& belief, ostream& out) const {
 
 void BaseTag::PrintAction(int action, ostream& out) const {
 	switch(action) {
-		case 0: out << "South" << endl; break;
+		case 0: out << "North" << endl; break;
 		case 1: out << "East" << endl; break;
-		case 2: out << "North" << endl; break;
+		case 2: out << "South" << endl; break;
 		case 3: out << "West" << endl; break;
 		case 4: out << "Tag" << endl; break;
 		default: out << "Wrong action" << endl; exit(1);
