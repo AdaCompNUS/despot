@@ -766,7 +766,7 @@ void BaseTag::PrintState(const State& s, ostream& out) const {
 	int aindex = rob_[state.state_id];
 	int oindex = opp_[state.state_id];
 
-	for (int y = 0; y < floor_.num_rows(); y++) {
+	for (int y = floor_.num_rows()-1; y >= 0; y--) {
 		for (int x = 0; x < floor_.num_cols(); x++) {
 			int index = floor_.GetIndex(x, y);
 			if (index == Floor::INVALID)
