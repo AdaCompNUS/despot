@@ -13,9 +13,10 @@ This implementation extends our [NIPS 2013 paper](http://bigbird.comp.nus.edu.sg
 ## Table of Contents
 
 * [Requirements](#requirements)
+* [Download](#download)
 * [Installation](#installation)
 * [Quick Start](#quick-start)
-* [Integration](#integration)
+* [CMakeLists](#cmakelists)
 * [Documentation](#documentation)
 * [Package Contents](#package-contents)
 * [Acknowledgements](#acknowledgements)
@@ -38,39 +39,31 @@ Tested Compilers: gcc | g++ 4.2.1 or above
 
 Tested Hardware: Intel Core i7 CPU, 2.0 GB RAM
 
-Other Dependencies: (Optional) [CMake (2.8+)](https://cmake.org/install/)
+## Download
 
-## Installation
-
-Clone OR [Download and Unzip](https://github.com/AdaCompNUS/despot/archive/master.zip):
+Clone the repository from Github (**Recommended**):
 ```bash
 $ git clone https://github.com/AdaCompNUS/despot.git
 ```
+OR manually download the [Zip Files](https://github.com/AdaCompNUS/despot/archive/master.zip)
 
-Compile:
+## Installation
+
+Compile using `make`:
 ```bash
 $ cd despot
 $ make
 ```
 
-This will generate libraries and header files inside a local folder in `despot`. To install them into your system directory, see [Integration](#integration).
+(Optional): If you prefer using `CMake` see the [CMakeLists](#cmakelists) section.
 
 ## Quick Start
 
 DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMDP
 specified in **C++** according to the API. We illustrate this on the [Tiger](http://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf) problem.
 
-1.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
-```bash
-$ cd despot/examples/cpp_models/tiger
-$ make
-$ ./tiger --runs 2
-```
 
-This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
-
-2.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
+1.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
 ```bash
 $ cd despot/examples/pomdpx_models
@@ -82,10 +75,21 @@ This command computes and simulates DESPOT's policy for `N = 2` runs and reports
 performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
 more options.
 
+2.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
+```bash
+$ cd despot/examples/cpp_models/tiger
+$ make
+$ ./tiger --runs 2
+```
 
-## Integration
+This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
+performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
 
-If you are interested in integrating DESPOT into an existing project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt).
+## CMakeLists
+
+**(Optional)**
+
+If you are interested in integrating DESPOT into an existing CMake project or using an IDE for editing, we provide a [CMakeLists.txt](CMakeLists.txt).
 
 To install DESPOT libraries and header files into your system directory:
 ```bash
