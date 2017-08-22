@@ -73,7 +73,7 @@ $ ./pomdpx -m ./data/Tiger.pomdpx --runs 2
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
-more options.
+more options. For more details on the POMPDX format, see [this page](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.)
 
 2.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
 ```bash
@@ -84,6 +84,32 @@ $ ./tiger --runs 2
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
+
+
+## Documentation
+
+Documentation can be found in the "[doc](doc/)" directory. 
+
+For a description of our example domains and more POMDP problems see [the POMDP page](http://www.pomdp.org/examples/).
+
+## Package Contents
+
+```
+Makefile                  Makefile for compiling the solver library
+README.md                 Overview
+include                   Header files
+src/core                  Core data structures for the solvers
+src/solvers               Solvers, including despot, pomcp and aems
+src/pomdpx                Pomdpx and its parser
+src/util                  Math and logging utilities
+src/ippc                  Interface for International Probabilistic Planning Competition
+license                   Licenses and attributions
+examples/cpp_models       POMDP models implemented in C++
+examples/pomdpx_models    POMDP models implemented in pomdpx
+doc/pomdpx_model_doc      Documentation for POMDPX file format
+doc/cpp_model_doc         Documentation for implementing POMDP models in C++
+doc/Usage.txt             Explanation of command-line options
+```
 
 ## CMakeLists
 
@@ -112,33 +138,6 @@ add_executable("YOUR_PROJECT_NAME"
 target_link_libraries("YOUR_PROJECT_NAME"
   despot
 )
-```
-
-## Documentation
-
-Documentation can be found in the "[doc](doc/)" directory. 
-
-For a description of our example domains and more POMDP problems see [the POMDP page](http://www.pomdp.org/examples/).
-
-
-## Package Contents
-
-```
-Makefile                  Makefile for compiling the solver library
-README.md                 Overview
-include                   Header files
-src/core                  Core data structures for the solvers
-src/solvers               Solvers, including despot, pomcp and aems
-src/pomdpx                Pomdpx and its parser
-src/util                  Math and logging utilities
-src/ippc                  Interface for International Probabilistic Planning Competition
-license                   Licenses and attributions
-examples/cpp_models       POMDP models implemented in C++
-examples/pomdpx_models    POMDP models implemented in pomdpx
-doc/pomdpx_model_doc      Documentation for POMDPX file format
-doc/cpp_model_doc         Documentation for implementing POMDP models in C++
-doc/Usage.txt             Explanation of command-line options
-doc/nips2013.txt          Instruction to obtain results in [1]
 ```
 
 ## Acknowledgements
