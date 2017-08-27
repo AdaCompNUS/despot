@@ -25,7 +25,6 @@ add_library("${PROJECT_NAME}" SHARED
   src/core/solver.cpp
   src/core/upper_bound.cpp
   src/evaluator.cpp
-  src/ippc/client.cpp
   src/pomdpx/parser/function.cpp
   src/pomdpx/parser/parser.cpp
   src/pomdpx/parser/variable.cpp

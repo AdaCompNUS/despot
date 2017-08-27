@@ -102,7 +102,6 @@ src/core                  Core data structures for the solvers
 src/solvers               Solvers, including despot, pomcp and aems
 src/pomdpx                Pomdpx and its parser
 src/util                  Math and logging utilities
-src/ippc                  Interface for International Probabilistic Planning Competition
 license                   Licenses and attributions
 examples/cpp_models       POMDP models implemented in C++
 examples/pomdpx_models    POMDP models implemented in pomdpx

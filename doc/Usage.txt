@@ -18,8 +18,6 @@ COMMAND LINE OPTIONS
           --xi <arg>                 Gap constant (default to 0.95).
 -s <arg>  --simlen <arg>             Number of steps to simulate. (default 90; 0
                                      = infinite).
-          --simulator <arg>          Use IPPC server or a POMDP model as the
-                                     simulator.
           --max-policy-simlen <arg>  Number of steps to simulate the default
                                      policy. (default 90).
           --default-action <arg>     Type of default action to use. (default

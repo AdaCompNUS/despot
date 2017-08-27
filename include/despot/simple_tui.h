@@ -10,8 +10,6 @@
 #include <despot/util/seeds.h>
 
 #include <despot/core/pomdp.h>
-#include <despot/ippc/client.h>
-
 #include <despot/evaluator.h>
 
 namespace despot {
@@ -91,11 +89,6 @@ const option::Descriptor usage[] = {
     "= infinite)." },
   { E_RUNS, 0, "", "runs", option::Arg::Required,
     "  \t--runs <arg>  \tNumber of runs. (default 1)." },
-  // { E_EVALUATOR, 0, "", "evaluator", option::Arg::Required, "  \t--evaluator
-  // <arg>  \tUse IPPC server or a POMDP model as the evaluator." },
-  // { E_DEFAULT_ACTION, 0, "", "default-action", option::Arg::Required, "
-  // \t--default-action <arg>  \tType of default action to use. (default none)."
-  // },
   { E_LBTYPE, 0, "l", "lbtype", option::Arg::Required,
     "-l <arg>  \t--lbtype <arg>  \tLower bound strategy." },
   { E_BLBTYPE, 0, "", "blbtype", option::Arg::Required,
@@ -117,19 +110,8 @@ const option::Descriptor usage[] = {
     "  \t--silence  \tReduce default output to minimal." },
   { E_SOLVER, 0, "", "solver", option::Arg::Required,
     "  \t--solver <arg>  \t" },
-  // { E_TIME_LIMIT, 0, "", "time-limit", option::Arg::Required, "
-  // \t--time-limit <arg>  \tTotal amount of time allowed for the program." },
-  // { E_SEARCH_SOLVER, 0, "", "search-solver", option::Arg::None, "
-  // \t--search-solver\tUse first few runs to select DESPOT or POMCP as the
-  // solver for remaining runs." },
   { E_PRIOR, 0, "", "prior", option::Arg::Required, 
     "  \t--prior <arg>  \tPOMCP prior." },
-  // { E_SERVER, 0, "", "server", option::Arg::Required, "  \t--server <arg>
-  // \tServer address." },
-  // { E_PORT, 0, "", "port", option::Arg::Required, "  \t--port <arg>  \tPort
-  // number." },
-  // { E_LOG, 0, "", "log", option::Arg::Required, "  \t--log <arg>  \tIPPC log
-  // file." },
   { 0, 0, 0, 0, 0, 0 }
 };
 

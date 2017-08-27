@@ -121,7 +121,6 @@ public:
 
 	void PrintMDPBound(const std::vector<ValuedAction>& policy, const char* fn);
 
-	// For server-client messages in IPPC competition
 	const std::string& GetActionName();
 	const std::string& GetEnumedAction(int action);
 	OBS_TYPE GetPOMDPXObservation(std::map<std::string, std::string>& observe);
