@@ -3,12 +3,14 @@
 ## Overview
 Approximate POMDP Planning Online (APPL Online) Toolkit
 
-This software package is a C++ implementation of the DESPOT algorithm<sup>1</sup>.
+[Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
+
+This software package is a C++ implementation of the DESPOT algorithm [1].
 
 [1] [**DESPOT: Online POMDP Planning with Regularization**](https://www.jair.org/media/5328/live-5328-9753-jair.ps). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
 This implementation extends our [NIPS 2013 paper](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf) with an improved search algorithm, analysis and more empirical results.
 
-[Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
+
 
 ## Table of Contents
 
