@@ -152,11 +152,13 @@ Belief* LaserTag::InitialBelief(const State* start, string type) const {
 
 	vector<State*> particles;
 	int N = floor_.NumCells();
-	double wgt = 1.0 / N;
-	for (int opp = 0; opp < N; opp++) {
-		TagState* state = static_cast<TagState*>(Allocate(
-			RobOppIndicesToStateIndex(rob_[start->state_id], opp), wgt));
-		particles.push_back(state);
+	double wgt = 1.0 / N / N;
+	for (int rob = 0; rob < N; rob++) {
+		for (int opp = 0; opp < N; opp++) {
+			TagState* state = static_cast<TagState*>(Allocate(
+				RobOppIndicesToStateIndex(rob, opp), wgt));
+			particles.push_back(state);
+		}
 	}
 
 	ParticleBelief* belief = new ParticleBelief(particles, this);
