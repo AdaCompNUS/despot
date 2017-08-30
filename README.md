@@ -2,7 +2,7 @@
 
 [Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
 
-APPL Online is a C++ implementation of the DESPOT algorithm for online POMDP planning [1,2]. It takes as input a POMDP model in the POMDPX file format. It also provides an API for interfacing directly with a blackbox simulator. 
+APPL Online is a C++ implementation of the DESPOT algorithm for online POMDP planning [1]. It takes as input a POMDP model in the POMDPX file format. It also provides an API for interfacing directly with a blackbox simulator. 
 
 For bug reports and suggestions, please email <motion@comp.nus.edu.sg>.
 
