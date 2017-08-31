@@ -45,7 +45,7 @@ Clone the repository from Github (**Recommended**):
 ```bash
 $ git clone https://github.com/AdaCompNUS/despot.git
 ```
-OR manually download the [Zip Files](https://github.com/AdaCompNUS/despot/archive/master.zip)
+OR manually download the [Zip Files](https://github.com/AdaCompNUS/despot/archive/master.zip). For instructions, use this online Github README. 
 
 ## Installation
 
