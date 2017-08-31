@@ -22,7 +22,7 @@ COMMAND LINE OPTIONS
                                      policy. (default 90).
           --default-action <arg>     Type of default action to use. (default
                                      none).
-          --runs <arg>               Number of runs. (default 1).
+          --runs <arg>               Number of simulation runs. (default 1).
           --lbtype <arg>             Lower bound strategy, if applicable.
 -l <arg>  --blbtype <arg>            Base lower bound, if applicable.
 -u <arg>  --ubtype <arg>             Upper bound strategy, if applicable.

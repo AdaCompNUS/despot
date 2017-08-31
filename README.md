@@ -107,7 +107,8 @@ examples/cpp_models       POMDP models implemented in C++
 examples/pomdpx_models    POMDP models implemented in pomdpx
 doc/pomdpx_model_doc      Documentation for POMDPX file format
 doc/cpp_model_doc         Documentation for implementing POMDP models in C++
-doc/Usage.txt             Explanation of command-line options
+doc/usage.txt             Explanation of command-line options
+doc/eclipse_guide.md      Guide for using Eclipse IDE for development
 ```
 
 ## CMakeLists
