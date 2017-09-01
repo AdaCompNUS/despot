@@ -1,14 +1,14 @@
-# DESPOT
-
-## Overview
-Approximate POMDP Planning Online (APPL Online) Toolkit
-
-This software package is a C++ implementation of the DESPOT algorithm<sup>1</sup>.
-
-[1] [**DESPOT: Online POMDP Planning with Regularization**](https://www.jair.org/media/5328/live-5328-9753-jair.ps). *Nan Ye, Adhiraj Somani, David Hsu and Wee Sun Lee*. 
-This implementation extends our [NIPS 2013 paper](http://bigbird.comp.nus.edu.sg/pmwiki/farm/motion/uploads/Site/nips13.pdf) with an improved search algorithm, analysis and more empirical results.
+# Approximate POMDP Planning Online (APPL Online) Toolkit
 
 [Copyright &copy; 2014-2017 by National University of Singapore](http://motion.comp.nus.edu.sg/).
+
+APPL Online is a C++ implementation of the DESPOT algorithm for online POMDP planning [1]. It takes as input a POMDP model in the POMDPX file format. It also provides an API for interfacing directly with a blackbox simulator. 
+
+For bug reports and suggestions, please email <motion@comp.nus.edu.sg>.
+
+[1] N. Ye, A. Somani, D. Hsu, and W. Lee. [**DESPOT: Online POMDP planning with regularization**](http://bigbird.comp.nus.edu.sg/m2ap/wordpress/wp-content/uploads/2017/08/jair14.pdf). J. Artificial Intelligence Research, 58:231–266, 2017.
+
+
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ Clone the repository from Github (**Recommended**):
 ```bash
 $ git clone https://github.com/AdaCompNUS/despot.git
 ```
-OR manually download the [Zip Files](https://github.com/AdaCompNUS/despot/archive/master.zip)
+OR manually download the [Zip Files](https://github.com/AdaCompNUS/despot/archive/master.zip). For instructions, use this online Github README. 
 
 ## Installation
 
@@ -107,7 +107,8 @@ examples/cpp_models       POMDP models implemented in C++
 examples/pomdpx_models    POMDP models implemented in pomdpx
 doc/pomdpx_model_doc      Documentation for POMDPX file format
 doc/cpp_model_doc         Documentation for implementing POMDP models in C++
-doc/Usage.txt             Explanation of command-line options
+doc/usage.txt             Explanation of command-line options
+doc/eclipse_guide.md      Guide for using Eclipse IDE for development
 ```
 
 ## CMakeLists
