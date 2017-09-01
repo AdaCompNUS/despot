@@ -5,7 +5,13 @@ using namespace despot;
 
 class TUI: public SimpleTUI {
 public:
-  TUI() {
+  TUI(string lower_bound_str, 
+			string base_lower_bound_str,
+			string upper_bound_str,
+			string base_upper_bound_str) : SimpleTUI(lower_bound_str, 
+				base_lower_bound_str,
+				upper_bound_str,
+				base_lower_bound_str) {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -19,6 +25,11 @@ public:
   }
 };
 
+using namespace std;
+
 int main(int argc, char* argv[]) {
-  return TUI().run(argc, argv);
+	return TUI("w/o base lower bounds: TRIVIAL; with base lower bounds: RANDOM, SHR, MODE-MDP, MODE-SP, MAJORITY-MDP, MAJORITY-SP (default to MODE-MDP)",
+			"TRIVIAL (default)",
+			"w/o base lower bounds: TRIVIAL, MDP, SP, MANHATTAN; with base lower bounds: LOOKAHEAD -- default to SP",
+			"TRIVIAL, MDP, SP, MANHATTAN (default to SP)").run(argc, argv);
 }

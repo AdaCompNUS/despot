@@ -12,6 +12,8 @@
 #include <despot/core/pomdp.h>
 #include <despot/evaluator.h>
 
+using namespace std;
+
 namespace despot {
 
 void disableBufferedIO(void);
@@ -52,6 +54,11 @@ enum OptionIndex {
   E_LOG,
 };
 
+option::Descriptor* buildUsage(string lower_bounds_str, 
+		string base_lower_bounds_str, 
+		string upper_bounds_str, 
+		string base_upper_bounds_str);
+		
 // option::Arg::Required is a misnomer. The program won't complain if these
 // are absent, and required flags must be checked manually.
 const option::Descriptor usage[] = {
@@ -116,8 +123,15 @@ const option::Descriptor usage[] = {
 };
 
 class SimpleTUI {
+private:
+	option::Descriptor* usage;
+
 public:
-  SimpleTUI();
+  SimpleTUI(string lower_bounds_str = "TRIVIAL",
+			string base_lower_bounds_str = "TRIVIAL",
+			string upper_bounds_str = "TRIVIAL",
+			string base_upper_bounds_str = "TRIVIAL");
+
   virtual ~SimpleTUI();
 
   virtual DSPOMDP* InitializeModel(option::Option* options) = 0;

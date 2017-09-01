@@ -651,7 +651,9 @@ ParticleUpperBound* BaseTag::CreateParticleUpperBound(string name) const {
 	} else if (name == "MANHATTAN") {
 		return new TagManhattanUpperBound(this);
 	} else {
-		cerr << "Unsupported particle lower bound: " << name << endl;
+		if (name != "print")
+			cerr << "Unsupported particle lower bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL, MDP, SP, MANHATTAN (default to SP)" << endl;
 		exit(1);
 		return NULL;
 	}
@@ -666,7 +668,10 @@ ScenarioUpperBound* BaseTag::CreateScenarioUpperBound(string name,
 		return new LookaheadUpperBound(this, *this,
 			CreateParticleUpperBound(particle_bound_name));
 	} else {
-		cerr << "Unsupported scenario upper bound: " << name << endl;
+		if (name != "print")
+			cerr << "Unsupported upper bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL, MDP, SP, MANHATTAN, LOOKAHEAD (default to SP)" << endl;
+		cerr << "With base upper bound: LOOKAHEAD" << endl;
 		exit(1);
 		return NULL;
 	}
@@ -680,7 +685,9 @@ BeliefUpperBound* BaseTag::CreateBeliefUpperBound(string name) const {
 	} else if (name == "MANHATTAN") {
 		return new TagManhattanUpperBound(this);
 	} else {
-		cerr << "Unsupported upper bound algorithm: " << name << endl;
+		if (name != "print")
+			cerr << "Unsupported belief upper bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL, MDP, MANHATTAN (default to MDP)" << endl;
 		exit(1);
 		return NULL;
 	}
@@ -730,7 +737,10 @@ ScenarioLowerBound* BaseTag::CreateScenarioLowerBound(string name, string
 		return new MajorityActionPolicy(model, *policy,
 			CreateParticleLowerBound(particle_bound_name));
 	} else {
-		cerr << "Unsupported scenario lower bound: " << name << endl;
+		if (name != "print")
+			cerr << "Unsupported lower bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL, RANDOM, SHR, MODE-MDP, MODE-SP, MAJORITY-MDP, MAJORITY-SP (default to MODE-MDP)" << endl;
+		cerr << "With base lower bound: except TRIVIAL" << endl;
 		exit(1);
 		return NULL;
 	}

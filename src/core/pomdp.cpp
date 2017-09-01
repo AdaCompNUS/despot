@@ -83,7 +83,9 @@ ParticleUpperBound* DSPOMDP::CreateParticleUpperBound(string name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
 	} else {
-		cerr << "Unsupported particle upper bound: " << name << endl;
+		if (name != "print") 
+			cerr << "Unsupported base upper bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
 	}
 }
@@ -93,7 +95,9 @@ ScenarioUpperBound* DSPOMDP::CreateScenarioUpperBound(string name,
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
 	} else {
-		cerr << "Unsupported scenario upper bound: " << name << endl;
+		if (name != "print") 
+			cerr << "Unsupported upper bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
 		return NULL;
 	}
@@ -103,7 +107,9 @@ ParticleLowerBound* DSPOMDP::CreateParticleLowerBound(string name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleLowerBound(this);
 	} else {
-		cerr << "Unsupported particle lower bound: " << name << endl;
+		if (name != "print") 
+			cerr << "Unsupported particle lower bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
 		return NULL;
 	}
@@ -116,7 +122,9 @@ ScenarioLowerBound* DSPOMDP::CreateScenarioLowerBound(string name, string
 	} else if (name == "RANDOM") {
 		return new RandomPolicy(this, CreateParticleLowerBound(particle_bound_name));
 	} else {
-		cerr << "Unsupported lower bound algorithm: " << name << endl;
+		if (name != "print")
+			cerr << "Unsupported lower bound: " << name << endl;
+		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
 		return NULL;
 	}
