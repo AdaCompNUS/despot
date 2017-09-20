@@ -1,4 +1,6 @@
+#include <despot/core/pomdp_world.h>
 #include <despot/simple_tui.h>
+#include <despot/util/seeds.h>
 
 using namespace std;
 
@@ -91,8 +93,73 @@ SimpleTUI::SimpleTUI(string lower_bounds_str,
 }
 
 SimpleTUI::~SimpleTUI() {}
+World* SimpleTUI::InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options)
+{
+  if(world_type=="pomdp")
+	  return InitializePOMDPWorld(world_type, model, options);
+  else
+  {
+	  cerr<<"Unsupported world type (pomdp by default). To support custom world, implement "<<__FUNCTION__<<endl;
+	  exit(-1);
+  }
+}
 
-Solver *SimpleTUI::InitializeSolver(DSPOMDP *model, string solver_type,
+World* SimpleTUI::InitializePOMDPWorld(string& world_type, DSPOMDP *model,option::Option* options){
+  //Create world: use POMDP model
+  world_type="pomdp";
+  POMDPWorld* world=new POMDPWorld(model,Seeds::Next());
+  //Establish connection: do nothing
+  world->Connect();
+  //Initialize: create start state
+  world->Initialize();
+  return world;
+}
+
+option::Option* SimpleTUI::InitializeParamers(int argc, char *argv[], std::string& solver_type,
+		bool& search_solver, int& num_runs, std::string& world_type,
+		std::string& belief_type, int& time_limit){
+  EvalLog::curr_inst_start_time = get_time_second();
+
+  const char *program = (argc > 0) ? argv[0] : "despot";
+
+  argc -= (argc > 0);
+  argv += (argc > 0); // skip program name argv[0] if present
+
+  option::Stats stats(usage, argc, argv);
+  option::Option *options = new option::Option[stats.options_max];
+  option::Option *buffer = new option::Option[stats.buffer_max];
+  option::Parser parse(usage, argc, argv, options, buffer);
+
+
+
+  /* =========================================
+   * Problem specific default parameter values
+*=========================================*/
+  InitializeDefaultParameters();
+
+  /* =========================
+   * Parse optional parameters
+   * =========================*/
+  if (options[E_HELP]) {
+	cout << "Usage: " << program << " [options]" << endl;
+	option::printUsage(std::cout, usage);
+	return 0;
+  }
+  OptionParse(options, num_runs, world_type, belief_type, time_limit,
+			  solver_type, search_solver);
+
+  /* =========================
+   * Global random generator
+   * =========================*/
+  Seeds::root_seed(Globals::config.root_seed);
+  //unsigned world_seed = Seeds::Next();
+  unsigned seed = Seeds::Next();
+  Random::RANDOM = Random(seed);
+
+  return options;
+}
+
+Solver *SimpleTUI::InitializeSolver(DSPOMDP *model, Belief* belief, string solver_type,
                                     option::Option *options) {
   Solver *solver = NULL;
   // DESPOT or its default policy
@@ -154,11 +221,15 @@ Solver *SimpleTUI::InitializeSolver(DSPOMDP *model, string solver_type,
     cerr << "ERROR: Unsupported solver type: " << solver_type << endl;
     exit(1);
   }
+
+  assert(solver != NULL);
+  solver->belief(belief);
+
   return solver;
 }
 
 void SimpleTUI::OptionParse(option::Option *options, int &num_runs,
-                            string &simulator_type, string &belief_type,
+                            string &world_type, string &belief_type,
                             int &time_limit, string &solver_type,
                             bool &search_solver) {
   if (options[E_SILENCE])
@@ -194,8 +265,8 @@ void SimpleTUI::OptionParse(option::Option *options, int &num_runs,
   if (options[E_SIM_LEN])
     Globals::config.sim_len = atoi(options[E_SIM_LEN].arg);
 
-  if (options[E_EVALUATOR])
-    simulator_type = options[E_EVALUATOR].arg;
+  if (options[E_WORLD])
+	  world_type = options[E_WORLD].arg;
 
   if (options[E_MAX_POLICY_SIM_LEN])
     Globals::config.max_policy_sim_len =
@@ -227,21 +298,21 @@ void SimpleTUI::OptionParse(option::Option *options, int &num_runs,
   logging::level(verbosity);
 }
 
-void SimpleTUI::InitializeEvaluator(Evaluator *&simulator,
-                                    option::Option *options, DSPOMDP *model,
+void SimpleTUI::InitializeEvaluator(Evaluator *&evaluator,
+                                    option::Option *options, DSPOMDP *model, Belief* belief,
                                     Solver *solver, int num_runs,
                                     clock_t main_clock_start,
-                                    string simulator_type, string belief_type,
+									World* world, string world_type,
                                     int time_limit, string solver_type) {
 
   if (time_limit != -1) {
-    simulator =
-        new POMDPEvaluator(model, belief_type, solver, main_clock_start, &cout,
+    evaluator =
+        new Evaluator(model, belief, solver, world, world_type, main_clock_start, &cout,
                            EvalLog::curr_inst_start_time + time_limit,
                            num_runs * Globals::config.sim_len);
   } else {
-    simulator =
-        new POMDPEvaluator(model, belief_type, solver, main_clock_start, &cout);
+    evaluator =
+        new Evaluator(model, belief, solver, world, world_type, main_clock_start, &cout);
   }
 }
 
@@ -268,172 +339,184 @@ void SimpleTUI::DisplayParameters(option::Option *options, DSPOMDP *model) {
   // << "Solver = " << typeid(*solver).name() << endl << endl;
 }
 
-void SimpleTUI::RunEvaluator(DSPOMDP *model, Evaluator *simulator,
-                             option::Option *options, int num_runs,
-                             bool search_solver, Solver *&solver,
-                             string simulator_type, clock_t main_clock_start,
-                             int start_run) {
-  // Run num_runs simulations
-  vector<double> round_rewards(num_runs);
-  for (int round = start_run; round < start_run + num_runs; round++) {
-    default_out << endl
-                << "####################################### Round " << round
-                << " #######################################" << endl;
-
-    if (search_solver) {
-      if (round == 0) {
-        solver = InitializeSolver(model, "DESPOT", options);
-        default_out << "Solver: " << typeid(*solver).name() << endl;
-
-        simulator->solver(solver);
-      } else if (round == 5) {
-        solver = InitializeSolver(model, "POMCP", options);
-        default_out << "Solver: " << typeid(*solver).name() << endl;
-
-        simulator->solver(solver);
-      } else if (round == 10) {
-        double sum1 = 0, sum2 = 0;
-        for (int i = 0; i < 5; i++)
-          sum1 += round_rewards[i];
-        for (int i = 5; i < 10; i++)
-          sum2 += round_rewards[i];
-        if (sum1 < sum2)
-          solver = InitializeSolver(model, "POMCP", options);
-        else
-          solver = InitializeSolver(model, "DESPOT", options);
-        default_out << "Solver: " << typeid(*solver).name()
-                    << " DESPOT:" << sum1 << " POMCP:" << sum2 << endl;
-      }
-
-      simulator->solver(solver);
-    }
-
-    simulator->InitRound();
-
-    for (int i = 0; i < Globals::config.sim_len; i++) {
-      /*
-      default_out << "-----------------------------------Round " << round
-                  << " Step " << i << "-----------------------------------"
-                  << endl;*/
-      double step_start_t = get_time_second();
-
-      bool terminal = simulator->RunStep(i, round);
-
-      if (terminal)
-        break;
-
-      double step_end_t = get_time_second();
-      logi << "[main] Time for step: actual / allocated = "
-           << (step_end_t - step_start_t) << " / " << EvalLog::allocated_time
-           << endl;
-      simulator->UpdateTimePerMove(step_end_t - step_start_t);
-      logi << "[main] Time per move set to " << Globals::config.time_per_move
-           << endl;
-      logi << "[main] Plan time ratio set to " << EvalLog::plan_time_ratio
-           << endl;
-    //  default_out << endl;
-    }
-
-    default_out << "Simulation terminated in " << simulator->step() << " steps"
-                << endl;
-    double round_reward = simulator->EndRound();
-    round_rewards[round] = round_reward;
-  }
-
-  if (simulator_type == "ippc" && num_runs != 30) {
-    cout << "Exit without receiving reward." << endl
-         << "Total time: Real / CPU = "
-         << (get_time_second() - EvalLog::curr_inst_start_time) << " / "
-         << (double(clock() - main_clock_start) / CLOCKS_PER_SEC) << "s"
-         << endl;
-    exit(0);
-  }
+void SimpleTUI::PlanningLoop(int round, Solver*& solver, World* world,
+		Evaluator* evaluator) {
+	for (int i = 0; i < Globals::config.sim_len; i++) {
+		/*
+		 default_out << "-----------------------------------Round " << round
+		 << " Step " << i << "-----------------------------------"
+		 << endl;*/
+		double step_start_t = get_time_second();
+		bool terminal = RunStep(i, round, solver, world, evaluator);
+		if (terminal)
+			break;
+	}
 }
 
-void SimpleTUI::PrintResult(int num_runs, Evaluator *simulator,
+void SimpleTUI::EvaluationLoop(DSPOMDP *model, World* world,
+                             Belief* belief, string belief_type,
+							 Solver *&solver,Evaluator *evaluator,
+							 option::Option *options, clock_t main_clock_start,
+							 int num_runs, int start_run) {
+	// Run num_runs simulations
+	vector<double> round_rewards(num_runs);
+	for (int round = start_run; round < start_run + num_runs; round++) {
+		default_out << endl
+					<< "####################################### Round " << round
+					<< " #######################################" << endl;
+		//Reset world and evaluator
+		world->Initialize();
+		evaluator->InitRound(world->GetTrueState());
+
+		//Reset belief and solver
+		double start_t = get_time_second();
+		delete solver->belief();
+		double end_t = get_time_second();
+		logi << "[SimpleTUI::EvaluationLoop] Deleted old belief in "
+			<< (end_t - start_t) << "s" << endl;
+
+		start_t = get_time_second();
+		belief=model->InitialBelief(world->GetTrueState(), belief_type);
+		end_t = get_time_second();
+		logi << "[SimpleTUI::EvaluationLoop] Created intial belief "
+			<< typeid(*belief).name() << " in " << (end_t - start_t) << "s" << endl;
+
+		solver->belief(belief);
+
+		//start loop
+		PlanningLoop(round, solver, world, evaluator);
+		//end loop
+
+		default_out << "Simulation terminated in " << evaluator->step() << " steps"
+					<< endl;
+		double round_reward = evaluator->EndRound();
+		round_rewards[round] = round_reward;
+	}
+}
+
+void SimpleTUI::PrintResult(int num_runs, Evaluator *evaluator,
                             clock_t main_clock_start) {
 
-  cout << "\nCompleted " << num_runs << " run(s)." << endl;
-  cout << "Average total discounted reward (stderr) = "
-       << simulator->AverageDiscountedRoundReward() << " ("
-       << simulator->StderrDiscountedRoundReward() << ")" << endl;
-  cout << "Average total undiscounted reward (stderr) = "
-       << simulator->AverageUndiscountedRoundReward() << " ("
-       << simulator->StderrUndiscountedRoundReward() << ")" << endl;
-  cout << "Total time: Real / CPU = "
-       << (get_time_second() - EvalLog::curr_inst_start_time) << " / "
-       << (double(clock() - main_clock_start) / CLOCKS_PER_SEC) << "s" << endl;
+	evaluator->PrintStatistics(num_runs);
+	cout << "Total time: Real / CPU = "
+	   << (get_time_second() - EvalLog::curr_inst_start_time) << " / "
+	   << (double(clock() - main_clock_start) / CLOCKS_PER_SEC) << "s" << endl;
 }
 
 int SimpleTUI::run(int argc, char *argv[]) {
 
-  clock_t main_clock_start = clock();
-  EvalLog::curr_inst_start_time = get_time_second();
-
-  const char *program = (argc > 0) ? argv[0] : "despot";
-
-  argc -= (argc > 0);
-  argv += (argc > 0); // skip program name argv[0] if present
-
-  option::Stats stats(usage, argc, argv);
-  option::Option *options = new option::Option[stats.options_max];
-  option::Option *buffer = new option::Option[stats.buffer_max];
-  option::Parser parse(usage, argc, argv, options, buffer);
-
+  /* =========================
+   * initialize parameters
+   * =========================*/
   string solver_type = "DESPOT";
   bool search_solver;
-
-  /* =========================
-   * Parse required parameters
-   * =========================*/
   int num_runs = 1;
-  string simulator_type = "pomdp";
+  string world_type = "pomdp";
   string belief_type = "DEFAULT";
   int time_limit = -1;
 
-  /* =========================================
-   * Problem specific default parameter values
-*=========================================*/
-  InitializeDefaultParameters();
+  option::Option *options = InitializeParamers(argc, argv, solver_type, search_solver,
+		  num_runs, world_type, belief_type, time_limit);
 
-  /* =========================
-   * Parse optional parameters
-   * =========================*/
-  if (options[E_HELP]) {
-    cout << "Usage: " << program << " [options]" << endl;
-    option::printUsage(std::cout, usage);
-    return 0;
-  }
-  OptionParse(options, num_runs, simulator_type, belief_type, time_limit,
-              solver_type, search_solver);
-
-  /* =========================
-   * Global random generator
-   * =========================*/
-  Seeds::root_seed(Globals::config.root_seed);
-  unsigned world_seed = Seeds::Next();
-  unsigned seed = Seeds::Next();
-  Random::RANDOM = Random(seed);
+  clock_t main_clock_start = clock();
 
   /* =========================
    * initialize model
    * =========================*/
   DSPOMDP *model = InitializeModel(options);
+  assert(model != NULL);
+
+  /* =========================
+   * initialize world
+   * =========================*/
+  World *world = InitializeWorld(world_type, model, options);
+  assert(world != NULL);
+
+  /* =========================
+   * initialize belief
+   * =========================*/
+  Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
+  assert(belief != NULL);
 
   /* =========================
    * initialize solver
    * =========================*/
-  Solver *solver = InitializeSolver(model, solver_type, options);
-  assert(solver != NULL);
+  Solver *solver = InitializeSolver(model, belief, solver_type, options);
 
   /* =========================
-   * initialize simulator
+   * initialize evaluator
    * =========================*/
-  Evaluator *simulator = NULL;
-  InitializeEvaluator(simulator, options, model, solver, num_runs,
-                      main_clock_start, simulator_type, belief_type, time_limit,
+  Evaluator *evaluator = NULL;
+  InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
+                      main_clock_start, world, world_type, time_limit,
                       solver_type);
-  simulator->world_seed(world_seed);
+  //world->world_seed(world_seed);
+
+  /* =========================
+   * Display parameters
+   * =========================*/
+  DisplayParameters(options, model);
+
+  /* =========================
+   * run planning
+   * =========================*/
+  evaluator->InitRound(world->GetTrueState());
+  PlanningLoop(0, solver,world, evaluator);
+  evaluator->EndRound();
+
+  PrintResult(1, evaluator, main_clock_start);
+
+  return 0;
+}
+
+int SimpleTUI::runEvaluation(int argc, char *argv[]) {
+
+  /* =========================
+   * initialize parameters
+   * =========================*/
+  string solver_type = "DESPOT";
+  bool search_solver;
+  int num_runs = 1;
+  string world_type = "pomdp";
+  string belief_type = "DEFAULT";
+  int time_limit = -1;
+
+  option::Option *options = InitializeParamers(argc, argv, solver_type, search_solver,
+		  num_runs, world_type, belief_type, time_limit);
+
+  clock_t main_clock_start = clock();
+
+  /* =========================
+   * initialize model
+   * =========================*/
+  DSPOMDP *model = InitializeModel(options);
+  assert(model != NULL);
+
+  /* =========================
+   * initialize world
+   * =========================*/
+  World *world = InitializeWorld(world_type, model, options);
+  assert(world != NULL);
+
+  /* =========================
+   * initialize belief
+   * =========================*/
+  Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
+  assert(belief != NULL);
+
+  /* =========================
+   * initialize solver
+   * =========================*/
+  Solver *solver = InitializeSolver(model, belief, solver_type, options);
+
+  /* =========================
+   * initialize evaluator
+   * =========================*/
+  Evaluator *evaluator = NULL;
+  InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
+                      main_clock_start, world, world_type, time_limit,
+                      solver_type);
+  //evaluator->world_seed(world_seed);
 
   int start_run = 0;
 
@@ -443,16 +526,47 @@ int SimpleTUI::run(int argc, char *argv[]) {
   DisplayParameters(options, model);
 
   /* =========================
-   * run simulator
+   * run evaluation
    * =========================*/
-  RunEvaluator(model, simulator, options, num_runs, search_solver, solver,
-               simulator_type, main_clock_start, start_run);
+  EvaluationLoop(model, world, belief, belief_type, solver, evaluator, options, main_clock_start,num_runs, start_run);
 
-  simulator->End();
+  //evaluator->End();
 
-  PrintResult(num_runs, simulator, main_clock_start);
+  PrintResult(num_runs, evaluator, main_clock_start);
 
   return 0;
+}
+
+
+bool SimpleTUI::RunStep(int step, int round, Solver* solver, World* world, Evaluator* evaluator) {
+
+	evaluator->CheckTargetTime();
+
+	double step_start_t = get_time_second();
+
+	double start_t = get_time_second();
+	int action = solver->Search().action;
+	double end_t = get_time_second();
+	double search_time=(end_t - start_t);
+	logi << "[RunStep] Time spent in " << typeid(*solver).name()
+		<< "::Search(): " << search_time << endl;
+
+	double reward;
+	OBS_TYPE obs;
+	start_t = get_time_second();
+	bool terminal = world->ExecuteAction(action, obs);
+	end_t = get_time_second();
+	double execute_time=(end_t - start_t);
+	logi << "[RunStep] Time spent in ExecuteAction(): " << execute_time
+		<< endl;
+
+	start_t = get_time_second();
+	solver->Update(action, obs);
+	end_t = get_time_second();
+	double update_time=(end_t - start_t);
+    logi << "[RunStep] Time spent in Update(): " << update_time << endl;
+
+	return evaluator->SummarizeStep( step, round, terminal, action, obs, step_start_t);
 }
 
 } // namespace despot

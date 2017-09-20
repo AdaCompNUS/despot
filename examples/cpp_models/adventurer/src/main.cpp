@@ -17,6 +17,11 @@ public:
     return model;
   }
 
+  World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options)
+  {
+	 return InitializePOMDPWorld(world_type, model, options);
+  }
+
   void InitializeDefaultParameters() {
      Globals::config.search_depth = 5;
      Globals::config.sim_len = 5;

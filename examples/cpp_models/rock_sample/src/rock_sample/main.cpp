@@ -32,6 +32,11 @@ public:
     return model;
   }
 
+  World* InitializeWorld(std::string&  world_type, DSPOMDP* model, option::Option* options)
+  {
+      return InitializePOMDPWorld(world_type, model, options);
+  }
+
   void InitializeDefaultParameters() {
 	}
 };

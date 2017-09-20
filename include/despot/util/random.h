@@ -12,6 +12,7 @@ private:
 public:
 	static Random RANDOM;
 
+	Random(){seed_=0;}
 	Random(double seed);
 	Random(unsigned seed);
 

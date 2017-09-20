@@ -417,6 +417,13 @@ double Adventurer::Reward(int s, int action) const {
 	return trap_prob_[s % size_] * (-10);
 }
 
+double Adventurer::Reward(State& state, int action) const {
+	int s=GetIndex(&state);
+	if (action == A_STAY)
+		return (s % size_ == size_ - 1) ? goal_reward_[s / size_] : 0;
+	return trap_prob_[s % size_] * (-10);
+}
+
 Belief* Adventurer::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
 	static vector<double> probs = vector<double>(NumStates());
 

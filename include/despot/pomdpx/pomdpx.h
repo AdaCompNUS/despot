@@ -81,6 +81,7 @@ public:
 
 	const std::vector<State>& TransitionProbability(int s, int a) const;
 	double Reward(int s, int action) const;
+	double Reward(const State& state, int action) const;
 
 	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
 

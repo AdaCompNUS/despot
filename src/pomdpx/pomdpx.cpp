@@ -388,6 +388,12 @@ double POMDPX::Reward(int s, int a) const {
 	return rewards_[s][a];
 }
 
+double POMDPX::Reward(const State& state, int a) const {
+	assert(is_small_);
+	int s =GetIndex(&state);
+	return rewards_[s][a];
+}
+
 void POMDPX::ComputeDefaultActions(string type) const {
 	if (type == "MDP") {
 		const_cast<POMDPX*>(this)->ComputeOptimalPolicyUsingVI();

@@ -22,6 +22,8 @@ add_library("${PROJECT_NAME}" SHARED
   src/core/node.cpp
   src/core/policy.cpp
   src/core/pomdp.cpp
+  src/core/world.cpp
+  src/core/pomdp_world.cpp
   src/core/solver.cpp
   src/core/upper_bound.cpp
   src/evaluator.cpp

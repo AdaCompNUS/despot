@@ -10,6 +10,7 @@
 #include <despot/util/seeds.h>
 
 #include <despot/core/pomdp.h>
+#include <despot/core/world.h>
 #include <despot/evaluator.h>
 
 using namespace std;
@@ -32,7 +33,7 @@ enum OptionIndex {
   E_PRUNE,
   E_GAP,
   E_SIM_LEN,
-  E_EVALUATOR,
+  E_WORLD,
   E_MAX_POLICY_SIM_LEN,
   E_DEFAULT_ACTION,
   E_RUNS,
@@ -119,12 +120,17 @@ const option::Descriptor usage[] = {
     "  \t--solver <arg>  \t" },
   { E_PRIOR, 0, "", "prior", option::Arg::Required, 
     "  \t--prior <arg>  \tPOMCP prior." },
+  { E_PRIOR, 0, "", "world", option::Arg::Required,
+	"  \t--world <arg>  \tWorld type (pomdp, simulator, or real)." },
   { 0, 0, 0, 0, 0, 0 }
 };
 
 class SimpleTUI {
 private:
 	option::Descriptor* usage;
+
+	void PlanningLoop(int round, Solver*& solver, World* world,
+			Evaluator* evaluator);
 
 public:
   SimpleTUI(string lower_bounds_str = "TRIVIAL",
@@ -135,29 +141,36 @@ public:
   virtual ~SimpleTUI();
 
   virtual DSPOMDP* InitializeModel(option::Option* options) = 0;
+  virtual World* InitializeWorld(std::string&  world_type, DSPOMDP *model, option::Option* options);
   virtual void InitializeDefaultParameters() = 0;
 
-  Solver* InitializeSolver(DSPOMDP* model, std::string solver_type,
+  World* InitializePOMDPWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
+  option::Option* InitializeParamers(int argc, char *argv[], std::string& solver_type,
+			bool& search_solver, int& num_runs, std::string& simulator_type,
+			std::string& belief_type, int& time_limit);
+  Solver* InitializeSolver(DSPOMDP* model, Belief* belief, std::string solver_type,
                            option::Option* options);
 
   int run(int argc, char* argv[]);
+  int runEvaluation(int argc, char* argv[]);
+  bool RunStep(int step, int round, Solver* solver, World* world, Evaluator* evaluator);
 
   void OptionParse(option::Option* options, int& num_runs,
                    std::string& simulator_type, std::string& belief_type, int& time_limit,
                    std::string& solver_type, bool& search_solver);
 
   void InitializeEvaluator(Evaluator*& simulator, option::Option* options,
-                           DSPOMDP* model, Solver* solver, int num_runs,
-                           clock_t main_clock_start, std::string simulator_type,
-                           std::string belief_type, int time_limit,
+                           DSPOMDP* model, Belief* belief, Solver* solver, int num_runs,
+                           clock_t main_clock_start, World* world, std::string world_type, int time_limit,
                            std::string solver_type);
 
   void DisplayParameters(option::Option* options, DSPOMDP* model);
 
-  void RunEvaluator(DSPOMDP* model, Evaluator* simulator,
-                    option::Option* options, int num_runs, bool search_solver,
-                    Solver*& solver, std::string simulator_type,
-                    clock_t main_clock_start, int start_run);
+  void EvaluationLoop(DSPOMDP *model, World* world,
+             Belief* belief, std::string belief_type,
+			 Solver *&solver,Evaluator *evaluator,
+			 option::Option *options, clock_t main_clock_start,
+			 int num_runs, int start_run);
 
   void PrintResult(int num_runs, Evaluator* simulator,
                    clock_t main_clock_start);

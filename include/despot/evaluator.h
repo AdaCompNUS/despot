@@ -1,8 +1,10 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
+#include <despot/core/belief.h>
 #include <despot/core/globals.h>
 #include <despot/core/pomdp.h>
+#include <despot/core/world.h>
 #include <despot/pomdpx/pomdpx.h>
 #include <despot/util/util.h>
 
@@ -56,10 +58,16 @@ public:
 class Evaluator {
 protected:
 	DSPOMDP* model_;
-	std::string belief_type_;
-	Solver* solver_;
-	clock_t start_clockt_;
+	World* world_;
+
 	State* state_;
+	Belief* belief_;
+	//std::string belief_type_;
+	//Solver* solver_;
+	clock_t start_clockt_;
+
+	std::string world_type_;
+
 	int step_;
 	double target_finish_time_;
 	std::ostream* out_;
@@ -71,8 +79,9 @@ protected:
 	double total_undiscounted_reward_;
 
 public:
-	Evaluator(DSPOMDP* model, std::string belief_type, Solver* solver,
-		clock_t start_clockt, std::ostream* out);
+	Evaluator(DSPOMDP* model, Belief* belief, Solver* solver, World* world,std::string world_type,
+		clock_t start_clockt, std::ostream* out,
+		double target_finish_time=-1, int num_steps=-1);
 	virtual ~Evaluator();
 
 	inline void out(std::ostream* o) {
@@ -96,11 +105,11 @@ public:
 	inline void target_finish_time(double t) {
 		target_finish_time_ = t;
 	}
-	inline Solver* solver() {
-		return solver_;
+	inline Belief* belief() {
+		return belief_;
 	}
-	inline void solver(Solver* s) {
-		solver_ = s;
+	inline void belief(Belief* b) {
+		belief_ = b;
 	}
 	inline DSPOMDP* model() {
 		return model_;
@@ -109,52 +118,17 @@ public:
 		model_ = m;
 	}
 
-	virtual inline void world_seed(unsigned seed) {
-	}
-
-	virtual int Handshake(std::string instance) = 0; // Initialize simulator and return number of runs.
-	virtual void InitRound() = 0;
-
-	bool RunStep(int step, int round);
-
-	virtual double EndRound() = 0; // Return total undiscounted reward for this round.
-	virtual bool ExecuteAction(int action, double& reward, OBS_TYPE& obs) = 0;
-	virtual void ReportStepReward();
-	virtual double End() = 0; // Free resources and return total reward collected
-
-	virtual void UpdateTimePerMove(double step_time) = 0;
+	virtual void InitRound(State* state);
+	virtual double EndRound(); // Return total undiscounted reward for this round.
+	virtual bool SummarizeStep(int step, int round, bool terminal, int action, OBS_TYPE obs, double step_start_t);
+	virtual void PrintStatistics(int num_runs);
 
 	double AverageUndiscountedRoundReward() const;
 	double StderrUndiscountedRoundReward() const;
 	double AverageDiscountedRoundReward() const;
 	double StderrDiscountedRoundReward() const;
-};
 
-/* =============================================================================
- * POMDPEvaluator class
- * =============================================================================*/
-
-/** Evaluation by simulating using a DSPOMDP model.*/
-class POMDPEvaluator: public Evaluator {
-protected:
-	Random random_;
-
-public:
-	POMDPEvaluator(DSPOMDP* model, std::string belief_type, Solver* solver,
-		clock_t start_clockt, std::ostream* out, double target_finish_time = -1,
-		int num_steps = -1);
-	~POMDPEvaluator();
-
-	virtual inline void world_seed(unsigned seed) {
-		random_ = Random(seed);
-	}
-
-	int Handshake(std::string instance);
-	void InitRound();
-	double EndRound();
-	bool ExecuteAction(int action, double& reward, OBS_TYPE& obs);
-	double End();
-	void UpdateTimePerMove(double step_time);
+    void CheckTargetTime() const;
 };
 
 } // namespace despot

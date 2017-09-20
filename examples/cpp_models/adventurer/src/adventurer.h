@@ -79,6 +79,7 @@ public:
 	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
 	const std::vector<State>& TransitionProbability(int s, int a) const;
 	double Reward(int s, int a) const;
+	double Reward(State& s, int a) const;
 
 	State* CreateStartState(std::string type) const;
 	virtual Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;

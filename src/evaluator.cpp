@@ -1,3 +1,4 @@
+#include <despot/core/pomdp_world.h>
 #include <despot/evaluator.h>
 
 using namespace std;
@@ -121,102 +122,22 @@ double EvalLog::GetRemainingBudget(string instance) const {
  * Evaluator class
  * =============================================================================*/
 
-Evaluator::Evaluator(DSPOMDP* model, string belief_type, Solver* solver,
-	clock_t start_clockt, ostream* out) :
-	model_(model),
-	belief_type_(belief_type),
-	solver_(solver),
-	start_clockt_(start_clockt),
-	target_finish_time_(-1),
-	out_(out) {
+Evaluator::Evaluator(DSPOMDP* model, Belief* belief,
+	Solver* solver, World* world, string world_type, clock_t start_clockt, ostream* out,
+	double target_finish_time, int num_steps):
+		world_(world),belief_(belief),model_(model),start_clockt_(start_clockt),world_type_(world_type),
+		step_(0),out_(out),reward_(0),total_discounted_reward_(0),total_undiscounted_reward_(0) {
+	state_=world->GetTrueState();
+	target_finish_time_ = target_finish_time;
+	if (target_finish_time_ != -1) {
+		EvalLog::allocated_time = (target_finish_time_ - get_time_second())
+			/ num_steps;
+		Globals::config.time_per_move = EvalLog::allocated_time;
+		EvalLog::curr_inst_remaining_steps = num_steps;
+	}
 }
 
 Evaluator::~Evaluator() {
-}
-
-
-bool Evaluator::RunStep(int step, int round) {
-	if (target_finish_time_ != -1 && get_time_second() > target_finish_time_) {
-		if (!Globals::config.silence && out_)
-			*out_ << "Exit. (Total time "
-				<< (get_time_second() - EvalLog::curr_inst_start_time)
-				<< "s exceeded time limit of "
-				<< (target_finish_time_ - EvalLog::curr_inst_start_time) << "s)"
-				<< endl
-				<< "Total time: Real / CPU = "
-				<< (get_time_second() - EvalLog::curr_inst_start_time) << " / "
-				<< (double(clock() - start_clockt_) / CLOCKS_PER_SEC) << "s"
-				<< endl;
-		exit(1);
-	}
-
-	double step_start_t = get_time_second();
-
-	double start_t = get_time_second();
-	int action = solver_->Search().action;
-	double end_t = get_time_second();
-	logi << "[RunStep] Time spent in " << typeid(*solver_).name()
-		<< "::Search(): " << (end_t - start_t) << endl;
-
-	double reward;
-	OBS_TYPE obs;
-	start_t = get_time_second();
-	bool terminal = ExecuteAction(action, reward, obs);
-	end_t = get_time_second();
-	logi << "[RunStep] Time spent in ExecuteAction(): " << (end_t - start_t)
-		<< endl;
-
-	start_t = get_time_second();
-	*out_ << "-----------------------------------Round " << round
-				<< " Step " << step << "-----------------------------------"
-				<< endl;
-	if (!Globals::config.silence && out_) {
-		*out_ << "- Action = ";
-		model_->PrintAction(action, *out_);
-	}
-
-	if (state_ != NULL) {
-		if (!Globals::config.silence && out_) {
-			*out_ << "- State:\n";
-			model_->PrintState(*state_, *out_);
-		}
-	}
-
-	if (!Globals::config.silence && out_) {
-		*out_ << "- Observation = ";
-		model_->PrintObs(*state_, obs, *out_);
-	}
-
-	if (state_ != NULL) {
-		if (!Globals::config.silence && out_)
-			*out_ << "- ObsProb = " << model_->ObsProb(obs, *state_, action)
-				<< endl;
-	}
-
-	ReportStepReward();
-	end_t = get_time_second();
-
-	double step_end_t;
-	if (terminal) {
-		step_end_t = get_time_second();
-		logi << "[RunStep] Time for step: actual / allocated = "
-			<< (step_end_t - step_start_t) << " / " << EvalLog::allocated_time
-			<< endl;
-		if (!Globals::config.silence && out_)
-			*out_ << endl;
-		step_++;
-		return true;
-	}
-
-	*out_<<endl;
-
-	start_t = get_time_second();
-	solver_->Update(action, obs);
-	end_t = get_time_second();
-	logi << "[RunStep] Time spent in Update(): " << (end_t - start_t) << endl;
-
-	step_++;
-	return false;
 }
 
 double Evaluator::AverageUndiscountedRoundReward() const {
@@ -260,73 +181,42 @@ double Evaluator::StderrDiscountedRoundReward() const {
 	return n > 0 ? sqrt(sum2 / n / n - sum * sum / n / n / n) : 0.0;
 }
 
-void Evaluator::ReportStepReward() {
-	if (!Globals::config.silence && out_)
-		*out_ << "- Reward = " << reward_ << endl
-			<< "- Current rewards:" << endl
-			<< "  discounted / undiscounted = " << total_discounted_reward_
-			<< " / " << total_undiscounted_reward_ << endl;
-}
-
-/* =============================================================================
- * POMDPEvaluator class
- * =============================================================================*/
-
-POMDPEvaluator::POMDPEvaluator(DSPOMDP* model, string belief_type,
-	Solver* solver, clock_t start_clockt, ostream* out,
-	double target_finish_time, int num_steps) :
-	Evaluator(model, belief_type, solver, start_clockt, out),
-	random_((unsigned) 0) {
-	target_finish_time_ = target_finish_time;
-
-	if (target_finish_time_ != -1) {
-		EvalLog::allocated_time = (target_finish_time_ - get_time_second())
-			/ num_steps;
-		Globals::config.time_per_move = EvalLog::allocated_time;
-		EvalLog::curr_inst_remaining_steps = num_steps;
+void Evaluator::CheckTargetTime() const{
+	if (target_finish_time_ != -1 && get_time_second() > target_finish_time_) {
+		if (!Globals::config.silence && out_)
+			*out_ << "Exit. (Total time "
+				<< (get_time_second() - EvalLog::curr_inst_start_time)
+				<< "s exceeded time limit of "
+				<< (target_finish_time_ - EvalLog::curr_inst_start_time) << "s)"
+				<< endl
+				<< "Total time: Real / CPU = "
+				<< (get_time_second() - EvalLog::curr_inst_start_time) << " / "
+				<< (double(clock() - start_clockt_) / CLOCKS_PER_SEC) << "s"
+				<< endl;
+		exit(1);
 	}
 }
 
-POMDPEvaluator::~POMDPEvaluator() {
-}
-
-int POMDPEvaluator::Handshake(string instance) {
-	return -1; // Not to be used
-}
-
-void POMDPEvaluator::InitRound() {
+void Evaluator::InitRound(State* state) {
 	step_ = 0;
 
-	double start_t, end_t;
-	// Initial state
-	state_ = model_->CreateStartState();
-	logi << "[POMDPEvaluator::InitRound] Created start state." << endl;
-	if (!Globals::config.silence && out_) {
-		*out_ << "Initial state: " << endl;
-		model_->PrintState(*state_, *out_);
-		*out_ << endl;
+	if(state)
+	{
+		state_=state;
+		logi << "[POMDPEvaluator::InitRound] Created start state." << endl;
+		// Print initial state
+		if (!Globals::config.silence && out_) {
+			*out_ << "Initial state: " << endl;
+			model_->PrintState(*state_, *out_);
+			*out_ << endl;
+		}
 	}
-
-	// Initial belief
-	start_t = get_time_second();
-	delete solver_->belief();
-	end_t = get_time_second();
-	logi << "[POMDPEvaluator::InitRound] Deleted old belief in "
-		<< (end_t - start_t) << "s" << endl;
-
-	start_t = get_time_second();
-	Belief* belief = model_->InitialBelief(state_, belief_type_);
-	end_t = get_time_second();
-	logi << "[POMDPEvaluator::InitRound] Created intial belief "
-		<< typeid(*belief).name() << " in " << (end_t - start_t) << "s" << endl;
-
-	solver_->belief(belief);
 
 	total_discounted_reward_ = 0;
 	total_undiscounted_reward_ = 0;
 }
 
-double POMDPEvaluator::EndRound() {
+double Evaluator::EndRound() {
 	if (!Globals::config.silence && out_) {
 		*out_ << "Total discounted reward = " << total_discounted_reward_ << endl
 			<< "Total undiscounted reward = " << total_undiscounted_reward_ << endl;
@@ -338,22 +228,78 @@ double POMDPEvaluator::EndRound() {
 	return total_undiscounted_reward_;
 }
 
-bool POMDPEvaluator::ExecuteAction(int action, double& reward, OBS_TYPE& obs) {
-	double random_num = random_.NextDouble();
-	bool terminal = model_->Step(*state_, random_num, action, reward, obs);
+bool Evaluator::SummarizeStep(int step, int round, bool terminal, int action, OBS_TYPE obs, double step_start_t) {
 
-	reward_ = reward;
-	total_discounted_reward_ += Globals::Discount(step_) * reward;
-	total_undiscounted_reward_ += reward;
+    //Output step results
+	*out_ << "-----------------------------------Round " << round
+				<< " Step " << step << "-----------------------------------"
+				<< endl;
+	if (!Globals::config.silence && out_) {
+		*out_ << "- Action = ";
+		model_->PrintAction(action, *out_);
+	}
 
-	return terminal;
-}
+	if (state_ != NULL) {
+		if (!Globals::config.silence && out_) {
+			*out_ << "- State:\n";
+			model_->PrintState(*state_, *out_);
+		}
+	}
 
-double POMDPEvaluator::End() {
-	return 0; // Not to be used
-}
+	if (!Globals::config.silence && out_) {
+		*out_ << "- Observation = ";
+		model_->PrintObs(*state_, obs, *out_);
+	}
 
-void POMDPEvaluator::UpdateTimePerMove(double step_time) {
+	if (state_ != NULL) {
+		if (!Globals::config.silence && out_)
+			*out_ << "- ObsProb = " << model_->ObsProb(obs, *state_, action)
+				<< endl;
+	}
+
+	//Report step time
+
+	double step_end_t = get_time_second();
+	double step_time=(step_end_t - step_start_t);
+	if (terminal) {
+		logi << "[RunStep] Time for step: actual / allocated = "
+			<< step_time << " / " << EvalLog::allocated_time
+			<< endl;
+		if (!Globals::config.silence && out_)
+			*out_ << endl;
+		step_++;
+		return true;
+	}
+	*out_<<endl;
+	step_++;
+
+	//Report step reward
+	if(world_type_=="pomdp")
+		reward_ = static_cast<POMDPWorld*>(world_)->step_reward_;
+	else if(state_!=NULL)
+		reward_ = model_->Reward(*state_, action);
+	else{
+		vector<State*> particles = belief_->Sample(Globals::config.num_scenarios);
+		reward_=0;
+		for (int i = 0; i < particles.size(); i++) {
+			reward_ += model_->Reward(*particles[i], action) * particles[i]->weight;
+		}
+	}
+	total_discounted_reward_ += Globals::Discount(step_) * reward_;
+	total_undiscounted_reward_ += reward_;
+
+	//Record time per move
+
+    logi << "[main] Time for step: actual / allocated = "
+         << step_time << " / " << EvalLog::allocated_time
+         << endl;
+
+	if (!Globals::config.silence && out_)
+		*out_ << "- Reward = " << reward_ << endl
+			<< "- Current rewards:" << endl
+			<< "  discounted / undiscounted = " << total_discounted_reward_
+			<< " / " << total_undiscounted_reward_ << endl;
+
 	if (target_finish_time_ != -1) {
 		if (step_time < 0.99 * EvalLog::allocated_time) {
 			if (EvalLog::plan_time_ratio < 1.0)
@@ -390,6 +336,23 @@ void POMDPEvaluator::UpdateTimePerMove(double step_time) {
 		Globals::config.time_per_move = EvalLog::plan_time_ratio
 			* EvalLog::allocated_time;
 	}
+    logi << "[main] Time per move set to " << Globals::config.time_per_move
+         << endl;
+    logi << "[main] Plan time ratio set to " << EvalLog::plan_time_ratio
+         << endl;
+
+	return false;
+}
+
+void Evaluator::PrintStatistics(int num_runs)
+{
+	cout << "\nCompleted " << num_runs << " run(s)." << endl;
+	cout << "Average total discounted reward (stderr) = "
+	   << AverageDiscountedRoundReward() << " ("
+	   << StderrDiscountedRoundReward() << ")" << endl;
+	cout << "Average total undiscounted reward (stderr) = "
+	   << AverageUndiscountedRoundReward() << " ("
+	   << StderrUndiscountedRoundReward() << ")" << endl;
 }
 
 } // namespace despot

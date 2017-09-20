@@ -71,6 +71,7 @@ public:
 	void Observe(const Belief* belief, int action,
 		std::map<OBS_TYPE, double>& obss) const;
 	double StepReward(const Belief* belief, int action) const;
+	double Reward(const State& belief, int action) const;
 
 	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };

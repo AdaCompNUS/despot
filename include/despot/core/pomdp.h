@@ -127,6 +127,14 @@ public:
 	virtual int NumActions() const = 0;
 
 	/* ========================================================================
+	 * Reward
+	 * ========================================================================*/
+	/**
+	 * Returns the reward for taking an action at a state
+	 */
+	virtual double Reward(const State& state, int action) const;
+
+	/* ========================================================================
 	 * Functions related to beliefs and starting states.
 	 * ========================================================================*/
 	/**

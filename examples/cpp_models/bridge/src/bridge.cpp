@@ -228,6 +228,18 @@ double Bridge::StepReward(const Belief* belief, int action) const {
 	return sum;
 }
 
+double Bridge::Reward(const State& state, int action) const {
+	const BridgeState* bridge_state = static_cast<const BridgeState*>(&state);
+	double reward = -1;
+
+	if (action == RIGHT && bridge_state->position == BRIDGELENGTH - 1) {
+		reward = 0;
+	} else if (action == HELP) {
+		reward = -20 - bridge_state->position;
+	}
+	return reward;
+}
+
 class BridgePOMCPPrior: public POMCPPrior {
 public:
 	BridgePOMCPPrior(const DSPOMDP* model) :
