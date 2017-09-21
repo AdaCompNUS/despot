@@ -93,6 +93,10 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 ```
 
 ### Class DSPOMDP
+Usage:
+``` c++
+#include <despot\interface\pomdp.h>
+```
 
 #### Reward Function
 The _ExecuteAction_ function in the World class doesn't generate rewards. A new virtual function *Reward* is added in the _DSPOMDP_ class to enable reward monitoring after executing an action:
@@ -115,9 +119,17 @@ virtual ValuedAction GetBestAction() const = 0;
 ## Core Code Changes
 
 ### Class Evaluator
+Usage:
+``` c++
+#include <despot\evaluator.h>
+```
 Many functionalities in the original *Evaluator* class, including communication with the world and planning pipeline control, have been shifted to *World* and *SimpleTUI*. The new *Evaluator* class only perform logging of time usage and other statistics. Check "[despot/evaluator.h](../include/despot/evaluator.h)" for more details.
 
 ### Class SimpleTUI
+Usage:
+``` c++
+#include <despot\simple_tui.h>
+```
 *SimpleTUI* is now responsible for pipeline control. To achieve this, the following new member functions have been added:
 
 ``` c++
