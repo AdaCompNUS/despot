@@ -14,17 +14,16 @@ namespace despot {
 
 ostream& operator<<(ostream& os, const State& state) {
 	os << "(state_id = " << state.state_id << ", weight = " << state.weight
-		<< ", text = " << (&state)->text() << ")";
+			<< ", text = " << (&state)->text() << ")";
 	return os;
 }
 
 State::State() :
-	state_id(-1) {
+		state_id(-1) {
 }
 
 State::State(int _state_id, double _weight) :
-	state_id(_state_id),
-	weight(_weight) {
+		state_id(_state_id), weight(_weight) {
 }
 
 State::~State() {
@@ -68,19 +67,19 @@ DSPOMDP::DSPOMDP() {
 DSPOMDP::~DSPOMDP() {
 }
 
-double DSPOMDP::Reward(const State& state, int action) const{
-	cerr << __FUNCTION__<<" is called, but hasn't been implemented. To fix this error, implement "<<__FUNCTION__<< endl;
-	exit(-1);
-	return 0;
+double DSPOMDP::Reward(const State& state, int action) const {
+	//cerr << __FUNCTION__<<" is called, but hasn't been implemented. To fix this error, implement "<<__FUNCTION__<< endl;
+	//exit(-1);
+	return GetMaxReward() + 1;	//return an invalid reward
 }
 
 bool DSPOMDP::Step(State& state, int action, double& reward,
-	OBS_TYPE& obs) const {
+		OBS_TYPE& obs) const {
 	return Step(state, Random::RANDOM.NextDouble(), action, reward, obs);
 }
 
 bool DSPOMDP::Step(State& state, double random_num, int action,
-	double& reward) const {
+		double& reward) const {
 	OBS_TYPE obs;
 	return Step(state, random_num, action, reward, obs);
 }
@@ -89,7 +88,7 @@ ParticleUpperBound* DSPOMDP::CreateParticleUpperBound(string name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
 	} else {
-		if (name != "print") 
+		if (name != "print")
 			cerr << "Unsupported base upper bound: " << name << endl;
 		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
@@ -97,11 +96,11 @@ ParticleUpperBound* DSPOMDP::CreateParticleUpperBound(string name) const {
 }
 
 ScenarioUpperBound* DSPOMDP::CreateScenarioUpperBound(string name,
-	string particle_bound_name) const {
+		string particle_bound_name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
 	} else {
-		if (name != "print") 
+		if (name != "print")
 			cerr << "Unsupported upper bound: " << name << endl;
 		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
@@ -113,7 +112,7 @@ ParticleLowerBound* DSPOMDP::CreateParticleLowerBound(string name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleLowerBound(this);
 	} else {
-		if (name != "print") 
+		if (name != "print")
 			cerr << "Unsupported particle lower bound: " << name << endl;
 		cerr << "Supported types: TRIVIAL (default)" << endl;
 		exit(1);
@@ -121,12 +120,13 @@ ParticleLowerBound* DSPOMDP::CreateParticleLowerBound(string name) const {
 	}
 }
 
-ScenarioLowerBound* DSPOMDP::CreateScenarioLowerBound(string name, string
-	particle_bound_name) const {
+ScenarioLowerBound* DSPOMDP::CreateScenarioLowerBound(string name,
+		string particle_bound_name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleLowerBound(this);
 	} else if (name == "RANDOM") {
-		return new RandomPolicy(this, CreateParticleLowerBound(particle_bound_name));
+		return new RandomPolicy(this,
+				CreateParticleLowerBound(particle_bound_name));
 	} else {
 		if (name != "print")
 			cerr << "Unsupported lower bound: " << name << endl;

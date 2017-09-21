@@ -16,7 +16,7 @@ namespace despot {
 
 class EvalLog {
 private:
-  std::vector<std::string> runned_instances;
+	std::vector<std::string> runned_instances;
 	std::vector<int> num_of_completed_runs;
 	std::string log_file_;
 
@@ -79,9 +79,9 @@ protected:
 	double total_undiscounted_reward_;
 
 public:
-	Evaluator(DSPOMDP* model, Belief* belief, Solver* solver, World* world,std::string world_type,
-		clock_t start_clockt, std::ostream* out,
-		double target_finish_time=-1, int num_steps=-1);
+	Evaluator(DSPOMDP* model, Belief* belief, Solver* solver, World* world,
+			std::string world_type, clock_t start_clockt, std::ostream* out,
+			double target_finish_time = -1, int num_steps = -1);
 	virtual ~Evaluator();
 
 	inline void out(std::ostream* o) {
@@ -120,7 +120,8 @@ public:
 
 	virtual void InitRound(State* state);
 	virtual double EndRound(); // Return total undiscounted reward for this round.
-	virtual bool SummarizeStep(int step, int round, bool terminal, int action, OBS_TYPE obs, double step_start_t);
+	virtual bool SummarizeStep(int step, int round, bool terminal, int action,
+			OBS_TYPE obs, double step_start_t);
 	virtual void PrintStatistics(int num_runs);
 
 	double AverageUndiscountedRoundReward() const;
@@ -128,7 +129,7 @@ public:
 	double AverageDiscountedRoundReward() const;
 	double StderrDiscountedRoundReward() const;
 
-    void CheckTargetTime() const;
+	void CheckTargetTime() const;
 };
 
 } // namespace despot

@@ -9,14 +9,13 @@
 
 namespace despot {
 
-POMDPWorld::POMDPWorld(DSPOMDP* model, unsigned seed):
-	model_(model){
+POMDPWorld::POMDPWorld(DSPOMDP* model, unsigned seed) :
+		model_(model) {
 	random_ = Random(seed);
 }
 
 POMDPWorld::~POMDPWorld() {
 }
-
 
 bool POMDPWorld::Connect() {
 	return true;

@@ -10,7 +10,7 @@
 namespace despot {
 
 World::World() {
-	state_=NULL;
+	state_ = NULL;
 }
 
 World::~World() {
