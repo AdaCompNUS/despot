@@ -29,7 +29,6 @@ add_library("${PROJECT_NAME}" SHARED
   src/core/builtin_policy.cpp
   src/core/pomdp_world.cpp
   src/core/solver.cpp
-  src/core/upper_bound.cpp
   src/core/builtin_upper_bounds.cpp
   src/evaluator.cpp
   src/pomdpx/parser/function.cpp
