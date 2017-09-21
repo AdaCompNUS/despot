@@ -6,7 +6,7 @@
 Makefile                  Makefile for compiling the solver library
 README.md                 Overview
 include                   Header files
-src/interface             Interfaces for users
+**src/interface**             **Interfaces to be implemented by users**
 src/core                  Core data structures for the solvers
 src/solvers               Solvers, including despot, pomcp and aems
 src/pomdpx                Pomdpx and its parser
