@@ -152,7 +152,7 @@ public:
 	Solver* InitializeSolver(DSPOMDP* model, Belief* belief,
 			std::string solver_type, option::Option* options);
 
-	int run(int argc, char* argv[]);
+	int runPlanning(int argc, char* argv[]);
 	int runEvaluation(int argc, char* argv[]);
 	bool RunStep(int step, int round, Solver* solver, World* world,
 			Evaluator* evaluator);

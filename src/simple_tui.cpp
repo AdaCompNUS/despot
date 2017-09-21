@@ -408,7 +408,7 @@ void SimpleTUI::PrintResult(int num_runs, Evaluator *evaluator,
 			<< endl;
 }
 
-int SimpleTUI::run(int argc, char *argv[]) {
+int SimpleTUI::runPlanning(int argc, char *argv[]) {
 
 	/* =========================
 	 * initialize parameters

@@ -70,7 +70,7 @@ public:
 	double GetMaxReward() const;
 	ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
 		std::string particle_bound_name = "DEFAULT") const;
-	ValuedAction GetMinRewardAction() const;
+	ValuedAction GetBestAction() const;
 	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",
 		std::string particle_bound_name = "DEFAULT") const;
 

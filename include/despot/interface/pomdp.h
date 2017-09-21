@@ -170,7 +170,7 @@ public:
 	 * executed, and v is its minimum reward, that is, a = \max_{a'} \min_{s}
 	 * R(a', s), and v = \min_{s} R(a, s).
 	 */
-	virtual ValuedAction GetMinRewardAction() const = 0;
+	virtual ValuedAction GetBestAction() const = 0;
 	virtual ParticleLowerBound* CreateParticleLowerBound(std::string name = "DEFAULT") const;
 	virtual ScenarioLowerBound* CreateScenarioLowerBound(std::string bound_name = "DEFAULT",
 		std::string particle_bound_name = "DEFAULT") const;

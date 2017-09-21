@@ -17,7 +17,7 @@ POMCPScenarioLowerBound::POMCPScenarioLowerBound(const DSPOMDP* model,
 	ScenarioLowerBound(model, belief),
 	prior_(prior) {
 	explore_constant_ = model_->GetMaxReward()
-		- model_->GetMinRewardAction().value;
+		- model_->GetBestAction().value;
 }
 
 ValuedAction POMCPScenarioLowerBound::Value(const vector<State*>& particles,
@@ -48,7 +48,7 @@ TrivialParticleLowerBound::TrivialParticleLowerBound(const DSPOMDP* model) :
 
 ValuedAction TrivialParticleLowerBound::Value(
 	const vector<State*>& particles) const {
-	ValuedAction va = model_->GetMinRewardAction();
+	ValuedAction va = model_->GetBestAction();
 	va.value *= State::Weight(particles) / (1 - Globals::Discount());
 	return va;
 }
@@ -63,7 +63,7 @@ TrivialBeliefLowerBound::TrivialBeliefLowerBound(const DSPOMDP* model,
 }
 
 ValuedAction TrivialBeliefLowerBound::Value(const Belief* belief) const {
-	ValuedAction va = model_->GetMinRewardAction();
+	ValuedAction va = model_->GetBestAction();
 	va.value *= 1.0 / (1 - Globals::Discount());
 	return va;
 }

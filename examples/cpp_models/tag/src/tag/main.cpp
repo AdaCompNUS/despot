@@ -36,5 +36,5 @@ int main(int argc, char* argv[]) {
 	return TUI("w/o base lower bounds: TRIVIAL; with base lower bounds: RANDOM, SHR, MODE-MDP, MODE-SP, MAJORITY-MDP, MAJORITY-SP (default to MODE-MDP)",
 			"TRIVIAL (default)",
 			"w/o base lower bounds: TRIVIAL, MDP, SP, MANHATTAN; with base lower bounds: LOOKAHEAD -- default to SP",
-			"TRIVIAL, MDP, SP, MANHATTAN (default to SP)").run(argc, argv);
+			"TRIVIAL, MDP, SP, MANHATTAN (default to SP)").runEvaluation(argc, argv);
 }

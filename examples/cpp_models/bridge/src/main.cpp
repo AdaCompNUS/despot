@@ -24,5 +24,5 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-	return TUI().run(argc, argv);
+	return TUI().runEvaluation(argc, argv);
 }

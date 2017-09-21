@@ -51,7 +51,7 @@ public:
 		return 0;
 	}
 
-	inline ValuedAction GetMinRewardAction() const {
+	inline ValuedAction GetBestAction() const {
 		return ValuedAction(LEFT, -1);
 	}
 	ScenarioLowerBound* CreateScenarioLowerBound(std::string name = "DEFAULT",

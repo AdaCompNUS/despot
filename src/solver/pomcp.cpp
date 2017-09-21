@@ -12,7 +12,7 @@ namespace despot {
 POMCPPrior::POMCPPrior(const DSPOMDP* model) :
 	model_(model) {
 	exploration_constant_ = (model->GetMaxReward()
-		- model->GetMinRewardAction().value);
+		- model->GetBestAction().value);
 }
 
 POMCPPrior::~POMCPPrior() {
