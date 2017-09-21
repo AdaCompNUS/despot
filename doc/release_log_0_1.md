@@ -108,7 +108,7 @@ The original pure virtual function **GetMinRewardAction** has been renamed as **
 ## Core Code Changes
 
 ### Class Evaluator
-Many functionalities in the original *Evaluator* class, including communication with the world and planning pipeline control, have been shifted to *World* and *SimpleTUI*. The new *Evaluator* class only perform logging of time usage and other statistics. Check "despot/evaluator.h" for more details.
+Many functionalities in the original *Evaluator* class, including communication with the world and planning pipeline control, have been shifted to *World* and *SimpleTUI*. The new *Evaluator* class only perform logging of time usage and other statistics. Check "[despot/evaluator.h](../include/despot/evaluator.h)" for more details.
 
 ### Class SimpleTUI
 *SimpleTUI* is now responsible for pipeline control. To achieve this, the following new member functions have been added:
@@ -125,7 +125,7 @@ int runPlanning(int argc, char* argv[]);
 /*Run the evaluation pipeline*/
 int runEvaluation(int argc, char* argv[]);
 ```
-The old **run** function has been replaced by **runPlanning** and **runEvaluation**. Users can run the planning pipeline by calling *runPlanning* in the *main* function. The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. Alternatively, given a simulated world, the user can run the evaluation pipeline by calling *runEvaluation*. The evaluation pipeline will repeat the planning process for multiple times and evaluate the performance of despot according to the conducted rounds. Check "despot/simple_tui.h" for more details.
+The old **run** function has been replaced by **runPlanning** and **runEvaluation**. Users can run the planning pipeline by calling *runPlanning* in the *main* function. The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. Alternatively, given a simulated world, the user can run the evaluation pipeline by calling *runEvaluation*. The evaluation pipeline will repeat the planning process for multiple times and evaluate the performance of despot according to the conducted rounds. Check "[despot/simple_tui.h](../include/despot/simple_tui.h)" for more details.
 
 ### Class POMDPWorld
 Usage:
@@ -138,7 +138,7 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
    return InitializePOMDPWorld(world_type, model, options);
 }
 ```
-Check the cpp model examples (examples/cpp_models/) to see the usage. 
+Check the cpp model examples ([examples/cpp_models/](../examples/cpp_models)) to see the usage. 
 
 
 
