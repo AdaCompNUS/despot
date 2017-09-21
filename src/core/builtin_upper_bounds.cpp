@@ -1,6 +1,7 @@
 #include <despot/core/builtin_upper_bounds.h>
 #include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
+#include <despot/core/particle_belief.h>
 
 using namespace std;
 

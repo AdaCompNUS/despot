@@ -1,4 +1,8 @@
 #include "simple_rock_sample.h"
+#include <despot/core/builtin_lower_bounds.h>
+#include <despot/core/builtin_policy.h>
+#include <despot/core/builtin_upper_bounds.h>
+#include <despot/core/particle_belief.h>
 
 using namespace std;
 

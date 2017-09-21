@@ -1,3 +1,7 @@
+#include <despot/core/builtin_lower_bounds.h>
+#include <despot/core/builtin_policy.h>
+#include <despot/core/builtin_upper_bounds.h>
+#include <despot/core/particle_belief.h>
 #include <despot/pomdpx/pomdpx.h>
 #include <despot/solver/pomcp.h>
 
@@ -227,7 +231,7 @@ public:
 			logi << "[POMDPXBelief::Update] Resampling " << num_particles_
 				<< " as effective number of particles = "
 				<< num_effective_particles << endl;
-			vector<State*> new_belief = Belief::Sample(num_particles_,
+			vector<State*> new_belief = ParticleBelief::Sample(num_particles_,
 				particles_, model_);
 			for (int i = 0; i < particles_.size(); i++)
 				model_->Free(particles_[i]);

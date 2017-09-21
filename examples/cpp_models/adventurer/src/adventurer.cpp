@@ -1,6 +1,11 @@
 #include <queue>
 
 #include "adventurer.h"
+
+#include <despot/core/builtin_lower_bounds.h>
+#include <despot/core/builtin_policy.h>
+#include <despot/core/builtin_upper_bounds.h>
+#include <despot/core/particle_belief.h>
 #include <despot/util/coord.h>
 
 using namespace std;

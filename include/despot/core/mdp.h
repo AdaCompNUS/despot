@@ -4,6 +4,7 @@
 #include <despot/interface/pomdp.h>
 
 namespace despot {
+class ParticleBelief;
 
 /**
  * Interface for a discrete MDP. This class implements the following functions:

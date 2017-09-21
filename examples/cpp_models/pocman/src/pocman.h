@@ -5,6 +5,7 @@
 #include <despot/solver/pomcp.h>
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>
+#include <despot/core/particle_belief.h>
 
 namespace despot {
 

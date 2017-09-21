@@ -1,4 +1,5 @@
 #include <despot/core/mdp.h>
+#include <despot/core/particle_belief.h>
 
 using namespace std;
 

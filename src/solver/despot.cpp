@@ -1,3 +1,6 @@
+#include <despot/core/builtin_upper_bounds.h>
+#include <despot/core/builtin_lower_bounds.h>
+
 #include <despot/solver/despot.h>
 #include <despot/solver/pomcp.h>
 

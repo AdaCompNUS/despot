@@ -352,11 +352,6 @@ void SimpleTUI::DisplayParameters(option::Option *options, DSPOMDP *model) {
 void SimpleTUI::PlanningLoop(int round, Solver*& solver, World* world,
 		Evaluator* evaluator) {
 	for (int i = 0; i < Globals::config.sim_len; i++) {
-		/*
-		 default_out << "-----------------------------------Round " << round
-		 << " Step " << i << "-----------------------------------"
-		 << endl;*/
-		double step_start_t = get_time_second();
 		bool terminal = RunStep(i, round, solver, world, evaluator);
 		if (terminal)
 			break;
@@ -560,7 +555,6 @@ bool SimpleTUI::RunStep(int step, int round, Solver* solver, World* world,
 	logi << "[RunStep] Time spent in " << typeid(*solver).name()
 			<< "::Search(): " << search_time << endl;
 
-	double reward;
 	OBS_TYPE obs;
 	start_t = get_time_second();
 	bool terminal = world->ExecuteAction(action, obs);

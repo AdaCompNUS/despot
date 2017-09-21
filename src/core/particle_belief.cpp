@@ -88,7 +88,7 @@ const vector<State*>& ParticleBelief::particles() const {
 }
 
 vector<State*> ParticleBelief::Sample(int num) const {
-	return Belief::Sample(num, particles_, model_);
+	return Sample(num, particles_, model_);
 }
 
 void ParticleBelief::Update(int action, OBS_TYPE obs) {
@@ -167,7 +167,7 @@ void ParticleBelief::Update(int action, OBS_TYPE obs) {
 	// Resample if the effective number of particles is "small"
 	double num_effective_particles = 1.0 / weight_square_sum;
 	if (num_effective_particles < num_particles_ / 2.0) {
-		vector<State*> new_belief = Belief::Sample(num_particles_, particles_,
+		vector<State*> new_belief = Sample(num_particles_, particles_,
 			model_);
 		for (int i = 0; i < particles_.size(); i++)
 			model_->Free(particles_[i]);
@@ -227,7 +227,7 @@ vector<State*> ParticleBelief::Sample(int num, vector<State*> particles,
 
 	random_shuffle(sample.begin(), sample.end());
 
-	logd << "[Belief::Sample] Sampled " << sample.size() << " particles"
+	logd << "[ParticleBelief::Sample] Sampled " << sample.size() << " particles"
 		<< endl;
 	for (int i = 0; i < sample.size(); i++) {
 		logv << " " << i << " = " << *sample[i] << endl;
