@@ -99,7 +99,7 @@ Usage:
 ```
 
 #### Reward Function
-The _ExecuteAction_ function in the World class doesn't generate rewards. A new virtual function *Reward* is added in the _DSPOMDP_ class to enable reward monitoring after executing an action:
+The _ExecuteAction_ function in the *World* class doesn't generate rewards. A new virtual function *Reward* is added in the _DSPOMDP_ class to enable reward monitoring after executing an action:
 ``` c++
 // Returns the reward for taking an action at a state
 virtual double Reward(const State& state, int action) const;
