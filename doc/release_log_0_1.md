@@ -21,7 +21,7 @@ doc/eclipse_guide.md      Guide for using Eclipse IDE for development
 ```
 
 ### Interface Folders
-All header and source files for despot interfaces such as DSPOMDP, World, Belief, etc. have been moved to the new *interface* folder under "[include/despot/](../include/despot)" and "[src/](../src)". These files include:
+All header and source files for despot interfaces such as DSPOMDP, World, Belief, etc. have been moved to the new "*interface*" folders under "[include/despot/](../include/despot)" and "[src/](../src)". These files include:
 ```
 include/despot/interface/pomdp.h
 include/despot/interface/world.h
