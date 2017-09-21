@@ -103,7 +103,14 @@ virtual double Reward(const State& state, int action) const;
 When this _Reward_ function has been implemented, despot will log the step rewards automatically. Otherwise, despot will always report zero reward for non-POMDP types of world.
 
 #### GetBestAction Function
-The original pure virtual function **GetMinRewardAction** has been renamed as **GetBestAction**.
+The original pure virtual function:
+``` c++
+virtual ValuedAction GetMinRewardAction() const = 0;
+```
+has been renamed as:
+``` c++
+virtual ValuedAction GetBestAction() const = 0;
+```
 
 ## Core Code Changes
 
