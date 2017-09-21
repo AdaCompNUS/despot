@@ -151,7 +151,7 @@ Usage:
 ``` c++
 #include <despot\core\pomdp_world.h>
 ```
-*POMDPWorld* is an built-in implementation of *World* added in release 1.0. *POMDPWorld* represents the world as a *DSPOMDP* model. The same DSPOMDP model is shared by the despot solver. To use an existing DSPOMDP model as a POMDP-based world, reload the _InitializeWorld_ virtual function in *SimpleTUI* in the following way:
+*POMDPWorld* is an built-in implementation of *World* added in release 0.1. *POMDPWorld* represents the world as a *DSPOMDP* model. The same DSPOMDP model is shared by the despot solver. To use an existing DSPOMDP model as a POMDP-based world, reload the _InitializeWorld_ virtual function in *SimpleTUI* in the following way:
 ``` c++
 World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
    return InitializePOMDPWorld(world_type, model, options);
