@@ -1,7 +1,7 @@
 #ifndef ADVENTURER_H
 #define ADVENTURER_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
 #include <despot/util/coord.h>
 #include <despot/solver/pomcp.h>

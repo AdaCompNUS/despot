@@ -1,10 +1,10 @@
 #ifndef SIMULATOR_H
 #define SIMULATOR_H
 
-#include <despot/core/belief.h>
+#include <despot/interface/belief.h>
 #include <despot/core/globals.h>
-#include <despot/core/pomdp.h>
-#include <despot/core/world.h>
+#include <despot/interface/pomdp.h>
+#include <despot/interface/world.h>
 #include <despot/pomdpx/pomdpx.h>
 #include <despot/util/util.h>
 

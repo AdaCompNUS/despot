@@ -5,12 +5,12 @@
  *      Author: panpan
  */
 
-#ifndef INCLUDE_DESPOT_CORE_POMDP_WORLD_H_
-#define INCLUDE_DESPOT_CORE_POMDP_WORLD_H_
+#ifndef POMDP_WORLD_H_
+#define POMDP_WORLD_H_
 
 #include <despot/core/globals.h>
-#include <despot/core/pomdp.h>
-#include <despot/core/world.h>
+#include <despot/interface/pomdp.h>
+#include <despot/interface/world.h>
 #include <despot/util/random.h>
 
 namespace despot {
@@ -44,4 +44,4 @@ public:
 
 } /* namespace despot */
 
-#endif /* INCLUDE_DESPOT_CORE_POMDP_WORLD_H_ */
+#endif /* POMDP_WORLD_H_ */

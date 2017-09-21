@@ -1,7 +1,7 @@
 #ifndef TIGER_H
 #define TIGER_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 
 namespace despot {
 

@@ -1,7 +1,7 @@
 #ifndef POCMAN_H
 #define POCMAN_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/solver/pomcp.h>
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>

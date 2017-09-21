@@ -1,7 +1,7 @@
 #ifndef ROCKSAMPLE_H
 #define ROCKSAMPLE_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
 #include "base/base_rock_sample.h"
 #include <despot/util/coord.h>

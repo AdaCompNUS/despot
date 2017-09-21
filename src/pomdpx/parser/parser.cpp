@@ -4,7 +4,7 @@
 #include <despot/util/random.h>
 #include <despot/util/tinyxml/tinyxml.h>
 #include <despot/pomdpx/parser/parser.h>
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 
 using namespace std;
 using namespace despot::util::tinyxml;

@@ -2,8 +2,8 @@
 #define AEMS_H
 
 #include <despot/core/solver.h>
-#include <despot/core/pomdp.h>
-#include <despot/core/belief.h>
+#include <despot/interface/pomdp.h>
+#include <despot/interface/belief.h>
 #include <despot/core/node.h>
 #include <despot/core/globals.h>
 

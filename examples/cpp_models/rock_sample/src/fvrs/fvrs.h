@@ -1,7 +1,7 @@
 #ifndef FVRS_H
 #define FVRS_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
 #include <despot/util/coord.h>
 #include <despot/util/grid.h>

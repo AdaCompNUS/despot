@@ -1,7 +1,7 @@
 #ifndef CHAIN_H
 #define CHAIN_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/util/dirichlet.h>
 
 namespace despot {

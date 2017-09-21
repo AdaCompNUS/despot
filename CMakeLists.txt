@@ -15,17 +15,22 @@ set(CMAKE_MODULE_PATH ${CMAKE_PREFIX_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 include_directories(include)
 
 add_library("${PROJECT_NAME}" SHARED
-  src/core/belief.cpp
+  src/interface/pomdp.cpp
+  src/interface/world.cpp
+  src/interface/belief.cpp
+  src/interface/lower_bound.cpp
+  src/interface/upper_bound.cpp
+  src/interface/policy.cpp
+  src/core/particle_belief.cpp
   src/core/globals.cpp
-  src/core/lower_bound.cpp
+  src/core/builtin_lower_bounds.cpp
   src/core/mdp.cpp
   src/core/node.cpp
-  src/core/policy.cpp
-  src/core/pomdp.cpp
-  src/core/world.cpp
+  src/core/builtin_policy.cpp
   src/core/pomdp_world.cpp
   src/core/solver.cpp
   src/core/upper_bound.cpp
+  src/core/builtin_upper_bounds.cpp
   src/evaluator.cpp
   src/pomdpx/parser/function.cpp
   src/pomdpx/parser/parser.cpp

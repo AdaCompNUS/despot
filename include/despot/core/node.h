@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/util/util.h>
 #include <despot/random_streams.h>
 #include <despot/util/logging.h>

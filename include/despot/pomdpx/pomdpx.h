@@ -1,7 +1,7 @@
 #ifndef POMDPX_H
 #define POMDPX_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
 #include <despot/pomdpx/parser/parser.h>
 

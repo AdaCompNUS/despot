@@ -9,8 +9,8 @@
 #include <despot/util/optionparser.h>
 #include <despot/util/seeds.h>
 
-#include <despot/core/pomdp.h>
-#include <despot/core/world.h>
+#include <despot/interface/pomdp.h>
+#include <despot/interface/world.h>
 #include <despot/evaluator.h>
 
 using namespace std;

@@ -2,7 +2,7 @@
 #define NAVIGATION_H
 
 #include "navigation.h"
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/mdp.h>
 #include <despot/util/coord.h>
 

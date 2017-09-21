@@ -1,7 +1,7 @@
 #ifndef POMCP_H
 #define POMCP_H
 
-#include <despot/core/pomdp.h>
+#include <despot/interface/pomdp.h>
 #include <despot/core/node.h>
 #include <despot/core/globals.h>
 
