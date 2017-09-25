@@ -57,7 +57,7 @@ src/core/builtin_policy.cpp
 ### Class World
 Usage:
 ``` c++
-#include <despot\interface\world.h>
+#include <despot/interface/world.h>
 ```
 *World* is an abstract class added in release 0.1. It provides interfaces for integrating despot with real-world systems or simulators. These interfaces include:
 ``` c++
@@ -74,7 +74,7 @@ virtual bool ExecuteAction(int action, OBS_TYPE& obs) =0;
 ### class SimpleTUI
 Usage:
 ``` c++
-#include <despot\simple_tui.h>
+#include <despot/simple_tui.h>
 ```
 Users now need to implement one additional interface in *SimpleTUI*:
 ``` c++
@@ -95,7 +95,7 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 ### Class DSPOMDP
 Usage:
 ``` c++
-#include <despot\interface\pomdp.h>
+#include <despot/interface/pomdp.h>
 ```
 
 #### Reward Function
@@ -121,14 +121,14 @@ virtual ValuedAction GetBestAction() const = 0;
 ### Class Evaluator
 Usage:
 ``` c++
-#include <despot\evaluator.h>
+#include <despot/evaluator.h>
 ```
 Many functionalities in the original *Evaluator* class, including communication with the world and planning pipeline control, have been shifted to *World* and *SimpleTUI*. The new *Evaluator* class only perform logging of time usage and other statistics. Check "[despot/evaluator.h](../include/despot/evaluator.h)" for more details.
 
 ### Class SimpleTUI
 Usage:
 ``` c++
-#include <despot\simple_tui.h>
+#include <despot/simple_tui.h>
 ```
 *SimpleTUI* is now responsible for pipeline control. To achieve this, the following new member functions have been added:
 
@@ -149,7 +149,7 @@ The old *run* function has been replaced by *runPlanning* and *runEvaluation*. U
 ### Class POMDPWorld
 Usage:
 ``` c++
-#include <despot\core\pomdp_world.h>
+#include <despot/core/pomdp_world.h>
 ```
 *POMDPWorld* is an built-in implementation of *World* added in release 0.1. *POMDPWorld* represents the world as a *DSPOMDP* model. The same *DSPOMDP* model is shared by the despot solver. To use an existing *DSPOMDP* model as a POMDP-based world, reload the _InitializeWorld_ virtual function in *SimpleTUI* in the following way:
 ``` c++
