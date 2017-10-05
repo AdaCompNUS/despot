@@ -54,7 +54,7 @@ private:
 	void PrintTransitions();
 	void InitRewards();
 
-	mutable std::vector<int> default_action_;
+	mutable std::vector<ACT_TYPE> default_action_;
 	void ComputeDefaultActions(std::string type) const;
 	void PrintDefaultActions();
 
@@ -71,19 +71,19 @@ public:
 		return parser_;
 	}
 
-	bool NoisyStep(State& s, double random_num, int action) const;
-	bool Step(State& s, double random_num, int action, double& reward,
+	bool NoisyStep(State& s, double random_num, ACT_TYPE action) const;
+	bool Step(State& s, double random_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 	int NumActions() const;
 	int NumStates() const;
 	int GetIndex(const State* state) const;
 	const State* GetState(int index) const;
 
-	const std::vector<State>& TransitionProbability(int s, int a) const;
-	double Reward(int s, int action) const;
-	double Reward(const State& state, int action) const;
+	const std::vector<State>& TransitionProbability(int s, ACT_TYPE a) const;
+	double Reward(int s, ACT_TYPE action) const;
+	double Reward(const State& state, ACT_TYPE action) const;
 
-	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
+	double ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type) const;
   std::vector<State*> ExactInitialParticleSet() const;
@@ -111,7 +111,7 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;
@@ -123,7 +123,7 @@ public:
 	void PrintMDPBound(const std::vector<ValuedAction>& policy, const char* fn);
 
 	const std::string& GetActionName();
-	const std::string& GetEnumedAction(int action);
+	const std::string& GetEnumedAction(ACT_TYPE action);
 	OBS_TYPE GetPOMDPXObservation(std::map<std::string, std::string>& observe);
 };
 

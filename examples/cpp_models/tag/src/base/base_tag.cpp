@@ -44,7 +44,7 @@ TagBelief::TagBelief(vector<State*> particles, const BaseTag* model,
 	tag_model_(model) {
 }
 
-void TagBelief::Update(int action, OBS_TYPE obs) {
+void TagBelief::Update(ACT_TYPE action, OBS_TYPE obs) {
 	Belief* updated = tag_model_->Tau(this, action, obs);
 
 	for (int i = 0; i < particles_.size(); i++)
@@ -75,7 +75,7 @@ public:
 		floor_ = tag_model_->floor();
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		// If history is empty then take a random move
 		if (history.Size() == 0) {
@@ -87,7 +87,7 @@ public:
 			return tag_model_->TagAction();
 		}
 
-		vector<int> actions;
+		vector<ACT_TYPE> actions;
 		// Compute rob position
 		Coord rob;
 		if (tag_model_->same_loc_obs_ != floor_.NumCells()) {
@@ -116,7 +116,7 @@ public:
 		if (actions.size() == 0)
 			return 0;
 
-		int action = actions[Random::RANDOM.NextInt(actions.size())];
+		ACT_TYPE action = actions[Random::RANDOM.NextInt(actions.size())];
 		return action;
 	}
 };
@@ -203,13 +203,13 @@ public:
 		paths_.clear();
 	}
 
-	int Action(const vector<State*>& particles,
+	ACT_TYPE Action(const vector<State*>& particles,
 		RandomStreams& streams, History& history) const {
 		if (streams.position() == 0)
 		return first_action_;
 
 		if (streams.position() == 1) {
-			int action = history.LastAction();
+			ACT_TYPE action = history.LastAction();
 			OBS_TYPE obs = history.LastObservation();
 
 			if (paths_[action].find(obs) == paths_[action].end()) {
@@ -224,7 +224,7 @@ public:
 			}
 		}
 
-		int action = history.Action(history.Size() - streams.position());
+		ACT_TYPE action = history.Action(history.Size() - streams.position());
 		OBS_TYPE obs = history.Observation(history.Size() - streams.position());
 		const vector<int>& policy = paths_[action][obs];
 
@@ -397,7 +397,7 @@ public:
 	ValuedAction Value(const Belief* belief) const {
 		double bestValue = Globals::NEG_INFTY;
 		int bestAction = -1;
-		for (int action = 0; action < tag_model_->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < tag_model_->NumActions(); action++) {
 			double value = tag_model_->ComputeActionValue(
 				static_cast<const ParticleBelief*>(belief), *tag_model_,
 				action);
@@ -522,7 +522,7 @@ void BaseTag::Init(istream& is) {
 BaseTag::~BaseTag() {
 }
 
-bool BaseTag::Step(State& s, double random_num, int action,
+bool BaseTag::Step(State& s, double random_num, ACT_TYPE action,
 	double& reward) const {
 	TagState& state = static_cast<TagState&>(s);
 
@@ -557,11 +557,11 @@ int BaseTag::NumStates() const {
 	return floor_.NumCells() * floor_.NumCells();
 }
 
-const vector<State>& BaseTag::TransitionProbability(int s, int a) const {
+const vector<State>& BaseTag::TransitionProbability(int s, ACT_TYPE a) const {
 	return transition_probabilities_[s][a];
 }
 
-int BaseTag::NextRobPosition(int rob, int a) const {
+int BaseTag::NextRobPosition(int rob, ACT_TYPE a) const {
 	Coord pos = floor_.GetCell(rob) + Compass::DIRECTIONS[a];
 	if (a != TagAction() && floor_.Inside(pos))
 		return floor_.GetIndex(pos);
@@ -797,7 +797,7 @@ void BaseTag::PrintState(const State& s, ostream& out) const {
 void BaseTag::PrintBelief(const Belief& belief, ostream& out) const {
 }
 
-void BaseTag::PrintAction(int action, ostream& out) const {
+void BaseTag::PrintAction(ACT_TYPE action, ostream& out) const {
 	switch(action) {
 		case 0: out << "North" << endl; break;
 		case 1: out << "East" << endl; break;
@@ -948,7 +948,7 @@ const State* BaseTag::GetMMAP(const vector<State*>& particles) const {
 	return states_[state_id];
 }
 
-Belief* BaseTag::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
+Belief* BaseTag::Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const {
 	static vector<double> probs = vector<double>(NumStates());
 
 	const vector<State*>& particles =
@@ -981,7 +981,7 @@ Belief* BaseTag::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
 	return new ParticleBelief(new_particles, this, NULL, false);
 }
 
-double BaseTag::StepReward(const Belief* belief, int action) const {
+double BaseTag::StepReward(const Belief* belief, ACT_TYPE action) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
 
@@ -1005,7 +1005,7 @@ double BaseTag::StepReward(const Belief* belief, int action) const {
 	return sum;
 }
 
-double BaseTag::Reward(int s, int action) const {
+double BaseTag::Reward(int s, ACT_TYPE action) const {
 	const TagState* state = states_[s];
 	double reward = 0;
 	if (action == TagAction()) {

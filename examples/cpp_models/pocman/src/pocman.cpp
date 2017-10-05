@@ -18,7 +18,7 @@ PocmanBelief::PocmanBelief(vector<State*> particles, const DSPOMDP* model,
 	pocman_(static_cast<const Pocman*>(model)) {
 }
 
-void PocmanBelief::Update(int action, OBS_TYPE obs) {
+void PocmanBelief::Update(ACT_TYPE action, OBS_TYPE obs) {
 	history_.Add(action, obs);
 
 	vector<State*> updated;
@@ -182,15 +182,15 @@ public:
 class PocmanSmartPolicy : public DefaultPolicy {
 protected:
 	const Pocman* pocman_;
-	mutable vector<int> preferred_;
-	mutable vector<int> legal_;
+	mutable vector<ACT_TYPE> preferred_;
+	mutable vector<ACT_TYPE> legal_;
 public:
 	PocmanSmartPolicy(const Pocman* model, ParticleLowerBound* bound) :
 		DefaultPolicy(model, bound),
 		pocman_(model) {
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		const PocmanState& pocstate =
 			static_cast<const PocmanState&>(*particles[0]);
@@ -198,7 +198,7 @@ public:
 		legal_.clear();
 
 		if (history.Size()) {
-			int action = history.LastAction();
+			ACT_TYPE action = history.LastAction();
 			OBS_TYPE observation = history.LastObservation();
 
 			// If power pill and can see a ghost then chase it
@@ -256,7 +256,7 @@ public:
 		}
 
 		if (history_.Size()) {
-			int action = history_.LastAction();
+			ACT_TYPE action = history_.LastAction();
 			OBS_TYPE observation = history_.LastObservation();
 
 			// If power pill and can see a ghost then chase it
@@ -401,7 +401,7 @@ Coord Pocman::NextPos(const Coord& from, int dir) const {
 		return Coord(-1, -1);
 }
 
-bool Pocman::Step(State& state, double rand_num, int action, double& reward,
+bool Pocman::Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& observation) const {
 	Random random(rand_num);
 
@@ -471,7 +471,7 @@ int Pocman::NumActions() const {
 	return 4;
 }
 
-double Pocman::ObsProb(OBS_TYPE obs, const State& state, int action) const {
+double Pocman::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const {
 	return obs == MakeObservations(static_cast<const PocmanState&>(state));
 }
 
@@ -648,7 +648,7 @@ void Pocman::NewLevel(PocmanState& pocstate) const {
 	pocstate.power_steps = 0;
 }
 
-int Pocman::SeeGhost(const PocmanState& pocstate, int action) const {
+int Pocman::SeeGhost(const PocmanState& pocstate, ACT_TYPE action) const {
 	Coord eyepos = pocstate.pocman_pos + Compass::DIRECTIONS[action];
 	while (maze_.Inside(eyepos) && Passable(eyepos)) {
 		for (int g = 0; g < num_ghosts_; g++)
@@ -858,7 +858,7 @@ void Pocman::PrintBelief(const Belief& belief, ostream& out) const {
 	}
 }
 
-void Pocman::PrintAction(int action, ostream& out) const {
+void Pocman::PrintAction(ACT_TYPE action, ostream& out) const {
 	out << Compass::CompassString[action] << endl;
 }
 

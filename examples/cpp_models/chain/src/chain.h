@@ -23,14 +23,14 @@ public:
 	void Init(int num_mdp_states, int num_mdp_actions);
 	bool IsValid() const;
 
-	void SetTransition(int state, int action, std::vector<double> row);
-	void SetTransition(int state1, int action, int state2, double value) {
+	void SetTransition(int state, ACT_TYPE action, std::vector<double> row);
+	void SetTransition(int state1, ACT_TYPE action, int state2, double value) {
 		mdp_transitions_[state1][action][state2] = value;
 	}
-	std::vector<double> GetTransition(int state, int action) {
+	std::vector<double> GetTransition(int state, ACT_TYPE action) {
 		return mdp_transitions_[state][action];
 	}
-	inline double GetTransition(int state1, int action, int state2) {
+	inline double GetTransition(int state1, ACT_TYPE action, int state2) {
 		return mdp_transitions_[state1][action][state2];
 	}
 
@@ -56,7 +56,7 @@ public:
 	SemiChainBelief(const DSPOMDP* model, int num_mdp_states,
 		int num_mdp_actions);
 
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 
 	std::vector<State*> Sample(int num_particles) const;
 
@@ -78,7 +78,7 @@ private:
 public:
 	FullChainBelief(const DSPOMDP* model, int num_mdp_states, int num_mdp_actions, double alpha = 1.0);
 
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 
 	std::vector<State*> Sample(int num_particles) const;
 
@@ -107,11 +107,11 @@ public:
 	Chain();
 	Chain(std::string fn);
 
-	bool Step(State& s, double random_num, int action, double& reward,
+	bool Step(State& s, double random_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
-	double Reward(int s1, int action, int s2) const;
+	double Reward(int s1, ACT_TYPE action, int s2) const;
 	int NumActions() const;
-	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 
 	State* DefaultStartState() const;
 	State* CreateStartState(std::string type = "DEFAULT") const;
@@ -134,7 +134,7 @@ public:
 	void PrintState(const State& s, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	virtual State* Allocate(int state_id, double weight) const;
 	virtual State* Copy(const State* particle) const;

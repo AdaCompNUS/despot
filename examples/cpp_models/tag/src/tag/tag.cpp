@@ -43,7 +43,7 @@ Tag::Tag(string params_file) :
   robot_pos_unknown_ = false;
 }
 
-bool Tag::Step(State& state, double random_num, int action, double& reward,
+bool Tag::Step(State& state, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	bool terminal = BaseTag::Step(state, random_num, action, reward);
 
@@ -52,7 +52,7 @@ bool Tag::Step(State& state, double random_num, int action, double& reward,
 	return terminal;
 }
 
-double Tag::ObsProb(OBS_TYPE obs, const State& s, int a) const {
+double Tag::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const {
 	const TagState& state = static_cast<const TagState&>(s);
 
 	return obs == obs_[state.state_id];
@@ -106,7 +106,7 @@ Belief* Tag::InitialBelief(const State* start, string type) const {
 	return prior;
 }
 
-void Tag::Observe(const Belief* belief, int action,
+void Tag::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();

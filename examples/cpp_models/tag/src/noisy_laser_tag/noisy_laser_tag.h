@@ -25,10 +25,10 @@ public:
 	void Init();
 	int GetReading(int);
 
-	bool Step(State& state, double random_num, int action, double& reward) const;
-	bool Step(State& state, double random_num, int action,
+	bool Step(State& state, double random_num, ACT_TYPE action, double& reward) const;
+	bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const;
-	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
@@ -38,7 +38,7 @@ public:
 	static void SetReading(OBS_TYPE& obs, OBS_TYPE reading, OBS_TYPE dir);
 	int GetBucket(double noisy) const;
 
-	void Observe(const Belief* belief, int action, std::map<OBS_TYPE, double>& obss) const;
+	void Observe(const Belief* belief, ACT_TYPE action, std::map<OBS_TYPE, double>& obss) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const NoisyLaserTag& lasertag);
 };

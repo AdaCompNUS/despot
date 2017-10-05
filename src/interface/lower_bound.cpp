@@ -16,7 +16,7 @@ ValuedAction::ValuedAction() :
 	value(0) {
 }
 
-ValuedAction::ValuedAction(int _action, double _value) :
+ValuedAction::ValuedAction(ACT_TYPE _action, double _value) :
 	action(_action),
 	value(_value) {
 }

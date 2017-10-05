@@ -139,7 +139,7 @@ void Navigation::Init(istream& is) {
 	// PrintTransitions();
 }
 
-bool Navigation::Step(State& s, double random_num, int action, double& reward,
+bool Navigation::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	NavigationState& state = static_cast<NavigationState&>(s);
 
@@ -166,15 +166,15 @@ int Navigation::NumStates() const {
 	return flag_size_ * (xsize_ * ysize_ + 1);
 }
 
-double Navigation::ObsProb(OBS_TYPE obs, const State& state, int a) const {
+double Navigation::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE a) const {
 	return obs == obs_[state.state_id >> flag_bits_];
 }
 
-const vector<State>& Navigation::TransitionProbability(int s, int a) const {
+const vector<State>& Navigation::TransitionProbability(int s, ACT_TYPE a) const {
 	return transition_probabilities_[s][a];
 }
 
-int Navigation::NextPosition(int pos, int a) const {
+int Navigation::NextPosition(int pos, ACT_TYPE a) const {
 	if (a == 4 || pos == trap_pos_ || pos == goal_pos_)
 		return pos;
 
@@ -325,7 +325,7 @@ void Navigation::PrintObs(const State& state, OBS_TYPE obs,
 	out << obs << endl;
 }
 
-void Navigation::PrintAction(int action, ostream& out) const {
+void Navigation::PrintAction(ACT_TYPE action, ostream& out) const {
 	out << Compass::CompassString[action] << endl;
 }
 
@@ -374,7 +374,7 @@ int Navigation::GetAction(const State& state) const {
 	return default_action_[GetIndex(&state)];
 }
 
-double Navigation::Reward(int s, int action) const {
+double Navigation::Reward(int s, ACT_TYPE action) const {
 	return ((s >> flag_bits_) == goal_pos_) ? 0 : -1;
 }
 

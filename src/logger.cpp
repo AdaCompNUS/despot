@@ -230,7 +230,7 @@ double Logger::EndRound() {
 	return total_undiscounted_reward_;
 }
 
-bool Logger::SummarizeStep(int step, int round, bool terminal, int action,
+bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 		OBS_TYPE obs, double step_start_t) {
 
 	//Output step results

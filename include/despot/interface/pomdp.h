@@ -103,19 +103,19 @@ public:
 	/**
 	 * [Essential interface] Determistic simulative model for POMDP.
 	 */
-	virtual bool Step(State& state, double random_num, int action,
+	virtual bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const = 0;
 
 	/**
 	 * [Optional interface] Override this to get speedup for LookaheadUpperBound.
 	 */
-	virtual bool Step(State& state, double random_num, int action,
+	virtual bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward) const;
 
 	/**
 	 * [Optional interface] Simulative model for POMDP.
 	 */
-	virtual bool Step(State& state, int action, double& reward,
+	virtual bool Step(State& state, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 
 	/* ========================================================================
@@ -132,7 +132,7 @@ public:
 	/**
 	 * [Optional interface] Returns the reward for taking an action at a state ( to help evaluate the real planning process)
 	 */
-	virtual double Reward(const State& state, int action) const;
+	virtual double Reward(const State& state, ACT_TYPE action) const;
 
 	/* ========================================================================
 	 * Functions related to beliefs and starting states.
@@ -141,7 +141,7 @@ public:
 	 * [Essential interface] Returns the observation probability.
 	 */
 	virtual double ObsProb(OBS_TYPE obs, const State& state,
-		int action) const = 0;
+		ACT_TYPE action) const = 0;
 
 	/**
 	 * [Optional interface] Returns a starting state of simulation.
@@ -213,7 +213,7 @@ public:
 	/**
 	 * [Essential interface] Prints an action.
 	 */
-	virtual void PrintAction(int action, std::ostream& out = std::cout) const = 0;
+	virtual void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const = 0;
 
 	/**
 	 * [Essential interface] Prints a belief.
@@ -278,19 +278,19 @@ public:
   /**
    * Transition function for the belief MDP.
    */
-	virtual Belief* Tau(const Belief* belief, int action,
+	virtual Belief* Tau(const Belief* belief, ACT_TYPE action,
 		OBS_TYPE obs) const = 0;
 
   /**
    * Observation function for the belief MDP.
    */
-	virtual void Observe(const Belief* belief, int action,
+	virtual void Observe(const Belief* belief, ACT_TYPE action,
 		std::map<OBS_TYPE, double>& obss) const = 0;
 
   /**
    * Reward function for the belief MDP.
    */
-	virtual double StepReward(const Belief* belief, int action) const = 0;
+	virtual double StepReward(const Belief* belief, ACT_TYPE action) const = 0;
 };
 
 } // namespace despot

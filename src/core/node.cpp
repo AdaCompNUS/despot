@@ -95,11 +95,11 @@ vector<QNode*>& VNode::children() {
 	return children_;
 }
 
-const QNode* VNode::Child(int action) const {
+const QNode* VNode::Child(ACT_TYPE action) const {
 	return children_[action];
 }
 
-QNode* VNode::Child(int action) {
+QNode* VNode::Child(ACT_TYPE action) {
 	return children_[action];
 }
 
@@ -191,7 +191,7 @@ void VNode::PrintPolicyTree(int depth, ostream& os) {
 
 	vector<QNode*>& qnodes = children();
 	if (qnodes.size() == 0) {
-		int astar = this->default_move().action;
+		ACT_TYPE astar = this->default_move().action;
 		os << this << "-a=" << astar << endl;
 	} else {
 		QNode* qstar = NULL;

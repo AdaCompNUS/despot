@@ -63,7 +63,7 @@ public:
 	Adventurer(int num_goals);
 	Adventurer(std::string params_file);
 
-	virtual bool Step(State& state, double random_num, int action,
+	virtual bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const;
 	inline int NumActions() const {
 		return 3;
@@ -76,10 +76,10 @@ public:
 		return states_[index];
 	}
 
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
-	const std::vector<State>& TransitionProbability(int s, int a) const;
-	double Reward(int s, int a) const;
-	double Reward(State& s, int a) const;
+	virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
+	const std::vector<State>& TransitionProbability(int s, ACT_TYPE a) const;
+	double Reward(int s, ACT_TYPE a) const;
+	double Reward(State& s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type) const;
 	virtual Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
@@ -100,7 +100,7 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	virtual void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	void PrintTransitions() const;
 	void PrintMDPPolicy() const;
@@ -114,9 +114,9 @@ public:
 	void ComputeDefaultActions(std::string type);
 	int GetAction(const State& navistate) const;
 
-	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
-	void Observe(const Belief* belief, int action, std::map<OBS_TYPE, double>& obss) const;
-	double StepReward(const Belief* belief, int action) const;
+	Belief* Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const;
+	void Observe(const Belief* belief, ACT_TYPE action, std::map<OBS_TYPE, double>& obss) const;
+	double StepReward(const Belief* belief, ACT_TYPE action) const;
 
 	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };

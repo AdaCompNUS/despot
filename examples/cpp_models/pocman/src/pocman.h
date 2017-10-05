@@ -36,7 +36,7 @@ public:
 
 	PocmanBelief(std::vector<State*> particles, const DSPOMDP* model, Belief* prior =
 		NULL);
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 };
 
 /* ==============================================================================
@@ -48,11 +48,11 @@ public:
 
 class Pocman: public DSPOMDP {
 public:
-	virtual bool Step(State& state, double rand_num, int action, double& reward,
+	virtual bool Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& observation) const;
 	virtual void Validate(const State& state) const;
 	int NumActions() const;
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 
 	virtual State* CreateStartState(std::string type = "DEFAULT") const;
 	virtual Belief* InitialBelief(const State* start,
@@ -77,7 +77,7 @@ public:
 	virtual void PrintObs(const State& state, OBS_TYPE observation,
 		std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
-	virtual void PrintAction(int action, std::ostream& out = std::cout) const;
+	virtual void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	virtual State* Copy(const State* particle) const;
@@ -108,7 +108,7 @@ private:
 	void MoveGhostDefensive(PocmanState& pocstate, int g, Random &random) const;
 	void MoveGhostRandom(PocmanState& pocstate, int g, Random &random) const;
 	void NewLevel(PocmanState& pocstate) const;
-	int SeeGhost(const PocmanState& pocstate, int action) const;
+	int SeeGhost(const PocmanState& pocstate, ACT_TYPE action) const;
 	bool HearGhost(const PocmanState& pocstate) const;
 	bool SmellFood(const PocmanState& pocstate) const;
 	bool Passable(const Coord& pos) const {

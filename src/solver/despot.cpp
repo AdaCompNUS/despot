@@ -312,7 +312,7 @@ double DESPOT::CheckDESPOT(const VNode* vnode, double regularized_value) {
 		used_time += double(clock() - start) / CLOCKS_PER_SEC;
 
 		if (double(num_trials - prev_num) > 0.05 * prev_num) {
-			int pruned_action;
+			ACT_TYPE pruned_action;
 			Globals::config.pruning_constant = pruning_constant;
 			VNode* pruned = Prune(root, pruned_action, pruned_value);
 			Globals::config.pruning_constant = 0;
@@ -390,13 +390,13 @@ double DESPOT::CheckDESPOTSTAR(const VNode* vnode, double regularized_value) {
 	return used_time;
 }
 
-VNode* DESPOT::Prune(VNode* vnode, int& pruned_action, double& pruned_value) {
+VNode* DESPOT::Prune(VNode* vnode, ACT_TYPE& pruned_action, double& pruned_value) {
 	vector<State*> empty;
 	VNode* pruned_v = new VNode(empty, vnode->depth(), NULL,
 		vnode->edge());
 
 	vector<QNode*>& children = vnode->children();
-	int astar = -1;
+	ACT_TYPE astar = -1;
 	double nustar = Globals::NEG_INFTY;
 	QNode* qstar = NULL;
 	for (int i = 0; i < children.size(); i++) {
@@ -442,7 +442,7 @@ QNode* DESPOT::Prune(QNode* qnode, double& pruned_value) {
 	map<OBS_TYPE, VNode*>& children = qnode->children();
 	for (map<OBS_TYPE, VNode*>::iterator it = children.begin();
 		it != children.end(); it++) {
-		int astar;
+		ACT_TYPE astar;
 		double nu;
 		VNode* pruned_v = Prune(it->second, astar, nu);
 		if (nu == it->second->default_move().value) {
@@ -462,7 +462,7 @@ QNode* DESPOT::Prune(QNode* qnode, double& pruned_value) {
 
 ValuedAction DESPOT::OptimalAction(VNode* vnode) {
 	ValuedAction astar(-1, Globals::NEG_INFTY);
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		QNode* qnode = vnode->Child(action);
 		if (qnode->lower_bound() > astar.value) {
 			astar = ValuedAction(action, qnode->lower_bound());
@@ -513,7 +513,7 @@ VNode* DESPOT::SelectBestWEUNode(QNode* qnode) {
 QNode* DESPOT::SelectBestUpperBoundNode(VNode* vnode) {
 	int astar = -1;
 	double upperstar = Globals::NEG_INFTY;
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		QNode* qnode = vnode->Child(action);
 
 		if (qnode->upper_bound() > upperstar) {
@@ -534,7 +534,7 @@ void DESPOT::Update(VNode* vnode) {
 	double upper = vnode->default_move().value;
 	double utility_upper = Globals::NEG_INFTY;
 
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		QNode* qnode = vnode->Child(action);
 
 		lower = max(lower, qnode->lower_bound());
@@ -627,7 +627,7 @@ void DESPOT::Expand(VNode* vnode,
 	History& history) {
 	vector<QNode*>& children = vnode->children();
 	logd << "- Expanding vnode " << vnode << endl;
-	for (int action = 0; action < model->NumActions(); action++) {
+	for (ACT_TYPE action = 0; action < model->NumActions(); action++) {
 		logd << " Action " << action << endl;
 		QNode* qnode = new QNode(vnode, action);
 		children.push_back(qnode);
@@ -726,7 +726,7 @@ ValuedAction DESPOT::Evaluate(VNode* root, vector<State*>& particles,
 		int steps = 0;
 
 		while (!streams.Exhausted()) {
-			int action =
+			ACT_TYPE action =
 				(cur != NULL) ?
 					OptimalAction(cur).action : prior->GetAction(*copy);
 
@@ -777,7 +777,7 @@ void DESPOT::belief(Belief* b) {
 	logi << "[DESPOT::belief] End: Set initial belief." << endl;
 }
 
-void DESPOT::Update(int action, OBS_TYPE obs) {
+void DESPOT::Update(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	belief_->Update(action, obs);

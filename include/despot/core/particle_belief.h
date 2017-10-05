@@ -37,7 +37,7 @@ public:
 	virtual const std::vector<State*>& particles() const;
 	virtual std::vector<State*> Sample(int num) const;
 
-	virtual void Update(int action, OBS_TYPE obs);
+	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
 
 	virtual Belief* MakeCopy() const;
 
@@ -50,7 +50,7 @@ public:
 	static std::vector<State*> Resample(int num, const Belief& belief,
 		History history, int hstart = 0);
 	static std::vector<State*> Resample(int num, const DSPOMDP* model,
-		const StateIndexer* indexer, int action, OBS_TYPE obs);
+		const StateIndexer* indexer, ACT_TYPE action, OBS_TYPE obs);
 };
 
 } // namespace despot

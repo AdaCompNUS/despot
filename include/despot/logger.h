@@ -120,7 +120,7 @@ public:
 
 	virtual void InitRound(State* state);
 	virtual double EndRound(); // Return total undiscounted reward for this round.
-	virtual bool SummarizeStep(int step, int round, bool terminal, int action,
+	virtual bool SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 			OBS_TYPE obs, double step_start_t);
 	virtual void PrintStatistics(int num_runs);
 

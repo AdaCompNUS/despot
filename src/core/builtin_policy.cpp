@@ -10,13 +10,13 @@ namespace despot {
  * BlindPolicy class
  * =============================================================================*/
 
-BlindPolicy::BlindPolicy(const DSPOMDP* model, int action, ParticleLowerBound* 
+BlindPolicy::BlindPolicy(const DSPOMDP* model, ACT_TYPE action, ParticleLowerBound* 
 	bound, Belief* belief) :
 	DefaultPolicy(model, bound, belief),
 	action_(action) {
 }
 
-int BlindPolicy::Action(const vector<State*>& particles, RandomStreams& streams,
+ACT_TYPE BlindPolicy::Action(const vector<State*>& particles, RandomStreams& streams,
 	History& history) const {
 	return action_;
 }
@@ -26,7 +26,7 @@ ValuedAction BlindPolicy::Search() {
 	return ValuedAction(action_, dummy_value);
 }
 
-void BlindPolicy::Update(int action, OBS_TYPE obs) {
+void BlindPolicy::Update(ACT_TYPE action, OBS_TYPE obs) {
 }
 
 /* =============================================================================
@@ -49,7 +49,7 @@ RandomPolicy::RandomPolicy(const DSPOMDP* model,
 	assert(fabs(sum - 1.0) < 1.0e-8);
 }
 
-int RandomPolicy::Action(const vector<State*>& particles,
+ACT_TYPE RandomPolicy::Action(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	if (action_probs_.size() > 0) {
 		return Random::GetCategory(action_probs_, Random::RANDOM.NextDouble());
@@ -70,7 +70,7 @@ ValuedAction RandomPolicy::Search() {
 	}
 }
 
-void RandomPolicy::Update(int action, OBS_TYPE obs) {
+void RandomPolicy::Update(ACT_TYPE action, OBS_TYPE obs) {
 }
 
 /* =============================================================================
@@ -83,13 +83,13 @@ MajorityActionPolicy::MajorityActionPolicy(const DSPOMDP* model,
 	policy_(policy) {
 }
 
-int MajorityActionPolicy::Action(const vector<State*>& particles,
+ACT_TYPE MajorityActionPolicy::Action(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	vector<double> frequencies(model_->NumActions());
 
 	for (int i = 0; i < particles.size(); i++) {
 		State* particle = particles[i];
-		int action = policy_.GetAction(*particle);
+		ACT_TYPE action = policy_.GetAction(*particle);
 		frequencies[action] += particle->weight;
 	}
 
@@ -118,7 +118,7 @@ ModeStatePolicy::ModeStatePolicy(const DSPOMDP* model,
 	state_probs_.resize(indexer_.NumStates());
 }
 
-int ModeStatePolicy::Action(const vector<State*>& particles,
+ACT_TYPE ModeStatePolicy::Action(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	double maxWeight = 0;
 	State* mode = NULL;
@@ -153,7 +153,7 @@ MMAPStatePolicy::MMAPStatePolicy(const DSPOMDP* model,
 	policy_(policy) {
 }
 
-int MMAPStatePolicy::Action(const vector<State*>& particles,
+ACT_TYPE MMAPStatePolicy::Action(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	return policy_.GetAction(*inferencer_.GetMMAP(particles));
 }

@@ -18,7 +18,7 @@ FVRS::FVRS(int size, int rocks) :
 	half_efficiency_distance_ = (size_ - 1) * sqrt(2) / 4 / 2;
 }
 
-bool FVRS::Step(State& state, double rand_num, int action, double& reward,
+bool FVRS::Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	RockSampleState& rockstate = static_cast<RockSampleState&>(state);
 	reward = 0;
@@ -80,7 +80,7 @@ int FVRS::NumActions() const {
 	return 5;
 }
 
-double FVRS::ObsProb(OBS_TYPE obs, const State& state, int action) const {
+double FVRS::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const {
 	const RockSampleState& rockstate =
 		static_cast<const RockSampleState&>(state);
 

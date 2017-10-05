@@ -20,7 +20,7 @@ void ChainState::Init(int num_mdp_states, int num_mdp_actions) {
 	mdp_transitions_.resize(num_mdp_states);
 	for (int state = 0; state < num_mdp_states; state++) {
 		mdp_transitions_[state].resize(num_mdp_actions);
-		for (int action = 0; action < num_mdp_actions; action++) {
+		for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 			mdp_transitions_[state][action].resize(num_mdp_states);
 			for (int s = 0; s < num_mdp_states; s++)
 				mdp_transitions_[state][action][s] = 0;
@@ -28,7 +28,7 @@ void ChainState::Init(int num_mdp_states, int num_mdp_actions) {
 	}
 }
 
-void ChainState::SetTransition(int state, int action, vector<double> row) {
+void ChainState::SetTransition(int state, ACT_TYPE action, vector<double> row) {
 	for (int s = 0; s < row.size(); s++) {
 		mdp_transitions_[state][action][s] = row[s];
 	}
@@ -38,7 +38,7 @@ bool ChainState::IsValid() const {
 	int num_mdp_states = mdp_transitions_.size(), num_mdp_actions =
 		mdp_transitions_[0].size();
 	for (int state1 = 0; state1 < num_mdp_states; state1++)
-		for (int action = 0; action < num_mdp_actions; action++) {
+		for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 			double sum = 0;
 			for (int state2 = 0; state2 < num_mdp_states; state2++)
 				sum += mdp_transitions_[state1][action][state2];
@@ -79,7 +79,7 @@ FullChainBelief::FullChainBelief(const DSPOMDP* model, int num_mdp_states,
 	}
 }
 
-void FullChainBelief::Update(int action, OBS_TYPE obs) {
+void FullChainBelief::Update(ACT_TYPE action, OBS_TYPE obs) {
 	int next_state = obs;
 	alpha_[cur_state_][action][next_state]++;
 	cur_state_ = next_state;
@@ -96,7 +96,7 @@ vector<State*> FullChainBelief::Sample(int num_particles) const {
 
 		particle->mdp_state = cur_state_;
 		for (int state = 0; state < num_mdp_states; state++) {
-			for (int action = 0; action < num_mdp_actions; action++) {
+			for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 				particle->SetTransition(state, action,
 					Dirichlet::Next(alpha_[state][action]));
 			}
@@ -140,7 +140,7 @@ SemiChainBelief::SemiChainBelief(const DSPOMDP* model, int num_mdp_states,
 	}
 }
 
-void SemiChainBelief::Update(int action, OBS_TYPE obs) {
+void SemiChainBelief::Update(ACT_TYPE action, OBS_TYPE obs) {
 	int next_state = obs;
 
 	int status =
@@ -163,7 +163,7 @@ vector<State*> SemiChainBelief::Sample(int num_particles) const {
 
 		// particle->mdp_state = cur_state_;
 		for (int state = 0; state < num_mdp_states; state++) {
-			for (int action = 0; action < num_mdp_actions; action++) {
+			for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 				vector<double> probs = Dirichlet::Next(alpha_[action]);
 				if (action == Chain::ACTION_A) {
 					particle->SetTransition(state, action, 0, probs[SLIP]);
@@ -239,7 +239,7 @@ State* Chain::DefaultStartState() const {
 	return start;
 }
 
-bool Chain::Step(State& s, double random_num, int action, double &reward,
+bool Chain::Step(State& s, double random_num, ACT_TYPE action, double &reward,
 	OBS_TYPE &obs) const {
 	ChainState& state = static_cast<ChainState&>(s);
 	int next = Random::GetCategory(state.GetTransition(state.mdp_state, action),
@@ -254,7 +254,7 @@ bool Chain::Step(State& s, double random_num, int action, double &reward,
 int Chain::NumActions() const {
 	return 2;
 }
-double Chain::Reward(int s1, int action, int s2) const {
+double Chain::Reward(int s1, ACT_TYPE action, int s2) const {
 	/*
 	 if (action == ACTION_B)
 	 return 2;
@@ -267,7 +267,7 @@ double Chain::Reward(int s1, int action, int s2) const {
 	//return s2 == NUM_MDP_STATES-1 ? 10 : 0;
 }
 
-double Chain::ObsProb(OBS_TYPE obs, const State& s, int action) const {
+double Chain::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE action) const {
 	const ChainState& state = static_cast<const ChainState&>(s);
 	return state.mdp_state == obs;
 }
@@ -362,7 +362,7 @@ public:
 			State* particle = particles[i];
 			ChainState* state = static_cast<ChainState*>(particle);
 			for (int state1 = 0; state1 < num_mdp_states; state1++) {
-				for (int action = 0; action < num_mdp_actions; action++) {
+				for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 					for (int state2 = 0; state2 < num_mdp_states; state2++) {
 						double prob1 = mean.GetTransition(state1, action,
 							state2);
@@ -376,7 +376,7 @@ public:
 		}
 
 		for (int state1 = 0; state1 < num_mdp_states; state1++) {
-			for (int action = 0; action < num_mdp_actions; action++) {
+			for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 				for (int state2 = 0; state2 < num_mdp_states; state2++) {
 					double prob = mean.GetTransition(state1, action, state2);
 					mean.SetTransition(state1, action, state2,
@@ -427,7 +427,7 @@ public:
 		chain_model_(model) {
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		int num_mdp_states = chain_model_->NUM_MDP_STATES, num_mdp_actions =
 			chain_model_->NumActions();
@@ -441,7 +441,7 @@ public:
 			State* particle = particles[i];
 			ChainState* state = static_cast<ChainState*>(particle);
 			for (int state1 = 0; state1 < num_mdp_states; state1++) {
-				for (int action = 0; action < num_mdp_actions; action++) {
+				for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 					for (int state2 = 0; state2 < num_mdp_states; state2++) {
 						double prob1 = mean->GetTransition(state1, action,
 							state2);
@@ -455,7 +455,7 @@ public:
 		}
 
 		for (int state1 = 0; state1 < num_mdp_states; state1++) {
-			for (int action = 0; action < num_mdp_actions; action++) {
+			for (ACT_TYPE action = 0; action < num_mdp_actions; action++) {
 				for (int state2 = 0; state2 < num_mdp_states; state2++) {
 					double prob = mean->GetTransition(state1, action, state2);
 					mean->SetTransition(state1, action, state2,
@@ -466,7 +466,7 @@ public:
 
 		chain_model_->ComputeOptimalValue(*mean);
 
-		int action =
+		ACT_TYPE action =
 			mean->policy[static_cast<ChainState*>(particles[0])->mdp_state].action;
 		chain_model_->Free(mean);
 		return action;
@@ -511,7 +511,7 @@ void Chain::ComputeOptimalValue(ChainState& state) const {
 			next_policy[s].action = -1;
 			next_policy[s].value = Globals::NEG_INFTY;
 
-			for (int a = 0; a < NumActions(); a++) {
+			for (ACT_TYPE a = 0; a < NumActions(); a++) {
 				double v = 0;
 				for (int nexts = 0; nexts < NUM_MDP_STATES; nexts++) {
 					v += state.GetTransition(s, a, nexts)
@@ -552,7 +552,7 @@ void Chain::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 	out << obs << endl;
 }
 
-void Chain::PrintAction(int action, ostream& out) const {
+void Chain::PrintAction(ACT_TYPE action, ostream& out) const {
 	if (action == ACTION_A) {
 		out << "Action A" << endl;
 	} else {

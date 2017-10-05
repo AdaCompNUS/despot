@@ -85,14 +85,14 @@ public:
 	BaseRockSample(std::string map);
 	BaseRockSample(int size, int rocks);
 
-	virtual bool Step(State& state, double rand_num, int action,
+	virtual bool Step(State& state, double rand_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const = 0;
 	virtual int NumActions() const = 0;
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const = 0;
+	virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const = 0;
 
-	const std::vector<State>& TransitionProbability(int s, int a) const;
-	int NextState(int s, int a) const;
-	double Reward(int s, int a) const;
+	const std::vector<State>& TransitionProbability(int s, ACT_TYPE a) const;
+	int NextState(int s, ACT_TYPE a) const;
+	double Reward(int s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type = "DEFAULT") const;
 	std::vector<State*> InitialParticleSet() const;
@@ -118,16 +118,16 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	virtual void PrintObs(const State& state, OBS_TYPE observation, std::ostream& out = std::cout) const = 0;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;
 	void Free(State* particle) const;
 	int NumActiveParticles() const;
 
-	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
-	void Observe(const Belief* belief, int action, std::map<OBS_TYPE, double>& obss) const;
-	double StepReward(const Belief* belief, int action) const;
+	Belief* Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const;
+	void Observe(const Belief* belief, ACT_TYPE action, std::map<OBS_TYPE, double>& obss) const;
+	double StepReward(const Belief* belief, ACT_TYPE action) const;
 
 	int NumStates() const;
 	const State* GetState(int index) const;

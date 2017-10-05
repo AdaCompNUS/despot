@@ -23,7 +23,7 @@ public:
 		BeliefUpperBound* upper_bound, Belief* belief = NULL);
 
 	ValuedAction Search();
-	virtual void Update(int action, OBS_TYPE obs);
+	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
 	virtual void belief(Belief* belief);
 
 private:

@@ -93,7 +93,7 @@ void POMDPX::PrintModel(ostream& out) const {
 	out << "MemoryPool = " << &memory_pool_ << endl;
 }
 
-bool POMDPX::NoisyStep(State& s, double random_num, int action) const {
+bool POMDPX::NoisyStep(State& s, double random_num, ACT_TYPE action) const {
 	POMDPXState& state = static_cast<POMDPXState&>(s);
 
 	parser_->GetNoisyNextState(state.vec_id, action, random_num);
@@ -101,7 +101,7 @@ bool POMDPX::NoisyStep(State& s, double random_num, int action) const {
 	return parser_->IsTerminalState(state.vec_id);
 }
 
-bool POMDPX::Step(State& s, double random_num, int action, double& reward,
+bool POMDPX::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	POMDPXState& state = static_cast<POMDPXState&>(s);
 
@@ -120,7 +120,7 @@ int POMDPX::NumStates() const {
 	return parser_->NumStates();
 }
 
-double POMDPX::ObsProb(OBS_TYPE obs, const State& s, int a) const {
+double POMDPX::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const {
 	const POMDPXState& state = static_cast<const POMDPXState&>(s);
 
 	return parser_->ObsProb(obs, state.vec_id, a);
@@ -145,7 +145,7 @@ public:
 		model_(static_cast<const POMDPX*>(model)) {
 	}
 
-	void Update(int action, OBS_TYPE obs) {
+	void Update(ACT_TYPE action, OBS_TYPE obs) {
 		history_.Add(action, obs);
 
 		vector<State*> updated;
@@ -380,19 +380,19 @@ const State* POMDPX::GetState(const int index) const {
 	return states_[index];
 }
 
-const vector<State>& POMDPX::TransitionProbability(int s, int a) const {
+const vector<State>& POMDPX::TransitionProbability(int s, ACT_TYPE a) const {
 	assert(is_small_);
 
 	return transition_probabilities_[s][a];
 }
 
-double POMDPX::Reward(int s, int a) const {
+double POMDPX::Reward(int s, ACT_TYPE a) const {
 	assert(is_small_);
 
 	return rewards_[s][a];
 }
 
-double POMDPX::Reward(const State& state, int a) const {
+double POMDPX::Reward(const State& state, ACT_TYPE a) const {
 	assert(is_small_);
 	int s =GetIndex(&state);
 	return rewards_[s][a];
@@ -430,11 +430,11 @@ public:
 		pomdpx_model_(static_cast<const POMDPX*>(model)) {
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
-		int bestAction = 0;
+		ACT_TYPE bestAction = 0;
 		double maxReward = Globals::NEG_INFTY;
-		for (int action = 0; action < pomdpx_model_->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < pomdpx_model_->NumActions(); action++) {
 			double reward = 0;
 			for (int i = 0; i < particles.size(); i++) {
 				State* particle = particles[i];
@@ -540,7 +540,7 @@ void POMDPX::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 	parser_->PrintObs(obs, out);
 }
 
-void POMDPX::PrintAction(int action, ostream& out) const {
+void POMDPX::PrintAction(ACT_TYPE action, ostream& out) const {
 	parser_->PrintAction(action, out);
 }
 
@@ -574,7 +574,7 @@ const string& POMDPX::GetActionName() {
 	return parser_->GetActionName();
 }
 
-const string& POMDPX::GetEnumedAction(int action) {
+const string& POMDPX::GetEnumedAction(ACT_TYPE action) {
 	return parser_->GetEnumedAction(action);
 }
 

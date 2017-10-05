@@ -18,7 +18,7 @@ RockSample::RockSample(int size, int rocks) :
 	half_efficiency_distance_ = 20;
 }
 
-bool RockSample::Step(State& state, double rand_num, int action, double& reward,
+bool RockSample::Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	RockSampleState& rockstate = static_cast<RockSampleState&>(state);
 	reward = 0;
@@ -85,7 +85,7 @@ int RockSample::NumActions() const {
 	return num_rocks_ + 5;
 }
 
-double RockSample::ObsProb(OBS_TYPE obs, const State& state, int action) const {
+double RockSample::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const {
 	if (action <= E_SAMPLE)
 		return obs == E_NONE;
 

@@ -202,7 +202,7 @@ public:
 		return new RockSampleBelief(copy, model_, prior_);
 	}
 
-	void Update(int action, OBS_TYPE obs) { // TODO: Not complete yet
+	void Update(ACT_TYPE action, OBS_TYPE obs) { // TODO: Not complete yet
 		Belief* updated = rs_model_->Tau(this, action, obs);
 
 		for (int i = 0; i < particles_.size(); i++)
@@ -414,7 +414,7 @@ public:
 		for (int s = 0; s < policy.size(); s++) {
 			int cur = s;
 			while (cur != policy.size() - 1) {
-				int action = policy[cur].action;
+				ACT_TYPE action = policy[cur].action;
 				if (action == rs_model_->E_SAMPLE) {
 					int rock = grid_(
 						rs_model_->IndexToCoord(cur >> rs_model_->num_rocks_));
@@ -450,7 +450,7 @@ public:
 			if (expected_sampling_value[rock] / total_weight > 0.0)
 				SetFlag(state, rock);
 
-		int action = -1;
+		ACT_TYPE action = -1;
 		double value = 0;
 		double discount = 1.0;
 		for (int r = 0; r < rock_order_[state].size(); r++) {
@@ -513,7 +513,7 @@ public:
 			}
 		}
 
-		int action = -1;
+		ACT_TYPE action = -1;
 		double value = 0;
 		double discount = 1.0;
 		while (true) {
@@ -691,7 +691,7 @@ public:
 		vector<bool> sampled(rs_model_->num_rocks_, false);
 		Coord pos = rs_model_->start_pos_;
 		for (int t = 0; t < history_.Size(); t++) {
-			int action = history_.Action(t);
+			ACT_TYPE action = history_.Action(t);
 			OBS_TYPE obs = history_.Observation(t);
 
 			if (action > rs_model_->E_SAMPLE) {
@@ -851,7 +851,7 @@ void BaseRockSample::PrintBelief(const Belief& belief, ostream& out) const {
 	out << endl;
 }
 
-void BaseRockSample::PrintAction(int action, ostream& out) const {
+void BaseRockSample::PrintAction(ACT_TYPE action, ostream& out) const {
 	if (action < E_SAMPLE)
 		out << Compass::CompassString[action] << endl;
 	if (action == E_SAMPLE)
@@ -882,7 +882,7 @@ int BaseRockSample::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
 
-Belief* BaseRockSample::Tau(const Belief* belief, int action,
+Belief* BaseRockSample::Tau(const Belief* belief, ACT_TYPE action,
 	OBS_TYPE obs) const {
 	static vector<double> probs = vector<double>(NumStates());
 
@@ -922,7 +922,7 @@ Belief* BaseRockSample::Tau(const Belief* belief, int action,
 	return new ParticleBelief(new_particles, this, NULL, false);
 }
 
-void BaseRockSample::Observe(const Belief* belief, int action,
+void BaseRockSample::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
@@ -960,7 +960,7 @@ void BaseRockSample::Observe(const Belief* belief, int action,
 	}
 }
 
-double BaseRockSample::StepReward(const Belief* belief, int action) const {
+double BaseRockSample::StepReward(const Belief* belief, ACT_TYPE action) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
 
@@ -1046,7 +1046,7 @@ int BaseRockSample::CoordToIndex(Coord c) const {
 	return c.y * grid_.xsize() + c.x;
 }
 
-int BaseRockSample::NextState(int s, int a) const {
+int BaseRockSample::NextState(int s, ACT_TYPE a) const {
 	if (s == NumStates() - 1)
 		return NumStates() - 1;
 
@@ -1070,7 +1070,7 @@ int BaseRockSample::NextState(int s, int a) const {
 		return s;
 }
 
-double BaseRockSample::Reward(int s, int a) const {
+double BaseRockSample::Reward(int s, ACT_TYPE a) const {
 	if (s == NumStates() - 1)
 		return 0;
 
@@ -1110,7 +1110,7 @@ void BaseRockSample::InitializeTransitions() {
 	}
 }
 
-const vector<State>& BaseRockSample::TransitionProbability(int s, int a) const {
+const vector<State>& BaseRockSample::TransitionProbability(int s, ACT_TYPE a) const {
 	return transition_probabilities_[s][a];
 }
 
@@ -1142,7 +1142,7 @@ vector<ValuedAction>& BaseRockSample::ComputeOptimalSamplingPolicy() const {
 			next_policy[s].action = -1;
 			next_policy[s].value = Globals::NEG_INFTY;
 
-			for (int a = 0; a <= E_SAMPLE; a++) {
+			for (ACT_TYPE a = 0; a <= E_SAMPLE; a++) {
 				double v = Reward(s, a)
 					+ Globals::Discount() * mdp_policy_[transition[s][a]].value;
 

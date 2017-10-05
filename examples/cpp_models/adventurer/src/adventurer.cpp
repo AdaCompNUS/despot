@@ -125,7 +125,7 @@ void Adventurer::Init(istream& is) {
 	// PrintTransitions();
 }
 
-bool Adventurer::Step(State& s, double random_num, int action, double& reward,
+bool Adventurer::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	AdventurerState& state = static_cast<AdventurerState&>(s);
 
@@ -173,7 +173,7 @@ int Adventurer::NumStates() const {
 	return num_goals_ * size_;
 }
 
-double Adventurer::ObsProb(OBS_TYPE obs, const State& s, int a) const {
+double Adventurer::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const {
 	const AdventurerState& state = static_cast<const AdventurerState&>(s);
 	int goal_type = state.state_id / size_;
 	if (obs == goal_type)
@@ -182,7 +182,7 @@ double Adventurer::ObsProb(OBS_TYPE obs, const State& s, int a) const {
 		(obs < num_goals_) ? (obs_noise_ / (num_goals_ - 1)) : 0.0;
 }
 
-const vector<State>& Adventurer::TransitionProbability(int s, int a) const {
+const vector<State>& Adventurer::TransitionProbability(int s, ACT_TYPE a) const {
 	return transition_probabilities_[s][a];
 }
 
@@ -279,7 +279,7 @@ public:
 		regdemo_model_(static_cast<const Adventurer*>(model)) {
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		bool at_goal = true;
 		for (int i = 0; i < particles.size(); i++) {
@@ -362,7 +362,7 @@ void Adventurer::PrintObs(const State& state, OBS_TYPE obs,
 	out << obs << endl;
 }
 
-void Adventurer::PrintAction(int action, ostream& out) const {
+void Adventurer::PrintAction(ACT_TYPE action, ostream& out) const {
 	out << (action == 0 ? "Stay" : ((action == 2) ? "Right" : "Left")) << endl;
 }
 
@@ -416,20 +416,20 @@ int Adventurer::GetAction(const State& state) const {
 	return default_action_[GetIndex(&state)];
 }
 
-double Adventurer::Reward(int s, int action) const {
+double Adventurer::Reward(int s, ACT_TYPE action) const {
 	if (action == A_STAY)
 		return (s % size_ == size_ - 1) ? goal_reward_[s / size_] : 0;
 	return trap_prob_[s % size_] * (-10);
 }
 
-double Adventurer::Reward(State& state, int action) const {
+double Adventurer::Reward(State& state, ACT_TYPE action) const {
 	int s=GetIndex(&state);
 	if (action == A_STAY)
 		return (s % size_ == size_ - 1) ? goal_reward_[s / size_] : 0;
 	return trap_prob_[s % size_] * (-10);
 }
 
-Belief* Adventurer::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
+Belief* Adventurer::Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const {
 	static vector<double> probs = vector<double>(NumStates());
 
 	const vector<State*>& particles =
@@ -462,7 +462,7 @@ Belief* Adventurer::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
 	return new ParticleBelief(new_particles, this, NULL, false);
 }
 
-void Adventurer::Observe(const Belief* belief, int action,
+void Adventurer::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
@@ -481,7 +481,7 @@ void Adventurer::Observe(const Belief* belief, int action,
 	}
 }
 
-double Adventurer::StepReward(const Belief* belief, int action) const {
+double Adventurer::StepReward(const Belief* belief, ACT_TYPE action) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
 

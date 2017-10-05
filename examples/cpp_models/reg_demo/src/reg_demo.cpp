@@ -98,7 +98,7 @@ void RegDemo::Init(istream& is) {
 	}
 }
 
-bool RegDemo::Step(State& s, double random_num, int action, double& reward,
+bool RegDemo::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	RegDemoState& state = static_cast<RegDemoState&>(s);
 
@@ -130,11 +130,11 @@ int RegDemo::NumStates() const {
 	return size_ + 1;
 }
 
-double RegDemo::ObsProb(OBS_TYPE obs, const State& state, int a) const {
+double RegDemo::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE a) const {
 	return obs == obs_[state.state_id];
 }
 
-const vector<State>& RegDemo::TransitionProbability(int s, int a) const {
+const vector<State>& RegDemo::TransitionProbability(int s, ACT_TYPE a) const {
 	return transition_probabilities_[s][a];
 }
 
@@ -250,7 +250,7 @@ void RegDemo::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 	out << obs << endl;
 }
 
-void RegDemo::PrintAction(int action, ostream& out) const {
+void RegDemo::PrintAction(ACT_TYPE action, ostream& out) const {
 	out << (action == 0 ? "Stay" : ((action == 1) ? "Right" : "Left")) << endl;
 }
 
@@ -298,7 +298,7 @@ int RegDemo::GetAction(const State& state) const {
 	return default_action_[GetIndex(&state)];
 }
 
-double RegDemo::Reward(int s, int action) const {
+double RegDemo::Reward(int s, ACT_TYPE action) const {
 	return
 		(s == size_ - 1 && action == 0) ? goal_reward_ : (action == 0 ? 0 : -1);
 }

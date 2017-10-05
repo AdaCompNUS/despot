@@ -28,11 +28,11 @@ class MMAPInferencer;
  * =============================================================================*/
 
 struct ValuedAction {
-	int action;
+	ACT_TYPE action;
 	double value;
 
 	ValuedAction();
-	ValuedAction(int _action, double _value);
+	ValuedAction(ACT_TYPE _action, double _value);
 
 	friend std::ostream& operator<<(std::ostream& os, const ValuedAction& va);
 };
@@ -57,7 +57,7 @@ public:
 	virtual ~DefaultPolicy();
 
 	void Reset();
-	virtual int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	virtual ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const = 0;
 
 	ParticleLowerBound* particle_lower_bound() const;

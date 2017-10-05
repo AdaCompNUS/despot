@@ -68,7 +68,7 @@ protected:
 
 protected:
 	std::string RandomMap(int height, int width, int obstacles);
-	int NextRobPosition(int rob, int a) const;
+	int NextRobPosition(int rob, ACT_TYPE a) const;
 
 	mutable std::vector<int> default_action_;
 
@@ -80,14 +80,14 @@ public:
 	BaseTag(std::string params_file);
 	virtual ~BaseTag();
 
-	bool Step(State& state, double random_num, int action,
+	bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward) const;
-	virtual bool Step(State& state, double random_num, int action,
+	virtual bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const = 0;
 	inline int NumActions() const {
 		return 5;
 	}
-	inline int TagAction() const {
+	inline ACT_TYPE TagAction() const {
 		return 4;
 	}
 	int NumStates() const;
@@ -110,9 +110,9 @@ public:
 		return states_[index];
 	}
 
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const = 0;
-	const std::vector<State>& TransitionProbability(int s, int a) const;
-	double Reward(int s, int a) const;
+	virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const = 0;
+	const std::vector<State>& TransitionProbability(int s, ACT_TYPE a) const;
+	double Reward(int s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type = "DEFAULT") const;
 	virtual Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const = 0;
@@ -137,7 +137,7 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	virtual void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const = 0;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;
@@ -151,9 +151,9 @@ public:
 	void ComputeDefaultActions(std::string type) const;
 	int GetAction(const State& tagstate) const;
 
-	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
-	void Observe(const Belief* belief, int action, std::map<OBS_TYPE, double>& obss) const = 0;
-	double StepReward(const Belief* belief, int action) const;
+	Belief* Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const;
+	void Observe(const Belief* belief, ACT_TYPE action, std::map<OBS_TYPE, double>& obss) const = 0;
+	double StepReward(const Belief* belief, ACT_TYPE action) const;
 };
 
 /* ==============================================================================
@@ -166,7 +166,7 @@ private:
 public:
 	TagBelief(std::vector<State*> particles, const BaseTag* model, Belief* prior =
 		NULL);
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 };
 
 } // namespace despot

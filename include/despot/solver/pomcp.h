@@ -31,11 +31,11 @@ public:
 		return exploration_constant_;
 	}
 
-	inline virtual int SmartCount(int action) const {
+	inline virtual int SmartCount(ACT_TYPE action) const {
 		return 10;
 	}
 
-	inline virtual double SmartValue(int action) const {
+	inline virtual double SmartValue(ACT_TYPE action) const {
 		return 1;
 	}
 
@@ -47,7 +47,7 @@ public:
 		history_ = h;
 	}
 
-	inline virtual void Add(int action, OBS_TYPE obs) {
+	inline virtual void Add(ACT_TYPE action, OBS_TYPE obs) {
 		history_.Add(action, obs);
 	}
 
@@ -64,7 +64,7 @@ public:
 	const std::vector<int>& preferred_actions() const;
 	const std::vector<int>& legal_actions() const;
 
-	int GetAction(const State& state);
+	ACT_TYPE GetAction(const State& state);
 };
 
 /* =============================================================================
@@ -96,7 +96,7 @@ public:
 
 	void reuse(bool r);
 	virtual void belief(Belief* b);
-	virtual void Update(int action, OBS_TYPE obs);
+	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
 
 	static VNode* CreateVNode(int depth, const State*, POMCPPrior* prior,
 		const DSPOMDP* model);
@@ -110,7 +110,7 @@ public:
 		const DSPOMDP* model, POMCPPrior* prior);
 	static ValuedAction Evaluate(VNode* root, std::vector<State*>& particles,
 		RandomStreams& streams, const DSPOMDP* model, POMCPPrior* prior);
-	static int UpperBoundAction(const VNode* vnode, double explore_constant);
+	static ACT_TYPE UpperBoundAction(const VNode* vnode, double explore_constant);
 	static ValuedAction OptimalAction(const VNode* vnode);
 	static int Count(const VNode* vnode);
 };
@@ -129,7 +129,7 @@ public:
 		History& history, double timeout);
 
 	virtual void belief(Belief* b);
-	virtual void Update(int action, OBS_TYPE obs);
+	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
 };
 
 } // namespace despot

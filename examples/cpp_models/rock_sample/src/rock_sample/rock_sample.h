@@ -18,10 +18,10 @@ public:
 	RockSample(std::string map);
 	RockSample(int size, int rocks);
 
-	bool Step(State& state, double rand_num, int action, double& reward,
+	bool Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 	int NumActions() const;
-	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
 		std::ostream& out = std::cout) const;
 };

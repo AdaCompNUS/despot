@@ -91,7 +91,7 @@ vector<State*> ParticleBelief::Sample(int num) const {
 	return Sample(num, particles_, model_);
 }
 
-void ParticleBelief::Update(int action, OBS_TYPE obs) {
+void ParticleBelief::Update(ACT_TYPE action, OBS_TYPE obs) {
 	history_.Add(action, obs);
 
 	vector<State*> updated;
@@ -321,7 +321,7 @@ vector<State*> ParticleBelief::Resample(int num, const vector<State*>& belief,
 }
 
 vector<State*> ParticleBelief::Resample(int num, const DSPOMDP* model,
-	const StateIndexer* indexer, int action, OBS_TYPE obs) {
+	const StateIndexer* indexer, ACT_TYPE action, OBS_TYPE obs) {
 	if (indexer == NULL) {
 		loge << "[Belief::Resample] indexer cannot be null" << endl;
 		exit(1);

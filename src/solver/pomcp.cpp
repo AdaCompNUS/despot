@@ -26,7 +26,7 @@ const vector<int>& POMCPPrior::legal_actions() const {
 	return legal_actions_;
 }
 
-int POMCPPrior::GetAction(const State& state) {
+ACT_TYPE POMCPPrior::GetAction(const State& state) {
 	ComputePreference(state);
 
 	if (preferred_actions_.size() != 0)
@@ -116,7 +116,7 @@ ValuedAction POMCP::Search(double timeout) {
 		<< "Tree size = " << root_->Size() << endl;
 
 	if (astar.action == -1) {
-		for (int action = 0; action < model_->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < model_->NumActions(); action++) {
 			cout << "action " << action << ": " << root_->Child(action)->count()
 				<< " " << root_->Child(action)->value() << endl;
 		}
@@ -138,7 +138,7 @@ void POMCP::belief(Belief* b) {
 	root_ = NULL;
 }
 
-void POMCP::Update(int action, OBS_TYPE obs) {
+void POMCP::Update(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	if (reuse_) {
@@ -164,21 +164,21 @@ void POMCP::Update(int action, OBS_TYPE obs) {
 		<< " in " << (get_time_second() - start) << "s" << endl;
 }
 
-int POMCP::UpperBoundAction(const VNode* vnode, double explore_constant) {
+ACT_TYPE POMCP::UpperBoundAction(const VNode* vnode, double explore_constant) {
 	const vector<QNode*>& qnodes = vnode->children();
 	double best_ub = Globals::NEG_INFTY;
-	int best_action = -1;
+	ACT_TYPE best_action = -1;
 
 	/*
 	 int total = 0;
-	 for (int action = 0; action < qnodes.size(); action ++) {
+	 for (ACT_TYPE action = 0; action < qnodes.size(); action ++) {
 	 total += qnodes[action]->count();
 	 double ub = qnodes[action]->value() + explore_constant * sqrt(log(vnode->count() + 1) / qnodes[action]->count());
 	 cout << action << " " << ub << " " << qnodes[action]->value() << " " << qnodes[action]->count() << " " << vnode->count() << endl;
 	 }
 	 */
 
-	for (int action = 0; action < qnodes.size(); action++) {
+	for (ACT_TYPE action = 0; action < qnodes.size(); action++) {
 		if (qnodes[action]->count() == 0)
 			return action;
 
@@ -199,7 +199,7 @@ int POMCP::UpperBoundAction(const VNode* vnode, double explore_constant) {
 ValuedAction POMCP::OptimalAction(const VNode* vnode) {
 	const vector<QNode*>& qnodes = vnode->children();
 	ValuedAction astar(-1, Globals::NEG_INFTY);
-	for (int action = 0; action < qnodes.size(); action++) {
+	for (ACT_TYPE action = 0; action < qnodes.size(); action++) {
 		// cout << action << " " << qnodes[action]->value() << " " << qnodes[action]->count() << " " << vnode->count() << endl;
 		if (qnodes[action]->value() > astar.value) {
 			astar = ValuedAction(action, qnodes[action]->value());
@@ -211,7 +211,7 @@ ValuedAction POMCP::OptimalAction(const VNode* vnode) {
 
 int POMCP::Count(const VNode* vnode) {
 	int count = 0;
-	for (int action = 0; action < vnode->children().size(); action++)
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++)
 		count += vnode->Child(action)->count();
 	return count;
 }
@@ -229,7 +229,7 @@ VNode* POMCP::CreateVNode(int depth, const State* state, POMCPPrior* prior,
 	double neg_infty = -1e10;
 
 	if (legal_actions.size() == 0) { // no prior knowledge, all actions are equal
-		for (int action = 0; action < model->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < model->NumActions(); action++) {
 			QNode* qnode = new QNode(vnode, action);
 			qnode->count(0);
 			qnode->value(0);
@@ -237,7 +237,7 @@ VNode* POMCP::CreateVNode(int depth, const State* state, POMCPPrior* prior,
 			vnode->children().push_back(qnode);
 		}
 	} else {
-		for (int action = 0; action < model->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < model->NumActions(); action++) {
 			QNode* qnode = new QNode(vnode, action);
 			qnode->count(large_count);
 			qnode->value(neg_infty);
@@ -252,7 +252,7 @@ VNode* POMCP::CreateVNode(int depth, const State* state, POMCPPrior* prior,
 		}
 
 		for (int a = 0; a < preferred_actions.size(); a++) {
-			int action = preferred_actions[a];
+			ACT_TYPE action = preferred_actions[a];
 			QNode* qnode = vnode->Child(action);
 			qnode->count(prior->SmartCount(action));
 			qnode->value(prior->SmartValue(action));
@@ -269,7 +269,7 @@ double POMCP::Simulate(State* particle, RandomStreams& streams, VNode* vnode,
 
 	double explore_constant = prior->exploration_constant();
 
-	int action = POMCP::UpperBoundAction(vnode, explore_constant);
+	ACT_TYPE action = POMCP::UpperBoundAction(vnode, explore_constant);
 	logd << *particle << endl;
 	logd << "depth = " << vnode->depth() << "; action = " << action << "; "
 		<< particle->scenario_id << endl;
@@ -312,7 +312,7 @@ double POMCP::Simulate(State* particle, VNode* vnode, const DSPOMDP* model,
 
 	double explore_constant = prior->exploration_constant();
 
-	int action = UpperBoundAction(vnode, explore_constant);
+	ACT_TYPE action = UpperBoundAction(vnode, explore_constant);
 
 	double reward;
 	OBS_TYPE obs;
@@ -347,7 +347,7 @@ double POMCP::Rollout(State* particle, RandomStreams& streams, int depth,
 		return 0;
 	}
 
-	int action = prior->GetAction(*particle);
+	ACT_TYPE action = prior->GetAction(*particle);
 
 	logd << *particle << endl;
 	logd << "depth = " << depth << "; action = " << action << endl;
@@ -375,7 +375,7 @@ double POMCP::Rollout(State* particle, int depth, const DSPOMDP* model,
 		return 0;
 	}
 
-	int action = prior->GetAction(*particle);
+	ACT_TYPE action = prior->GetAction(*particle);
 
 	double reward;
 	OBS_TYPE obs;
@@ -406,7 +406,7 @@ ValuedAction POMCP::Evaluate(VNode* root, vector<State*>& particles,
 
 		// Simulate until all random numbers are consumed
 		while (!streams.Exhausted()) {
-			int action =
+			ACT_TYPE action =
 				(cur != NULL) ?
 					UpperBoundAction(cur, 0) : prior->GetAction(*particle);
 
@@ -483,7 +483,7 @@ ValuedAction DPOMCP::Search(double timeout) {
 
 	ValuedAction astar = OptimalAction(root_);
 	if (astar.action == -1) {
-		for (int action = 0; action < model_->NumActions(); action++) {
+		for (ACT_TYPE action = 0; action < model_->NumActions(); action++) {
 			cout << "action " << action << ": " << root_->Child(action)->count()
 				<< " " << root_->Child(action)->value() << endl;
 		}
@@ -528,7 +528,7 @@ VNode* DPOMCP::ConstructTree(vector<State*>& particles, RandomStreams& streams,
 	return root;
 }
 
-void DPOMCP::Update(int action, OBS_TYPE obs) {
+void DPOMCP::Update(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	history_.Add(action, obs);

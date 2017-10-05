@@ -73,14 +73,14 @@ void LaserTag::Init() {
 	}
 }
 
-bool LaserTag::Step(State& state, double random_num, int action,
+bool LaserTag::Step(State& state, double random_num, ACT_TYPE action,
 	double& reward) const {
 	Random random(random_num);
 	bool terminal = BaseTag::Step(state, random.NextDouble(), action, reward);
 	return terminal;
 }
 
-bool LaserTag::Step(State& state, double random_num, int action, double& reward,
+bool LaserTag::Step(State& state, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	Random random(random_num);
 	bool terminal = BaseTag::Step(state, random.NextDouble(), action, reward);
@@ -110,7 +110,7 @@ bool LaserTag::Step(State& state, double random_num, int action, double& reward,
 	return terminal;
 }
 
-double LaserTag::ObsProb(OBS_TYPE obs, const State& state, int action) const {
+double LaserTag::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const {
 	if (rob_[state.state_id] == opp_[state.state_id])
 		return obs == same_loc_obs_;
 
@@ -182,7 +182,7 @@ ostream& operator<<(ostream& os, const LaserTag& lasertag) {
 	return os;
 }
 
-void LaserTag::Observe(const Belief* belief, int action,
+void LaserTag::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	cerr << "Exit: Two many observations!" << endl;
 	exit(0);

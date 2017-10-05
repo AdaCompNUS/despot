@@ -38,7 +38,7 @@ public:
 	virtual State* GetCurrentState() const = 0;
 
 	//[Essential interface] send action, receive reward, obs, and terminal
-	virtual bool ExecuteAction(int action, OBS_TYPE& obs) =0;
+	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 };
 
 } /* namespace despot */

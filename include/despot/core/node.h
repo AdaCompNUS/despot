@@ -60,8 +60,8 @@ public:
 
 	const std::vector<QNode*>& children() const;
 	std::vector<QNode*>& children();
-	const QNode* Child(int action) const;
-	QNode* Child(int action);
+	const QNode* Child(ACT_TYPE action) const;
+	QNode* Child(ACT_TYPE action);
 	int Size() const;
 	int PolicyTreeSize() const;
 
@@ -96,7 +96,7 @@ public:
 class QNode {
 protected:
 	VNode* parent_;
-	int edge_;
+	ACT_TYPE edge_;
 	std::map<OBS_TYPE, VNode*> children_;
 	double lower_bound_;
 	double upper_bound_;

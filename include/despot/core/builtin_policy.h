@@ -12,17 +12,17 @@ namespace despot {
 
 class BlindPolicy: public DefaultPolicy {
 private:
-	int action_;
+	ACT_TYPE action_;
 
 public:
-	BlindPolicy(const DSPOMDP* model, int action, ParticleLowerBound*
+	BlindPolicy(const DSPOMDP* model, ACT_TYPE action, ParticleLowerBound*
 		particle_lower_bound, Belief* belief = NULL);
 
-	int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 
 	ValuedAction Search();
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 };
 
 /* =============================================================================
@@ -40,11 +40,11 @@ public:
 		ParticleLowerBound* ParticleLowerBound,
 		Belief* belief = NULL);
 
-	int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 
 	ValuedAction Search();
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 };
 
 /* =============================================================================
@@ -62,7 +62,7 @@ public:
 		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
 		Belief* belief = NULL);
 
-	int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 
@@ -80,7 +80,7 @@ public:
 		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
 		Belief* belief = NULL);
 
-	int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 
@@ -96,7 +96,7 @@ public:
 	MajorityActionPolicy(const DSPOMDP* model, const StatePolicy& policy,
 		ParticleLowerBound* particle_lower_bound, Belief* belief = NULL);
 
-	int Action(const std::vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
 };
 

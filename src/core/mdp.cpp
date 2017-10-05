@@ -31,7 +31,7 @@ void MDP::ComputeOptimalPolicyUsingVI() {
 			next_policy[s].action = -1;
 			next_policy[s].value = Globals::NEG_INFTY;
 
-			for (int a = 0; a < num_actions; a++) {
+			for (ACT_TYPE a = 0; a < num_actions; a++) {
 				double v = Reward(s, a);
 				const vector<State>& transition = TransitionProbability(s, a);
 				for (int i = 0; i < transition.size(); i++) {
@@ -67,7 +67,7 @@ void MDP::ComputeBlindAlpha() {
 
 	blind_alpha_.resize(num_actions);
 
-	for (int action = 0; action < num_actions; action++) {
+	for (ACT_TYPE action = 0; action < num_actions; action++) {
 		vector<double> cur(num_states), prev(num_states);
 
 		double min = Globals::POS_INFTY;
@@ -115,7 +115,7 @@ void MDP::ComputeBlindAlpha() {
 }
 
 double MDP::ComputeActionValue(const ParticleBelief* belief,
-	const StateIndexer& indexer, int action) const {
+	const StateIndexer& indexer, ACT_TYPE action) const {
 	assert(blind_alpha_.size() != 0);
 
 	const vector<State*> particles = belief->particles();

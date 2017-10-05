@@ -38,11 +38,11 @@ private:
 public:
 	Bridge();
 
-	bool Step(State& s, double random_num, int action, double& reward,
+	bool Step(State& s, double random_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 	int NumStates() const;
 	int NumActions() const;
-	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
+	double ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type = "DEFAULT") const;
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
@@ -60,18 +60,18 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id = -1, double weight = 0.0) const;
 	State* Copy(const State* particle) const;
 	void Free(State* particle) const;
 	int NumActiveParticles() const;
 
-	Belief* Tau(const Belief* belief, int action, OBS_TYPE obs) const;
-	void Observe(const Belief* belief, int action,
+	Belief* Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const;
+	void Observe(const Belief* belief, ACT_TYPE action,
 		std::map<OBS_TYPE, double>& obss) const;
-	double StepReward(const Belief* belief, int action) const;
-	double Reward(const State& belief, int action) const;
+	double StepReward(const Belief* belief, ACT_TYPE action) const;
+	double Reward(const State& belief, ACT_TYPE action) const;
 
 	POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 };

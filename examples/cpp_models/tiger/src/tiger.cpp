@@ -9,9 +9,9 @@ using namespace std;
 
 namespace despot {
 
-const int Tiger::LEFT = 0;
-const int Tiger::RIGHT = 1;
-const int Tiger::LISTEN = 2;
+const ACT_TYPE Tiger::LEFT = 0;
+const ACT_TYPE Tiger::RIGHT = 1;
+const ACT_TYPE Tiger::LISTEN = 2;
 const double Tiger::NOISE = 0.15;
 
 /* =============================================================================
@@ -42,7 +42,7 @@ public:
 	}
 
 	// NOTE: optimal for noise = 0.15
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		/*
 		 if (history.Size() == 0 || history.LastAction() != LISTEN) {
@@ -74,7 +74,7 @@ public:
 Tiger::Tiger() {
 }
 
-bool Tiger::Step(State& s, double random_num, int action, double& reward,
+bool Tiger::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	TigerState& state = static_cast<TigerState&>(s);
 	bool terminal = false;
@@ -101,7 +101,7 @@ int Tiger::NumActions() const {
 	return 3;
 }
 
-double Tiger::ObsProb(OBS_TYPE obs, const State& s, int a) const {
+double Tiger::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const {
 	const TigerState& state = static_cast<const TigerState&>(s);
 
 	if (a != LISTEN)
@@ -164,7 +164,7 @@ void Tiger::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 	out << (obs == LEFT ? "LEFT" : "RIGHT") << endl;
 }
 
-void Tiger::PrintAction(int action, ostream& out) const {
+void Tiger::PrintAction(ACT_TYPE action, ostream& out) const {
 	if (action == LEFT) {
 		out << "Open left" << endl;
 	} else if (action == RIGHT) {

@@ -42,7 +42,7 @@ ValuedAction DefaultPolicy::RecursiveValue(const vector<State*>& particles,
 			>= Globals::config.max_policy_sim_len)) {
 		return particle_lower_bound_->Value(particles);
 	} else {
-		int action = Action(particles, streams, history);
+		ACT_TYPE action = Action(particles, streams, history);
 
 		double value = 0;
 
@@ -88,7 +88,7 @@ ValuedAction DefaultPolicy::Search() {
 		Globals::config.search_depth);
 	vector<State*> particles = belief_->Sample(Globals::config.num_scenarios);
 
-	int action = Action(particles, streams, history_);
+	ACT_TYPE action = Action(particles, streams, history_);
 	double dummy_value = Globals::NEG_INFTY;
 
 	for (int i = 0; i < particles.size(); i++)

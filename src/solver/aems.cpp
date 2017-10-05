@@ -71,7 +71,7 @@ ValuedAction AEMS::Search() {
 
 ValuedAction AEMS::OptimalAction(const VNode* vnode) {
 	ValuedAction astar(-1, Globals::NEG_INFTY);
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		const QNode* qnode = vnode->Child(action);
 		if (qnode->lower_bound() > astar.value) {
 			astar = ValuedAction(action, qnode->lower_bound());
@@ -123,7 +123,7 @@ double AEMS::Likelihood(QNode* qnode) {
 double AEMS::AEMS2Likelihood(QNode* qnode) {
 	VNode* vnode = qnode->parent();
 	QNode* qstar = NULL;
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		QNode* child = vnode->Child(action);
 
 		if (qstar == NULL || child->upper_bound() > qstar->upper_bound())
@@ -140,7 +140,7 @@ void AEMS::Update(VNode* vnode) {
 	double lower = Globals::NEG_INFTY;
 	double upper = Globals::NEG_INFTY;
 
-	for (int action = 0; action < vnode->children().size(); action++) {
+	for (ACT_TYPE action = 0; action < vnode->children().size(); action++) {
 		QNode* qnode = vnode->Child(action);
 
 		lower = max(lower, qnode->lower_bound());
@@ -210,7 +210,7 @@ void AEMS::Expand(VNode* vnode, BeliefLowerBound* lower_bound,
 	BeliefUpperBound* upper_bound, const BeliefMDP* model, History& history) {
 	vector<QNode*>& children = vnode->children();
 	logd << "- Expanding vnode " << vnode << endl;
-	for (int action = 0; action < model->NumActions(); action++) {
+	for (ACT_TYPE action = 0; action < model->NumActions(); action++) {
 		logd << " Action " << action << endl;
 		QNode* qnode = new QNode(vnode, action);
 		children.push_back(qnode);
@@ -223,7 +223,7 @@ void AEMS::Expand(VNode* vnode, BeliefLowerBound* lower_bound,
 void AEMS::Expand(QNode* qnode, BeliefLowerBound* lb, BeliefUpperBound* ub,
 	const BeliefMDP* model, History& history) {
 	VNode* parent = qnode->parent();
-	int action = qnode->edge();
+	ACT_TYPE action = qnode->edge();
 	map<OBS_TYPE, VNode*>& children = qnode->children();
 
 	const Belief* belief = parent->belief();
@@ -261,7 +261,7 @@ void AEMS::Expand(QNode* qnode, BeliefLowerBound* lb, BeliefUpperBound* ub,
 	qnode->upper_bound(upper_bound);
 }
 
-void AEMS::Update(int action, OBS_TYPE obs) {
+void AEMS::Update(ACT_TYPE action, OBS_TYPE obs) {
 	logi << "- Updating belief, history and root with action " << action
 		<< " and observation " << obs << "...";
 

@@ -29,17 +29,17 @@ private:
 	mutable MemoryPool<TigerState> memory_pool_;
 
 public:
-	static const int LEFT, RIGHT, LISTEN;
+	static const ACT_TYPE LEFT, RIGHT, LISTEN;
 	static const double NOISE;
 
 	Tiger();
 	Tiger(std::string params_file);
 
-	bool Step(State& s, double random_num, int action, double& reward,
+	bool Step(State& s, double random_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 	int NumStates() const;
 	int NumActions() const;
-	double ObsProb(OBS_TYPE obs, const State& s, int a) const;
+	double ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type) const;
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
@@ -57,7 +57,7 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	State* Allocate(int state_id, double weight) const;
 	State* Copy(const State* particle) const;

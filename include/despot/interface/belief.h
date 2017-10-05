@@ -29,7 +29,7 @@ public:
 	virtual ~Belief();
 
 	virtual std::vector<State*> Sample(int num) const = 0;
-	virtual void Update(int action, OBS_TYPE obs) = 0;
+	virtual void Update(ACT_TYPE action, OBS_TYPE obs) = 0;
 
 	virtual std::string text() const;
 	friend std::ostream& operator<<(std::ostream& os, const Belief& belief);

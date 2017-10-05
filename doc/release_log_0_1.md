@@ -68,7 +68,7 @@ virtual State* Initialize()=0;
 //Get the state of the system (only applicable for simulators or POMDP world)
 virtual State* GetCurrentState() const = 0;
 //Send action to be executed by the system, receive observations terminal signals from the system
-virtual bool ExecuteAction(int action, OBS_TYPE& obs) =0;
+virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 ```
 
 ### class SimpleTUI
@@ -102,7 +102,7 @@ Usage:
 The _ExecuteAction_ function in the *World* class doesn't generate rewards. A new virtual function *Reward* is added in the _DSPOMDP_ class to enable reward monitoring after executing an action:
 ``` c++
 // Returns the reward for taking an action at a state
-virtual double Reward(const State& state, int action) const;
+virtual double Reward(const State& state, ACT_TYPE action) const;
 ```
 When this _Reward_ function has been implemented, despot will log the step rewards automatically. Otherwise, despot will always report zero reward for non-POMDP types of world.
 

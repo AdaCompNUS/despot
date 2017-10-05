@@ -73,14 +73,14 @@ void NoisyLaserTag::Init() {
 	}
 }
 
-bool NoisyLaserTag::Step(State& state, double random_num, int action,
+bool NoisyLaserTag::Step(State& state, double random_num, ACT_TYPE action,
 	double& reward) const {
 	Random random(random_num);
 	bool terminal = BaseTag::Step(state, random.NextDouble(), action, reward);
 	return terminal;
 }
 
-bool NoisyLaserTag::Step(State& state, double random_num, int action, double& reward,
+bool NoisyLaserTag::Step(State& state, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	Random random(random_num);
 	bool terminal = BaseTag::Step(state, random.NextDouble(), action, reward);
@@ -110,7 +110,7 @@ bool NoisyLaserTag::Step(State& state, double random_num, int action, double& re
 	return terminal;
 }
 
-double NoisyLaserTag::ObsProb(OBS_TYPE obs, const State& state, int action) const {
+double NoisyLaserTag::ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const {
 	if (rob_[state.state_id] == opp_[state.state_id])
 		return obs == same_loc_obs_;
 
@@ -182,7 +182,7 @@ ostream& operator<<(ostream& os, const NoisyLaserTag& lasertag) {
 	return os;
 }
 
-void NoisyLaserTag::Observe(const Belief* belief, int action,
+void NoisyLaserTag::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	cerr << "Exit: Two many observations!" << endl;
 	exit(0);

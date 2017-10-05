@@ -70,18 +70,18 @@ DSPOMDP::DSPOMDP() {
 DSPOMDP::~DSPOMDP() {
 }
 
-double DSPOMDP::Reward(const State& state, int action) const {
+double DSPOMDP::Reward(const State& state, ACT_TYPE action) const {
 	//cerr << __FUNCTION__<<" is called, but hasn't been implemented. To fix this error, implement "<<__FUNCTION__<< endl;
 	//exit(-1);
 	return GetMaxReward() + 1;	//return an invalid reward
 }
 
-bool DSPOMDP::Step(State& state, int action, double& reward,
+bool DSPOMDP::Step(State& state, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const {
 	return Step(state, Random::RANDOM.NextDouble(), action, reward, obs);
 }
 
-bool DSPOMDP::Step(State& state, double random_num, int action,
+bool DSPOMDP::Step(State& state, double random_num, ACT_TYPE action,
 		double& reward) const {
 	OBS_TYPE obs;
 	return Step(state, random_num, action, reward, obs);

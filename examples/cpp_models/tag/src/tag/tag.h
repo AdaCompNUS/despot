@@ -20,16 +20,16 @@ public:
 	Tag();
 	Tag(std::string params_file);
 
-	bool Step(State& state, double random_num, int action, double& reward,
+	bool Step(State& state, double random_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 
-	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 
 	Belief* ExactPrior() const;
 	Belief* ApproxPrior() const;
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
-	void Observe(const Belief* belief, int action,
+	void Observe(const Belief* belief, ACT_TYPE action,
 		std::map<OBS_TYPE, double>& obss) const;
 
 	void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;

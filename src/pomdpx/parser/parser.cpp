@@ -86,7 +86,7 @@ void Parser::Check() {
 	cout << endl;
 
 	double rand;
-	int action;
+	ACT_TYPE action;
 	OBS_TYPE obs;
 	for (int i = 0; i < 20; i++) {
 		rand = Random::RANDOM.NextDouble();
@@ -1061,7 +1061,7 @@ double Parser::InitialWeight(const vector<int>& state) const {
 	return prob;
 }
 
-bool Parser::Step(vector<int>& state, double random, int action, double& reward,
+bool Parser::Step(vector<int>& state, double random, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	for (int s = 0; s < prev_state_vars_.size(); s++)
 		prev_state_vars_[s].curr_value = state[s];
@@ -1089,7 +1089,7 @@ bool Parser::Step(vector<int>& state, double random, int action, double& reward,
 }
 
 double Parser::GetReward(const vector<int>& prev_state,
-	const vector<int>& curr_state, int action) const {
+	const vector<int>& curr_state, ACT_TYPE action) const {
 	for (int s = 0; s < prev_state_vars_.size(); s++)
 		prev_state_vars_[s].curr_value = prev_state[s];
 	for (int s = 0; s < curr_state_vars_.size(); s++)
@@ -1102,7 +1102,7 @@ double Parser::GetReward(const vector<int>& prev_state,
 	return reward;
 }
 
-double Parser::GetReward(int action) const {
+double Parser::GetReward(ACT_TYPE action) const {
 	action_vars_[0].curr_value = action;
 
 	double reward = 0;
@@ -1110,7 +1110,7 @@ double Parser::GetReward(int action) const {
 		reward += reward_funcs_[r].GetValue();
 	return reward;
 }
-void Parser::GetNextState(vector<int>& state, int action,
+void Parser::GetNextState(vector<int>& state, ACT_TYPE action,
 	double& random) const {
 	for (int s = 0; s < state.size(); s++) {
 		prev_state_vars_[s].curr_value = state[s];
@@ -1124,7 +1124,7 @@ void Parser::GetNextState(vector<int>& state, int action,
 	}
 }
 
-void Parser::GetNoisyNextState(vector<int>& state, int action,
+void Parser::GetNoisyNextState(vector<int>& state, ACT_TYPE action,
 	double& random) const {
 	for (int s = 0; s < state.size(); s++) {
 		prev_state_vars_[s].curr_value = state[s];
@@ -1137,7 +1137,7 @@ void Parser::GetNoisyNextState(vector<int>& state, int action,
 	}
 }
 
-OBS_TYPE Parser::GetObservation(const vector<int>& state, int action,
+OBS_TYPE Parser::GetObservation(const vector<int>& state, ACT_TYPE action,
 	double& random) const {
 	for (int s = 0; s < state.size(); s++) {
 		curr_state_vars_[s].curr_value = state[s];
@@ -1230,7 +1230,7 @@ OBS_TYPE Parser::NumObservations() const {
 }
 
 double Parser::ObsProb(OBS_TYPE obs, const vector<int>& state,
-	int action) const {
+	ACT_TYPE action) const {
 	for (int s = 0; s < state.size(); s++) {
 		curr_state_vars_[s].curr_value = state[s];
 	}
@@ -1245,7 +1245,7 @@ double Parser::ObsProb(OBS_TYPE obs, const vector<int>& state,
 }
 
 vector<pair<vector<int>, double> > Parser::ComputeTopTransitions(
-	const vector<int>& state, int action, int num) const {
+	const vector<int>& state, ACT_TYPE action, int num) const {
 	for (int s = 0; s < state.size(); s++) {
 		prev_state_vars_[s].curr_value = state[s];
 	}
@@ -1375,7 +1375,7 @@ void Parser::PrintObs(OBS_TYPE obs, ostream& out) const {
 	out << "]" << endl;
 }
 
-void Parser::PrintAction(int action, ostream& out) const {
+void Parser::PrintAction(ACT_TYPE action, ostream& out) const {
 	out << action << ":" << action_vars_[0].GetValue(action) << endl;
 }
 
@@ -1392,7 +1392,7 @@ const string& Parser::GetActionName() {
 	return action_vars_[0].name();
 }
 
-const string& Parser::GetEnumedAction(int action) {
+const string& Parser::GetEnumedAction(ACT_TYPE action) {
 	return action_vars_[0].GetValue(action);
 }
 

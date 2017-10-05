@@ -58,11 +58,11 @@ public:
 	int NumActions() const;
 
 	/* Deterministic simulative model.*/
-	bool Step(State& state, double rand_num, int action, double& reward,
+	bool Step(State& state, double rand_num, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 
 	/* Functions related to beliefs and starting states.*/
-	double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
 	State* CreateStartState(std::string type = "DEFAULT") const;
 	Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
 
@@ -85,7 +85,7 @@ public:
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	void PrintObs(const State& state, OBS_TYPE observation,
 		std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 };
 
 } // namespace despot

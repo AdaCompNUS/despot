@@ -43,17 +43,17 @@ protected:
 
 	mutable MemoryPool<NavigationState> memory_pool_;
 
-	std::vector<int> default_action_;
+	std::vector<ACT_TYPE> default_action_;
 
 protected:
 	void Init(std::istream& is);
-	int NextPosition(int pos, int action) const;
+	int NextPosition(int pos, ACT_TYPE action) const;
 
 public:
 	Navigation();
 	Navigation(std::string params_file);
 
-	virtual bool Step(State& state, double random_num, int action,
+	virtual bool Step(State& state, double random_num, ACT_TYPE action,
 		double& reward, OBS_TYPE& obs) const;
 	inline int NumActions() const {
 		return 5;
@@ -66,9 +66,9 @@ public:
 		return states_[index];
 	}
 
-	virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const;
-	const std::vector<State>& TransitionProbability(int s, int a) const;
-	double Reward(int s, int a) const;
+	virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
+	const std::vector<State>& TransitionProbability(int s, ACT_TYPE a) const;
+	double Reward(int s, ACT_TYPE a) const;
 
 	State* CreateStartState(std::string type) const;
 	virtual Belief* InitialBelief(const State* start, std::string type = "DEFAULT") const;
@@ -89,7 +89,7 @@ public:
 	void PrintState(const State& state, std::ostream& out = std::cout) const;
 	void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const;
 	virtual void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	void PrintTransitions() const;
 	void PrintMDPPolicy() const;

@@ -143,16 +143,16 @@ public:
 	int ComputeIndex(const std::vector<int>& state) const;
 	double InitialWeight(const std::vector<int>& state) const;
 
-	bool Step(std::vector<int>& state, double random, int action, double& reward,
+	bool Step(std::vector<int>& state, double random, ACT_TYPE action, double& reward,
 		OBS_TYPE& obs) const;
 
 	double GetReward(const std::vector<int>& perv_state,
-		const std::vector<int>& curr_state, int action) const;
-	double GetReward(int action) const;
-	void GetNextState(std::vector<int>& state, int action, double& random) const;
-	void GetNoisyNextState(std::vector<int>& state, int action,
+		const std::vector<int>& curr_state, ACT_TYPE action) const;
+	double GetReward(ACT_TYPE action) const;
+	void GetNextState(std::vector<int>& state, ACT_TYPE action, double& random) const;
+	void GetNoisyNextState(std::vector<int>& state, ACT_TYPE action,
 		double& random) const;
-	OBS_TYPE GetObservation(const std::vector<int>& state, int action,
+	OBS_TYPE GetObservation(const std::vector<int>& state, ACT_TYPE action,
 		double& random) const;
 	inline bool IsTerminalState(const std::vector<int>& state) const {
 		return has_terminal_
@@ -168,13 +168,13 @@ public:
 	int NumInitialStates() const;
 	double LogNumObservations() const;
 	OBS_TYPE NumObservations() const;
-	double ObsProb(OBS_TYPE obs, const std::vector<int>& state, int action) const;
+	double ObsProb(OBS_TYPE obs, const std::vector<int>& state, ACT_TYPE action) const;
 	std::vector<std::pair<std::vector<int>, double> > ComputeTopTransitions(
-		const std::vector<int>& state, int action, int num) const;
+		const std::vector<int>& state, ACT_TYPE action, int num) const;
 
 	void PrintState(const std::vector<int>& state, std::ostream& out = std::cout) const;
 	void PrintObs(OBS_TYPE obs, std::ostream& out = std::cout) const;
-	void PrintAction(int action, std::ostream& out = std::cout) const;
+	void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const;
 
 	inline int GetDefaultAction(const std::vector<int>& state) const {
 		return 0;
@@ -189,7 +189,7 @@ public:
 
 	OBS_TYPE GetPOMDPXObservation(std::map<std::string, std::string>& observe);
 	const std::string& GetActionName();
-	const std::string& GetEnumedAction(int action);
+	const std::string& GetEnumedAction(ACT_TYPE action);
 
 	void Print(std::ostream& out = std::cout) const;
 	friend std::ostream& operator<<(std::ostream& out, const Parser& parser);

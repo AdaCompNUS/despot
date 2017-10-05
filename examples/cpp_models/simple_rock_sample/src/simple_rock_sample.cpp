@@ -43,7 +43,7 @@ int SimpleRockSample::NumActions() const {
  * Deterministic simulative model
  * ==============================*/
 
-bool SimpleRockSample::Step(State& state, double rand_num, int action,
+bool SimpleRockSample::Step(State& state, double rand_num, ACT_TYPE action,
         double& reward, OBS_TYPE& obs) const {
     SimpleState& simple_state = static_cast < SimpleState& >(state);
     int& rover_position = simple_state.rover_position;
@@ -102,7 +102,7 @@ bool SimpleRockSample::Step(State& state, double rand_num, int action,
  * ================================================*/
 
 double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
-	int action) const {
+	ACT_TYPE action) const {
 	if (action == A_CHECK) {
 		const SimpleState& simple_state = static_cast<const SimpleState&>(state);
 		int rover_position = simple_state.rover_position;
@@ -215,7 +215,7 @@ public:
 		DefaultPolicy(model, bound) {
 	}
 
-	int Action(const vector<State*>& particles, RandomStreams& streams,
+	ACT_TYPE Action(const vector<State*>& particles, RandomStreams& streams,
 		History& history) const {
 		return A_EAST; // move east
 	}
@@ -297,7 +297,7 @@ void SimpleRockSample::PrintBelief(const Belief& belief, ostream& out) const {
 		<< ":" << pos_probs[1] << " RIGHT" << ":" << pos_probs[2] << endl;
 }
 
-void SimpleRockSample::PrintAction(int action, ostream& out) const {
+void SimpleRockSample::PrintAction(ACT_TYPE action, ostream& out) const {
 	if (action == A_SAMPLE)
 		out << "Sample" << endl;
 	if (action == A_CHECK)

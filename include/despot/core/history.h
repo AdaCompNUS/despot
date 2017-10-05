@@ -12,7 +12,7 @@ namespace despot {
  */
 class History {
 public:
-	void Add(int action, OBS_TYPE obs) {
+	void Add(ACT_TYPE action, OBS_TYPE obs) {
 		actions_.push_back(action);
 		observations_.push_back(obs);
 	}
@@ -22,7 +22,7 @@ public:
 		observations_.pop_back();
 	}
 
-	int Action(int t) const {
+	ACT_TYPE Action(int t) const {
 		return actions_[t];
 	}
 
@@ -39,7 +39,7 @@ public:
 		observations_.resize(d);
 	}
 
-	int LastAction() const {
+	ACT_TYPE LastAction() const {
 		return actions_.back();
 	}
 
@@ -62,7 +62,7 @@ public:
 	}
 
 private:
-  std::vector<int> actions_;
+  std::vector<ACT_TYPE> actions_;
 	std::vector<OBS_TYPE> observations_;
 };
 

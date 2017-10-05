@@ -38,7 +38,7 @@ int Bridge::RIGHT = 1;
 int Bridge::HELP = 2;
 int Bridge::BRIDGELENGTH = 10;
 
-bool Bridge::Step(State& s, double random_num, int action, double& reward,
+bool Bridge::Step(State& s, double random_num, ACT_TYPE action, double& reward,
 	OBS_TYPE& obs) const {
 	BridgeState& state = static_cast<BridgeState&>(s);
 	bool terminal = false;
@@ -72,7 +72,7 @@ int Bridge::NumActions() const {
 	return 3;
 }
 
-double Bridge::ObsProb(OBS_TYPE obs, const State& s, int a) const {
+double Bridge::ObsProb(OBS_TYPE obs, const State& s, ACT_TYPE a) const {
 	return obs == 1;
 }
 
@@ -106,7 +106,7 @@ void Bridge::PrintObs(const State& state, OBS_TYPE obs, ostream& out) const {
 }
 ;
 
-void Bridge::PrintAction(int action, ostream& out) const {
+void Bridge::PrintAction(ACT_TYPE action, ostream& out) const {
 	if (action == LEFT) {
 		cout << "Move left" << endl;
 	} else if (action == RIGHT) {
@@ -154,7 +154,7 @@ int Bridge::NumActiveParticles() const {
 	return memory_pool_.num_allocated();
 }
 
-Belief* Bridge::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
+Belief* Bridge::Tau(const Belief* belief, ACT_TYPE action, OBS_TYPE obs) const {
 	static vector<double> probs = vector<double>(NumStates());
 
 	const vector<State*>& particles =
@@ -194,7 +194,7 @@ Belief* Bridge::Tau(const Belief* belief, int action, OBS_TYPE obs) const {
 	return new ParticleBelief(new_particles, this, NULL, false);
 }
 
-void Bridge::Observe(const Belief* belief, int action,
+void Bridge::Observe(const Belief* belief, ACT_TYPE action,
 	map<OBS_TYPE, double>& obss) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
@@ -211,7 +211,7 @@ void Bridge::Observe(const Belief* belief, int action,
 	}
 }
 
-double Bridge::StepReward(const Belief* belief, int action) const {
+double Bridge::StepReward(const Belief* belief, ACT_TYPE action) const {
 	const vector<State*>& particles =
 		static_cast<const ParticleBelief*>(belief)->particles();
 
@@ -233,7 +233,7 @@ double Bridge::StepReward(const Belief* belief, int action) const {
 	return sum;
 }
 
-double Bridge::Reward(const State& state, int action) const {
+double Bridge::Reward(const State& state, ACT_TYPE action) const {
 	const BridgeState* bridge_state = static_cast<const BridgeState*>(&state);
 	double reward = -1;
 

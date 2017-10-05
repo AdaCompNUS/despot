@@ -31,7 +31,7 @@ bool Planner::RunStep(int step, int round, Solver* solver, World* world,
 	double step_start_t = get_time_second();
 
 	double start_t = get_time_second();
-	int action = solver->Search().action;
+	ACT_TYPE action = solver->Search().action;
 	double end_t = get_time_second();
 	double search_time = (end_t - start_t);
 	logi << "[RunStep] Time spent in " << typeid(*solver).name()

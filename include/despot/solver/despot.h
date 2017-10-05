@@ -28,7 +28,7 @@ public:
 	ValuedAction Search();
 
 	void belief(Belief* b);
-	void Update(int action, OBS_TYPE obs);
+	void Update(ACT_TYPE action, OBS_TYPE obs);
 
 	ScenarioLowerBound* lower_bound() const;
 	ScenarioUpperBound* upper_bound() const;
@@ -68,7 +68,7 @@ protected:
 		RandomStreams& streams, History& history);
 	static void Update(VNode* vnode);
 	static void Update(QNode* qnode);
-	static VNode* Prune(VNode* vnode, int& pruned_action, double& pruned_value);
+	static VNode* Prune(VNode* vnode, ACT_TYPE& pruned_action, double& pruned_value);
 	static QNode* Prune(QNode* qnode, double& pruned_value);
 	static double WEU(VNode* vnode);
 	static double WEU(VNode* vnode, double epsilon);
