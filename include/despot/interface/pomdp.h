@@ -144,9 +144,9 @@ public:
 		int action) const = 0;
 
 	/**
-	 * [Essential interface] Returns a starting state.
+	 * [Optional interface] Returns a starting state of simulation.
 	 */
-	virtual State* CreateStartState(std::string type = "DEFAULT") const = 0;
+	virtual State* CreateStartState(std::string type = "DEFAULT") const;
 
 	/**
 	 * [Essential interface] Returns the initial belief.

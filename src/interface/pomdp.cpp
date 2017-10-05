@@ -87,6 +87,10 @@ bool DSPOMDP::Step(State& state, double random_num, int action,
 	return Step(state, random_num, action, reward, obs);
 }
 
+State* DSPOMDP::CreateStartState(std::string type) const{
+	cerr << "Unsupported function: CreateStartState" << endl;
+}
+
 ParticleUpperBound* DSPOMDP::CreateParticleUpperBound(string name) const {
 	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
