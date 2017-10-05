@@ -124,12 +124,15 @@ const option::Descriptor usage[] =
 						"  \t--world <arg>  \tWorld type (pomdp, simulator, or real)." },
 				{ 0, 0, 0, 0, 0, 0 } };
 
+/* =============================================================================
+ * SimpleTUI class
+ * =============================================================================*/
+/**
+ * Pipeline control of planning and evaluation processes.
+ */
 class SimpleTUI {
 private:
 	option::Descriptor* usage;
-
-	void PlanningLoop(int round, Solver*& solver, World* world,
-			Evaluator* evaluator);
 
 public:
 	SimpleTUI(string lower_bounds_str = "TRIVIAL",
@@ -138,41 +141,94 @@ public:
 
 	virtual ~SimpleTUI();
 
+	/**
+	 * [Essential interface] Create, initialize, and return a DSPOMDP model
+	 */
 	virtual DSPOMDP* InitializeModel(option::Option* options) = 0;
+
+	/**
+	 * [Essential interface] Create, initialize, and return the world
+	 */
 	virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model,
 			option::Option* options);
+
+	/**
+	 * [Essential interface] Provide default values for global parameters (such as those in Globals::config)
+	 */
 	virtual void InitializeDefaultParameters() = 0;
 
+	/**
+	 * Initialize a DSPOMDP model-based world
+	 */
 	World* InitializePOMDPWorld(std::string& world_type, DSPOMDP *model,
 			option::Option* options);
+
+	/**
+	 * Initialize global parameters according command-line arguments
+	 */
 	option::Option* InitializeParamers(int argc, char *argv[],
 			std::string& solver_type, bool& search_solver, int& num_runs,
 			std::string& simulator_type, std::string& belief_type,
 			int& time_limit);
+
+	/**
+	 * Initialize the solver according to user-specified solver type (defualt "DESPOT")
+	 */
 	Solver* InitializeSolver(DSPOMDP* model, Belief* belief,
 			std::string solver_type, option::Option* options);
 
+	/**
+	 * Run POMDP planning for one round
+	 */
 	int runPlanning(int argc, char* argv[]);
+
+	/**
+	 * Run and evaluate POMDP planning for a given number of rounds
+	 */
+
 	int runEvaluation(int argc, char* argv[]);
+
+	/**
+	 * Loop the search-execute-update process for a given number of steps
+	 */
+	void PlanningLoop(int round, Solver*& solver, World* world,
+			Evaluator* evaluator);
+	/**
+	 * Loop the planning process for a given number of rounds
+	 */
+	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
+			std::string belief_type, Solver *&solver, Evaluator *evaluator,
+			option::Option *options, clock_t main_clock_start, int num_runs,
+			int start_run);
+	/**
+	 * Perform one search-execute-update step
+	 */
 	bool RunStep(int step, int round, Solver* solver, World* world,
 			Evaluator* evaluator);
 
+	/**
+	 * Parse global parameters from command-line arguments
+	 */
 	void OptionParse(option::Option* options, int& num_runs,
 			std::string& simulator_type, std::string& belief_type,
 			int& time_limit, std::string& solver_type, bool& search_solver);
 
+	/**
+	 * Initialize the statistics logger
+	 */
 	void InitializeEvaluator(Evaluator*& simulator, option::Option* options,
 			DSPOMDP* model, Belief* belief, Solver* solver, int num_runs,
 			clock_t main_clock_start, World* world, std::string world_type,
 			int time_limit, std::string solver_type);
 
+	/**
+	 * Display gloabl parameters
+	 */
 	void DisplayParameters(option::Option* options, DSPOMDP* model);
 
-	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
-			std::string belief_type, Solver *&solver, Evaluator *evaluator,
-			option::Option *options, clock_t main_clock_start, int num_runs,
-			int start_run);
-
+	/**
+	 * Print time records and statistics results
+	 */
 	void PrintResult(int num_runs, Evaluator* simulator,
 			clock_t main_clock_start);
 };

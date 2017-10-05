@@ -16,7 +16,9 @@ class DSPOMDP;
 /* =============================================================================
  * Belief class
  * =============================================================================*/
-
+/**
+ * [Optional interface] Design your custom belief by inheriting this class
+ */
 class Belief {
 public:
 	const DSPOMDP* model_;

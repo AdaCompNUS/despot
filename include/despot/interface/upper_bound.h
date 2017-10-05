@@ -19,7 +19,11 @@ struct ValuedAction;
 /* =============================================================================
  * ScenarioUpperBound class
  * =============================================================================*/
-
+/**
+ * [Optional interface] Interface for an algorithm computing a upper bound for the optimal total
+ * discounted reward on a set of weighted scenarios.
+ * The horizon is infinite.
+ */
 class ScenarioUpperBound {
 public:
 	ScenarioUpperBound();
@@ -34,7 +38,11 @@ public:
 /* =============================================================================
  * ParticleUpperBound class
  * =============================================================================*/
-
+/**
+ * [Optional interface] Interface for an algorithm computing a upper bound for optimal total
+ * discounted reward on a set of weighted scenarios with
+ * only the particles given. The horizon is inifnite.
+ */
 class ParticleUpperBound : public ScenarioUpperBound {
 public:
 	ParticleUpperBound();
@@ -54,7 +62,10 @@ public:
 /* =============================================================================
  * BeliefUpperBound class
  * =============================================================================*/
-
+/**
+ * [Optional interface] Interface for an algorithm used to compute a upper bound for the infinite
+ * horizon reward that can be obtained by the optimal policy on a belief.
+ */
 class BeliefUpperBound {
 public:
 	BeliefUpperBound();

@@ -18,7 +18,7 @@ namespace despot {
  * State class
  * =============================================================================*/
 /**
- * Base state class.
+ * [Optional interface] Base state class. (define your custom state by inheriting this class)
  */
 class State: public MemoryObject {
 public:
@@ -47,7 +47,7 @@ public:
  * StateIndexer class
  * =============================================================================*/
 /**
- * Interface for a mapping between states and indices.
+ * [Optional interface] Interface for a mapping between states and indices.
  */
 class StateIndexer {
 public:
@@ -62,7 +62,7 @@ public:
  * StatePolicy class
  * =============================================================================*/
 /**
- * Interface for a mapping from states to actions.
+ * [Optional interface] Interface for a mapping from states to actions.
  */
 class StatePolicy {
 public:
@@ -74,7 +74,7 @@ public:
  * MMAPinferencer class
  * =============================================================================*/
 /**
- * Interface for computing marginal MAP state from a set of particles.
+ * [Optional interface] Interface for computing marginal MAP state from a set of particles.
  */
 class MMAPInferencer {
 public:
@@ -101,19 +101,19 @@ public:
 	 * Deterministic simulative model and related functions
 	 * ========================================================================*/
 	/**
-	 * Determistic simulative model for POMDP.
+	 * [Essential interface] Determistic simulative model for POMDP.
 	 */
 	virtual bool Step(State& state, double random_num, int action,
 		double& reward, OBS_TYPE& obs) const = 0;
 
 	/**
-	 * Override this to get speedup for LookaheadUpperBound.
+	 * [Optional interface] Override this to get speedup for LookaheadUpperBound.
 	 */
 	virtual bool Step(State& state, double random_num, int action,
 		double& reward) const;
 
 	/**
-	 * Simulative model for POMDP.
+	 * [Optional interface] Simulative model for POMDP.
 	 */
 	virtual bool Step(State& state, int action, double& reward,
 		OBS_TYPE& obs) const;
@@ -122,7 +122,7 @@ public:
 	 * Action
 	 * ========================================================================*/
 	/**
-	 * Returns number of actions.
+	 * [Essential interface] Returns number of actions.
 	 */
 	virtual int NumActions() const = 0;
 
@@ -130,7 +130,7 @@ public:
 	 * Reward
 	 * ========================================================================*/
 	/**
-	 * Returns the reward for taking an action at a state
+	 * [Optional interface] Returns the reward for taking an action at a state ( to help evaluate the real planning process)
 	 */
 	virtual double Reward(const State& state, int action) const;
 
@@ -138,18 +138,18 @@ public:
 	 * Functions related to beliefs and starting states.
 	 * ========================================================================*/
 	/**
-	 * Returns the observation probability.
+	 * [Essential interface] Returns the observation probability.
 	 */
 	virtual double ObsProb(OBS_TYPE obs, const State& state,
 		int action) const = 0;
 
 	/**
-	 * Returns a starting state.
+	 * [Essential interface] Returns a starting state.
 	 */
 	virtual State* CreateStartState(std::string type = "DEFAULT") const = 0;
 
 	/**
-	 * Returns the initial belief.
+	 * [Essential interface] Returns the initial belief.
 	 */
 	virtual Belief* InitialBelief(const State* start,
 		std::string type = "DEFAULT") const = 0;
@@ -158,46 +158,65 @@ public:
 	 * Bound-related functions.
 	 * ========================================================================*/
 	/**
-	 * Returns the maximum reward.
+	 * [Essential interface] Returns the maximum reward.
 	 */
 	virtual double GetMaxReward() const = 0;
+
+	/**
+	 * [Optional interface] Override to create custom ParticleUpperBounds for solvers
+	 */
 	virtual ParticleUpperBound* CreateParticleUpperBound(std::string name = "DEFAULT") const;
+
+	/**
+	 * [Optional interface] Override to create custom ScenarioUpperBounds for solvers
+	 */
 	virtual ScenarioUpperBound* CreateScenarioUpperBound(std::string name = "DEFAULT",
 		std::string particle_bound_name = "DEFAULT") const;
 
 	/**
-	 * Returns (a, v), where a is an action with largest minimum reward when it is
+	 * [Essential interface] Returns (a, v), where a is an action with largest minimum reward when it is
 	 * executed, and v is its minimum reward, that is, a = \max_{a'} \min_{s}
 	 * R(a', s), and v = \min_{s} R(a, s).
 	 */
 	virtual ValuedAction GetBestAction() const = 0;
+
+	/**
+	 * [Optional interface] Override to create custom ParticleLowerBounds for solvers
+	 */
 	virtual ParticleLowerBound* CreateParticleLowerBound(std::string name = "DEFAULT") const;
+
+	/**
+	 * [Optional interface] Override to create custom ScenarioLowerBounds for solvers
+	 */
 	virtual ScenarioLowerBound* CreateScenarioLowerBound(std::string bound_name = "DEFAULT",
 		std::string particle_bound_name = "DEFAULT") const;
 
+	/**
+	 * [Optional interface] Override to create custom priors for the POMCP solver
+	 */
 	virtual POMCPPrior* CreatePOMCPPrior(std::string name = "DEFAULT") const;
 
 	/* ========================================================================
 	 * Display
 	 * ========================================================================*/
 	/**
-	 * Prints a state.
+	 * [Essential interface] Prints a state.
 	 */
 	virtual void PrintState(const State& state, std::ostream& out = std::cout) const = 0;
 
 	/**
-	 * Prints an observation.
+	 * [Essential interface] Prints an observation.
 	 */
 	virtual void PrintObs(const State& state, OBS_TYPE obs,
 		std::ostream& out = std::cout) const = 0;
 
 	/**
-	 * Prints an action.
+	 * [Essential interface] Prints an action.
 	 */
 	virtual void PrintAction(int action, std::ostream& out = std::cout) const = 0;
 
 	/**
-	 * Prints a belief.
+	 * [Essential interface] Prints a belief.
 	 */
 	virtual void PrintBelief(const Belief& belief,
 		std::ostream& out = std::cout) const = 0;
@@ -206,32 +225,32 @@ public:
 	 * Memory management.
 	 * ========================================================================*/
 	/**
-	 * Allocate a state.
+	 * [Essential interface] Allocate a state.
 	 */
 	virtual State* Allocate(int state_id = -1, double weight = 0) const = 0;
 
 	/**
-	 * Returns a copy of the state.
+	 * [Essential interface] Returns a copy of the state.
 	 */
 	virtual State* Copy(const State* state) const = 0;
 
 	/**
-	 * Returns a copy of the particle.
+	 * [Essential interface] Returns a copy of the particle.
 	 */
 	virtual void Free(State* state) const = 0;
 
 	/**
-	 * Returns a copy of the particles.
+	 * [Optional interface] Returns a copy of the particles.
 	 */
 	std::vector<State*> Copy(const std::vector<State*>& particles) const;
 
 	/**
-	 * Returns number of allocated particles.
+	 * [Essential interface] Returns number of allocated particles.
 	 */
 	virtual int NumActiveParticles() const = 0;
 
 	/**
-	 * Returns a copy of this model.
+	 * [Optional interface] Returns a copy of this model.
 	 */
 	inline virtual DSPOMDP* MakeCopy() const {
 		return NULL;
@@ -242,7 +261,7 @@ public:
  * BeliefMDP class
  * =============================================================================*/
 /**
- * The BeliefMDP class provides an interface for the belief MDP, which is
+ * [Optional interface] The BeliefMDP class provides an interface for the belief MDP, which is
  * commonly used in belief tree search algorithms.
  *
  * @see AEMS

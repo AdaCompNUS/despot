@@ -17,7 +17,7 @@ class VNode;
  * =============================================================================*/
 
 /**
- * Interface for an algorithm computing a lower bound for the maximum total
+ * [Optional interface] Interface for an algorithm computing a lower bound for the maximum total
  * discounted reward over obtainable by a policy on a set of weighted scenarios.
  * The horizon is infinite. The first action that need to be followed to obtain
  * the bound is also returned.
@@ -53,7 +53,7 @@ public:
  * =============================================================================*/
 
 /**
- * Interface for an algorithm computing a lower bound for maximum total
+ * [Optional interface] Interface for an algorithm computing a lower bound for maximum total
  * discounted reward obtainable by a policy on a set of weighted scenarios with
  * only the particles given. The horizon is inifnite. The first action that need
  * to be followed to obtain the bound is also returned.
@@ -79,7 +79,7 @@ public:
  * =============================================================================*/
 
 /**
- * Interface for an algorithm used to compute a lower bound for the infinite
+ * [Optional interface] Interface for an algorithm used to compute a lower bound for the infinite
  * horizon reward that can be obtained by the optimal policy on a belief.
  */
 class BeliefLowerBound: public Solver {

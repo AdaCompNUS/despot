@@ -125,7 +125,7 @@ double EvalLog::GetRemainingBudget(string instance) const {
 Evaluator::Evaluator(DSPOMDP* model, Belief* belief, Solver* solver,
 		World* world, string world_type, clock_t start_clockt, ostream* out,
 		double target_finish_time, int num_steps) :
-		world_(world), belief_(belief), model_(model), start_clockt_(
+		model_(model), world_(world), belief_(belief), start_clockt_(
 				start_clockt), world_type_(world_type), step_(0), out_(out), reward_(
 				0), total_discounted_reward_(0), total_undiscounted_reward_(0) {
 	state_ = world->GetTrueState();

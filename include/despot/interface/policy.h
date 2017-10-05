@@ -40,7 +40,9 @@ struct ValuedAction {
 /* =============================================================================
  * Policy class
  * =============================================================================*/
-
+/**
+ * [Optional interface] Design your custom default policy by inheriting this class
+ */
 class Policy: public ScenarioLowerBound {
 private:
 	mutable int initial_depth_;
