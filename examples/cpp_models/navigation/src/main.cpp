@@ -1,15 +1,15 @@
-#include <despot/simple_tui.h>
 #include "navigation.h"
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
 #include <despot/core/particle_belief.h>
+#include <despot/initializer.h>
 
 using namespace despot;
 
-class TUI: public SimpleTUI {
+class MyInitializer: public Initializer {
 public:
-  TUI() {
+  MyInitializer() {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -28,7 +28,7 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return TUI().runEvaluation(argc, argv);
+  return MyInitializer().runEvaluation(argc, argv);
 }
 
 

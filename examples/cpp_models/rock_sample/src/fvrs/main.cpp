@@ -1,12 +1,12 @@
-#include <despot/simple_tui.h>
+#include <despot/initializer.h>
 #include "fvrs.h"
 
 using namespace std;
 using namespace despot;
 
-class TUI: public SimpleTUI {
+class MyInitializer: public Initializer {
 public:
-  TUI() {
+  MyInitializer() {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -42,6 +42,6 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return TUI().runEvaluation(argc, argv);
+  return MyInitializer().runEvaluation(argc, argv);
 }
 
