@@ -1,12 +1,12 @@
-#include <despot/initializer.h>
+#include <despot/evaluator.h>
 #include <despot/pomdpx/pomdpx.h>
 
 using namespace std;
 using namespace despot;
 
-class MyInitializer: public Initializer {
+class MyEvaluator: public Evaluator {
 public:
-  MyInitializer() {
+  MyEvaluator() {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -30,5 +30,5 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return MyInitializer().runEvaluation(argc, argv);
+  return MyEvaluator().runEvaluation(argc, argv);
 }

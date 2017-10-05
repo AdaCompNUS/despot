@@ -310,18 +310,18 @@ void Initializer::OptionParse(option::Option *options, int &num_runs,
 	logging::level(verbosity);
 }
 
-void Initializer::InitializeEvaluator(Logger *&evaluator,
+void Initializer::InitializeLogger(Logger *&logger,
 		option::Option *options, DSPOMDP *model, Belief* belief, Solver *solver,
 		int num_runs, clock_t main_clock_start, World* world, string world_type,
 		int time_limit, string solver_type) {
 
 	if (time_limit != -1) {
-		evaluator = new Logger(model, belief, solver, world, world_type,
+		logger = new Logger(model, belief, solver, world, world_type,
 				main_clock_start, &cout,
 				EvalLog::curr_inst_start_time + time_limit,
 				num_runs * Globals::config.sim_len);
 	} else {
-		evaluator = new Logger(model, belief, solver, world, world_type,
+		logger = new Logger(model, belief, solver, world, world_type,
 				main_clock_start, &cout);
 	}
 }
@@ -349,227 +349,14 @@ void Initializer::DisplayParameters(option::Option *options, DSPOMDP *model) {
 	// << "Solver = " << typeid(*solver).name() << endl << endl;
 }
 
-void Initializer::PlanningLoop(int round, Solver*& solver, World* world,
-		Logger* evaluator) {
-	for (int i = 0; i < Globals::config.sim_len; i++) {
-		bool terminal = RunStep(i, round, solver, world, evaluator);
-		if (terminal)
-			break;
-	}
-}
-
-void Initializer::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
-		string belief_type, Solver *&solver, Logger *evaluator,
-		option::Option *options, clock_t main_clock_start, int num_runs,
-		int start_run) {
-	// Run num_runs simulations
-	vector<double> round_rewards(num_runs);
-	for (int round = start_run; round < start_run + num_runs; round++) {
-		default_out<< endl
-		<< "####################################### Round " << round
-		<< " #######################################" << endl;
-		//Reset world and evaluator
-		world->Initialize();
-		evaluator->InitRound(world->GetTrueState());
-
-		//Reset belief and solver
-		double start_t = get_time_second();
-		delete solver->belief();
-		double end_t = get_time_second();
-		logi << "[Initializer::EvaluationLoop] Deleted old belief in "
-		<< (end_t - start_t) << "s" << endl;
-
-		start_t = get_time_second();
-		belief=model->InitialBelief(world->GetTrueState(), belief_type);
-		end_t = get_time_second();
-		logi << "[Initializer::EvaluationLoop] Created intial belief "
-		<< typeid(*belief).name() << " in " << (end_t - start_t) << "s" << endl;
-
-		solver->belief(belief);
-
-		//start loop
-		PlanningLoop(round, solver, world, evaluator);
-		//end loop
-
-		default_out << "Simulation terminated in " << evaluator->step() << " steps"
-		<< endl;
-		double round_reward = evaluator->EndRound();
-		round_rewards[round] = round_reward;
-	}
-}
-
-void Initializer::PrintResult(int num_runs, Logger *evaluator,
+void Initializer::PrintResult(int num_runs, Logger *logger,
 		clock_t main_clock_start) {
 
-	evaluator->PrintStatistics(num_runs);
+	logger->PrintStatistics(num_runs);
 	cout << "Total time: Real / CPU = "
 			<< (get_time_second() - EvalLog::curr_inst_start_time) << " / "
 			<< (double(clock() - main_clock_start) / CLOCKS_PER_SEC) << "s"
 			<< endl;
-}
-
-int Initializer::runPlanning(int argc, char *argv[]) {
-
-	/* =========================
-	 * initialize parameters
-	 * =========================*/
-	string solver_type = "DESPOT";
-	bool search_solver;
-	int num_runs = 1;
-	string world_type = "pomdp";
-	string belief_type = "DEFAULT";
-	int time_limit = -1;
-
-	option::Option *options = InitializeParamers(argc, argv, solver_type,
-			search_solver, num_runs, world_type, belief_type, time_limit);
-
-	clock_t main_clock_start = clock();
-
-	/* =========================
-	 * initialize model
-	 * =========================*/
-	DSPOMDP *model = InitializeModel(options);
-	assert(model != NULL);
-
-	/* =========================
-	 * initialize world
-	 * =========================*/
-	World *world = InitializeWorld(world_type, model, options);
-	assert(world != NULL);
-
-	/* =========================
-	 * initialize belief
-	 * =========================*/
-	Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
-	assert(belief != NULL);
-
-	/* =========================
-	 * initialize solver
-	 * =========================*/
-	Solver *solver = InitializeSolver(model, belief, solver_type, options);
-
-	/* =========================
-	 * initialize evaluator
-	 * =========================*/
-	Logger *evaluator = NULL;
-	InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
-			main_clock_start, world, world_type, time_limit, solver_type);
-	//world->world_seed(world_seed);
-
-	/* =========================
-	 * Display parameters
-	 * =========================*/
-	DisplayParameters(options, model);
-
-	/* =========================
-	 * run planning
-	 * =========================*/
-	evaluator->InitRound(world->GetTrueState());
-	PlanningLoop(0, solver, world, evaluator);
-	evaluator->EndRound();
-
-	PrintResult(1, evaluator, main_clock_start);
-
-	return 0;
-}
-
-int Initializer::runEvaluation(int argc, char *argv[]) {
-
-	/* =========================
-	 * initialize parameters
-	 * =========================*/
-	string solver_type = "DESPOT";
-	bool search_solver;
-	int num_runs = 1;
-	string world_type = "pomdp";
-	string belief_type = "DEFAULT";
-	int time_limit = -1;
-
-	option::Option *options = InitializeParamers(argc, argv, solver_type,
-			search_solver, num_runs, world_type, belief_type, time_limit);
-
-	clock_t main_clock_start = clock();
-
-	/* =========================
-	 * initialize model
-	 * =========================*/
-	DSPOMDP *model = InitializeModel(options);
-	assert(model != NULL);
-
-	/* =========================
-	 * initialize world
-	 * =========================*/
-	World *world = InitializeWorld(world_type, model, options);
-	assert(world != NULL);
-
-	/* =========================
-	 * initialize belief
-	 * =========================*/
-	Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
-	assert(belief != NULL);
-
-	/* =========================
-	 * initialize solver
-	 * =========================*/
-	Solver *solver = InitializeSolver(model, belief, solver_type, options);
-
-	/* =========================
-	 * initialize evaluator
-	 * =========================*/
-	Logger *evaluator = NULL;
-	InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
-			main_clock_start, world, world_type, time_limit, solver_type);
-	//evaluator->world_seed(world_seed);
-
-	int start_run = 0;
-
-	/* =========================
-	 * Display parameters
-	 * =========================*/
-	DisplayParameters(options, model);
-
-	/* =========================
-	 * run evaluation
-	 * =========================*/
-	EvaluationLoop(model, world, belief, belief_type, solver, evaluator,
-			options, main_clock_start, num_runs, start_run);
-
-	//evaluator->End();
-
-	PrintResult(num_runs, evaluator, main_clock_start);
-
-	return 0;
-}
-
-bool Initializer::RunStep(int step, int round, Solver* solver, World* world,
-		Logger* evaluator) {
-
-	evaluator->CheckTargetTime();
-
-	double step_start_t = get_time_second();
-
-	double start_t = get_time_second();
-	int action = solver->Search().action;
-	double end_t = get_time_second();
-	double search_time = (end_t - start_t);
-	logi << "[RunStep] Time spent in " << typeid(*solver).name()
-			<< "::Search(): " << search_time << endl;
-
-	OBS_TYPE obs;
-	start_t = get_time_second();
-	bool terminal = world->ExecuteAction(action, obs);
-	end_t = get_time_second();
-	double execute_time = (end_t - start_t);
-	logi << "[RunStep] Time spent in ExecuteAction(): " << execute_time << endl;
-
-	start_t = get_time_second();
-	solver->Update(action, obs);
-	end_t = get_time_second();
-	double update_time = (end_t - start_t);
-	logi << "[RunStep] Time spent in Update(): " << update_time << endl;
-
-	return evaluator->SummarizeStep(step, round, terminal, action, obs,
-			step_start_t);
 }
 
 } // namespace despot

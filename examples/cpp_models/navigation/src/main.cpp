@@ -3,13 +3,13 @@
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
 #include <despot/core/particle_belief.h>
-#include <despot/initializer.h>
+#include <despot/evaluator.h>
 
 using namespace despot;
 
-class MyInitializer: public Initializer {
+class MyEvaluator: public Evaluator {
 public:
-  MyInitializer() {
+  MyEvaluator() {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -28,7 +28,7 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return MyInitializer().runEvaluation(argc, argv);
+  return MyEvaluator().runEvaluation(argc, argv);
 }
 
 

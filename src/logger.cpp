@@ -204,7 +204,7 @@ void Logger::InitRound(State* state) {
 
 	if (state) {
 		state_ = state;
-		logi << "[POMDPEvaluator::InitRound] Created start state." << endl;
+		logi << "[POMDPLogger::InitRound] Created start state." << endl;
 		// Print initial state
 		if (!Globals::config.silence && out_) {
 			*out_ << "Initial state: " << endl;
