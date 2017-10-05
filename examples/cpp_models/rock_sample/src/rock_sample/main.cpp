@@ -38,7 +38,11 @@ public:
   }
 
   void InitializeDefaultParameters() {
-	}
+  }
+
+  std::string ChooseSolver(){
+	  return "DESPOT";
+  }
 };
 
 int main(int argc, char* argv[]) {

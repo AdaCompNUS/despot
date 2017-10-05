@@ -158,6 +158,11 @@ public:
 	virtual void InitializeDefaultParameters() = 0;
 
 	/**
+	 * Return the name of the intended solver type ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
+	 */
+	virtual std::string ChooseSolver()=0;
+
+	/**
 	 * Initialize a DSPOMDP model-based world
 	 */
 	World* InitializePOMDPWorld(std::string& world_type, DSPOMDP *model,

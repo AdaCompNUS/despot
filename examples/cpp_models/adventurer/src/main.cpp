@@ -27,6 +27,10 @@ public:
      Globals::config.search_depth = 5;
      Globals::config.sim_len = 5;
   }
+
+  std::string ChooseSolver(){
+	  return "DESPOT";
+  }
 };
 
 int main(int argc, char* argv[]) {

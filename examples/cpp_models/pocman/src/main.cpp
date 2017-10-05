@@ -22,6 +22,10 @@ public:
   void InitializeDefaultParameters() {
      Globals::config.num_scenarios = 100;
   }
+
+  std::string ChooseSolver(){
+	  return "DESPOT";
+  }
 };
 
 int main(int argc, char* argv[]) {

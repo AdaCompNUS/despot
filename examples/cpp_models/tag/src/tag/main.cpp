@@ -28,6 +28,10 @@ public:
   void InitializeDefaultParameters() {
     Globals::config.pruning_constant = 0.01;
   }
+
+  std::string ChooseSolver(){
+	  return "DESPOT";
+  }
 };
 
 using namespace std;
