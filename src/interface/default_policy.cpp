@@ -1,4 +1,4 @@
-#include <despot/interface/policy.h>
+#include <despot/interface/default_policy.h>
 #include <despot/interface/pomdp.h>
 #include <unistd.h>
 
@@ -10,17 +10,17 @@ namespace despot {
  * Policy class
  * =============================================================================*/
 
-Policy::Policy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
+DefaultPolicy::DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
 		Belief* belief) :
 	ScenarioLowerBound(model, belief),
 	particle_lower_bound_(particle_lower_bound) {
 	assert(particle_lower_bound_ != NULL);
 }
 
-Policy::~Policy() {
+DefaultPolicy::~DefaultPolicy() {
 }
 
-ValuedAction Policy::Value(const vector<State*>& particles,
+ValuedAction DefaultPolicy::Value(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	vector<State*> copy;
 	for (int i = 0; i < particles.size(); i++)
@@ -35,7 +35,7 @@ ValuedAction Policy::Value(const vector<State*>& particles,
 	return va;
 }
 
-ValuedAction Policy::RecursiveValue(const vector<State*>& particles,
+ValuedAction DefaultPolicy::RecursiveValue(const vector<State*>& particles,
 	RandomStreams& streams, History& history) const {
 	if (streams.Exhausted()
 		|| (history.Size() - initial_depth_
@@ -76,14 +76,14 @@ ValuedAction Policy::RecursiveValue(const vector<State*>& particles,
 	}
 }
 
-void Policy::Reset() {
+void DefaultPolicy::Reset() {
 }
 
-ParticleLowerBound* Policy::particle_lower_bound() const {
+ParticleLowerBound* DefaultPolicy::particle_lower_bound() const {
 	return particle_lower_bound_;
 }
 
-ValuedAction Policy::Search() {
+ValuedAction DefaultPolicy::Search() {
 	RandomStreams streams(Globals::config.num_scenarios,
 		Globals::config.search_depth);
 	vector<State*> particles = belief_->Sample(Globals::config.num_scenarios);

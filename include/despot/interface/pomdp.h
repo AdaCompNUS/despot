@@ -5,8 +5,8 @@
 #include <despot/interface/belief.h>
 #include <despot/random_streams.h>
 #include <despot/core/history.h>
+#include <despot/interface/default_policy.h>
 #include <despot/interface/lower_bound.h>
-#include <despot/interface/policy.h>
 #include <despot/interface/upper_bound.h>
 #include <despot/util/memorypool.h>
 #include <despot/util/seeds.h>

@@ -421,12 +421,12 @@ void POMDPX::PrintDefaultActions() {
 	}
 }
 
-class POMDPXGreedyActionPolicy: public Policy {
+class POMDPXGreedyActionPolicy: public DefaultPolicy {
 private:
 	const POMDPX* pomdpx_model_;
 public:
 	POMDPXGreedyActionPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
-		Policy(model, bound),
+		DefaultPolicy(model, bound),
 		pomdpx_model_(static_cast<const POMDPX*>(model)) {
 	}
 

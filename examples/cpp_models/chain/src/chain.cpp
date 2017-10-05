@@ -1,4 +1,5 @@
 #include "chain.h"
+
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
@@ -417,12 +418,12 @@ public:
 	}
 };
 
-class MeanMDPPolicy: public Policy {
+class MeanMDPPolicy: public DefaultPolicy {
 private:
 	const Chain* chain_model_;
 public:
 	MeanMDPPolicy(const Chain* model, ParticleLowerBound* bound, Belief* belief = NULL) :
-		Policy(model, bound, belief),
+		DefaultPolicy(model, bound, belief),
 		chain_model_(model) {
 	}
 

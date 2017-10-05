@@ -63,14 +63,14 @@ void TagBelief::Update(int action, OBS_TYPE obs) {
  * TagSHRPolicy class
  * ==============================================================================*/
 
-class TagSHRPolicy: public Policy { // Smart History-based Rollout
+class TagSHRPolicy: public DefaultPolicy { // Smart History-based Rollout
 private:
 	const BaseTag* tag_model_;
 	Floor floor_;
 
 public:
 	TagSHRPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
-		Policy(model, bound),
+		DefaultPolicy(model, bound),
 		tag_model_(static_cast<const BaseTag*>(model)) {
 		floor_ = tag_model_->floor();
 	}
@@ -125,7 +125,7 @@ public:
  * TagHistoryModePolicy class
  * ==============================================================================*/
 
-class TagHistoryModePolicy: public Policy {
+class TagHistoryModePolicy: public DefaultPolicy {
 private:
 	const BaseTag* tag_model_;
 	Floor floor_;
@@ -136,7 +136,7 @@ private:
 
 public:
 	TagHistoryModePolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
-	Policy(model, bound),
+	DefaultPolicy(model, bound),
 	tag_model_(static_cast<const BaseTag*>(model)) {
 		floor_ = tag_model_->floor();
 		state_probs_.resize(tag_model_->NumStates());

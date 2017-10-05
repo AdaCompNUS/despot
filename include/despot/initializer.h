@@ -150,7 +150,7 @@ public:
 	 * [Essential interface] Create, initialize, and return the world
 	 */
 	virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model,
-			option::Option* options);
+			option::Option* options)=0;
 
 	/**
 	 * [Essential interface] Provide default values for global parameters (such as those in Globals::config)
@@ -158,7 +158,7 @@ public:
 	virtual void InitializeDefaultParameters() = 0;
 
 	/**
-	 * Return the name of the intended solver type ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
+	 * [Essential interface] Return the name of the intended solver ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
 	 */
 	virtual std::string ChooseSolver()=0;
 

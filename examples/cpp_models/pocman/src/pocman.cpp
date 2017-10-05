@@ -1,4 +1,5 @@
 #include "pocman.h"
+
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
@@ -178,14 +179,14 @@ public:
  * PocmanSmartPolicy class
  * ==============================================================================*/
 
-class PocmanSmartPolicy : public Policy {
+class PocmanSmartPolicy : public DefaultPolicy {
 protected:
 	const Pocman* pocman_;
 	mutable vector<int> preferred_;
 	mutable vector<int> legal_;
 public:
 	PocmanSmartPolicy(const Pocman* model, ParticleLowerBound* bound) :
-		Policy(model, bound),
+		DefaultPolicy(model, bound),
 		pocman_(model) {
 	}
 

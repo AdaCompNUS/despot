@@ -12,7 +12,7 @@ namespace despot {
 
 BlindPolicy::BlindPolicy(const DSPOMDP* model, int action, ParticleLowerBound* 
 	bound, Belief* belief) :
-	Policy(model, bound, belief),
+	DefaultPolicy(model, bound, belief),
 	action_(action) {
 }
 
@@ -35,13 +35,13 @@ void BlindPolicy::Update(int action, OBS_TYPE obs) {
 
 RandomPolicy::RandomPolicy(const DSPOMDP* model, ParticleLowerBound* bound,
 	Belief* belief) :
-	Policy(model, bound, belief) {
+	DefaultPolicy(model, bound, belief) {
 }
 
 RandomPolicy::RandomPolicy(const DSPOMDP* model,
 	const vector<double>& action_probs,
 	ParticleLowerBound* bound, Belief* belief) :
-	Policy(model, bound, belief),
+	DefaultPolicy(model, bound, belief),
 	action_probs_(action_probs) {
 	double sum = 0;
 	for (int i = 0; i < action_probs.size(); i++)
@@ -79,7 +79,7 @@ void RandomPolicy::Update(int action, OBS_TYPE obs) {
 
 MajorityActionPolicy::MajorityActionPolicy(const DSPOMDP* model,
 	const StatePolicy& policy, ParticleLowerBound* bound, Belief* belief) :
-	Policy(model, bound, belief),
+	DefaultPolicy(model, bound, belief),
 	policy_(policy) {
 }
 
@@ -112,7 +112,7 @@ int MajorityActionPolicy::Action(const vector<State*>& particles,
 ModeStatePolicy::ModeStatePolicy(const DSPOMDP* model,
 	const StateIndexer& indexer, const StatePolicy& policy,
 	ParticleLowerBound* bound, Belief* belief) :
-	Policy(model, bound, belief),
+	DefaultPolicy(model, bound, belief),
 	indexer_(indexer),
 	policy_(policy) {
 	state_probs_.resize(indexer_.NumStates());
@@ -148,7 +148,7 @@ int ModeStatePolicy::Action(const vector<State*>& particles,
 MMAPStatePolicy::MMAPStatePolicy(const DSPOMDP* model,
 	const MMAPInferencer& inferencer, const StatePolicy& policy,
 	ParticleLowerBound* bound, Belief* belief) :
-	Policy(model, bound, belief),
+	DefaultPolicy(model, bound, belief),
 	inferencer_(inferencer),
 	policy_(policy) {
 }

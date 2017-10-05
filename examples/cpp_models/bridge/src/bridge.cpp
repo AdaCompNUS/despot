@@ -1,4 +1,5 @@
 #include "bridge.h"
+
 #include <despot/solver/pomcp.h>
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>

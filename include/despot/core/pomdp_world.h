@@ -37,7 +37,7 @@ public:
 	//Initialize or reset the simulation environment
 	State* Initialize();
 	//To help construct initial belief to print debug informations in Logger
-	State* GetTrueState() const;
+	State* GetCurrentState() const;
 	//send action, receive reward, obs, and terminal
 	bool ExecuteAction(int action, OBS_TYPE& obs);
 };

@@ -1,6 +1,7 @@
 #include <queue>
 
 #include "navigation.h"
+
 #include <despot/util/coord.h>
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>

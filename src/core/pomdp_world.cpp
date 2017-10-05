@@ -26,7 +26,7 @@ State* POMDPWorld::Initialize() {
 	return state_;
 }
 
-despot::State* POMDPWorld::GetTrueState() const {
+despot::State* POMDPWorld::GetCurrentState() const {
 	return state_;
 }
 

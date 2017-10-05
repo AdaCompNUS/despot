@@ -1,4 +1,5 @@
 #include "simple_rock_sample.h"
+
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
@@ -205,13 +206,13 @@ ValuedAction SimpleRockSample::GetBestAction() const {
 	return ValuedAction(A_EAST, 0);
 }
 
-class SimpleRockSampleEastPolicy: public Policy {
+class SimpleRockSampleEastPolicy: public DefaultPolicy {
 public:
 	enum { // action
 		A_SAMPLE = 0, A_EAST = 1, A_WEST = 2, A_CHECK = 3
 	};
 	SimpleRockSampleEastPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
-		Policy(model, bound) {
+		DefaultPolicy(model, bound) {
 	}
 
 	int Action(const vector<State*>& particles, RandomStreams& streams,

@@ -1,8 +1,8 @@
 #ifndef BUILTIN_POLICY_H
 #define BUILTIN_POLICY_H
 
+#include <despot/interface/default_policy.h>
 #include <vector>
-#include <despot/interface/policy.h>
 
 namespace despot {
 
@@ -10,7 +10,7 @@ namespace despot {
  * BlindPolicy class
  * =============================================================================*/
 
-class BlindPolicy: public Policy {
+class BlindPolicy: public DefaultPolicy {
 private:
 	int action_;
 
@@ -29,7 +29,7 @@ public:
  * RandomPolicy class
  * =============================================================================*/
 
-class RandomPolicy: public Policy {
+class RandomPolicy: public DefaultPolicy {
 private:
 	std::vector<double> action_probs_;
 
@@ -51,7 +51,7 @@ public:
  * ModeStatePolicy class
  * =============================================================================*/
 
-class ModeStatePolicy: public Policy {
+class ModeStatePolicy: public DefaultPolicy {
 private:
 	const StateIndexer& indexer_;
 	const StatePolicy& policy_;
@@ -70,7 +70,7 @@ public:
  * MMAPStatePolicy class
  * =============================================================================*/
 
-class MMAPStatePolicy: public Policy { // Marginal MAP state policy
+class MMAPStatePolicy: public DefaultPolicy { // Marginal MAP state policy
 private:
 	const MMAPInferencer& inferencer_;
 	const StatePolicy& policy_;
@@ -88,7 +88,7 @@ public:
  * MajorityActionPolicy class
  * =============================================================================*/
 
-class MajorityActionPolicy: public Policy {
+class MajorityActionPolicy: public DefaultPolicy {
 private:
 	const StatePolicy& policy_;
 

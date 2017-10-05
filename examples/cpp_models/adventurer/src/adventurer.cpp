@@ -270,12 +270,12 @@ ScenarioUpperBound* Adventurer::CreateScenarioUpperBound(string name,
 	}
 }
 
-class AdventurerSmartPolicy: public Policy {
+class AdventurerSmartPolicy: public DefaultPolicy {
 private:
 	const Adventurer* regdemo_model_;
 public:
 	AdventurerSmartPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
-		Policy(model, bound),
+		DefaultPolicy(model, bound),
 		regdemo_model_(static_cast<const Adventurer*>(model)) {
 	}
 

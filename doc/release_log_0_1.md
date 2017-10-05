@@ -66,7 +66,7 @@ virtual bool Connect()=0;
 //Initialize or reset the environment (for simulators or POMDP world only), return the start state of the system if applicable
 virtual State* Initialize()=0;
 //Get the state of the system (only applicable for simulators or POMDP world)
-virtual State* GetTrueState() const = 0;
+virtual State* GetCurrentState() const = 0;
 //Send action to be executed by the system, receive observations terminal signals from the system
 virtual bool ExecuteAction(int action, OBS_TYPE& obs) =0;
 ```

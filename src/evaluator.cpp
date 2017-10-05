@@ -29,7 +29,7 @@ void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 		<< " #######################################" << endl;
 		//Reset world and logger
 		world->Initialize();
-		logger->InitRound(world->GetTrueState());
+		logger->InitRound(world->GetCurrentState());
 
 		//Reset belief and solver
 		double start_t = get_time_second();
@@ -39,7 +39,7 @@ void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 		<< (end_t - start_t) << "s" << endl;
 
 		start_t = get_time_second();
-		belief=model->InitialBelief(world->GetTrueState(), belief_type);
+		belief=model->InitialBelief(world->GetCurrentState(), belief_type);
 		end_t = get_time_second();
 		logi << "[Initializer::EvaluationLoop] Created intial belief "
 		<< typeid(*belief).name() << " in " << (end_t - start_t) << "s" << endl;
@@ -89,7 +89,7 @@ int Evaluator::runEvaluation(int argc, char *argv[]) {
 	/* =========================
 	 * initialize belief
 	 * =========================*/
-	Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
+	Belief* belief = model->InitialBelief(world->GetCurrentState(), belief_type);
 	assert(belief != NULL);
 
 	/* =========================

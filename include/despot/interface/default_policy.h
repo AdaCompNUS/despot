@@ -38,12 +38,12 @@ struct ValuedAction {
 };
 
 /* =============================================================================
- * Policy class
+ * DefaultPolicy class
  * =============================================================================*/
 /**
  * [Optional interface] Design your custom default policy by inheriting this class
  */
-class Policy: public ScenarioLowerBound {
+class DefaultPolicy: public ScenarioLowerBound {
 private:
 	mutable int initial_depth_;
 	ParticleLowerBound* particle_lower_bound_;
@@ -52,9 +52,9 @@ private:
 		RandomStreams& streams, History& history) const;
 
 public:
-	Policy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
+	DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
 		Belief* belief = NULL);
-	virtual ~Policy();
+	virtual ~DefaultPolicy();
 
 	void Reset();
 	virtual int Action(const std::vector<State*>& particles, RandomStreams& streams,

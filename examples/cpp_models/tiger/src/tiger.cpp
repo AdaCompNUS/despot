@@ -1,4 +1,5 @@
 #include "tiger.h"
+
 #include <despot/core/builtin_lower_bounds.h>
 #include <despot/core/builtin_policy.h>
 #include <despot/core/builtin_upper_bounds.h>
@@ -33,11 +34,11 @@ string TigerState::text() const {
  * OptimalTigerPolicy class
  * =============================================================================*/
 
-class OptimalTigerPolicy: public Policy {
+class OptimalTigerPolicy: public DefaultPolicy {
 public:
 	OptimalTigerPolicy(const DSPOMDP* model,
 		ParticleLowerBound* bound) :
-		Policy(model, bound) {
+		DefaultPolicy(model, bound) {
 	}
 
 	// NOTE: optimal for noise = 0.15

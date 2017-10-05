@@ -20,7 +20,7 @@ add_library("${PROJECT_NAME}" SHARED
   src/interface/belief.cpp
   src/interface/lower_bound.cpp
   src/interface/upper_bound.cpp
-  src/interface/policy.cpp
+  src/interface/default_policy.cpp
   src/core/particle_belief.cpp
   src/core/globals.cpp
   src/core/builtin_lower_bounds.cpp

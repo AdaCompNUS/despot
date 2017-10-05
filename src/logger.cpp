@@ -128,7 +128,7 @@ Logger::Logger(DSPOMDP* model, Belief* belief, Solver* solver,
 		model_(model), world_(world), belief_(belief), start_clockt_(
 				start_clockt), world_type_(world_type), step_(0), out_(out), reward_(
 				0), total_discounted_reward_(0), total_undiscounted_reward_(0) {
-	state_ = world->GetTrueState();
+	state_ = world->GetCurrentState();
 	target_finish_time_ = target_finish_time;
 	if (target_finish_time_ != -1) {
 		EvalLog::allocated_time = (target_finish_time_ - get_time_second())

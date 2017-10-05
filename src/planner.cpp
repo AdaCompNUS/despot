@@ -95,7 +95,7 @@ int Planner::runPlanning(int argc, char *argv[]) {
 	/* =========================
 	 * initialize belief
 	 * =========================*/
-	Belief* belief = model->InitialBelief(world->GetTrueState(), belief_type);
+	Belief* belief = model->InitialBelief(world->GetCurrentState(), belief_type);
 	assert(belief != NULL);
 
 	/* =========================
@@ -119,7 +119,7 @@ int Planner::runPlanning(int argc, char *argv[]) {
 	/* =========================
 	 * run planning
 	 * =========================*/
-	logger->InitRound(world->GetTrueState());
+	logger->InitRound(world->GetCurrentState());
 	PlanningLoop(0, solver, world, logger);
 	logger->EndRound();
 
