@@ -30,7 +30,7 @@ add_library("${PROJECT_NAME}" SHARED
   src/core/pomdp_world.cpp
   src/core/solver.cpp
   src/core/builtin_upper_bounds.cpp
-  src/evaluator.cpp
+  src/logger.cpp
   src/pomdpx/parser/function.cpp
   src/pomdpx/parser/parser.cpp
   src/pomdpx/parser/variable.cpp

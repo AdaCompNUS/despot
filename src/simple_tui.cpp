@@ -310,18 +310,18 @@ void SimpleTUI::OptionParse(option::Option *options, int &num_runs,
 	logging::level(verbosity);
 }
 
-void SimpleTUI::InitializeEvaluator(Evaluator *&evaluator,
+void SimpleTUI::InitializeEvaluator(Logger *&evaluator,
 		option::Option *options, DSPOMDP *model, Belief* belief, Solver *solver,
 		int num_runs, clock_t main_clock_start, World* world, string world_type,
 		int time_limit, string solver_type) {
 
 	if (time_limit != -1) {
-		evaluator = new Evaluator(model, belief, solver, world, world_type,
+		evaluator = new Logger(model, belief, solver, world, world_type,
 				main_clock_start, &cout,
 				EvalLog::curr_inst_start_time + time_limit,
 				num_runs * Globals::config.sim_len);
 	} else {
-		evaluator = new Evaluator(model, belief, solver, world, world_type,
+		evaluator = new Logger(model, belief, solver, world, world_type,
 				main_clock_start, &cout);
 	}
 }
@@ -350,7 +350,7 @@ void SimpleTUI::DisplayParameters(option::Option *options, DSPOMDP *model) {
 }
 
 void SimpleTUI::PlanningLoop(int round, Solver*& solver, World* world,
-		Evaluator* evaluator) {
+		Logger* evaluator) {
 	for (int i = 0; i < Globals::config.sim_len; i++) {
 		bool terminal = RunStep(i, round, solver, world, evaluator);
 		if (terminal)
@@ -359,7 +359,7 @@ void SimpleTUI::PlanningLoop(int round, Solver*& solver, World* world,
 }
 
 void SimpleTUI::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
-		string belief_type, Solver *&solver, Evaluator *evaluator,
+		string belief_type, Solver *&solver, Logger *evaluator,
 		option::Option *options, clock_t main_clock_start, int num_runs,
 		int start_run) {
 	// Run num_runs simulations
@@ -398,7 +398,7 @@ void SimpleTUI::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 	}
 }
 
-void SimpleTUI::PrintResult(int num_runs, Evaluator *evaluator,
+void SimpleTUI::PrintResult(int num_runs, Logger *evaluator,
 		clock_t main_clock_start) {
 
 	evaluator->PrintStatistics(num_runs);
@@ -451,7 +451,7 @@ int SimpleTUI::runPlanning(int argc, char *argv[]) {
 	/* =========================
 	 * initialize evaluator
 	 * =========================*/
-	Evaluator *evaluator = NULL;
+	Logger *evaluator = NULL;
 	InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
 			main_clock_start, world, world_type, time_limit, solver_type);
 	//world->world_seed(world_seed);
@@ -516,7 +516,7 @@ int SimpleTUI::runEvaluation(int argc, char *argv[]) {
 	/* =========================
 	 * initialize evaluator
 	 * =========================*/
-	Evaluator *evaluator = NULL;
+	Logger *evaluator = NULL;
 	InitializeEvaluator(evaluator, options, model, belief, solver, num_runs,
 			main_clock_start, world, world_type, time_limit, solver_type);
 	//evaluator->world_seed(world_seed);
@@ -542,7 +542,7 @@ int SimpleTUI::runEvaluation(int argc, char *argv[]) {
 }
 
 bool SimpleTUI::RunStep(int step, int round, Solver* solver, World* world,
-		Evaluator* evaluator) {
+		Logger* evaluator) {
 
 	evaluator->CheckTargetTime();
 

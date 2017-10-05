@@ -11,7 +11,7 @@
 
 #include <despot/interface/pomdp.h>
 #include <despot/interface/world.h>
-#include <despot/evaluator.h>
+#include <despot/logger.h>
 
 using namespace std;
 
@@ -185,26 +185,26 @@ public:
 	/**
 	 * Run and evaluate POMDP planning for a given number of rounds
 	 */
-
 	int runEvaluation(int argc, char* argv[]);
 
 	/**
 	 * Loop the search-execute-update process for a given number of steps
 	 */
 	void PlanningLoop(int round, Solver*& solver, World* world,
-			Evaluator* evaluator);
+			Logger* evaluator);
+
 	/**
 	 * Loop the planning process for a given number of rounds
 	 */
 	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
-			std::string belief_type, Solver *&solver, Evaluator *evaluator,
+			std::string belief_type, Solver *&solver, Logger *evaluator,
 			option::Option *options, clock_t main_clock_start, int num_runs,
 			int start_run);
 	/**
 	 * Perform one search-execute-update step
 	 */
 	bool RunStep(int step, int round, Solver* solver, World* world,
-			Evaluator* evaluator);
+			Logger* evaluator);
 
 	/**
 	 * Parse global parameters from command-line arguments
@@ -216,7 +216,7 @@ public:
 	/**
 	 * Initialize the statistics logger
 	 */
-	void InitializeEvaluator(Evaluator*& simulator, option::Option* options,
+	void InitializeEvaluator(Logger*& simulator, option::Option* options,
 			DSPOMDP* model, Belief* belief, Solver* solver, int num_runs,
 			clock_t main_clock_start, World* world, std::string world_type,
 			int time_limit, std::string solver_type);
@@ -229,7 +229,7 @@ public:
 	/**
 	 * Print time records and statistics results
 	 */
-	void PrintResult(int num_runs, Evaluator* simulator,
+	void PrintResult(int num_runs, Logger* simulator,
 			clock_t main_clock_start);
 };
 
