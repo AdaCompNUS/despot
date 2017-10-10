@@ -88,7 +88,8 @@ bool DSPOMDP::Step(State& state, double random_num, ACT_TYPE action,
 }
 
 State* DSPOMDP::CreateStartState(std::string type) const{
-	cerr << "Unsupported function: CreateStartState" << endl;
+	cerr << "Unimplemented function: DSPOMDP::CreateStartState" << endl;
+	exit(1);
 }
 
 ParticleUpperBound* DSPOMDP::CreateParticleUpperBound(string name) const {
