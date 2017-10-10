@@ -90,6 +90,7 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
    custom_world->Connect();
    //Initialize the state of the external system
    custom_world->Initialize();
+   return custom_world; 
 }
 ```
 Users also need to specify the solver type by implementing the following interface.
