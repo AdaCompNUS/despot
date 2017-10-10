@@ -135,7 +135,7 @@ virtual ValuedAction GetBestAction() const = 0;
 *CreateStartState* is no longer an essential interface in *DSPOMDP*, because its functionality have been taken over by the *Initialize* function in the *World* class. However, users can optionally reload this function and make use of it, for instance, in the *InitialBelief* function.
 
 ### ACT_TYPE
-Data type of actions are now specified by ACT_TYPE. Users can define ACT_TYPE to be any valid data type in [despot/core/globals.h](../include/despot/core/globals.h).
+Data type of actions are now specified by a more general *ACT_TYPE* flag. Users can define *ACT_TYPE* to be any valid data type (int, unsigned int, short, long...) in [despot/core/globals.h](../include/despot/core/globals.h). This change affects all interfaces and functions that take action parameters or return action values.
 
 ## Core Code Changes
 
