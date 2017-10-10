@@ -146,7 +146,7 @@ Usage:
 ```
 Functionalities in the original *Evaluator* class have been shifted to three classes: *Logger*, *World*, and *Initializer*. The new *Logger* class performs logging of time usage and other statistics. The new *World* class handles the communication with the real-world external system. Finally, the *Initializer* and its child classes are responsible for pipeline control. Check "[despot/interface/world.h](../include/despot/evaluator.h), [despot/interface/logger.h](../include/despot/logger.h), [despot/initializer.h](../include/despot/initializer.h)" for more details.
 
-### Class Planner and Class Evalualtor
+### Class Planner and Class Evaluator
 Usage:
 ``` c++
 /*To use the planning pipeline*/
