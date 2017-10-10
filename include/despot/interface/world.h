@@ -34,8 +34,8 @@ public:
 	//[Essential interface] Initialize or reset the (simulation) environment, return the start state if applicable
 	virtual State* Initialize()=0;
 
-	//[Essential interface] To help construct initial belief to print debug informations in Logger
-	virtual State* GetCurrentState() const = 0;
+	//[Optional interface] To help construct initial belief to print debug informations in Logger
+	virtual State* GetCurrentState() const;
 
 	//[Essential interface] send action, receive reward, obs, and terminal
 	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;

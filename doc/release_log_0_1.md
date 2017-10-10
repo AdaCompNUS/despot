@@ -28,14 +28,15 @@ include/despot/interface/world.h
 include/despot/interface/belief.h
 include/despot/interface/lower_bound.h
 include/despot/interface/upper_bound.h
-include/despot/interface/policy.h
+include/despot/interface/default_policy.h
 src/interface/pomdp.cpp
 src/interface/world.cpp
 src/interface/belief.cpp
 src/interface/lower_bound.cpp
 src/interface/upper_bound.cpp
-src/interface/policy.cpp
+src/interface/default_policy.cpp
 ```
+Note that the original *Policy* class have been renamed to *DefaultPolicy*. The filenames have also been changed accordingly.
 
 ### Built-in Implementations of Interfaces
 Built-in belief, lower bound, and upper bound types are now separated from the interface classes (such as *Belief*, *ScenarioLowerBound*, *ScenarioUpperBound*, and so on). These built-in implementations are moved to the following new files:
@@ -66,17 +67,17 @@ virtual bool Connect()=0;
 //Initialize or reset the environment (for simulators or POMDP world only), return the start state of the system if applicable
 virtual State* Initialize()=0;
 //Get the state of the system (only applicable for simulators or POMDP world)
-virtual State* GetCurrentState() const = 0;
+virtual State* GetCurrentState() const;
 //Send action to be executed by the system, receive observations terminal signals from the system
 virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 ```
 
-### class SimpleTUI
+### class Initializer
 Usage:
 ``` c++
-#include <despot/simple_tui.h>
+#include <despot/initializer.h>
 ```
-Users now need to implement one additional interface in *SimpleTUI*:
+The original class *SimpleTUI* has been renamed to *Initializer*. Part of its functionalities have been shifted to its child classes *Planner* and *Evaluator*. Users now need to implement two additional interfaces in *Initializer*:
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
 ```
@@ -89,6 +90,19 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
    custom_world->Connect();
    //Initialize the state of the external system
    custom_world->Initialize();
+}
+```
+Users also need to specify the solver type by implementing the following interface.
+``` c++
+/*
+* Return the name of the intended solver ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
+*/
+virtual std::string ChooseSolver()=0;
+```
+An example implementation looks like:
+``` c++
+std::string ChooseSolver(){
+   return "DESPOT";
 }
 ```
 
@@ -116,35 +130,54 @@ has been renamed as:
 virtual ValuedAction GetBestAction() const = 0;
 ```
 
+#### CreateStartState Function
+*CreateStartState* is no longer an essential interface in *DSPOMDP*, because its functionality have been taken over by the *Initialize* function in the *World* class. However, users can optionally reload this function and make use of it, for instance, in the *InitialBelief* function.
+
+### ACT_TYPE
+Data type of actions are now specified by ACT_TYPE. Users can define ACT_TYPE to be any valid data type in [despot/core/globals.h](../include/despot/core/globals.h).
+
 ## Core Code Changes
 
-### Class Evaluator
+### Class Logger
 Usage:
 ``` c++
+#include <despot/logger.h>
+```
+Functionalities in the original *Evaluator* class have been shifted to three classes: *Logger*, *World*, and *Initializer*. The new *Logger* class performs logging of time usage and other statistics. The new *World* class handles the communication with the real-world external system. Finally, the *Initializer* and its child classes are responsible for pipeline control. Check "[despot/interface/world.h](../include/despot/evaluator.h), [despot/interface/logger.h](../include/despot/logger.h), [despot/initializer.h](../include/despot/initializer.h)" for more details.
+
+### Class Planner, and Class Evalualtor
+Usage:
+``` c++
+/*To use the planning pipeline*/
+#include <despot/planner.h>
+```
+or 
+``` c++
+/*To use the evaluation pipeline*/
 #include <despot/evaluator.h>
 ```
-Many functionalities in the original *Evaluator* class, including communication with the world and planning pipeline control, have been shifted to *World* and *SimpleTUI*. The new *Evaluator* class only perform logging of time usage and other statistics. Check "[despot/evaluator.h](../include/despot/evaluator.h)" for more details.
-
-### Class SimpleTUI
-Usage:
-``` c++
-#include <despot/simple_tui.h>
-```
-*SimpleTUI* is now responsible for pipeline control. To achieve this, the following new member functions have been added:
+*Planner* and *Evaluator* are now responsible for pipeline control. The despot package offers two types of pipelines: the planning pipeline handled by the *Planner* class, and evaluation pipeline handled by the *Evaluator* class.
 
 ``` c++
-/*Perform one planning step*/
-bool RunStep(int step, int round, Solver* solver, World* world, Evaluator* evaluator);
-/*Perform planning for a fixed number of steps or till a terminal state is reached*/
-void PlanningLoop(int round, Solver*& solver, World* world, Evaluator* evaluator);
-/*The evaluation pipeline: repeat the planning pipeline for multiple rounds*/
-void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief, std::string belief_type, Solver *&solver, Evaluator *evaluator, option::Option *options, clock_t main_clock_start, int num_runs, int start_run);
-/*Run the planning pipeline*/
-int runPlanning(int argc, char* argv[]);
-/*Run the evaluation pipeline*/
-int runEvaluation(int argc, char* argv[]);
+Class Planner: public Initializer {
+public:
+   /*Perform one planning step*/
+   bool RunStep(int step, int round, Solver* solver, World* world, Evaluator* evaluator);
+   /*Perform planning for a fixed number of steps or till a terminal state is reached*/
+   void PlanningLoop(int round, Solver*& solver, World* world, Evaluator* evaluator);
+   /*Run the planning pipeline*/
+   int runPlanning(int argc, char* argv[]);
+}
+
+Class Evaluator: public Planner {
+public:
+   /*The evaluation pipeline: repeat the planning pipeline for multiple rounds*/
+   void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief, std::string belief_type, Solver *&solver, Evaluator *evaluator, option::Option *options, clock_t main_clock_start, int num_runs, int start_run);
+   /*Run the evaluation pipeline*/
+   int runEvaluation(int argc, char* argv[]);
+}
 ```
-The old *run* function has been replaced by *runPlanning* and *runEvaluation*. Users can run the planning pipeline by calling *runPlanning* in the *main* function. The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. Alternatively, given a simulated world, the user can run the evaluation pipeline by calling *runEvaluation*. The evaluation pipeline will repeat the planning process for multiple times and evaluate the performance of despot according to the conducted rounds. Check "[despot/simple_tui.h](../include/despot/simple_tui.h)" for more details.
+The old *run* function in the original *SimpleTUI* class has been replaced by *runPlanning* in the *Planner* class and *runEvaluation* in the *Evaluator* class. Users can use the planning pipeline by inheriting the *Planner* classes, and calling *runPlanning* in the *main* function subsequently. The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. Alternatively, given a simulated world, the user can run the evaluation pipeline by inheriting *Evaluator* and calling *Evaluator::runEvaluation* subsequently. The evaluation pipeline will repeat the planning process for multiple times and evaluate the performance of despot according to the conducted rounds. Check "[despot/planner.h](../include/despot/planner.h)" and "[despot/evaluator.h](../include/despot/evaluator.h)" for implementation details.
 
 ### Class POMDPWorld
 Usage:

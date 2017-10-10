@@ -16,4 +16,8 @@ World::World() {
 World::~World() {
 }
 
+State* World::GetCurrentState() const{
+	return NULL;
+}
+
 } /* namespace despot */
