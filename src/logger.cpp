@@ -248,7 +248,7 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 		}
 	}
 
-	if (!Globals::config.silence && out_) {
+	if (!Globals::config.silence && out_ && state_ != NULL) {
 		*out_ << "- Observation = ";
 		model_->PrintObs(*state_, obs, *out_);
 	}
@@ -260,7 +260,6 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 	}
 
 	//Report step time
-
 	double step_end_t = get_time_second();
 	double step_time = (step_end_t - step_start_t);
 	if (terminal) {
@@ -285,7 +284,7 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 					<< "[Logger::SummarizeStep] Reward function has not been defined in DSPOMDP model"
 					<< endl;
 		}
-	} else {
+	} /*else {
 		vector<State*> particles = belief_->Sample(
 				Globals::config.num_scenarios);
 		reward_ = 0;
@@ -300,7 +299,7 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 				break;
 			}
 		}
-	}
+	}*/
 	total_discounted_reward_ += Globals::Discount(step_) * reward_;
 	total_undiscounted_reward_ += reward_;
 

@@ -148,7 +148,7 @@ int LaserTag::GetBucket(double noisy) const {
 }
 
 Belief* LaserTag::InitialBelief(const State* start, string type) const {
-	assert(start != NULL);
+	//assert(start != NULL);
 
 	vector<State*> particles;
 	int N = floor_.NumCells();

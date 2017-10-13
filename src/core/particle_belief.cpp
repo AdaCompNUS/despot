@@ -203,11 +203,11 @@ string ParticleBelief::text() const {
 
 vector<State*> ParticleBelief::Sample(int num, vector<State*> particles,
 	const DSPOMDP* model) {
+
 	double unit = 1.0 / num;
 	double mass = Random::RANDOM.NextDouble(0, unit);
 	int pos = 0;
 	double cur = particles[0]->weight;
-
 	vector<State*> sample;
 	for (int i = 0; i < num; i++) {
 		while (mass > cur) {

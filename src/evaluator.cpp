@@ -45,6 +45,7 @@ void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 		<< typeid(*belief).name() << " in " << (end_t - start_t) << "s" << endl;
 
 		solver->belief(belief);
+		logger->belief(belief);
 
 		//start loop
 		PlanningLoop(round, solver, world, logger);
