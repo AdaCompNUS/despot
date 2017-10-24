@@ -52,8 +52,7 @@ private:
 		RandomStreams& streams, History& history) const;
 
 public:
-	DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
-		Belief* belief = NULL);
+	DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound);
 	virtual ~DefaultPolicy();
 
 	void Reset();
@@ -64,8 +63,6 @@ public:
 
 	ValuedAction Value(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
-
-	virtual ValuedAction Search();
 };
 
 } // namespace despot

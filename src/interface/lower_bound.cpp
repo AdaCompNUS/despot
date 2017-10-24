@@ -30,27 +30,14 @@ ostream& operator<<(ostream& os, const ValuedAction& va) {
  * ScenarioLowerBound class
  * =============================================================================*/
 
-ScenarioLowerBound::ScenarioLowerBound(const DSPOMDP* model, Belief* belief) :
-	Solver(model, belief) {
+ScenarioLowerBound::ScenarioLowerBound(const DSPOMDP* model) :
+	model_(model){
 }
 
 void ScenarioLowerBound::Init(const RandomStreams& streams) {
 }
 
 void ScenarioLowerBound::Reset() {
-}
-
-ValuedAction ScenarioLowerBound::Search() {
-	RandomStreams streams(Globals::config.num_scenarios,
-		Globals::config.search_depth);
-	vector<State*> particles = belief_->Sample(Globals::config.num_scenarios);
-
-	ValuedAction va = Value(particles, streams, history_);
-
-	for (int i = 0; i < particles.size(); i++)
-		model_->Free(particles[i]);
-
-	return va;
 }
 
 void ScenarioLowerBound::Learn(VNode* tree) {
@@ -60,8 +47,8 @@ void ScenarioLowerBound::Learn(VNode* tree) {
  * ParticleLowerBound class
  * =============================================================================*/
 
-ParticleLowerBound::ParticleLowerBound(const DSPOMDP* model, Belief* belief) :
-	ScenarioLowerBound(model, belief) {
+ParticleLowerBound::ParticleLowerBound(const DSPOMDP* model) :
+	ScenarioLowerBound(model) {
 }
 
 ValuedAction ParticleLowerBound::Value(const vector<State*>& particles,
@@ -73,12 +60,8 @@ ValuedAction ParticleLowerBound::Value(const vector<State*>& particles,
  * BeliefLowerBound class
  * =============================================================================*/
 
-BeliefLowerBound::BeliefLowerBound(const DSPOMDP* model, Belief* belief) :
-	Solver(model, belief) {
-}
-
-ValuedAction BeliefLowerBound::Search() {
-	return Value(belief_);
+BeliefLowerBound::BeliefLowerBound(const DSPOMDP* model) :
+	model_(model) {
 }
 
 void BeliefLowerBound::Learn(VNode* tree) {

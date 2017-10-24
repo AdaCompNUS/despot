@@ -11,8 +11,8 @@ namespace despot {
  * =============================================================================*/
 
 BlindPolicy::BlindPolicy(const DSPOMDP* model, ACT_TYPE action, ParticleLowerBound* 
-	bound, Belief* belief) :
-	DefaultPolicy(model, bound, belief),
+	bound) :
+	DefaultPolicy(model, bound),
 	action_(action) {
 }
 
@@ -33,15 +33,14 @@ void BlindPolicy::Update(ACT_TYPE action, OBS_TYPE obs) {
  * RandomPolicy class
  * =============================================================================*/
 
-RandomPolicy::RandomPolicy(const DSPOMDP* model, ParticleLowerBound* bound,
-	Belief* belief) :
-	DefaultPolicy(model, bound, belief) {
+RandomPolicy::RandomPolicy(const DSPOMDP* model, ParticleLowerBound* bound) :
+	DefaultPolicy(model, bound) {
 }
 
 RandomPolicy::RandomPolicy(const DSPOMDP* model,
 	const vector<double>& action_probs,
-	ParticleLowerBound* bound, Belief* belief) :
-	DefaultPolicy(model, bound, belief),
+	ParticleLowerBound* bound) :
+	DefaultPolicy(model, bound),
 	action_probs_(action_probs) {
 	double sum = 0;
 	for (int i = 0; i < action_probs.size(); i++)
@@ -78,8 +77,8 @@ void RandomPolicy::Update(ACT_TYPE action, OBS_TYPE obs) {
  * =============================================================================*/
 
 MajorityActionPolicy::MajorityActionPolicy(const DSPOMDP* model,
-	const StatePolicy& policy, ParticleLowerBound* bound, Belief* belief) :
-	DefaultPolicy(model, bound, belief),
+	const StatePolicy& policy, ParticleLowerBound* bound) :
+	DefaultPolicy(model, bound),
 	policy_(policy) {
 }
 
@@ -111,8 +110,8 @@ ACT_TYPE MajorityActionPolicy::Action(const vector<State*>& particles,
 
 ModeStatePolicy::ModeStatePolicy(const DSPOMDP* model,
 	const StateIndexer& indexer, const StatePolicy& policy,
-	ParticleLowerBound* bound, Belief* belief) :
-	DefaultPolicy(model, bound, belief),
+	ParticleLowerBound* bound) :
+	DefaultPolicy(model, bound),
 	indexer_(indexer),
 	policy_(policy) {
 	state_probs_.resize(indexer_.NumStates());
@@ -147,8 +146,8 @@ ACT_TYPE ModeStatePolicy::Action(const vector<State*>& particles,
 
 MMAPStatePolicy::MMAPStatePolicy(const DSPOMDP* model,
 	const MMAPInferencer& inferencer, const StatePolicy& policy,
-	ParticleLowerBound* bound, Belief* belief) :
-	DefaultPolicy(model, bound, belief),
+	ParticleLowerBound* bound) :
+	DefaultPolicy(model, bound),
 	inferencer_(inferencer),
 	policy_(policy) {
 }

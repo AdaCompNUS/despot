@@ -10,9 +10,8 @@ namespace despot {
  * Policy class
  * =============================================================================*/
 
-DefaultPolicy::DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound,
-		Belief* belief) :
-	ScenarioLowerBound(model, belief),
+DefaultPolicy::DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* particle_lower_bound) :
+	ScenarioLowerBound(model),
 	particle_lower_bound_(particle_lower_bound) {
 	assert(particle_lower_bound_ != NULL);
 }
@@ -81,20 +80,6 @@ void DefaultPolicy::Reset() {
 
 ParticleLowerBound* DefaultPolicy::particle_lower_bound() const {
 	return particle_lower_bound_;
-}
-
-ValuedAction DefaultPolicy::Search() {
-	RandomStreams streams(Globals::config.num_scenarios,
-		Globals::config.search_depth);
-	vector<State*> particles = belief_->Sample(Globals::config.num_scenarios);
-
-	ACT_TYPE action = Action(particles, streams, history_);
-	double dummy_value = Globals::NEG_INFTY;
-
-	for (int i = 0; i < particles.size(); i++)
-		model_->Free(particles[i]);
-
-	return ValuedAction(action, dummy_value);
 }
 
 } // namespace despot

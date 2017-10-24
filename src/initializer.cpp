@@ -1,5 +1,6 @@
 #include <despot/core/pomdp_world.h>
 #include <despot/initializer.h>
+#include <despot/solver/baseline_solver.h>
 #include <despot/util/seeds.h>
 
 using namespace std;
@@ -193,7 +194,7 @@ Solver *Initializer::InitializeSolver(DSPOMDP *model, Belief* belief,
 
 			solver = new DESPOT(model, lower_bound, upper_bound);
 		} else
-			solver = lower_bound;
+			solver = new ScenarioBaselineSolver(lower_bound);
 	} // AEMS or its default policy
 	else if (solver_type == "AEMS" || solver_type == "BLB") {
 		string lbtype = options[E_LBTYPE] ? options[E_LBTYPE].arg : "DEFAULT";
@@ -214,7 +215,7 @@ Solver *Initializer::InitializeSolver(DSPOMDP *model, Belief* belief,
 
 			solver = new AEMS(model, lower_bound, upper_bound);
 		} else
-			solver = lower_bound;
+			solver = new BeliefBaselineSolver(lower_bound);
 	} // POMCP or DPOMCP
 	else if (solver_type == "POMCP" || solver_type == "DPOMCP") {
 		string ptype = options[E_PRIOR] ? options[E_PRIOR].arg : "DEFAULT";

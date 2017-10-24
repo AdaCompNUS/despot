@@ -773,7 +773,7 @@ void DESPOT::belief(Belief* b) {
 	belief_ = b;
 	history_.Truncate(0);
 
-	lower_bound_->belief(b); // needed for POMCPScenarioLowerBound
+	//lower_bound_->belief(b); // needed for POMCPScenarioLowerBound
 	logi << "[DESPOT::belief] End: Set initial belief." << endl;
 }
 
@@ -783,7 +783,7 @@ void DESPOT::Update(ACT_TYPE action, OBS_TYPE obs) {
 	belief_->Update(action, obs);
 	history_.Add(action, obs);
 
-	lower_bound_->belief(belief_);
+	//lower_bound_->belief(belief_);
 
 	logi << "[Solver::Update] Updated belief, history and root with action "
 		<< action << ", observation " << obs

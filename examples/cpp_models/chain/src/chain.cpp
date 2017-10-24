@@ -345,8 +345,8 @@ class MeanMDPScenarioLowerBound: public ScenarioLowerBound {
 private:
 	const Chain* chain_model_;
 public:
-	MeanMDPScenarioLowerBound(const Chain* model, Belief* belief = NULL) :
-		ScenarioLowerBound(model, belief),
+	MeanMDPScenarioLowerBound(const Chain* model) :
+		ScenarioLowerBound(model),
 		chain_model_(model) {
 	}
 
@@ -422,8 +422,8 @@ class MeanMDPPolicy: public DefaultPolicy {
 private:
 	const Chain* chain_model_;
 public:
-	MeanMDPPolicy(const Chain* model, ParticleLowerBound* bound, Belief* belief = NULL) :
-		DefaultPolicy(model, bound, belief),
+	MeanMDPPolicy(const Chain* model, ParticleLowerBound* bound) :
+		DefaultPolicy(model, bound),
 		chain_model_(model) {
 	}
 

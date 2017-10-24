@@ -14,7 +14,7 @@ namespace despot {
 POMCPScenarioLowerBound::POMCPScenarioLowerBound(const DSPOMDP* model,
 	POMCPPrior* prior,
 	Belief* belief) :
-	ScenarioLowerBound(model, belief),
+	ScenarioLowerBound(model/*, belief*/),
 	prior_(prior) {
 	explore_constant_ = model_->GetMaxReward()
 		- model_->GetBestAction().value;
@@ -57,9 +57,8 @@ ValuedAction TrivialParticleLowerBound::Value(
  * TrivialBeliefLowerBound class
  * =============================================================================*/
 
-TrivialBeliefLowerBound::TrivialBeliefLowerBound(const DSPOMDP* model,
-	Belief* belief) :
-	BeliefLowerBound(model, belief) {
+TrivialBeliefLowerBound::TrivialBeliefLowerBound(const DSPOMDP* model) :
+	BeliefLowerBound(model) {
 }
 
 ValuedAction TrivialBeliefLowerBound::Value(const Belief* belief) const {

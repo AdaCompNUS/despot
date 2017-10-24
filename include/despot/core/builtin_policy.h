@@ -16,7 +16,7 @@ private:
 
 public:
 	BlindPolicy(const DSPOMDP* model, ACT_TYPE action, ParticleLowerBound*
-		particle_lower_bound, Belief* belief = NULL);
+		particle_lower_bound);
 
 	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
@@ -34,11 +34,9 @@ private:
 	std::vector<double> action_probs_;
 
 public:
-	RandomPolicy(const DSPOMDP* model, ParticleLowerBound* ParticleLowerBound,
-		Belief* belief = NULL);
+	RandomPolicy(const DSPOMDP* model, ParticleLowerBound* ParticleLowerBound);
 	RandomPolicy(const DSPOMDP* model, const std::vector<double>& action_probs,
-		ParticleLowerBound* ParticleLowerBound,
-		Belief* belief = NULL);
+		ParticleLowerBound* ParticleLowerBound);
 
 	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
@@ -59,8 +57,7 @@ private:
 
 public:
 	ModeStatePolicy(const DSPOMDP* model, const StateIndexer& indexer,
-		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
-		Belief* belief = NULL);
+		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound);
 
 	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
@@ -77,8 +74,7 @@ private:
 
 public:
 	MMAPStatePolicy(const DSPOMDP* model, const MMAPInferencer& inferencer,
-		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound,
-		Belief* belief = NULL);
+		const StatePolicy& policy, ParticleLowerBound* particle_lower_bound);
 
 	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;
@@ -94,7 +90,7 @@ private:
 
 public:
 	MajorityActionPolicy(const DSPOMDP* model, const StatePolicy& policy,
-		ParticleLowerBound* particle_lower_bound, Belief* belief = NULL);
+		ParticleLowerBound* particle_lower_bound);
 
 	ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const;

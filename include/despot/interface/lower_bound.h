@@ -22,13 +22,17 @@ class VNode;
  * The horizon is infinite. The first action that need to be followed to obtain
  * the bound is also returned.
  */
-class ScenarioLowerBound: public Solver {
+class ScenarioLowerBound{
+protected:
+	const DSPOMDP* model_;
 public:
-	ScenarioLowerBound(const DSPOMDP* model, Belief* belief = NULL);
+	ScenarioLowerBound(const DSPOMDP* model/*, Belief* belief = NULL*/);
+	virtual ~ScenarioLowerBound(){};
+
+	const DSPOMDP* model(){return model_;};
 
 	virtual void Init(const RandomStreams& streams);
 
-	virtual ValuedAction Search();
 	virtual void Learn(VNode* tree);
 	virtual void Reset();
 
@@ -60,7 +64,7 @@ public:
  */
 class ParticleLowerBound : public ScenarioLowerBound {
 public:
-	ParticleLowerBound(const DSPOMDP* model, Belief* belief = NULL);
+	ParticleLowerBound(const DSPOMDP* model/*, Belief* belief = NULL*/);
 
 	/**
 	 * Returns a lower bound for the maximum total discounted reward obtainable
@@ -82,11 +86,15 @@ public:
  * [Optional interface] Interface for an algorithm used to compute a lower bound for the infinite
  * horizon reward that can be obtained by the optimal policy on a belief.
  */
-class BeliefLowerBound: public Solver {
+class BeliefLowerBound {
+protected:
+	const DSPOMDP* model_;
 public:
-	BeliefLowerBound(const DSPOMDP* model, Belief* belief = NULL);
+	BeliefLowerBound(const DSPOMDP* model);
+	virtual ~BeliefLowerBound(){};
 
-	virtual ValuedAction Search();
+	const DSPOMDP* model(){return model_;};
+
 	virtual void Learn(VNode* tree);
 
 	virtual ValuedAction Value(const Belief* belief) const = 0;

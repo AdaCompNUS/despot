@@ -42,6 +42,7 @@ add_library("${PROJECT_NAME}" SHARED
   src/solver/aems.cpp
   src/solver/despot.cpp
   src/solver/pomcp.cpp
+  src/solver/baseline_solver.cpp
   src/util/coord.cpp
   src/util/dirichlet.cpp
   src/util/exec_tracker.cpp

@@ -605,8 +605,8 @@ private:
 	const BaseRockSample* rs_model_;
 
 public:
-	RockSampleEastBeliefPolicy(const DSPOMDP* model, Belief* belief = NULL) :
-		BeliefLowerBound(model, belief),
+	RockSampleEastBeliefPolicy(const DSPOMDP* model) :
+		BeliefLowerBound(model),
 		rs_model_(static_cast<const BaseRockSample*>(model)) {
 	}
 

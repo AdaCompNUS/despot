@@ -48,7 +48,7 @@ public:
 
 class TrivialBeliefLowerBound: public BeliefLowerBound {
 public:
-	TrivialBeliefLowerBound(const DSPOMDP* model, Belief* belief = NULL);
+	TrivialBeliefLowerBound(const DSPOMDP* model);
 
 	virtual ValuedAction Value(const Belief* belief) const;
 };
