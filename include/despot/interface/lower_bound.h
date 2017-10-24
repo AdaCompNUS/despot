@@ -59,7 +59,7 @@ public:
 /**
  * [Optional interface] Interface for an algorithm computing a lower bound for maximum total
  * discounted reward obtainable by a policy on a set of weighted scenarios with
- * only the particles given. The horizon is inifnite. The first action that need
+ * only the particles given. The horizon is infinite. The first action that need
  * to be followed to obtain the bound is also returned.
  */
 class ParticleLowerBound : public ScenarioLowerBound {
