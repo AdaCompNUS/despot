@@ -48,7 +48,7 @@ public:
 	 * Evaluate the planner by repeating a test problem for multiple trials
 	 * Overwrite this function to customize your evaluation pipeline
 	 */
-	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
+	virtual void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 			std::string belief_type, Solver *&solver, Logger *logger,
 			option::Option *options, clock_t main_clock_start, int num_runs,
 			int start_run);
