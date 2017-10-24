@@ -26,7 +26,7 @@ public:
 	/**
 	 * Perform one search-execute-update step
 	 */
-	virtual bool RunStep(Solver* solver, World* world, Logger* logger);
+	virtual bool runStep(Solver* solver, World* world, Logger* logger);
 
 	/**
 	 * Run POMDP planning till terminal reached or time out
@@ -35,7 +35,7 @@ public:
 
 	/**
 	 * Loop the search-execute-update process for a given number of steps
-	 * Overload this function to customize your planning pipeline
+	 * Overwrite this function to customize your planning pipeline
 	 */
 	virtual void PlanningLoop(Solver*& solver, World* world, Logger* logger);
 
@@ -46,7 +46,7 @@ public:
 
 	/**
 	 * Evaluate the planner by repeating a test problem for multiple trials
-	 * Overload this function to customize your evaluation pipeline
+	 * Overwrite this function to customize your evaluation pipeline
 	 */
 	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 			std::string belief_type, Solver *&solver, Logger *logger,
