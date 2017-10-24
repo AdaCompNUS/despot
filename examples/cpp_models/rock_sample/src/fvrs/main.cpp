@@ -1,12 +1,12 @@
-#include <despot/evaluator.h>
+#include <despot/planner.h>
 #include "fvrs.h"
 
 using namespace std;
 using namespace despot;
 
-class MyEvaluator: public Evaluator {
+class MyPlanner: public Planner {
 public:
-  MyEvaluator() {
+  MyPlanner() {
   }
 
   DSPOMDP* InitializeModel(option::Option* options) {
@@ -46,6 +46,6 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return MyEvaluator().runEvaluation(argc, argv);
+  return MyPlanner().runEvaluation(argc, argv);
 }
 

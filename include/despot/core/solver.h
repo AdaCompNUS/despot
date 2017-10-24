@@ -59,7 +59,7 @@ public:
 	 * Update current belief, history, and any other internal states that is
 	 * needed for Search() to function correctly.
 	 */
-	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
+	virtual void BeliefUpdate(ACT_TYPE action, OBS_TYPE obs);
 
 	/**
 	 * Set initial belief for planning. Make sure internal states associated with

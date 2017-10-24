@@ -96,7 +96,7 @@ public:
 
 	void reuse(bool r);
 	virtual void belief(Belief* b);
-	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
+	virtual void BeliefUpdate(ACT_TYPE action, OBS_TYPE obs);
 
 	static VNode* CreateVNode(int depth, const State*, POMCPPrior* prior,
 		const DSPOMDP* model);
@@ -129,7 +129,7 @@ public:
 		History& history, double timeout);
 
 	virtual void belief(Belief* b);
-	virtual void Update(ACT_TYPE action, OBS_TYPE obs);
+	virtual void BeliefUpdate(ACT_TYPE action, OBS_TYPE obs);
 };
 
 } // namespace despot

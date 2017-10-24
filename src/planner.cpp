@@ -15,16 +15,16 @@ namespace despot {
 
 Planner::Planner(string lower_bounds_str,
 		string base_lower_bounds_str, string upper_bounds_str, string base_upper_bounds_str)
-		:Initializer(lower_bounds_str, base_lower_bounds_str, upper_bounds_str, base_upper_bounds_str){
-	;
+		:PlannerBase(lower_bounds_str, base_lower_bounds_str, upper_bounds_str, base_upper_bounds_str){
+	step_=0;
+	round_=0;
 }
 
 Planner::~Planner() {
 }
 
 
-bool Planner::RunStep(int step, int round, Solver* solver, World* world,
-		Logger* logger) {
+bool Planner::RunStep(Solver* solver, World* world, Logger* logger) {
 
 	logger->CheckTargetTime();
 
@@ -45,19 +45,18 @@ bool Planner::RunStep(int step, int round, Solver* solver, World* world,
 	logi << "[RunStep] Time spent in ExecuteAction(): " << execute_time << endl;
 
 	start_t = get_time_second();
-	solver->Update(action, obs);
+	solver->BeliefUpdate(action, obs);
 	end_t = get_time_second();
 	double update_time = (end_t - start_t);
 	logi << "[RunStep] Time spent in Update(): " << update_time << endl;
 
-	return logger->SummarizeStep(step, round, terminal, action, obs,
+	return logger->SummarizeStep(step_++, round_, terminal, action, obs,
 			step_start_t);
 }
 
-void Planner::PlanningLoop(int round, Solver*& solver, World* world,
-		Logger* logger) {
+void Planner::PlanningLoop(Solver*& solver, World* world, Logger* logger) {
 	for (int i = 0; i < Globals::config.sim_len; i++) {
-		bool terminal = RunStep(i, round, solver, world, logger);
+		bool terminal = RunStep(solver, world, logger);
 		if (terminal)
 			break;
 	}
@@ -120,7 +119,8 @@ int Planner::runPlanning(int argc, char *argv[]) {
 	 * run planning
 	 * =========================*/
 	logger->InitRound(world->GetCurrentState());
-	PlanningLoop(0, solver, world, logger);
+	round_=0; step_=0;
+	PlanningLoop(solver, world, logger);
 	logger->EndRound();
 
 	PrintResult(1, logger, main_clock_start);

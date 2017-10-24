@@ -261,7 +261,7 @@ void AEMS::Expand(QNode* qnode, BeliefLowerBound* lb, BeliefUpperBound* ub,
 	qnode->upper_bound(upper_bound);
 }
 
-void AEMS::Update(ACT_TYPE action, OBS_TYPE obs) {
+void AEMS::BeliefUpdate(ACT_TYPE action, OBS_TYPE obs) {
 	logi << "- Updating belief, history and root with action " << action
 		<< " and observation " << obs << "...";
 

@@ -5,25 +5,19 @@
  *      Author: panpan
  */
 
-#include <despot/evaluator.h>
+#include <despot/planner.h>
 
 namespace despot {
 
-Evaluator::Evaluator(string lower_bounds_str,
-		string base_lower_bounds_str, string upper_bounds_str , string base_upper_bounds_str)
-	:Planner(lower_bounds_str, base_lower_bounds_str, upper_bounds_str, base_upper_bounds_str){
-}
-
-Evaluator::~Evaluator() {
-}
-
-void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
+void Planner::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 		string belief_type, Solver *&solver, Logger *logger,
 		option::Option *options, clock_t main_clock_start, int num_runs,
 		int start_run) {
 	// Run num_runs simulations
 	vector<double> round_rewards(num_runs);
 	for (int round = start_run; round < start_run + num_runs; round++) {
+		round_=round;
+		step_=0;
 		default_out<< endl
 		<< "####################################### Round " << round
 		<< " #######################################" << endl;
@@ -48,7 +42,7 @@ void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 		logger->belief(belief);
 
 		//start loop
-		PlanningLoop(round, solver, world, logger);
+		PlanningLoop(solver, world, logger);
 		//end loop
 
 		default_out << "Simulation terminated in " << logger->step() << " steps"
@@ -58,7 +52,7 @@ void Evaluator::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 	}
 }
 
-int Evaluator::runEvaluation(int argc, char *argv[]) {
+int Planner::runEvaluation(int argc, char *argv[]) {
 
 	/* =========================
 	 * initialize parameters

@@ -777,7 +777,7 @@ void DESPOT::belief(Belief* b) {
 	logi << "[DESPOT::belief] End: Set initial belief." << endl;
 }
 
-void DESPOT::Update(ACT_TYPE action, OBS_TYPE obs) {
+void DESPOT::BeliefUpdate(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	belief_->Update(action, obs);

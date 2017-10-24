@@ -28,7 +28,7 @@ public:
 	ValuedAction Search();
 
 	void belief(Belief* b);
-	void Update(ACT_TYPE action, OBS_TYPE obs);
+	void BeliefUpdate(ACT_TYPE action, OBS_TYPE obs);
 
 	ScenarioLowerBound* lower_bound() const;
 	ScenarioUpperBound* upper_bound() const;

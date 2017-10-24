@@ -8,11 +8,14 @@
 #ifndef INCLUDE_DESPOT_PLANNER_H_
 #define INCLUDE_DESPOT_PLANNER_H_
 
-#include <despot/initializer.h>
+#include <despot/plannerbase.h>
 
 namespace despot {
 
-class Planner: public Initializer {
+class Planner: public PlannerBase {
+protected:
+	int step_;
+	int round_;
 public:
 	Planner(string lower_bounds_str = "TRIVIAL",
 			string base_lower_bounds_str = "TRIVIAL", string upper_bounds_str =
@@ -23,19 +26,32 @@ public:
 	/**
 	 * Perform one search-execute-update step
 	 */
-	bool RunStep(int step, int round, Solver* solver, World* world,
-			Logger* logger);
+	virtual bool RunStep(Solver* solver, World* world, Logger* logger);
 
 	/**
-	 * Run POMDP planning for one round
+	 * Run POMDP planning till terminal reached or time out
 	 */
 	int runPlanning(int argc, char* argv[]);
 
 	/**
 	 * Loop the search-execute-update process for a given number of steps
+	 * Overload this function to customize your planning pipeline
 	 */
-	void PlanningLoop(int round, Solver*& solver, World* world,
-			Logger* logger);
+	virtual void PlanningLoop(Solver*& solver, World* world, Logger* logger);
+
+	/**
+	 * Run and evaluate POMDP planning for a given number of rounds
+	 */
+	int runEvaluation(int argc, char* argv[]);
+
+	/**
+	 * Evaluate the planner by repeating a test problem for multiple trials
+	 * Overload this function to customize your evaluation pipeline
+	 */
+	void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
+			std::string belief_type, Solver *&solver, Logger *logger,
+			option::Option *options, clock_t main_clock_start, int num_runs,
+			int start_run);
 
 };
 

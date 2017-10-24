@@ -38,7 +38,7 @@ add_library("${PROJECT_NAME}" SHARED
   src/pomdpx/parser/variable.cpp
   src/pomdpx/pomdpx.cpp
   src/random_streams.cpp
-  src/initializer.cpp
+  src/plannerbase.cpp
   src/solver/aems.cpp
   src/solver/despot.cpp
   src/solver/pomcp.cpp

@@ -138,7 +138,7 @@ void POMCP::belief(Belief* b) {
 	root_ = NULL;
 }
 
-void POMCP::Update(ACT_TYPE action, OBS_TYPE obs) {
+void POMCP::BeliefUpdate(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	if (reuse_) {
@@ -528,7 +528,7 @@ VNode* DPOMCP::ConstructTree(vector<State*>& particles, RandomStreams& streams,
 	return root;
 }
 
-void DPOMCP::Update(ACT_TYPE action, OBS_TYPE obs) {
+void DPOMCP::BeliefUpdate(ACT_TYPE action, OBS_TYPE obs) {
 	double start = get_time_second();
 
 	history_.Add(action, obs);
