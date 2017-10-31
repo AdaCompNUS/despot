@@ -259,6 +259,21 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 					<< endl;
 	}
 
+	//Record step reward
+	if (world_type_ == "pomdp")
+		reward_ = static_cast<POMDPWorld*>(world_)->step_reward_;
+	else if (state_ != NULL) {
+		reward_ = model_->Reward(*state_, action);
+		if (reward_ > model_->GetMaxReward()) { //invalid reward from model_->Reward
+			reward_ = 0;
+			logd
+					<< "[Logger::SummarizeStep] Reward function has not been defined in DSPOMDP model"
+					<< endl;
+		}
+	}
+	total_discounted_reward_ += Globals::Discount(step_) * reward_;
+	total_undiscounted_reward_ += reward_;
+
 	//Report step time
 	double step_end_t = get_time_second();
 	double step_time = (step_end_t - step_start_t);
@@ -272,36 +287,6 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 	}
 	*out_ << endl;
 	step_++;
-
-	//Report step reward
-	if (world_type_ == "pomdp")
-		reward_ = static_cast<POMDPWorld*>(world_)->step_reward_;
-	else if (state_ != NULL) {
-		reward_ = model_->Reward(*state_, action);
-		if (reward_ > model_->GetMaxReward()) { //invalid reward from model_->Reward
-			reward_ = 0;
-			logd
-					<< "[Logger::SummarizeStep] Reward function has not been defined in DSPOMDP model"
-					<< endl;
-		}
-	} /*else {
-		vector<State*> particles = belief_->Sample(
-				Globals::config.num_scenarios);
-		reward_ = 0;
-		for (int i = 0; i < particles.size(); i++) {
-			reward_ += model_->Reward(*particles[i], action)
-					* particles[i]->weight;
-			if (reward_ / particles[i]->weight > model_->GetMaxReward()) { //invalid reward from model_->Reward
-				reward_ = 0;
-				logd
-						<< "[Logger::SummarizeStep] Reward function has not been defined in DSPOMDP model"
-						<< endl;
-				break;
-			}
-		}
-	}*/
-	total_discounted_reward_ += Globals::Discount(step_) * reward_;
-	total_undiscounted_reward_ += reward_;
 
 	//Record time per move
 
