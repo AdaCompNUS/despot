@@ -254,7 +254,7 @@ ParticleUpperBound* Navigation::CreateParticleUpperBound(string name) const {
 
 ScenarioUpperBound* Navigation::CreateScenarioUpperBound(string name,
 	string particle_bound_name) const {
-	if (name == "TRIVIAL") {
+	if (name == "TRIVIAL" || name == "DEFAULT") {
 		return new TrivialParticleUpperBound(this);
 	} else if (name == "MDP") {
 		return new MDPUpperBound(this, *this);
