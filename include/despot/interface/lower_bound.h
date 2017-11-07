@@ -17,7 +17,8 @@ class VNode;
  * =============================================================================*/
 
 /**
- * [Optional interface] Interface for an algorithm computing a lower bound for the maximum total
+ * [Optional]
+ * Interface for an algorithm computing a lower bound for the maximum total
  * discounted reward over obtainable by a policy on a set of weighted scenarios.
  * The horizon is infinite. The first action that need to be followed to obtain
  * the bound is also returned.
@@ -42,7 +43,7 @@ public:
 	 * first action that need to be followed to obtain the bound is also
 	 * returned.
 	 *
-	 * @param particles Particles in the scenarios.
+	 * @param particles States in the head of scenarios.
 	 * @param streams Random numbers attached to the scenarios.
 	 * @param history Current action-observation history.
 	 * @return (a, v), where v is the lower bound and a is the first action needed
@@ -57,7 +58,8 @@ public:
  * =============================================================================*/
 
 /**
- * [Optional interface] Interface for an algorithm computing a lower bound for maximum total
+ * [Optional]
+ * Interface for an algorithm computing a lower bound for maximum total
  * discounted reward obtainable by a policy on a set of weighted scenarios with
  * only the particles given. The horizon is infinite. The first action that need
  * to be followed to obtain the bound is also returned.
@@ -71,6 +73,7 @@ public:
 	 * by a policy on a set of particles. The horizon is infinite. The horizon is
 	 * inifnite. The first action that need to be followed to obtain the bound is
 	 * also returned.
+	 * @param particles States in the head of scenarios.
 	 */
 	virtual ValuedAction Value(const std::vector<State*>& particles) const = 0;
 
@@ -83,7 +86,8 @@ public:
  * =============================================================================*/
 
 /**
- * [Optional interface] Interface for an algorithm used to compute a lower bound for the infinite
+ * [Optional]
+ * Interface for an algorithm used to compute a lower bound for the infinite
  * horizon reward that can be obtained by the optimal policy on a belief.
  */
 class BeliefLowerBound {
@@ -97,6 +101,12 @@ public:
 
 	virtual void Learn(VNode* tree);
 
+	/**
+	 * Returns a lower bound for the maximum total discounted reward obtainable
+	 * by a policy on a general belief representation. The horizon is infinite.
+	 * The first action that need to be followed to obtain the bound is also returned.
+	 * @param belief The current belief to be evaluated.
+	 */
 	virtual ValuedAction Value(const Belief* belief) const = 0;
 };
 

@@ -41,7 +41,8 @@ struct ValuedAction {
  * DefaultPolicy class
  * =============================================================================*/
 /**
- * [Optional interface] Design your custom default policy by inheriting this class
+ * [Optional]
+ * Design your custom default policy by inheriting this class
  */
 class DefaultPolicy: public ScenarioLowerBound {
 private:
@@ -56,6 +57,14 @@ public:
 	virtual ~DefaultPolicy();
 
 	void Reset();
+
+	/**
+	 * Returns an action based on the weighted scenarios and the history
+	 *
+	 * @param particles States in the head of the scenarios
+	 * @param streams   Random streams attached to the scenarios
+	 * @param history   The current action-observation history
+	 */
 	virtual ACT_TYPE Action(const std::vector<State*>& particles, RandomStreams& streams,
 		History& history) const = 0;
 

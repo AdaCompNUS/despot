@@ -142,28 +142,39 @@ public:
 	virtual ~PlannerBase();
 
 	/**
-	 * [Essential interface] Create, initialize, and return a DSPOMDP model
+	 * [Essential]
+	 * Create, initialize, and return a DSPOMDP model
+	 *
+	 * @param options Parsed command line options
 	 */
 	virtual DSPOMDP* InitializeModel(option::Option* options) = 0;
 
 	/**
-	 * [Essential interface] Create, initialize, and return the world
+	 * [Essential]
+	 * Create, initialize, and return the world
+	 *
+	 * @param world_type Type of the world: pomdp, simulator, or real-world
+	 * @param model      The POMDP model
+	 * @param options    Parsed command line options
 	 */
 	virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model,
 			option::Option* options)=0;
 
 	/**
-	 * [Essential interface] Provide default values for global parameters (such as those in Globals::config)
+	 * [Essential]
+	 * Provide default values for global parameters (such as those in Globals::config)
 	 */
 	virtual void InitializeDefaultParameters() = 0;
 
 	/**
-	 * [Essential interface] Return the name of the intended solver ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
+	 * [Essential]
+	 * Return the name of the intended solver ("DESPOT", "AEMS2", "POMCP", "DPOMCP", "PLB", "BLB")
 	 */
 	virtual std::string ChooseSolver()=0;
 
 	/**
 	 * Initialize a DSPOMDP model-based world
+	 * To be called when using a POMDP-based world
 	 */
 	World* InitializePOMDPWorld(std::string& world_type, DSPOMDP *model,
 			option::Option* options);

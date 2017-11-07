@@ -16,7 +16,8 @@ namespace despot {
  * World class
  * =============================================================================*/
 /**
- * [Essential interface] Interface for communication with the real world.
+ * [Essential]
+ * Interface for communication with the real world.
  */
 class World {
 protected:
@@ -28,16 +29,30 @@ public:
 	virtual ~World();
 
 public:
-	//[Essential interface] establish connection to simulator or system
+	/**
+	 * [Essential]
+	 * Establish connection to simulator or system
+	 */
 	virtual bool Connect()=0;
 
-	//[Essential interface] Initialize or reset the (simulation) environment, return the start state if applicable
+	/**
+	 * [Essential]
+	 * Initialize or reset the (simulation) environment, return the start state if applicable
+	 */
 	virtual State* Initialize()=0;
 
-	//[Optional interface] To help construct initial belief to print debug informations in Logger
+	/**
+	 * [Optional]
+	 * To help construct initial belief to print debug informations in Logger
+	 */
 	virtual State* GetCurrentState() const;
 
-	//[Essential interface] send action, receive reward, obs, and terminal
+	/**
+	 * [Essential]
+	 * send action, receive reward, obs, and terminal
+	 * @param action Action to be executed in the real-world system
+	 * @param obs    Observation sent back from the real-world system
+	 */
 	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 };
 
