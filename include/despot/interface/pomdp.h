@@ -18,7 +18,8 @@ namespace despot {
  * State class
  * =============================================================================*/
 /**
- * [Optional interface] Base state class. (define your custom state by inheriting this class)
+ * [Optional]
+ * Base state class. (define your custom state by inheriting this class)
  */
 class State: public MemoryObject {
 public:
