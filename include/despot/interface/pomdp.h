@@ -47,7 +47,8 @@ public:
  * StateIndexer class
  * =============================================================================*/
 /**
- * [Optional interface] Interface for a mapping between states and indices.
+ * [Optional]
+ * Interface for a mapping between states and indices.
  */
 class StateIndexer {
 public:
@@ -62,7 +63,8 @@ public:
  * StatePolicy class
  * =============================================================================*/
 /**
- * [Optional interface] Interface for a mapping from states to actions.
+ * [Optional]
+ * Interface for a mapping from states to actions.
  */
 class StatePolicy {
 public:
@@ -74,7 +76,8 @@ public:
  * MMAPinferencer class
  * =============================================================================*/
 /**
- * [Optional interface] Interface for computing marginal MAP state from a set of particles.
+ * [Optional]
+ * Interface for computing marginal MAP state from a set of particles.
  */
 class MMAPInferencer {
 public:
