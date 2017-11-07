@@ -335,7 +335,8 @@ public:
  * BeliefMDP class
  * =============================================================================*/
 /**
- * [Optional interface] The BeliefMDP class provides an interface for the belief MDP, which is
+ * [Optional]
+ * The BeliefMDP class provides an interface for the belief MDP, which is
  * commonly used in belief tree search algorithms.
  *
  * @see AEMS
