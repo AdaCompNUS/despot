@@ -2,17 +2,58 @@
 
 ## 1. Overview
 
-DESPOT[1] is an anytime online POMDP planning algorithm. It performs heuristic search in a sparse belief tree conditioned under a set of sampled "scenarios". Each scenario considered in DESPOT comprises a sampled starting state, referred to as a "particle" in this tutorial, together with a stream of random numbers to determinize future transitions and observations. To use our solver package, the user first needs to represent the POMDP in one of the following ways:
+DESPOT[1] is an anytime online POMDP planning algorithm. It performs heuristic search in a sparse belief tree conditioned under a set of sampled "scenarios". Each scenario considered in DESPOT comprises a sampled starting state, referred to as a "particle" in this tutorial, together with a stream of random numbers to determinize future transitions and observations. 
+
+The DESPOT solver package implements the DESPOT algorithm. To use our package to solve a problem, the user needs to perform the following three steps:
+1. define the POMDP model of the problem;
+2. create the world for DESPOT to communicating with;
+3. initialize the solver and execute the planning pipeline.
+
+The DESPOT solver package contains serveral interface classes and built-in implementations of the interfaces for the user to exploit and customize. These interfaces and implementations are defined in following header and source files in the ["interface"](../include/despot/interface) and ["core"](../include/despot/core) folders:
+
+##### Listing 1. The "interface" folder
+```
+include/despot/interface/pomdp.h
+include/despot/interface/world.h
+include/despot/interface/belief.h
+include/despot/interface/lower_bound.h
+include/despot/interface/upper_bound.h
+include/despot/interface/default_policy.h
+src/interface/pomdp.cpp
+src/interface/world.cpp
+src/interface/belief.cpp
+src/interface/lower_bound.cpp
+src/interface/upper_bound.cpp
+src/interface/default_policy.cpp
+```
+##### Listing 2. Built-in implementations in the "core" folder
+```
+include/despot/core/pomdp_world.h
+include/despot/core/particle_belief.h
+include/despot/core/builtin_lower_bounds.h
+include/despot/core/builtin_upper_bounds.h
+include/despot/core/builtin_policy.h
+src/core/pomdp_world.cpp
+src/core/particle_belief.cpp
+src/core/builtin_lower_bounds.cpp
+src/core/builtin_upper_bounds.cpp
+src/core/builtin_policy.cpp
+``` 
+
+The rest of this turtorial is organized as follows. [Section 2] explains how to define a POMDP model for a problem to be used by the DESPOT solver. In [Section 3](#creating-a-world) we illustrate how to build up a world model and connect it with the DESPOT solver. Finally, [Section 4](#runing-the-planning) elaborates how to initialize the DESPOT solver and run the planning. We also provide references to other example problems in [Section 5](#5-other-examples). 
+
+## 2. Defining a POMDP model
+
+The user can represent the POMDP in one of the following ways:
 
 - specify the POMDP in POMDPX format as described in the POMDPX documentation, or
 - specify a deterministic simulative model [1] for the POMDP in C++ according to the DSPOMDP interface included in the DESPOT solver package ([Section 2](#2-coding-a-c-model)). 
 
 Which type of model is better? A POMDPX model requires relatively less programming, and some domain-independent bounds are provided to guide the policy search in DESPOT. However, POMDPX can only be used to represent POMDPs which are not very large, and an exact representation of the POMDP is needed. The C++ model requires more programming, but it comes with the full flexibility of integrating the user's domain knowledge into the policy search process. In addition, it can represent extremely large problems, and only a black-box simulator ‐ rather than an exact representation of the POMDP ‐ is needed. To enjoy the full power of DESPOT, a C++ model is encouraged.
-In this tutorial, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model ([Section 2.1](#21-problem)). Then we explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). Finally, [Section 3](#3-other-examples) gives references to other example problems. 
 
-## 2. Coding a C++ Model
+In this section, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model ([Section 2.1](#21-problem)). Then we explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). 
 
- We explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
+We explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
 
    - representation of states, actions and observations,
    - the deterministic simulative model,
@@ -33,28 +74,38 @@ As with the original version of the problem, the rover knows exactly its own loc
 
 #### 2.1.1 Using C++ Models
 
-DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
+DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
 
 ##### Listing 1. Code snippet for running simulations using DESPOT
 
 ``` c++
-class TUI: public SimpleTUI {//TUI: text user interface
+class RSPlanner: public Planner {
 public:
-  TUI() {
+  RSPlanner() {
   }
- 
+
   DSPOMDP* InitializeModel(option::Option* options) {
-    DSPOMDP* model = new SimpleRockSample();
-    return model;
+      DSPOMDP* model = new SimpleRockSample();
+      return model;
   }
- 
+
+  World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options)
+  {
+      return InitializePOMDPWorld(world_type, model, options);
+  }
+
   void InitializeDefaultParameters() {
+  }
+
+  std::string ChooseSolver(){
+      return "DESPOT";
   }
 };
 
 int main(int argc, char* argv[]) {
-  return TUI().run(argc, argv);
+  return RSPlanner().runEvaluation(argc, argv);
 }
+
 ```
 
 To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change Line 7 in Listing 1 to:
@@ -547,7 +598,45 @@ Once a lower bound is added and the package is recompiled, the user can choose t
 ```
 We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line options. 
 
-## 3. Other Examples
+## 3. Creating a World
+For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
+
+Usage:
+``` c++
+#include <despot/interface/world.h>
+```
+The `World` class:
+``` c++
+class World{
+   public:
+	/*Establish connection with the external system*/
+	virtual bool Connect()=0;
+	/*Initialize or reset the environment (for simulators or POMDP world only), return the start state of the system if applicable*/
+	virtual State* Initialize()=0;
+	/*Get the state of the system (only applicable for simulators or POMDP world)*/
+	virtual State* GetCurrentState() const;
+	/*Send action to be executed by the system, receive observations terminal signals from the system*/
+	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
+}
+```
+To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](include/despot/plannerbase.h)):
+``` c++
+virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
+```
+In this `InitializeWorld` function, one should create the custom world, establish connection, and intialize its starting state. A sample implementation should look like:
+``` c++
+World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
+   //Create a custom world as defined and implemented by the user
+   World* custom_world=CustomWorld(world_type, model, options);
+   //Establish connection with external system
+   custom_world->Connect();
+   //Initialize the state of the external system
+   custom_world->Initialize();
+   return custom_world; 
+}
+```
+
+## 5. Other Examples
 
 See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
 
