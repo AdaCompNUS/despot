@@ -76,7 +76,8 @@ int Planner::runPlanning(int argc, char *argv[]) {
 
 	option::Option *options = InitializeParamers(argc, argv, solver_type,
 			search_solver, num_runs, world_type, belief_type, time_limit);
-
+	if(options==NULL)
+		return 0;
 	clock_t main_clock_start = clock();
 
 	/* =========================

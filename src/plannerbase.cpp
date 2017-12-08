@@ -151,7 +151,7 @@ option::Option* PlannerBase::InitializeParamers(int argc, char *argv[],
 	if (options[E_HELP]) {
 		cout << "Usage: " << program << " [options]" << endl;
 		option::printUsage(std::cout, usage);
-		return 0;
+		return NULL;
 	}
 	OptionParse(options, num_runs, world_type, belief_type, time_limit,
 			solver_type, search_solver);
