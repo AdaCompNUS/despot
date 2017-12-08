@@ -580,11 +580,11 @@ Once a lower bound is added and the package is recompiled, the user can choose t
 ./simple_rs --runs 100
 ./simple_rs --runs 100 -l EAST
 ```
-We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line options. 
+We refer to [/doc/Usage.txt](../Usage.txt) file for the usage of command line options. 
 
 ## 2.4. Other Examples
 
-See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
+See [examples/cpp_models](../../examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
 
 ## 3. Creating a World
 For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a `World` abstract class ([despot/interface/world.h](../../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
