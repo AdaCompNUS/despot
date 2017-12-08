@@ -64,7 +64,7 @@ We shall start with the minimal set of functions that need to be implemented in 
 
 ### 2.1. Problem
 
-We will use a simplified version of the RockSample problem [2] as our running example. The complete C++ model of this example can be found in [examples/cpp_models/simple_rock_sample](../examples/cpp_models/simple_rock_sample). Note that the [examples/cpp_models/rock_sample](../examples/cpp_models/rock_sample) folder contains a more complex version of the RockSample problem. The RockSample POMDP models a rover on an exploration mission. The rover can achieve rewards by sampling rocks in its current area. Consider a map of size 1 x 3 as shown in Figure 1, with one rock at the left end and the terminal state at the right end. The rover starts off at the center and its possible actions are A = {West, East, Sample, Check}.
+We will use a simplified version of the RockSample problem [2] as our running example. The complete C++ model of this example can be found in [examples/cpp_models/simple_rock_sample](../../examples/cpp_models/simple_rock_sample). Note that the [examples/cpp_models/rock_sample](../../examples/cpp_models/rock_sample) folder contains a more complex version of the RockSample problem. The RockSample POMDP models a rover on an exploration mission. The rover can achieve rewards by sampling rocks in its current area. Consider a map of size 1 x 3 as shown in Figure 1, with one rock at the left end and the terminal state at the right end. The rover starts off at the center and its possible actions are A = {West, East, Sample, Check}.
 
 ![](images/Rocks_sample_problem.png)
 **Figure 1. The 1 x 3 RockSample problem world.**
@@ -73,7 +73,7 @@ As with the original version of the problem, the rover knows exactly its own loc
 
 #### 2.1.1 Using C++ Models
 
-DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
+DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
 
 ##### Listing 3. Code snippet for running simulations using DESPOT
 
@@ -459,7 +459,7 @@ Accurate belief tracking and good bounds are important for getting good performa
 
 #### 2.3.1 Custom Belief
 
-The solver package can work with any belief representation implementing the abstract `Belief` interface. A concrete belief class needs to implement two functions: the `Sample` function returns a number of particles sampled from the belief, and the `Update` function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the `InitialBelief` function in the `DSPOMDP` class. See the `FullChainBelief` class in [examples/cpp_models/chain](../examples/cpp_models/chain) for an example.
+The solver package can work with any belief representation implementing the abstract `Belief` interface. A concrete belief class needs to implement two functions: the `Sample` function returns a number of particles sampled from the belief, and the `Update` function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the `InitialBelief` function in the `DSPOMDP` class. See the `FullChainBelief` class in [examples/cpp_models/chain](../../examples/cpp_models/chain) for an example.
 
 ``` c++
 class Belief {
@@ -473,7 +473,7 @@ public:
 
 #### 2.3.2 Custom Bounds
 
-The lower and upper bounds mentioned in [Section 2.2.4](224-bound-related-functions) are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](../examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
+The lower and upper bounds mentioned in [Section 2.2.4](224-bound-related-functions) are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](../../examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
 
 A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 18. The user needs to implement the `Value` function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
 
@@ -543,7 +543,7 @@ class SimpleRockSampleEastPolicy : public DefaultPolicy {
         }
 };
 ```
-Other examples for implementing lower bound classes can be found in [examples/cpp_models](../examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
+Other examples for implementing lower bound classes can be found in [examples/cpp_models](../../examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
 
 After implementing the lower bound class the user needs to add it to the solver. The `DSPOMDP` interface allows user-defined lower bounds to be easily added by overriding the `CreateScenarioLowerBound` function in the `DSPOMDP` interface. The default implementation of `CreateScenarioLowerBound` only supports the creation of the `TrivialParticleLowerBound`, which returns the lower bound as generated using `GetBestAction`.
 
@@ -593,7 +593,7 @@ We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line 
 See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
 
 ## 3. Creating a World
-For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
+For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
 
 ##### Listing 24. The World class
 ``` c++
@@ -609,7 +609,7 @@ class World{
 	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 }
 ```
-To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](../include/despot/plannerbase.h)):
+To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](../../include/despot/plannerbase.h)):
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
 ```
@@ -626,15 +626,15 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 }
 ```
 
-Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `PlannerBase` in the following way:
+Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `PlannerBase` in the following way:
 ``` c++
 World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
    return InitializePOMDPWorld(world_type, model, options);
 }
 ```
-Check the cpp model examples ([examples/cpp_models/](../examples/cpp_models)) to see more usage examples. 
+Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models)) to see more usage examples. 
 
-## 5. Running the Planning
+## 4. Running the Planning
 
 After defining the POMDP model and the world, the user can run the planning through the `Planner` class. 
 
@@ -669,7 +669,7 @@ int main(int argc, char* argv[]) {
    return MyPlanner().runEvaluation(argc, argv);
 }
 ```
-The evaluation pipeline will repeat the planning process (as defined in `PLanningLoop`) for multiple times and evaluate the performance of despot according to the conducted trials. Check "[despot/planner.h](../include/despot/planner.h)" for implementation details.
+The evaluation pipeline will repeat the planning process (as defined in `PLanningLoop`) for multiple times and evaluate the performance of despot according to the conducted trials. Check "[despot/planner.h](../../include/despot/planner.h)" for implementation details.
 
 ## 4. References
 
