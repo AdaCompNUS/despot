@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called Tiger. Then the user only needs to change Line 7 in Listing 1 to:
+To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change Line 7 in Listing 1 to:
 ``` c++
 DSPOMDP* model = new Tiger();
 ```
@@ -151,7 +151,7 @@ private:
 
 The state, action and observation spaces are three basic components of a POMDP model.
 
-A state is required to be represented as an instance of the State class or its subclass. The generic state class inherits MemoryObject for memory management, which will be discussed later. It has two member variables: state_id and weight. The former is useful when dealing with simple discrete POMDPs, and the latter is used when the State object represents a weighted particle.
+A state is required to be represented as an instance of the `State` class or its subclass. The generic state class inherits MemoryObject for memory management, which will be discussed later. It has two member variables: state_id and weight. The former is useful when dealing with simple discrete POMDPs, and the latter is used when the State object represents a weighted particle.
 
 ##### Listing 4. The generic state class
 ``` c++
@@ -299,7 +299,7 @@ public:
 };
 ```
 See [2.3.1 Custom Belief](#231-custom-belief) for further details on implementing a custom belief class.
-As an alternative to implementing an own belief class, one may use the `ParticleBelief` class available in the solver package. The `ParticleBelief` class implements SIR (sequential importance resampling) particle filter, and inherits from Belief class. It is used as the default belief.
+As an alternative to implementing an own belief class, one may use the `ParticleBelief` class available in the solver package. The `ParticleBelief` class implements SIR (sequential importance resampling) particle filter, and inherits from `Belief` class. It is used as the default belief.
 
 To use `ParticleBelief` class, the only function to be implemented is the `ObsProb` function. The `ObsProb` function is required in `ParticleBelief` for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
 
@@ -640,7 +640,7 @@ Usage:
 ``` c++
 #include <despot/plannerbase.h>
 ```
-The original class *SimpleTUI* has been moved to *PlannerBase* and its child class *Planner*. *PlannerBase* offers interfaces to initialze the planner, while the main pipelines are managed by the *Planner* class. Users now need to implement two additional interfaces in *PlannerBase*:
+The original class `SimpleTUI` has been moved to `PlannerBase` and its child class `Planner`. `PlannerBase` offers interfaces to initialze the planner, while the main pipelines are managed by the `Planner` class. Users now need to implement two additional interfaces in `PlannerBase`:
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
 ```
@@ -677,7 +677,7 @@ Usage:
 ```
 
 #### Reward Function
-The _ExecuteAction_ function in the *World* class doesn't generate rewards. A new virtual function *Reward* is added in the _DSPOMDP_ class to enable reward monitoring after executing an action:
+The _ExecuteAction_ function in the `World` class doesn't generate rewards. A new virtual function `Reward` is added in the `DSPOMDP` class to enable reward monitoring after executing an action:
 ``` c++
 // Returns the reward for taking an action at a state
 virtual double Reward(const State& state, ACT_TYPE action) const;
@@ -695,7 +695,7 @@ virtual ValuedAction GetBestAction() const = 0;
 ```
 
 #### CreateStartState Function
-*CreateStartState* is no longer an essential interface in *DSPOMDP*, because its functionality have been taken over by the *Initialize* function in the *World* class. However, users can optionally reload this function and make use of it, for instance, in the *InitialBelief* function.
+`CreateStartState` is no longer an essential interface in `DSPOMDP`, because its functionality have been taken over by the `Initialize` function in the `World` class. However, users can optionally reload this function and make use of it, for instance, in the `InitialBelief` function.
 
 ### ACT_TYPE
 Data type of actions are now specified by a more general *ACT_TYPE* flag. Users can define *ACT_TYPE* to be any valid data type (int, unsigned int, short, long...) in [despot/core/globals.h](../include/despot/core/globals.h). This change affects all interfaces and functions that take action parameters or return action values.
@@ -704,7 +704,7 @@ Data type of actions are now specified by a more general *ACT_TYPE* flag. Users 
 ``` c++
 #include <despot/baseline_solver.h>
 ```
-These two classes are wrappers for using *ScenarioLowerBound* and *BeliefLowerBound* as baseline solvers. In particular, *ScenarioBaselineSolver* and *BeliefBaselineSolver* inherit *Solver* and overwrite the *search* function in it. The new *search* functions in the baseline solvers select an action using the *Value* function in the corresponding lower bound. For more details on the usage, check the *PlannerBase::InitializeSolver* function in [src/plannerbase.cpp](../src/plannerbase.cpp)
+These two classes are wrappers for using `ScenarioLowerBound` and `BeliefLowerBound` as baseline solvers. In particular, *ScenarioBaselineSolver* and *BeliefBaselineSolver* inherit *Solver* and overwrite the *search* function in it. The new *search* functions in the baseline solvers select an action using the *Value* function in the corresponding lower bound. For more details on the usage, check the *PlannerBase::InitializeSolver* function in [src/plannerbase.cpp](../src/plannerbase.cpp)
 
 ## Core Code Changes
 
