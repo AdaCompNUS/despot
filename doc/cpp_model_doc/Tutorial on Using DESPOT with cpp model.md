@@ -103,16 +103,19 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return RSPlanner().runEvaluation(argc, argv);
+  return RSPlanner().runPlanning(argc, argv);
 }
 
 ```
 
-To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change Line 7 in Listing 1 to:
+To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change `InitializeModel` in Listing 1 to:
 ``` c++
-DSPOMDP* model = new Tiger();
+DSPOMDP* InitializeModel(option::Option* options) {
+    DSPOMDP* model = new Tiger();
+    return model;
+}
 ```
-If there are paremeters to set for the problem, they can be specified in `InitializeDefaultParameters()` (Line 11 in Listing 1). 
+If there are paremeters to set for the problem, they can be specified in `InitializeDefaultParameters()`.
 
 ### 2.2. Essential functions
 
@@ -128,13 +131,12 @@ public:
     virtual int NumActions() const = 0;
  
     /* Deterministic simulative model.*/
-    virtual bool Step(State& state, double random_num, int action,
+    virtual bool Step(State& state, double random_num, ACT_TYPE action,
         double& reward, OBS_TYPE& obs) const = 0;
  
     /* Functions related to beliefs and starting states.*/
-    virtual double ObsProb(OBS_TYPE obs, const State& state, int action) const = 0;
+    virtual double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const = 0;
     virtual Belief* InitialBelief(const State* start, string type = "DEFAULT") const = 0;
-    virtual State* CreateStartState(string type = "DEFAULT") const = 0;
  
     /* Bound-related functions.*/
     virtual double GetMaxReward() const = 0;
@@ -151,13 +153,12 @@ public:
     Hence we won't discuss them in this tutorial*/
  
     /* ======= Display Functions: ========*/
- 
     /* Prints a state. */
     virtual void PrintState(const State& state, std::ostream& out = std::cout) const = 0;
     /*  Prints an observation. */
     virtual void PrintObs(const State& state, OBS_TYPE obs, std::ostream& out = std::cout) const = 0;
     /* Prints an action. */
-    virtual void PrintAction(int action, std::ostream& out = std::cout) const = 0;
+    virtual void PrintAction(ACT_TYPE action, std::ostream& out = std::cout) const = 0;
     /* Prints a belief. */
     virtual void PrintBelief(const Belief& belief, std::ostream& out = std::cout) const = 0;
     /* Returns number of allocated particles. */
@@ -175,13 +176,12 @@ public:
     int NumActions() const;
  
     /* Deterministic simulative model.*/
-    bool Step(State& state, double random_num, int action,
+    bool Step(State& state, double random_num, ACT_TYPE action,
         double& reward, OBS_TYPE& obs) const;
  
     /* Functions related to beliefs and starting states.*/
-    double ObsProb(OBS_TYPE obs, const State& state, int action) const;
+    double ObsProb(OBS_TYPE obs, const State& state, ACT_TYPE action) const;
     Belief* InitialBelief(const State* start, string type = "DEFAULT") const;
-    State* CreateStartState(string type = "DEFAULT") const;
  
     /* Bound-related functions.*/
     double GetMaxReward() const;
@@ -243,7 +243,7 @@ public:
 };
 ```
 
-Actions are represented as consecutive integers of int type starting from 0, and the user is required to implement the `NumActions()` function which simply returns the total number of actions.
+Actions are represented as consecutive integers of int type starting from 0, which is redefined as `ACT_TYPE` using `typedef`. The user is required to implement the `NumActions()` function which simply returns the total number of actions.
 
 ##### Listing 6. Implementation of NumActions() for SimpleRockSample.
 ``` c++
@@ -285,7 +285,7 @@ A deterministic simulative model for a POMDP is a function *g(s, a, r) = <s', o>
 ##### Listing 9. A deterministic simulative model for SimpleRockSample
 
 ``` c++
-bool SimpleRockSample::Step(State& state, double rand_num, int action,
+bool SimpleRockSample::Step(State& state, double rand_num, ACT_TYPE action,
         double& reward, OBS_TYPE& obs) const {
     SimpleState& simple_state = static_cast < SimpleState& >(state);
     int& rover_position = simple_state.rover_position;
@@ -346,7 +346,7 @@ public:
   Belief(const DSPOMDP* model);
  
   virtual vector<State*> Sample(int num) const = 0;
-  virtual void Update(int action, OBS_TYPE obs) = 0;
+  virtual void Update(ACT_TYPE action, OBS_TYPE obs) = 0;
 };
 ```
 See [2.3.1 Custom Belief](#231-custom-belief) for further details on implementing a custom belief class.
@@ -357,7 +357,7 @@ To use `ParticleBelief` class, the only function to be implemented is the `ObsPr
 ##### Listing 10. Observation function for SimpleRockSample
 ``` c++
 double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
-    int action) const {
+    ACT_TYPE action) const {
     if (action == A_CHECK) {
         const SimpleState& simple_state = static_cast < const SimpleState& >(state);
         int rover_position = simple_state.rover_position;
@@ -403,15 +403,6 @@ Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
             exit(1);
         }
 }
-```
-
-The `CreateStartState` function is used to sample starting states in simulations. The starting state is generally sampled from the initial belief, but it may be sampled from a different distribution in some problems. Users may use the argument type to choose how the starting state is sampled.
-
-##### Listing 12. Sample a starting state from the initial belief for SimpleRockSample
-``` c++	
-State* SimpleRockSample::CreateStartState(string type) const {
-  return new SimpleState(MIDDLE, Random::RANDOM.NextInt(2)));
-}  
 ```
 #### 2.2.4. Bound-related Functions
 
@@ -477,7 +468,7 @@ public:
     Belief(const DSPOMDP* model);
  
     virtual vector<State*> Sample(int num) const = 0;
-    virtual void Update(int action, OBS_TYPE obs) = 0;
+    virtual void Update(ACT_TYPE action, OBS_TYPE obs) = 0;
 };
 ```
 
@@ -531,7 +522,7 @@ public:
     Policy(const DSPOMDP* model, ParticleLowerBound* bound, Belief* belief = NULL);
     virtual ~Policy();
  
-    virtual int Action(const vector<State*>& particles,
+    virtual ACT_TYPE Action(const vector<State*>& particles,
         RandomStreams& streams, History& history) const = 0;
 };
 ```
@@ -547,7 +538,7 @@ class SimpleRockSampleEastPolicy : public policy {
         SimpleRockSampleEastPolicy(const DSPOMDP* model, ParticleLowerBound* bound)
             : Policy(model, bound){}
  
-        int Action(const vector<State*>& particles,
+        ACT_TYPE Action(const vector<State*>& particles,
                 RandomStreams& streams, History& history) const {
             return A_EAST; // move east
         }
@@ -598,6 +589,10 @@ Once a lower bound is added and the package is recompiled, the user can choose t
 ```
 We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line options. 
 
+## 2.4. Other Examples
+
+See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
+
 ## 3. Creating a World
 For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
 
@@ -636,9 +631,48 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 }
 ```
 
-## 5. Other Examples
+Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `PlannerBase` in the following way:
+``` c++
+World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
+   return InitializePOMDPWorld(world_type, model, options);
+}
+```
+Check the cpp model examples ([examples/cpp_models/](../examples/cpp_models)) to see more usage examples. 
 
-See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
+## 5. Running the Planning
+
+After defining the POMDP model and the world, the user can run the planning through the `Planner` class. 
+``` c++
+Class Planner: public PlannerBase {
+public:
+   /*Perform one planning step*/
+   bool runStep(Solver* solver, World* world, Logger* logger);
+   /*Perform planning for a fixed number of steps or till a terminal state is reached*/
+   void PlanningLoop(Solver*& solver, World* world, Logger* logger);
+   /*Run the planning pipeline*/
+   int runPlanning(int argc, char* argv[]);
+   /*The evaluation pipeline: repeat the planning for multiple trials*/
+   void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief, std::string belief_type, Solver *&solver, Logger* logger, option::Option *options, clock_t main_clock_start, int num_runs, int start_run);
+   /*Run the evaluation pipeline*/
+   int runEvaluation(int argc, char* argv[]);
+}
+```
+The despot package offers two types of pipelines: the planning pipeline handled by the *PlanningLoop* function, and evaluation pipeline handled by the *EvaluationLoop* function. Users can launch the planning pipeline by inheriting the *Planner* classes, and calling *runPlanning* in the *main* function subsequently:
+``` c++
+int main(int argc, char* argv[]) {
+   return MyPlanner().runPlanning(argc, argv);
+}
+```
+
+The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. It can be customized through overwriting the *PlanningLoop* and *runStep* functions. 
+
+Alternatively, given a simulated world, the user can run the evaluation pipeline by calling *Planner::runEvaluation*:
+``` c++
+int main(int argc, char* argv[]) {
+   return MyPlanner().runEvaluation(argc, argv);
+}
+```
+The evaluation pipeline will repeat the planning process (as defined in *PLanningLoop*) for multiple times and evaluate the performance of despot according to the conducted trials. Check "[despot/planner.h](../include/despot/planner.h)" for implementation details.
 
 ## 4. References
 
