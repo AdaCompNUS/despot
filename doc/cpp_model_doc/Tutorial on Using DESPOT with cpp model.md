@@ -1,6 +1,28 @@
-# Despot Release 0.1 Change Log
+# Tutorial on Using DESPOT
 
-## Package Contents (updated)
+## 1. Overview
+
+DESPOT[1] is an anytime online POMDP planning algorithm. It performs heuristic search in a sparse belief tree conditioned under a set of sampled "scenarios". Each scenario considered in DESPOT comprises a sampled starting state, referred to as a "particle" in this tutorial, together with a stream of random numbers to determinize future transitions and observations. To use our solver package, the user first needs to represent the POMDP in one of the following ways:
+
+- specify the POMDP in POMDPX format as described in the POMDPX documentation, or
+- specify a deterministic simulative model [1] for the POMDP in C++ according to the DSPOMDP interface included in the DESPOT solver package ([Section 2](#2.-coding-a-C++-model)). 
+
+Which type of model is better? A POMDPX model requires relatively less programming, and some domain-independent bounds are provided to guide the policy search in DESPOT. However, POMDPX can only be used to represent POMDPs which are not very large, and an exact representation of the POMDP is needed. The C++ model requires more programming, but it comes with the full flexibility of integrating the user's domain knowledge into the policy search process. In addition, it can represent extremely large problems, and only a black-box simulator ‐ rather than an exact representation of the POMDP ‐ is needed. To enjoy the full power of DESPOT, a C++ model is encouraged.
+In this tutorial, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model (Section 2.1). Then we explain how to code a C++ model from scratch including the essential functions (Section 2.2) and optional ones that may make the search more efficient (Section 2.3). Finally, Section 3 gives references to other example problems. 
+
+## 2. Coding a C++ Model
+
+ We explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
+
+   - representation of states, actions and observations,
+   - the deterministic simulative model,
+   - functions related to beliefs and starting states, such as constructing intial belief
+   - bound-related functions, and
+   - memory management functions. 
+
+We shall start with the minimal set of functions that need to be implemented in a C++ model (Section 2.2), and then explain how to implement additional functions which can be used to get better performance (Section 2.3). 
+
+## Package Contents
 
 ```
 Makefile                  Makefile for compiling the solver library
