@@ -33,7 +33,7 @@ As with the original version of the problem, the rover knows exactly its own loc
 
 #### 2.1.1 Using C++ Models
 
-DESPOT can be used to solve a POMDP specified in C++ according to the DSPOMDP interface in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
+DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
 
 ##### Listing 1. Code snippet for running simulations using DESPOT
 
@@ -114,7 +114,7 @@ public:
 };
 ```
 
-The following declaration of the SimpleRockSample class implements the DSPOMDP interface above. The code is the same as the interface except that the functions are no longer pure virtual, and a MemoryPool object is declared for memory management. In the following we will discuss each function and its implementation in detail.
+The following declaration of the `SimpleRockSample` class implements the `DSPOMDP` interface above. The code is the same as the interface except that the functions are no longer pure virtual, and a MemoryPool object is declared for memory management. In the following we will discuss each function and its implementation in detail.
 
 ##### Listing 3. Declaration of the SimpleRockSample class
 ``` c++
@@ -169,7 +169,7 @@ public:
     }
 };
 ```
-For SimpleRockSample, we could actually use the generic state class to represent its states by mapping each state to an integer, but we define customized state class to illustrate how this can be done.
+For `SimpleRockSample`, we could actually use the generic state class to represent its states by mapping each state to an integer, but we define customized state class to illustrate how this can be done.
 
 ##### Listing 5. The state class for SimpleRockSample
  
@@ -200,7 +200,7 @@ int SimpleRockSample::NumActions() const {
     return 4; 
 }
 ```
-For the sake of readability, we use an enum to represent actions for SimpleRockSample
+For the sake of readability, we use an enum to represent actions for `SimpleRockSample`
 
 ##### Listing 7. Action enum for SimpleRockSample
 ``` c++
@@ -212,7 +212,7 @@ enum {
 };
 ```
 
-Observations are represented as integers of type `uint64_t`, which is also named as `OBS_TYPE` using `typedef`. Unlike the actions, the set of observations does not need to be consecutive integers. Note that both actions and observations need to be represented as or mapped into integers due to some implementation constrains. For SimpleRockSample, we use an enum to represent the observations.
+Observations are represented as integers of type `uint64_t`, which is also named as `OBS_TYPE` using `typedef`. Unlike the actions, the set of observations does not need to be consecutive integers. Note that both actions and observations need to be represented as or mapped into integers due to some implementation constrains. For `SimpleRockSample`, we use an enum to represent the observations.
 
 ##### Listing 8. Observation enum for SimpleRockSample
 	
@@ -225,7 +225,7 @@ enum {
 
 #### 2.2.2. Deterministic Simulative Model
 
-A deterministic simulative model for a POMDP is a function *g(s, a, r) = <s', o>* such that when random number r is randomly distributed in *[0,1]*, *<s', o>* is distributed according to *P(s', o | s, a)*. The deterministic simulative model is implemented in the Step function. Step function takes a state *s* and an action *a* as the inputs, and simulates the real execution of action *a* on state *s*, then outputs the resulting state *s'*, the corresponding reward and observation. The argument names are self-explanatory, but note that:
+A deterministic simulative model for a POMDP is a function *g(s, a, r) = <s', o>* such that when random number r is randomly distributed in *[0,1]*, *<s', o>* is distributed according to *P(s', o | s, a)*. The deterministic simulative model is implemented in the `Step` function. `Step` function takes a state *s* and an action *a* as the inputs, and simulates the real execution of action *a* on state *s*, then outputs the resulting state *s'*, the corresponding reward and observation. The argument names are self-explanatory, but note that:
 
  - there is a single State object which is used to represent both *s* and *s'*,
  - the function returns true if and only if executing a on s results in a terminal state. 
@@ -301,7 +301,7 @@ public:
 See [2.3.1 Custom Belief](#2-3-1-custom-belief) for further details on implementing a custom belief class.
 As an alternative to implementing an own belief class, one may use the `ParticleBelief` class available in the solver package. The `ParticleBelief` class implements SIR (sequential importance resampling) particle filter, and inherits from Belief class. It is used as the default belief.
 
-To use ParticleBelief class, the only function to be implemented is the ObsProb function. The ObsProb function is required in ParticleBelief for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
+To use `ParticleBelief` class, the only function to be implemented is the `ObsProb` function. The `ObsProb` function is required in `ParticleBelief` for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
 
 ##### Listing 10. Observation function for SimpleRockSample
 ``` c++
@@ -354,7 +354,7 @@ Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
 }
 ```
 
-The CreateStartState function is used to sample starting states in simulations. The starting state is generally sampled from the initial belief, but it may be sampled from a different distribution in some problems. Users may use the argument type to choose how the starting state is sampled.
+The `CreateStartState` function is used to sample starting states in simulations. The starting state is generally sampled from the initial belief, but it may be sampled from a different distribution in some problems. Users may use the argument type to choose how the starting state is sampled.
 
 ##### Listing 12. Sample a starting state from the initial belief for SimpleRockSample
 ``` c++	
@@ -366,7 +366,7 @@ State* SimpleRockSample::CreateStartState(string type) const {
 
 The heuristic search in DESPOT is guided by upper and lower bounds on the discounted infinite-horizon value that can be obtained on a set of scenarios. The `DSPOMDP` interface requires implementing the `GetBestAction` function and the `GetMaxReward` function to construct the simplest such bounds (uninformative bounds).
 
-The `GetBestAction` function returns `(a, v)`, where a is an action with the largest minimum immediate reward when it is executed, and `v` is its worst-case immediate reward. This can be comupted by first finding the immediate reward for each action a in the worst case, i.e. the minimum immediate reward for each a. The `GetBestAction` function should then return the largest of these worst case immediate reward values, and the corresponding action.
+The `GetBestAction` function returns *(a, v)*, where a is an action with the largest minimum immediate reward when it is executed, and `v` is its worst-case immediate reward. This can be comupted by first finding the immediate reward for each action a in the worst case, i.e. the minimum immediate reward for each a. The `GetBestAction` function should then return the largest of these worst case immediate reward values, and the corresponding action.
 
 In the simple rock sample problem, the worst case for executing the Sample action is when the agent is not on a rock, where the minimum immediate reward of Sample is -100. In the worst case, executing West action causes a penalty of -100 when the agent is in the left grid and would go off the grid by moving west. The minimum immediate reward of East is 0 and the minimum immediate reward of Check is 0. The largest minimum immediate reward is 0, and the corresponding action is East or Check. We may choose either of them, i.e., (East, 0) or (Check, 0).
 
@@ -378,7 +378,7 @@ ValuedAction SimpleRockSample::GetMinRewardAction() const {
     return ValuedAction(A_EAST, 0);
 }
 ```
-The GetMaxReward function returns the maximum possible immediate reward *Rmax*. Unlike `GetBestAction`, there is no need to return the corresponding action. DESPOT then bounds the maximum discounted infinite-horizon value that can be obtained on a set of scenarios with total weight *W* by *W Rmax / (1 - γ)*, where *γ* is the discount factor.
+The `GetMaxReward` function returns the maximum possible immediate reward *Rmax*. Unlike `GetBestAction`, there is no need to return the corresponding action. DESPOT then bounds the maximum discounted infinite-horizon value that can be obtained on a set of scenarios with total weight *W* by *W Rmax / (1 - γ)*, where *γ* is the discount factor.
 
 ##### Listing 14. Implementation of GetMaxReward for SimpleRockSample
 ``` c++
@@ -389,7 +389,7 @@ double SimpleRockSample::GetMaxReward() const {
 
 #### 2.2.5 Memory Management
 
-DESPOT requires the creation of many State objects during the search. The creation and destruction of these objects are expensive, so they are done using the Allocate, Copy, and Free functions to allow users to provide their own memory management mechanisms to make these operations less expensive. We provide a solution based on the memory management technique in David Silver's implementation of the POMCP algorithm. The idea is to create new State objects in chunks (instead of one at a time), and put objects in a free list for recycling when they are no longer needed (instead of deleting them). The following code serves as a template of how this can be done. We have implemented the memory management class. To use it the user only needs to implement the following three functions.
+DESPOT requires the creation of many State objects during the search. The creation and destruction of these objects are expensive, so they are done using the `Allocate`, `Copy`, and `Free` functions to allow users to provide their own memory management mechanisms to make these operations less expensive. We provide a solution based on the memory management technique in David Silver's implementation of the POMCP algorithm. The idea is to create new State objects in chunks (instead of one at a time), and put objects in a free list for recycling when they are no longer needed (instead of deleting them). The following code serves as a template of how this can be done. We have implemented the memory management class. To use it the user only needs to implement the following three functions.
 
 ##### Listing 15. Memory management functions for SimpleRockSample.
 ``` c++
@@ -418,7 +418,7 @@ Accurate belief tracking and good bounds are important for getting good performa
 
 #### 2.3.1 Custom Belief
 
-The solver package can work with any belief representation implementing the abstract Belief interface. A concrete belief class needs to implement two functions: the Sample function returns a number of particles sampled from the belief, and the Update function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the InitialBelief function in the `DSPOMDP` class. See the FullChainBelief class in [examples/cpp_models/chain](examples/cpp_models/chain) for an example.
+The solver package can work with any belief representation implementing the abstract `Belief` interface. A concrete belief class needs to implement two functions: the `Sample` function returns a number of particles sampled from the belief, and the `Update` function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the `InitialBelief` function in the `DSPOMDP` class. See the `FullChainBelief` class in [examples/cpp_models/chain](examples/cpp_models/chain) for an example.
 
 ``` c++
 class Belief {
@@ -434,7 +434,7 @@ public:
 
 The lower and upper bounds mentioned in Section 2.2.4 are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
 
-A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 16. The user needs to implement the Value function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
+A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 16. The user needs to implement the `Value` function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
 
 ##### Listing 16. The ScenarioLowerBound interface
 ``` c++
@@ -504,7 +504,7 @@ class SimpleRockSampleEastPolicy : public policy {
 ```
 Other examples for implementing lower bound classes can be found in [examples/cpp_models](examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
 
-After implementing the lower bound class the user needs to add it to the solver. The DSPOMDP interface allows user-defined lower bounds to be easily added by overriding the CreateScenarioLowerBound function in the `DSPOMDP` interface. The default implementation of `CreateScenarioLowerBound` only supports the creation of the `TrivialParticleLowerBound`, which returns the lower bound as generated using `GetBestAction`.
+After implementing the lower bound class the user needs to add it to the solver. The `DSPOMDP` interface allows user-defined lower bounds to be easily added by overriding the `CreateScenarioLowerBound` function in the `DSPOMDP` interface. The default implementation of `CreateScenarioLowerBound` only supports the creation of the `TrivialParticleLowerBound`, which returns the lower bound as generated using `GetBestAction`.
 
 ##### Listing 20. DSPOMDP code related to supporting user-defined lower bounds.
 ``` c++
@@ -521,7 +521,7 @@ public:
     }
 };
 ```
-The following code adds this lower bound to SimpleRockSample and sets it as the default scenario lower bound.
+The following code adds this lower bound to `SimpleRockSample` and sets it as the default scenario lower bound.
 
 ##### Listing 21. Adding SimpleRockSampleEastPolicy.
 
@@ -584,7 +584,7 @@ doc/eclipse_guide.md      Guide for using Eclipse IDE for development
 ```
 
 ### Interface Folders
-All header and source files related to despot interfaces such as *DSPOMDP*, *World*, *Belief*, etc. have been moved to the new "*interface*" folders under "[include/despot/](../include/despot)" and "[src/](../src)". These files include:
+All header and source files related to despot interfaces such as `DSPOMDP`, `World`, `Belief`, etc. have been moved to the new "*interface*" folders under "[include/despot/](../include/despot)" and "[src/](../src)". These files include:
 ```
 include/despot/interface/pomdp.h
 include/despot/interface/world.h
@@ -599,10 +599,10 @@ src/interface/lower_bound.cpp
 src/interface/upper_bound.cpp
 src/interface/default_policy.cpp
 ```
-Note that the original *Policy* class have been renamed to *DefaultPolicy*. The filenames have also been changed accordingly.
+Note that the original `Policy` class have been renamed to `DefaultPolicy`. The filenames have also been changed accordingly.
 
 ### Built-in Implementations of Interfaces
-Built-in belief, lower bound, and upper bound types are now separated from the interface classes (such as *Belief*, *ScenarioLowerBound*, *ScenarioUpperBound*, and so on). These built-in implementations are moved to the following new files:
+Built-in belief, lower bound, and upper bound types are now separated from the interface classes (such as `Belief`, `ScenarioLowerBound`, `ScenarioUpperBound`, and so on). These built-in implementations are moved to the following new files:
 ```
 include/despot/core/pomdp_world.h
 include/despot/core/particle_belief.h
