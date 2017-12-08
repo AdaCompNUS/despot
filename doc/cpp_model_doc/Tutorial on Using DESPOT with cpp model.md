@@ -41,6 +41,7 @@ src/core/builtin_policy.cpp
 ``` 
 
 The rest of this turtorial is organized as follows. [Section 2](#2-defining-a-pomdp-model) explains how to define a POMDP model for a problem to be used by the DESPOT solver. In [Section 3](#3-creating-a-world) we illustrate how to build up a world model and connect it with the DESPOT solver. Finally, [Section 4](#4-running-the-planning) elaborates how to initialize the DESPOT solver and run the planning.
+
 ## 2. Defining a POMDP model
 
 The user can represent the POMDP in one of the following ways:
@@ -73,7 +74,7 @@ As with the original version of the problem, the rover knows exactly its own loc
 
 #### 2.1.1 Using C++ Models
 
-DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
+DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to pass the model to DESPOT.
 
 ##### Listing 3. Code snippet for running simulations using DESPOT
 
@@ -87,18 +88,8 @@ public:
       DSPOMDP* model = new SimpleRockSample();
       return model;
   }
-
-  World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options)
-  {
-      return InitializePOMDPWorld(world_type, model, options);
-  }
-
-  void InitializeDefaultParameters() {
-  }
-
-  std::string ChooseSolver(){
-      return "DESPOT";
-  }
+  
+  ...
 };
 
 int main(int argc, char* argv[]) {
@@ -114,7 +105,6 @@ DSPOMDP* InitializeModel(option::Option* options) {
     return model;
 }
 ```
-If there are paremeters to set for the problem, they can be specified in `InitializeDefaultParameters()`.
 
 ### 2.2. Essential functions
 
@@ -339,6 +329,9 @@ bool SimpleRockSample::Step(State& state, double rand_num, ACT_TYPE action,
 #### 2.2.3. Beliefs and Starting States
 
 Our solver package supports arbitrary belief representations: The user may use a custom belief representation by implementing the `Belief` interface, which only needs to support sampling of particles, and updating the belief.
+
+##### Listing 12. The belief class
+
 ``` c++
 class Belief {
 public:
@@ -353,7 +346,7 @@ As an alternative to implementing an own belief class, one may use the `Particle
 
 To use `ParticleBelief` class, the only function to be implemented is the `ObsProb` function. The `ObsProb` function is required in `ParticleBelief` for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
 
-##### Listing 12. Observation function for SimpleRockSample
+##### Listing 13. Observation function for SimpleRockSample
 ``` c++
 double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
     ACT_TYPE action) const {
@@ -379,7 +372,7 @@ double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
 
 The following code shows how the initial belief for `SimpleRockSample` can be represented by `ParticleBelief`. This example does not use the parameter start, but in general, one can use start to pass partial information about the starting state to the initial belief, and use type to select different types of initial beliefs (such as uniform belief, or skewed belief), where type is specified using the command line option `--belief` or `-b`, with a value of "DEFAULT" if left unspecified.
 
-##### Listing 13. Initial belief for SimpleRockSample
+##### Listing 14. Initial belief for SimpleRockSample
 ``` c++
 Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
         vector<State*> particles;
@@ -593,7 +586,7 @@ We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line 
 See [examples/cpp_models](examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
 
 ## 3. Creating a World
-For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
+For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a `World` abstract class ([despot/interface/world.h](../../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
 
 ##### Listing 24. The World class
 ``` c++
@@ -636,9 +629,10 @@ Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models))
 
 ## 4. Running the Planning
 
-After defining the POMDP model and the world, the user can run the planning through the `Planner` class. 
+After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user need to choose the DESPOT solver by implementing the `ChooseSolver` function (Listing 26 Line 7). If there are paremeters to set for the problem, they can be specified in `InitializeDefaultParameters()` (Listing 26 Line 4).
 
 ##### Listing 25. The Planner class
+
 ``` c++
 Class Planner: public PlannerBase {
 public:
@@ -654,6 +648,22 @@ public:
    int runEvaluation(int argc, char* argv[]);
 }
 ```
+##### Listing 26. A custom planner
+
+``` c++
+class RSPlanner: public Planner {
+public:
+  ...
+  void InitializeDefaultParameters() {
+  }
+
+  std::string ChooseSolver(){
+      return "DESPOT";
+  }
+  ...
+};
+```
+
 The despot package offers two types of pipelines: the planning pipeline handled by the `PlanningLoop` function, and evaluation pipeline handled by the `EvaluationLoop` function. Users can launch the planning pipeline by inheriting the `Planner` classes, and calling `runPlanning` in the `main` function subsequently:
 ``` c++
 int main(int argc, char* argv[]) {
