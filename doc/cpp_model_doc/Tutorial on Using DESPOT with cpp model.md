@@ -67,7 +67,7 @@ We shall start with the minimal set of functions that need to be implemented in 
 
 We will use a simplified version of the RockSample problem [2] as our running example. The complete C++ model of this example can be found in [examples/cpp_models/simple_rock_sample](../../examples/cpp_models/simple_rock_sample). Note that the [examples/cpp_models/rock_sample](../../examples/cpp_models/rock_sample) folder contains a more complex version of the RockSample problem. The RockSample POMDP models a rover on an exploration mission. The rover can achieve rewards by sampling rocks in its current area. Consider a map of size 1 x 3 as shown in Figure 1, with one rock at the left end and the terminal state at the right end. The rover starts off at the center and its possible actions are A = {West, East, Sample, Check}.
 
-![](images/Rocks_sample_problem.png)
+![](images/rockmap.jpg)
 **Figure 1. The 1 x 3 RockSample problem world.**
 
 As with the original version of the problem, the rover knows exactly its own location and the rock's location, but it is unaware of the status of the rock (good or bad). It can execute the Check action to get observations of the status *(O = {Good, Bad})*, and its observation is correct with probability 1 if the rover is at the rock's location, 0.8 otherwise. The Sample action samples the rock at the rover's current location. If the rock is good, the rover receives a reward of 10 and the rock becomes bad. If the rock is bad, it receives a penalty of −10. Moving into the terminal area yields a reward of 10 and terminates the task. Moving off the grid and sampling in a grid where there is no rock result in a penalty of −100, and terminate the task. All other moves have no cost or reward. 
