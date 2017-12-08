@@ -156,7 +156,7 @@ public:
 };
 ```
 
-The following declaration of the `SimpleRockSample` class implements the `DSPOMDP` interface above. The code is the same as the interface except that the functions are no longer pure virtual, and a MemoryPool object is declared for memory management. In the following we will discuss each function and its implementation in detail.
+The following declaration of the `SimpleRockSample` class implements the `DSPOMDP` interface above. The code is the same as the interface except that the functions are no longer pure virtual, and a `MemoryPool` object is declared for memory management. In the following we will discuss each function and its implementation in detail.
 
 ##### Listing 5. Declaration of the SimpleRockSample class
 ``` c++
@@ -192,7 +192,7 @@ private:
 
 The state, action and observation spaces are three basic components of a POMDP model.
 
-A state is required to be represented as an instance of the `State` class or its subclass. The generic state class inherits MemoryObject for memory management, which will be discussed later. It has two member variables: state_id and weight. The former is useful when dealing with simple discrete POMDPs, and the latter is used when the State object represents a weighted particle.
+A state is required to be represented as an instance of the `State` class or its subclass. The generic state class inherits `MemoryObject` for memory management, which will be discussed later. It has two member variables: state_id and weight. The former is useful when dealing with simple discrete POMDPs, and the latter is used when the State object represents a weighted particle.
 
 ##### Listing 6. The generic state class
 ``` c++
