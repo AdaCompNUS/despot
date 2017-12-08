@@ -671,7 +671,7 @@ int main(int argc, char* argv[]) {
 ```
 The evaluation pipeline will repeat the planning process (as defined in `PLanningLoop`) for multiple times and evaluate the performance of despot according to the conducted trials. Check "[despot/planner.h](../../include/despot/planner.h)" for implementation details.
 
-## 4. References
+## 5. References
 
 [1] A. Somani and N. Ye and D. Hsu and W.S. Lee. DESPOT: Online POMDP Planning with Regularization. In Advances In Neural Information Processing Systems, 2013.
 
