@@ -40,18 +40,17 @@ src/core/builtin_upper_bounds.cpp
 src/core/builtin_policy.cpp
 ``` 
 
-The rest of this turtorial is organized as follows. [Section 2] explains how to define a POMDP model for a problem to be used by the DESPOT solver. In [Section 3](#creating-a-world) we illustrate how to build up a world model and connect it with the DESPOT solver. Finally, [Section 4](#runing-the-planning) elaborates how to initialize the DESPOT solver and run the planning. We also provide references to other example problems in [Section 5](#5-other-examples). 
-
+The rest of this turtorial is organized as follows. [Section 2](#2-defining-a-pomdp-model) explains how to define a POMDP model for a problem to be used by the DESPOT solver. In [Section 3](#3-creating-a-world) we illustrate how to build up a world model and connect it with the DESPOT solver. Finally, [Section 4](#4-running-the-planning) elaborates how to initialize the DESPOT solver and run the planning.
 ## 2. Defining a POMDP model
 
 The user can represent the POMDP in one of the following ways:
 
 - specify the POMDP in POMDPX format as described in the POMDPX documentation, or
-- specify a deterministic simulative model [1] for the POMDP in C++ according to the DSPOMDP interface included in the DESPOT solver package ([Section 2](#2-coding-a-c-model)). 
+- specify a deterministic simulative model [1] for the POMDP in C++ according to the DSPOMDP interface included in the DESPOT solver package. 
 
 Which type of model is better? A POMDPX model requires relatively less programming, and some domain-independent bounds are provided to guide the policy search in DESPOT. However, POMDPX can only be used to represent POMDPs which are not very large, and an exact representation of the POMDP is needed. The C++ model requires more programming, but it comes with the full flexibility of integrating the user's domain knowledge into the policy search process. In addition, it can represent extremely large problems, and only a black-box simulator ‐ rather than an exact representation of the POMDP ‐ is needed. To enjoy the full power of DESPOT, a C++ model is encouraged.
 
-In this section, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model ([Section 2.1](#21-problem)). Then we explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). 
+In this section, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model ([Section 2.1](#21-problem)). Then we explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). We also provide references to other example problems in [Section 2.4](#24-other-examples). 
 
 We explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
 
@@ -61,11 +60,11 @@ We explain and illustrate how a deterministic simulative model of a POMDP can be
    - bound-related functions, and
    - memory management functions. 
 
-We shall start with the minimal set of functions that need to be implemented in a C++ model ([Section 2.2](#22-essential-functions)), and then explain how to implement additional functions which can be used to get better performance ([Section 2.3]()). 
+We shall start with the minimal set of functions that need to be implemented in a C++ model ([Section 2.2](#22-essential-functions)), and then explain how to implement additional functions which can be used to get better performance ([Section 2.3](#23-optional-functions)). 
 
 ### 2.1. Problem
 
-We will use a simplified version of the RockSample problem [2] as our running example. The complete C++ model of this example can be found in [examples/cpp_models/simple_rock_sample](examples/cpp_models/simple_rock_sample). Note that the [examples/cpp_models/rock_sample](examples/cpp_models/rock_sample) folder contains a more complex version of the RockSample problem. The RockSample POMDP models a rover on an exploration mission. The rover can achieve rewards by sampling rocks in its current area. Consider a map of size 1 x 3 as shown in Figure 1, with one rock at the left end and the terminal state at the right end. The rover starts off at the center and its possible actions are A = {West, East, Sample, Check}.
+We will use a simplified version of the RockSample problem [2] as our running example. The complete C++ model of this example can be found in [examples/cpp_models/simple_rock_sample](../examples/cpp_models/simple_rock_sample). Note that the [examples/cpp_models/rock_sample](../examples/cpp_models/rock_sample) folder contains a more complex version of the RockSample problem. The RockSample POMDP models a rover on an exploration mission. The rover can achieve rewards by sampling rocks in its current area. Consider a map of size 1 x 3 as shown in Figure 1, with one rock at the left end and the terminal state at the right end. The rover starts off at the center and its possible actions are A = {West, East, Sample, Check}.
 
 ![](images/Rocks_sample_problem.png)
 **Figure 1. The 1 x 3 RockSample problem world.**
@@ -76,7 +75,7 @@ As with the original version of the problem, the rover knows exactly its own loc
 
 DESPOT can be used to solve a POMDP specified in C++ according to the `DSPOMDP` interface ([despot/interface/pomdp.h](../include/despot/interface/pomdp.h)) in the solver package. Assume for now that a C++ model for the RockSample problem has been implemented as a class called `SimpleRockSample`, then the following code snippet shows how to use DESPOT to solve it.
 
-##### Listing 1. Code snippet for running simulations using DESPOT
+##### Listing 3. Code snippet for running simulations using DESPOT
 
 ``` c++
 class RSPlanner: public Planner {
@@ -108,7 +107,7 @@ int main(int argc, char* argv[]) {
 
 ```
 
-To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change `InitializeModel` in Listing 1 to:
+To solve other problems, for example Tiger [3], the user may implement the `DSPOMDP` interface as a class called `Tiger`. Then the user only needs to change `InitializeModel` in Listing 3 to:
 ``` c++
 DSPOMDP* InitializeModel(option::Option* options) {
     DSPOMDP* model = new Tiger();
@@ -121,7 +120,7 @@ If there are paremeters to set for the problem, they can be specified in `Initia
 
 The following code snippet shows the essential functions in the `DSPOMDP` interface. It also shows some displaying functions, which are used for debugging and are not required by the solver to work correctly. We will only discuss the essential functions.
 
-##### Listing 2. Essential functions in the DSPOMDP interface
+##### Listing 4. Essential functions in the DSPOMDP interface
 ``` c++
 class DSPOMDP { 
 public:
@@ -168,7 +167,7 @@ public:
 
 The following declaration of the `SimpleRockSample` class implements the `DSPOMDP` interface above. The code is the same as the interface except that the functions are no longer pure virtual, and a MemoryPool object is declared for memory management. In the following we will discuss each function and its implementation in detail.
 
-##### Listing 3. Declaration of the SimpleRockSample class
+##### Listing 5. Declaration of the SimpleRockSample class
 ``` c++
 class SimpleRockSample : public DSPOMDP { 
 public:
@@ -204,7 +203,7 @@ The state, action and observation spaces are three basic components of a POMDP m
 
 A state is required to be represented as an instance of the `State` class or its subclass. The generic state class inherits MemoryObject for memory management, which will be discussed later. It has two member variables: state_id and weight. The former is useful when dealing with simple discrete POMDPs, and the latter is used when the State object represents a weighted particle.
 
-##### Listing 4. The generic state class
+##### Listing 6. The generic state class
 ``` c++
 class State : public MemoryObject {
 public:
@@ -222,7 +221,7 @@ public:
 ```
 For `SimpleRockSample`, we could actually use the generic state class to represent its states by mapping each state to an integer, but we define customized state class to illustrate how this can be done.
 
-##### Listing 5. The state class for SimpleRockSample
+##### Listing 7. The state class for SimpleRockSample
  
 ``` c++
 class SimpleState : public State {
@@ -245,7 +244,7 @@ public:
 
 Actions are represented as consecutive integers of int type starting from 0, which is redefined as `ACT_TYPE` using `typedef`. The user is required to implement the `NumActions()` function which simply returns the total number of actions.
 
-##### Listing 6. Implementation of NumActions() for SimpleRockSample.
+##### Listing 8. Implementation of NumActions() for SimpleRockSample.
 ``` c++
 int SimpleRockSample::NumActions() const {
     return 4; 
@@ -253,7 +252,7 @@ int SimpleRockSample::NumActions() const {
 ```
 For the sake of readability, we use an enum to represent actions for `SimpleRockSample`
 
-##### Listing 7. Action enum for SimpleRockSample
+##### Listing 9. Action enum for SimpleRockSample
 ``` c++
 enum {
     A_SAMPLE = 0,
@@ -265,7 +264,7 @@ enum {
 
 Observations are represented as integers of type `uint64_t`, which is also named as `OBS_TYPE` using `typedef`. Unlike the actions, the set of observations does not need to be consecutive integers. Note that both actions and observations need to be represented as or mapped into integers due to some implementation constrains. For `SimpleRockSample`, we use an enum to represent the observations.
 
-##### Listing 8. Observation enum for SimpleRockSample
+##### Listing 10. Observation enum for SimpleRockSample
 	
 ``` c++
 enum {
@@ -282,7 +281,7 @@ A deterministic simulative model for a POMDP is a function *g(s, a, r) = <s', o>
  - the function returns true if and only if executing a on s results in a terminal state. 
  
 
-##### Listing 9. A deterministic simulative model for SimpleRockSample
+##### Listing 11. A deterministic simulative model for SimpleRockSample
 
 ``` c++
 bool SimpleRockSample::Step(State& state, double rand_num, ACT_TYPE action,
@@ -354,7 +353,7 @@ As an alternative to implementing an own belief class, one may use the `Particle
 
 To use `ParticleBelief` class, the only function to be implemented is the `ObsProb` function. The `ObsProb` function is required in `ParticleBelief` for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
 
-##### Listing 10. Observation function for SimpleRockSample
+##### Listing 12. Observation function for SimpleRockSample
 ``` c++
 double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
     ACT_TYPE action) const {
@@ -380,7 +379,7 @@ double SimpleRockSample::ObsProb(OBS_TYPE obs, const State& state,
 
 The following code shows how the initial belief for `SimpleRockSample` can be represented by `ParticleBelief`. This example does not use the parameter start, but in general, one can use start to pass partial information about the starting state to the initial belief, and use type to select different types of initial beliefs (such as uniform belief, or skewed belief), where type is specified using the command line option `--belief` or `-b`, with a value of "DEFAULT" if left unspecified.
 
-##### Listing 11. Initial belief for SimpleRockSample
+##### Listing 13. Initial belief for SimpleRockSample
 ``` c++
 Belief* SimpleRockSample::InitialBelief(const State* start, string type) const {
         vector<State*> particles;
@@ -414,15 +413,15 @@ In the simple rock sample problem, the worst case for executing the Sample actio
 
 DESPOT uses these values to bound the minimum discounted infinite-horizon value that can be obtained on a set of scenarios. When the weight of the scenarious is *w*, the minimum discounted infinite-horizon value is bounded by *Wv / (1 - γ)*, where *γ* is the discount factor. (There is no need to implement this bound, it is included in DESPOT.)
 
-##### Listing 13. Implementation of GetMinRewardAction for SimpleRockSample
+##### Listing 15. Implementation of GetBestAction for SimpleRockSample
 ``` c++
-ValuedAction SimpleRockSample::GetMinRewardAction() const {
+ValuedAction SimpleRockSample::GetBestAction() const {
     return ValuedAction(A_EAST, 0);
 }
 ```
 The `GetMaxReward` function returns the maximum possible immediate reward *Rmax*. Unlike `GetBestAction`, there is no need to return the corresponding action. DESPOT then bounds the maximum discounted infinite-horizon value that can be obtained on a set of scenarios with total weight *W* by *W Rmax / (1 - γ)*, where *γ* is the discount factor.
 
-##### Listing 14. Implementation of GetMaxReward for SimpleRockSample
+##### Listing 16. Implementation of GetMaxReward for SimpleRockSample
 ``` c++
 double SimpleRockSample::GetMaxReward() const {
     return 10;
@@ -433,7 +432,7 @@ double SimpleRockSample::GetMaxReward() const {
 
 DESPOT requires the creation of many State objects during the search. The creation and destruction of these objects are expensive, so they are done using the `Allocate`, `Copy`, and `Free` functions to allow users to provide their own memory management mechanisms to make these operations less expensive. We provide a solution based on the memory management technique in David Silver's implementation of the POMCP algorithm. The idea is to create new State objects in chunks (instead of one at a time), and put objects in a free list for recycling when they are no longer needed (instead of deleting them). The following code serves as a template of how this can be done. We have implemented the memory management class. To use it the user only needs to implement the following three functions.
 
-##### Listing 15. Memory management functions for SimpleRockSample.
+##### Listing 17. Memory management functions for SimpleRockSample.
 ``` c++
 State* SimpleRockSample::Allocate(int state_id, double weight) const {
     SimpleState* state = memory_pool_.Allocate();
@@ -460,7 +459,7 @@ Accurate belief tracking and good bounds are important for getting good performa
 
 #### 2.3.1 Custom Belief
 
-The solver package can work with any belief representation implementing the abstract `Belief` interface. A concrete belief class needs to implement two functions: the `Sample` function returns a number of particles sampled from the belief, and the `Update` function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the `InitialBelief` function in the `DSPOMDP` class. See the `FullChainBelief` class in [examples/cpp_models/chain](examples/cpp_models/chain) for an example.
+The solver package can work with any belief representation implementing the abstract `Belief` interface. A concrete belief class needs to implement two functions: the `Sample` function returns a number of particles sampled from the belief, and the `Update` function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the `InitialBelief` function in the `DSPOMDP` class. See the `FullChainBelief` class in [examples/cpp_models/chain](../examples/cpp_models/chain) for an example.
 
 ``` c++
 class Belief {
@@ -474,11 +473,11 @@ public:
 
 #### 2.3.2 Custom Bounds
 
-The lower and upper bounds mentioned in [Section 2.2.4](224-bound-related-functions) are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
+The lower and upper bounds mentioned in [Section 2.2.4](224-bound-related-functions) are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](../examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
 
-A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 16. The user needs to implement the `Value` function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
+A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 18. The user needs to implement the `Value` function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
 
-##### Listing 16. The ScenarioLowerBound interface
+##### Listing 18. The ScenarioLowerBound interface
 ``` c++
 class ScenarioLowerBound {
 protected:
@@ -495,11 +494,11 @@ public:
         RandomStreams& streams, History& history) const = 0;
 };
 ```
-The user can customize the lower bound by implementing an own lower bound class inheriting directly from the abstract `ScenarioLowerBound` class. Alternatively, we also provide two custom lower bound classes, `ParticleLowerBound` and `Policy`, that inherit from `ScenarioLowerBound` and are already implemented in the solver package.
+The user can customize the lower bound by implementing an own lower bound class inheriting directly from the abstract `ScenarioLowerBound` class. Alternatively, we also provide two custom lower bound classes, `ParticleLowerBound` and `DefaultPolicy`, that inherit from `ScenarioLowerBound` and are already implemented in the solver package.
 
-A `ParticleLowerBound` simply ignores the random numbers in the scenarios, and computes a lower bound for the infinite-horizon value of a set of weighted particles given the action-observation history. Listing 17 shows the interface of `ParticleLowerBound`. To use `ParticleLowerBound`, one needs to implement the `Value` function shown below.
+A `ParticleLowerBound` simply ignores the random numbers in the scenarios, and computes a lower bound for the infinite-horizon value of a set of weighted particles given the action-observation history. Listing 19 shows the interface of `ParticleLowerBound`. To use `ParticleLowerBound`, one needs to implement the `Value` function shown below.
 
-##### Listing 17. The ParticleLowerBound interface
+##### Listing 19. The ParticleLowerBound interface
 
 ``` c++
 class ParticleLowerBound : public ScenarioLowerBound {
@@ -513,30 +512,30 @@ public:
   virtual ValuedAction Value(const vector<State>& particles) const = 0;
 };
  ```
-A Policy defines a policy mapping from the scenarios/history to an action, and runs this policy on the scenarios to obtain a lower bound. The random number streams only has finite length, and a `Policy` uses a `ParticleLowerBound` to estimate a lower bound on the scenarios when all the random numbers have been consumed. Listing 18 shows the interface of `Policy`. To use `Policy`, one needs to implement `Action` function shown below.
+A `DefaultPolicy` defines a policy mapping from the scenarios/history to an action, and runs this policy on the scenarios to obtain a lower bound. The random number streams only has finite length, and a `DefaultPolicy` uses a `ParticleLowerBound` to estimate a lower bound on the scenarios when all the random numbers have been consumed. Listing 20 shows the interface of `DefaultPolicy`. To use `DefaultPolicy`, one needs to implement `Action` function shown below.
  
-##### Listing 18. Code snippet from the Policy class.
+##### Listing 20. Code snippet from the DefaultPolicy class.
 ``` c++
-class Policy : public ScenarioLowerBound {
+class DefaultPolicy : public ScenarioLowerBound {
 public:
-    Policy(const DSPOMDP* model, ParticleLowerBound* bound, Belief* belief = NULL);
-    virtual ~Policy();
+    DefaultPolicy(const DSPOMDP* model, ParticleLowerBound* bound, Belief* belief = NULL);
+    virtual ~DefaultPolicy();
  
     virtual ACT_TYPE Action(const vector<State*>& particles,
         RandomStreams& streams, History& history) const = 0;
 };
 ```
-As an example of a Policy, the following code implements a simple fixed-action policy for `SimpleRockSample`.
+As an example of a `DefaultPolicy`, the following code implements a simple fixed-action policy for `SimpleRockSample`.
 
-##### Listing 19. A simple fixed-action policy for SimpleRockSample.
+##### Listing 21. A simple fixed-action policy for SimpleRockSample.
 ``` c++
-class SimpleRockSampleEastPolicy : public policy {
+class SimpleRockSampleEastPolicy : public DefaultPolicy {
     public:
         enum { // action
             A_SAMPLE = 0, A_EAST = 1, A_WEST = 2, A_CHECK = 3
         };
         SimpleRockSampleEastPolicy(const DSPOMDP* model, ParticleLowerBound* bound)
-            : Policy(model, bound){}
+            : DefaultPolicy(model, bound){}
  
         ACT_TYPE Action(const vector<State*>& particles,
                 RandomStreams& streams, History& history) const {
@@ -544,11 +543,11 @@ class SimpleRockSampleEastPolicy : public policy {
         }
 };
 ```
-Other examples for implementing lower bound classes can be found in [examples/cpp_models](examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
+Other examples for implementing lower bound classes can be found in [examples/cpp_models](../examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
 
 After implementing the lower bound class the user needs to add it to the solver. The `DSPOMDP` interface allows user-defined lower bounds to be easily added by overriding the `CreateScenarioLowerBound` function in the `DSPOMDP` interface. The default implementation of `CreateScenarioLowerBound` only supports the creation of the `TrivialParticleLowerBound`, which returns the lower bound as generated using `GetBestAction`.
 
-##### Listing 20. DSPOMDP code related to supporting user-defined lower bounds.
+##### Listing 22. DSPOMDP code related to supporting user-defined lower bounds.
 ``` c++
 class DSPOMDP {
 public:
@@ -565,7 +564,7 @@ public:
 ```
 The following code adds this lower bound to `SimpleRockSample` and sets it as the default scenario lower bound.
 
-##### Listing 21. Adding SimpleRockSampleEastPolicy.
+##### Listing 23. Adding SimpleRockSampleEastPolicy.
 
 ``` c++	
 ScenarioLowerBound* SimpleRockSample::CreateScenarioLowerBound(string name = "DEFAULT",
@@ -596,7 +595,7 @@ See [examples/cpp_models](examples/cpp_models) for more model examples. We imple
 ## 3. Creating a World
 For DESPOT to communicate with external systems, we need an interface to establish the connections. In the DESPOT solver package, we provide a *World* abstract class ([despot/interface/world.h](../include/despot/interface/world.h)) to serve as the interface between DESPOT and external systems.
 
-The `World` class:
+##### Listing 24. The World class
 ``` c++
 class World{
    public:
@@ -610,7 +609,7 @@ class World{
 	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 }
 ```
-To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](include/despot/plannerbase.h)):
+To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](../include/despot/plannerbase.h)):
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
 ```
@@ -638,6 +637,8 @@ Check the cpp model examples ([examples/cpp_models/](../examples/cpp_models)) to
 ## 5. Running the Planning
 
 After defining the POMDP model and the world, the user can run the planning through the `Planner` class. 
+
+##### Listing 25. The Planner class
 ``` c++
 Class Planner: public PlannerBase {
 public:
