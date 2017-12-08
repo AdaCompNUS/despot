@@ -418,7 +418,7 @@ Accurate belief tracking and good bounds are important for getting good performa
 
 #### 2.3.1 Custom Belief
 
-The solver package can work with any belief representation implementing the abstract Belief interface. A concrete belief class needs to implement two functions: the Sample function returns a number of particles sampled from the belief, and the Update function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the InitialBelief function in the DSPOMDP class. See the FullChainBelief class in [examples/cpp_models/chain](examples/cpp_models/chain) for an example.
+The solver package can work with any belief representation implementing the abstract Belief interface. A concrete belief class needs to implement two functions: the Sample function returns a number of particles sampled from the belief, and the Update function updates the belief after executing an action and receiving an observation. To allow the solver to use a custom belief, create it using the InitialBelief function in the `DSPOMDP` class. See the FullChainBelief class in [examples/cpp_models/chain](examples/cpp_models/chain) for an example.
 
 ``` c++
 class Belief {
@@ -432,9 +432,9 @@ public:
 
 #### 2.3.2 Custom Bounds
 
-The lower and upper bounds mentioned in Section 2.2.4 are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in examples/cpp_models directory. Note that only GetMaxReward() and GetMinRewardAction() functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
+The lower and upper bounds mentioned in Section 2.2.4 are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
 
-A new type of lower bound is defined as a child class of the ScenarioLowerBound class shown in Listing 16. The user needs to implement the Value function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a ValuedAction object. The random numbers used in the scenarios are represented by a RandomStreams object.
+A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 16. The user needs to implement the Value function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
 
 ##### Listing 16. The ScenarioLowerBound interface
 ``` c++
@@ -453,9 +453,9 @@ public:
         RandomStreams& streams, History& history) const = 0;
 };
 ```
-The user can customize the lower bound by implementing an own lower bound class inheriting directly from the abstract ScenarioLowerBound class. Alternatively, we also provide two custom lower bound classes, ParticleLowerBound and Policy, that inherit from ScenarioLowerBound and are already implemented in the solver package.
+The user can customize the lower bound by implementing an own lower bound class inheriting directly from the abstract `ScenarioLowerBound` class. Alternatively, we also provide two custom lower bound classes, `ParticleLowerBound` and `Policy`, that inherit from `ScenarioLowerBound` and are already implemented in the solver package.
 
-A ParticleLowerBound simply ignores the random numbers in the scenarios, and computes a lower bound for the infinite-horizon value of a set of weighted particles given the action-observation history. Listing 17 shows the interface of ParticleLowerBound. To use ParticleLowerBound, one needs to implement the Value function shown below.
+A `ParticleLowerBound` simply ignores the random numbers in the scenarios, and computes a lower bound for the infinite-horizon value of a set of weighted particles given the action-observation history. Listing 17 shows the interface of `ParticleLowerBound`. To use ParticleLowerBound, one needs to implement the `Value` function shown below.
 
 ##### Listing 17. The ParticleLowerBound interface
 
@@ -471,7 +471,7 @@ public:
   virtual ValuedAction Value(const vector<State>& particles) const = 0;
 };
  ```
-A Policy defines a policy mapping from the scenarios/history to an action, and runs this policy on the scenarios to obtain a lower bound. The random number streams only has finite length, and a Policy uses a ParticleLowerBound to estimate a lower bound on the scenarios when all the random numbers have been consumed. Listing 18 shows the interface of Policy. To use Policy, one needs to implement Action function shown below.
+A Policy defines a policy mapping from the scenarios/history to an action, and runs this policy on the scenarios to obtain a lower bound. The random number streams only has finite length, and a `Policy` uses a `ParticleLowerBound` to estimate a lower bound on the scenarios when all the random numbers have been consumed. Listing 18 shows the interface of `Policy`. To use `Policy`, one needs to implement `Action` function shown below.
  
 ##### Listing 18. Code snippet from the Policy class.
 ``` c++
@@ -484,7 +484,7 @@ public:
         RandomStreams& streams, History& history) const = 0;
 };
 ```
-As an example of a Policy, the following code implements a simple fixed-action policy for SimpleRockSample.
+As an example of a Policy, the following code implements a simple fixed-action policy for `SimpleRockSample`.
 
 ##### Listing 19. A simple fixed-action policy for SimpleRockSample.
 ``` c++
@@ -502,9 +502,9 @@ class SimpleRockSampleEastPolicy : public policy {
         }
 };
 ```
-Other examples for implementing lower bound classes can be found in examples/cpp_models. For example, PocmanSmartPolicy implements a policy for the Pocman [4] task.
+Other examples for implementing lower bound classes can be found in [examples/cpp_models](examples/cpp_models). For example, `PocmanSmartPolicy` implements a policy for the Pocman [4] task.
 
-After implementing the lower bound class the user needs to add it to the solver. The DSPOMDP interface allows user-defined lower bounds to be easily added by overriding the CreateScenarioLowerBound function in the DSPOMDP interface. The default implementation of CreateScenarioLowerBound only supports the creation of the TrivialParticleLowerBound, which returns the lower bound as generated using GetMinRewardAction.
+After implementing the lower bound class the user needs to add it to the solver. The DSPOMDP interface allows user-defined lower bounds to be easily added by overriding the CreateScenarioLowerBound function in the `DSPOMDP` interface. The default implementation of `CreateScenarioLowerBound` only supports the creation of the `TrivialParticleLowerBound`, which returns the lower bound as generated using `GetBestAction`.
 
 ##### Listing 20. DSPOMDP code related to supporting user-defined lower bounds.
 ``` c++
@@ -540,13 +540,28 @@ ScenarioLowerBound* SimpleRockSample::CreateScenarioLowerBound(string name = "DE
 }
 ```
 
-Once a lower bound is added and the package is recompiled, the user can choose to use it by setting the -l option when running the package. For example, both of the following commands use SimpleRockSampleEastPolicy for a task package named simple_rs.
+Once a lower bound is added and the package is recompiled, the user can choose to use it by setting the `-l` option when running the package. For example, both of the following commands use `SimpleRockSampleEastPolicy` for a task package named `simple_rs`.
 ``` 
 ./simple_rs --runs 100
 ./simple_rs --runs 100 -l EAST
 ```
 We refer to [/doc/Usage.txt](/doc/Usage.txt) file for the usage of command line options. 
 
+## 3. Other Examples
+
+See examples/cpp_models for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
+
+## 4. References
+
+[1] A. Somani and N. Ye and D. Hsu and W.S. Lee. DESPOT: Online POMDP Planning with Regularization. In Advances In Neural Information Processing Systems, 2013.
+
+[2] T. Smith and R. Simmons. Heuristic Search Value Iteration for POMDPs. In Proc. Uncertainty in Artificial Intelligence, 2004.
+
+[3] Kaelbling, L.P., Littman, M.L., Cassandra, A.R.: Planning and acting in partially observable stochastic domains. Artificial Intelligence 101(1) (1998).
+
+[4] Silver, D., Veness, J.: Monte-Carlo planning in large POMDPs. In: Advances in Neural Information Processing Systems (NIPS) (2010).
+
+[5] J. Pineau, G. Gordon, and S. Thrun. Point-based value iteration: An anytime algorithm for POMDPs. In Proc. Int. Jnt. Conf. on Artificial Intelligence, pages 477-484, 2003.
 
 ## Package Contents
 
