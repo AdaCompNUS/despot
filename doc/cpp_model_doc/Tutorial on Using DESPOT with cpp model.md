@@ -8,7 +8,7 @@ DESPOT[1] is an anytime online POMDP planning algorithm. It performs heuristic s
 - specify a deterministic simulative model [1] for the POMDP in C++ according to the DSPOMDP interface included in the DESPOT solver package ([Section 2](#2-coding-a-c-model)). 
 
 Which type of model is better? A POMDPX model requires relatively less programming, and some domain-independent bounds are provided to guide the policy search in DESPOT. However, POMDPX can only be used to represent POMDPs which are not very large, and an exact representation of the POMDP is needed. The C++ model requires more programming, but it comes with the full flexibility of integrating the user's domain knowledge into the policy search process. In addition, it can represent extremely large problems, and only a black-box simulator ‐ rather than an exact representation of the POMDP ‐ is needed. To enjoy the full power of DESPOT, a C++ model is encouraged.
-In this tutorial, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model (Section 2.1). Then we explain how to code a C++ model from scratch including the essential functions (Section 2.2) and optional ones that may make the search more efficient (Section 2.3). Finally, Section 3 gives references to other example problems. 
+In this tutorial, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself and explain how DESPOT can solve it given its C++ model ([Section 2.1](#21-problem)). Then we explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). Finally, [Section 3](#3-other-examples) gives references to other example problems. 
 
 ## 2. Coding a C++ Model
 
@@ -20,7 +20,7 @@ In this tutorial, we will work with a very simple POMDP problem. First we introd
    - bound-related functions, and
    - memory management functions. 
 
-We shall start with the minimal set of functions that need to be implemented in a C++ model (Section 2.2), and then explain how to implement additional functions which can be used to get better performance (Section 2.3). 
+We shall start with the minimal set of functions that need to be implemented in a C++ model ([Section 2.2](#22-essential-functions)), and then explain how to implement additional functions which can be used to get better performance ([Section 2.3]()). 
 
 ### 2.1. Problem
 
@@ -298,7 +298,7 @@ public:
   virtual void Update(int action, OBS_TYPE obs) = 0;
 };
 ```
-See [2.3.1 Custom Belief](#2-3-1-custom-belief) for further details on implementing a custom belief class.
+See [2.3.1 Custom Belief](#231-custom-belief) for further details on implementing a custom belief class.
 As an alternative to implementing an own belief class, one may use the `ParticleBelief` class available in the solver package. The `ParticleBelief` class implements SIR (sequential importance resampling) particle filter, and inherits from Belief class. It is used as the default belief.
 
 To use `ParticleBelief` class, the only function to be implemented is the `ObsProb` function. The `ObsProb` function is required in `ParticleBelief` for belief update. It implements the observation function in a POMDP, that is, it computes the probability of observing obs given current state state resulting from executing an action action in previous state.
@@ -432,7 +432,7 @@ public:
 
 #### 2.3.2 Custom Bounds
 
-The lower and upper bounds mentioned in Section 2.2.4 are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
+The lower and upper bounds mentioned in [Section 2.2.4](224-bound-related-functions) are non-informative and generally only work for simple problems. This section gives a brief explanation on how users can create their own lower bounds. Creating an upper bound can be done similarly. Examples can also be found in the code in [examples/cpp_models](examples/cpp_models) directory. Note that only `GetMaxReward()` and `GetBestAction()` functions are required to be implemented if one does not want to use custom bounds. However, it is highly recommended to use bounds based on domain knowledge as it often improves performance significantly.
 
 A new type of lower bound is defined as a child class of the `ScenarioLowerBound` class shown in Listing 16. The user needs to implement the `Value` function that computes a lower bound for the infinite-horizon value of a set of weighted scenarios (as determined by the particles and the random number streams) given the action-observation history. The first action that needs to be executed in order to achieve the lower bound value is also returned together with the value, using a `ValuedAction` object. The random numbers used in the scenarios are represented by a `RandomStreams` object.
 
