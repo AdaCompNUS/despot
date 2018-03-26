@@ -603,6 +603,7 @@ class World{
 	virtual bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) =0;
 }
 ```
+
 To create a custom world, the user needs to implement the `InitializeWorld` function in the `PlannerBase` class ([despot/plannerbase.h](../../include/despot/plannerbase.h)):
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options);
@@ -630,9 +631,28 @@ Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models))
 
 ## 4. Running the Planning
 
-After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user need to choose the DESPOT solver by implementing the `ChooseSolver` function (Listing 26 Line 7). If there are paremeters to set for the problem, they can be specified in `InitializeDefaultParameters()` (Listing 26 Line 4).
+After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user first need to specify DESPOT as the solver by implementing the `ChooseSolver` function (Listing 25 Line 4-6). The user can define problem-specific parameters for the DESPOT solver by implementing `InitializeDefaultParameters()` (Listing 25 Line 7-10).
 
-##### Listing 25. The Planner class
+##### Listing 25. A custom planner for the RockSample problem
+
+``` c++
+class RSPlanner: public Planner {
+public:
+  ...
+  std::string ChooseSolver(){//Specify the solver used in the planner to be DESPOT
+      return "DESPOT";
+  }
+  void InitializeDefaultParameters() {//Specify DESPOT parameters for the particular problem
+      Globals::config.pruning_constant = 0.01;
+      Globals::config.num_scenarios = 500;
+  }
+  ...
+};
+```
+
+The planner class offers two important functions (Listing 26), `runPlanning` and `runEvaluation`, which can be used to launch two types of pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
+
+##### Listing 26. The Planner class
 
 ``` c++
 Class Planner: public PlannerBase {
@@ -649,38 +669,37 @@ public:
    int runEvaluation(int argc, char* argv[]);
 }
 ```
-##### Listing 26. A custom planner
 
-``` c++
-class RSPlanner: public Planner {
-public:
-  ...
-  void InitializeDefaultParameters() {
-  }
+The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. Particularly, `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the world interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). 
 
-  std::string ChooseSolver(){
-      return "DESPOT";
-  }
-  ...
-};
+##### Listing 27. The runStep function
+
+```c++
+bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
+    ...
+    ACT_TYPE action = solver->Search().action; //Search for an optimal action
+    ...
+    bool terminal = world->ExecuteAction(action, obs); //Execute the action and receive observation from the world
+    ...
+    solver->BeliefUpdate(action, obs); // Update the belief according to the observation received
+    ...
+}
 ```
 
-The despot package offers two types of pipelines: the planning pipeline handled by the `PlanningLoop` function, and evaluation pipeline handled by the `EvaluationLoop` function. Users can launch the planning pipeline by inheriting the `Planner` classes, and calling `runPlanning` in the `main` function subsequently:
+The planning pipeline can be customized through overwriting the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. To launch the planning pipeline, the user need to inherit the `Planner` classes, and call `runPlanning` (e.g. in the `main` function), subsequently:
 ``` c++
 int main(int argc, char* argv[]) {
    return MyPlanner().runPlanning(argc, argv);
 }
 ```
 
-The planning pipeline uses despot to perform online POMDP planning for a system till a fixed number of steps are finished or till a terminal state of the system has been reached. It can be customized through overwriting the `PlanningLoop` and `runStep` functions. 
-
-Alternatively, given a simulated world, the user can run the evaluation pipeline by calling `Planner::runEvaluation`:
+The evaluation pipeline is built on top of the planning pipeline. It is designed for evaluating the performance of DESPOT through repetitive trials in a simulated world. The evaluation pipeline repeats the planning pipeline (as defined in `PLanningLoop`) for multiple trials and evaluate the average total rewards achieved by DESPOT in the conducted trials. Users can run the evaluation pipeline by calling `Planner::runEvaluation`:
 ``` c++
 int main(int argc, char* argv[]) {
    return MyPlanner().runEvaluation(argc, argv);
 }
 ```
-The evaluation pipeline will repeat the planning process (as defined in `PLanningLoop`) for multiple times and evaluate the performance of despot according to the conducted trials. Check "[despot/planner.h](../../include/despot/planner.h)" for implementation details.
+ Check "[despot/planner.h](../../include/despot/planner.h)" for implementation details of the `Planner` class.
 
 ## 5. References
 
