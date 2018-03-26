@@ -566,7 +566,7 @@ In `InitializeModel`, one should create an instance of the C++ model and return 
 };
 ```
 
-We will see later in Section 4 a concrete example of the planner class.
+We will see later in Section 4 a concrete example of the `Planner` class.
 
 ## 2.5. Other Examples
 
@@ -609,13 +609,13 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 }
 ```
 
-Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `PlannerBase` in the following way:
+Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `Planner` in the following way:
 ``` c++
 World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
    return InitializePOMDPWorld(world_type, model, options);
 }
 ```
-We will see later in Section 4 a concrete example of the planner class. Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models)) to see more usage examples. 
+We will see later in Section 4 a concrete example of the `Planner` class. Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models)) to see more usage examples. 
 
 ## 4. Running the Planning
 
