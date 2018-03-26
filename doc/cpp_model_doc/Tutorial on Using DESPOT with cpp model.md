@@ -548,7 +548,7 @@ Once a lower bound is added and the package is recompiled, the user can choose t
 ```
 We refer to [/doc/Usage.txt](../Usage.txt) file for the usage of command line options. 
 
-## 2.4. Using a C++ Model
+### 2.4. Using a C++ Model
 
 Now we have coded a C++ model for the RockSample problem (the `SimpleRockSample` class). To let DESPOT access the c++ model, the user only need to implement the `InitializeModel` function in the `Planner` class ([despot/plannerbase.h](../../include/despot/plannerbase.h)):
 ```c++
@@ -568,7 +568,7 @@ In `InitializeModel`, one should create an instance of the C++ model and return 
 
 We will see later in Section 4 a concrete example of the `Planner` class.
 
-## 2.5. Other Examples
+### 2.5. Other Examples
 
 See [examples/cpp_models](../../examples/cpp_models) for more model examples. We implemented the cpp models for Tiger [3], Rock Sample [2], Pocman [4], Tag [5], and many other tasks. It is highly recommended to check these examples to gain a better understanding on the possible implementations of specific model components.
 
