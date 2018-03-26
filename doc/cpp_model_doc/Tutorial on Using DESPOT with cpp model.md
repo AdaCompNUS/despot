@@ -631,7 +631,7 @@ Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models))
 
 ## 4. Running the Planning
 
-After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user first need to specify DESPOT as the solver by implementing the `ChooseSolver` function (Listing 25 Line 4-6). The user can define problem-specific parameters for the DESPOT solver by implementing `InitializeDefaultParameters()` (Listing 25 Line 7-10).
+After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user first need to initialize the model and the world in the planner as already introduced in Sections 2 and 3 (Listing 25 Lines 4-11). The user then need to specify DESPOT as the solver by implementing the `ChooseSolver` function (Listing 25 Lines 12-14). The user can also define problem-specific parameters for the DESPOT solver by implementing `InitializeDefaultParameters()` (Listing 25 Line 15-18).
 
 ##### Listing 25. A custom planner for the RockSample problem
 
@@ -639,10 +639,18 @@ After defining the POMDP model and the world, the user can run the planning thro
 class RSPlanner: public Planner {
 public:
   ...
-  std::string ChooseSolver(){//Specify the solver used in the planner to be DESPOT
+  DSPOMDP* InitializeModel(option::Option* options) { // Initialize the model
+      DSPOMDP* model = ...
+      return model;
+  }
+  World* InitializeWorld(std::string&  world_type, DSPOMDP* model, option::Option* options){ // Initialize the world
+      World* world = ...
+      return world;
+  }
+  std::string ChooseSolver(){ // Specify the solver used in the planner to be DESPOT
       return "DESPOT";
   }
-  void InitializeDefaultParameters() {//Specify DESPOT parameters for the particular problem
+  void InitializeDefaultParameters() { // Specify DESPOT parameters for the particular problem
       Globals::config.pruning_constant = 0.01;
       Globals::config.num_scenarios = 500;
   }
@@ -650,7 +658,7 @@ public:
 };
 ```
 
-The planner class offers two important functions (Listing 26), `runPlanning` and `runEvaluation`, which can be used to launch two types of pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
+The planner class offers two important functions (Listing 26), `runPlanning` and `runEvaluation`, which can be called to launch two types of pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
 
 ##### Listing 26. The Planner class
 
