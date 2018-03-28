@@ -689,7 +689,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-The evaluation pipeline is built on top of the planning pipeline. It is designed for evaluating the performance of DESPOT through repetitive trials in a simulated world. The evaluation pipeline repeats the planning pipeline (as defined in `PLanningLoop`) for multiple trials and evaluate the average total rewards achieved by DESPOT in the conducted trials. Users can run the evaluation pipeline by calling `Planner::runEvaluation`:
+The evaluation pipeline is built on top of the planning pipeline. It is designed for evaluating the performance of DESPOT through repetitive trials in a simulated world. The evaluation pipeline (controlled by the `EvaluationLoop` function) repeats the planning pipeline (controlled by the `PLanningLoop` function) for multiple trials and evaluate the average total rewards achieved by DESPOT in the conducted trials. Users can run the evaluation pipeline by calling `Planner::runEvaluation`:
 ``` c++
 int main(int argc, char* argv[]) {
    return MyPlanner().runEvaluation(argc, argv);
