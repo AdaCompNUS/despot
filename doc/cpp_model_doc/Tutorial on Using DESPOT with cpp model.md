@@ -666,7 +666,7 @@ public:
 }
 ```
 
-The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. The `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the `World` interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). The planning pipeline can be customized through override the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. 
+The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. The `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the `World` interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). The planning pipeline can be customized through overriding the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. 
 
 ##### Listing 27. The runStep function
 
