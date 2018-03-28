@@ -53,7 +53,7 @@ Which type of model is better? A POMDPX model requires relatively less programmi
 
 In this section, we will work with a very simple POMDP problem. First we introduce the POMDP problem itself ([Section 2.1](#21-problem)) and explain how to code a C++ model from scratch including the essential functions ([Section 2.2](#22-essential-functions)) and optional ones that may make the search more efficient ([Section 2.3](#23-optional-functions)). Then we explain how DESPOT can get access to the C++ model ([Section 2.4](#24-using-a-c++-model)). We also provide references to other example problems in [Section 2.5](#25-other-examples). 
 
-We explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
+We now explain and illustrate how a deterministic simulative model of a POMDP can be specified according to the DSPOMDP interface. The ingredients are the following:
 
    - representation of states, actions and observations,
    - the deterministic simulative model,
@@ -592,7 +592,7 @@ class World{
 }
 ```
 
-To create a custom world, the user needs to implement the `InitializeWorld` function in the `Planner` class ([despot/plannerbase.h](../../include/despot/plannerbase.h)):
+To create a custom world, the user needs to implement the pure virtual functions in the `World` interface class (Listing 24) which DESPOT uses to connect with, initialize, read the state from, and send actions to the external system. After the custom `World` class is implemented, the user need to create an instance of the world and pass it to the planner inside the `InitializeWorld` function in the `Planner` class ([despot/plannerbase.h](../../include/despot/plannerbase.h)):
 ``` c++
 virtual World* InitializeWorld(std::string& world_type, DSPOMDP *model, option::Option* options)=0;
 ```
@@ -609,17 +609,17 @@ World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* 
 }
 ```
 
-Alternatively, the user can also use the POMDP model as the world simulator. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` represents the world as a `DSPOMDP` model. The same `DSPOMDP` model is shared by the DESPOT solver. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `Planner` in the following way:
+Alternatively, the user can also use the POMDP model as a simulated world. To achieve this, one needs to use the `POMDPWorld` class ([despot/core/pomdp_world.h](../../include/despot/core/pomdp_world.h)) which is a built-in implementation of `World`. `POMDPWorld` uses a `DSPOMDP` model as the simulated world. The same `DSPOMDP` model is shared by the DESPOT solver for POMDP planning. To use an existing `DSPOMDP` model as a POMDP-based world, the user needs to reload the `InitializeWorld` virtual function in `Planner` in the following way:
 ``` c++
 World* InitializeWorld(std::string& world_type, DSPOMDP* model, option::Option* options){
    return InitializePOMDPWorld(world_type, model, options);
 }
 ```
-We will see later in Section 4 a concrete example of the `Planner` class. Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models)) to see more usage examples. 
+Check the cpp model examples ([examples/cpp_models/](../../examples/cpp_models)) to see more usage examples. We will also see later in Section 4 a concrete example of the `Planner` class.
 
 ## 4. Running the Planning
 
-After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The user first need to initialize the model and the world in the planner as already introduced in Sections 2 and 3 (Listing 25 Lines 4-11). The user then need to specify DESPOT as the solver by implementing the `ChooseSolver` function (Listing 25 Lines 12-14). The user can also define problem-specific parameters for the DESPOT solver by implementing `InitializeDefaultParameters()` (Listing 25 Line 15-18).
+After defining the POMDP model and the world, the user can run the planning through the `Planner` class (Listing 25). The first step is to initialize the model and the world in the planner (Listing 25 Lines 4-11) as already introduced in Sections 2 and 3. The user then need to specify DESPOT as the solver by implementing the `ChooseSolver` function (Listing 25 Lines 12-14). The user can also define problem-specific parameters for the DESPOT solver by implementing `InitializeDefaultParameters()` (Listing 25 Line 15-18).
 
 ##### Listing 25. A custom planner for the RockSample problem
 
@@ -646,7 +646,7 @@ public:
 };
 ```
 
-The planner class offers two important functions (Listing 26), `runPlanning` and `runEvaluation`, which can be called to launch two types of pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
+The planner class offers two important built-in functions (Listing 26), `runPlanning` and `runEvaluation`, which can be called to launch two types of built-in pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
 
 ##### Listing 26. The Planner class
 
@@ -666,7 +666,7 @@ public:
 }
 ```
 
-The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. Particularly, `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the world interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). 
+The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. The `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the `World` interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). The planning pipeline can be customized through overwriting the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. 
 
 ##### Listing 27. The runStep function
 
@@ -682,7 +682,7 @@ bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
 }
 ```
 
-The planning pipeline can be customized through overwriting the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. To launch the planning pipeline, the user need to inherit the `Planner` classes, and call `runPlanning` (e.g. in the `main` function), subsequently:
+To launch the planning pipeline, the user need to inherit the `Planner` classes, and call `runPlanning` (e.g. in the `main` function), subsequently:
 ``` c++
 int main(int argc, char* argv[]) {
    return MyPlanner().runPlanning(argc, argv);
