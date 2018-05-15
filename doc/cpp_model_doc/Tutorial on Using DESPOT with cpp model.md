@@ -6,7 +6,7 @@ DESPOT[1] is an anytime online POMDP planning algorithm. It performs heuristic s
 
 The DESPOT solver package implements the DESPOT algorithm. To use our package to solve a problem, the user needs to perform the following three steps:
 1. define the POMDP model of the problem;
-2. create the world for DESPOT to communicating with;
+2. create the world for DESPOT to communicate with;
 3. initialize the solver and execute the planning pipeline.
 
 The DESPOT solver package contains serveral interface classes and built-in implementations of the interfaces for the user to exploit and customize. These interfaces and implementations are defined in following header and source files in the ["interface"](../../include/despot/interface) and ["core"](../../include/despot/core) folders:
