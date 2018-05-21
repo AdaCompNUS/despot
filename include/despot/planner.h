@@ -31,7 +31,7 @@ public:
 	/**
 	 * Run POMDP planning till terminal reached or time out
 	 */
-	int runPlanning(int argc, char* argv[]);
+	virtual int runPlanning(int argc, char* argv[]);
 
 	/**
 	 * Loop the search-execute-update process for a given number of steps
@@ -42,7 +42,7 @@ public:
 	/**
 	 * Run and evaluate POMDP planning for a given number of rounds
 	 */
-	int runEvaluation(int argc, char* argv[]);
+	virtual int runEvaluation(int argc, char* argv[]);
 
 	/**
 	 * Evaluate the planner by repeating a test problem for multiple trials
