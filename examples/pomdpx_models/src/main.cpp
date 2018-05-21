@@ -34,5 +34,5 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-  return MyPlanner().runEvaluation(argc, argv);
+  return MyPlanner().RunEvaluation(argc, argv);
 }

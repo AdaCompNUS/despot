@@ -24,7 +24,7 @@ Planner::~Planner() {
 }
 
 
-bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
+bool Planner::RunStep(Solver* solver, World* world, Logger* logger) {
 
 	logger->CheckTargetTime();
 
@@ -56,13 +56,13 @@ bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
 
 void Planner::PlanningLoop(Solver*& solver, World* world, Logger* logger) {
 	for (int i = 0; i < Globals::config.sim_len; i++) {
-		bool terminal = runStep(solver, world, logger);
+		bool terminal = RunStep(solver, world, logger);
 		if (terminal)
 			break;
 	}
 }
 
-int Planner::runPlanning(int argc, char *argv[]) {
+int Planner::RunPlanning(int argc, char *argv[]) {
 
 	/* =========================
 	 * initialize parameters

@@ -52,7 +52,7 @@ void Planner::EvaluationLoop(DSPOMDP *model, World* world, Belief* belief,
 	}
 }
 
-int Planner::runEvaluation(int argc, char *argv[]) {
+int Planner::RunEvaluation(int argc, char *argv[]) {
 
 	/* =========================
 	 * initialize parameters

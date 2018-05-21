@@ -26,12 +26,12 @@ public:
 	/**
 	 * Perform one search-execute-update step
 	 */
-	virtual bool runStep(Solver* solver, World* world, Logger* logger);
+	virtual bool RunStep(Solver* solver, World* world, Logger* logger);
 
 	/**
 	 * Run POMDP planning till terminal reached or time out
 	 */
-	virtual int runPlanning(int argc, char* argv[]);
+	virtual int RunPlanning(int argc, char* argv[]);
 
 	/**
 	 * Loop the search-execute-update process for a given number of steps
@@ -42,7 +42,7 @@ public:
 	/**
 	 * Run and evaluate POMDP planning for a given number of rounds
 	 */
-	virtual int runEvaluation(int argc, char* argv[]);
+	virtual int RunEvaluation(int argc, char* argv[]);
 
 	/**
 	 * Evaluate the planner by repeating a test problem for multiple trials

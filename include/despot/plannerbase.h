@@ -17,7 +17,7 @@ using namespace std;
 
 namespace despot {
 
-void disableBufferedIO(void);
+void DisableBufferedIO(void);
 
 enum OptionIndex {
 	E_UNKNOWN,
@@ -55,7 +55,7 @@ enum OptionIndex {
 	E_LOG,
 };
 
-option::Descriptor* buildUsage(string lower_bounds_str,
+option::Descriptor* BuildUsage(string lower_bounds_str,
 		string base_lower_bounds_str, string upper_bounds_str,
 		string base_upper_bounds_str);
 

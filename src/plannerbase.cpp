@@ -7,7 +7,7 @@ using namespace std;
 
 namespace despot {
 
-void disableBufferedIO(void) {
+void DisableBufferedIO(void) {
 	setbuf(stdout, NULL);
 	setbuf(stdin, NULL);
 	setbuf(stderr, NULL);
@@ -16,7 +16,7 @@ void disableBufferedIO(void) {
 	setvbuf(stderr, NULL, _IONBF, 0);
 }
 
-option::Descriptor* buildUsage(string lower_bounds_str,
+option::Descriptor* BuildUsage(string lower_bounds_str,
 		string base_lower_bounds_str, string upper_bounds_str,
 		string base_upper_bounds_str) {
 	static string lb_str =
@@ -95,7 +95,7 @@ option::Descriptor* buildUsage(string lower_bounds_str,
 
 PlannerBase::PlannerBase(string lower_bounds_str, string base_lower_bounds_str,
 		string upper_bounds_str, string base_upper_bounds_str) {
-	usage = buildUsage(lower_bounds_str, base_lower_bounds_str,
+	usage = BuildUsage(lower_bounds_str, base_lower_bounds_str,
 			upper_bounds_str, base_upper_bounds_str);
 }
 
