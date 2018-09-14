@@ -57,7 +57,7 @@ int Planner::RunEvaluation(int argc, char *argv[]) {
 	/* =========================
 	 * initialize parameters
 	 * =========================*/
-	string solver_type = "DESPOT";
+	string solver_type = ChooseSolver();
 	bool search_solver;
 	int num_runs = 1;
 	string world_type = "pomdp";

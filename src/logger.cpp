@@ -207,9 +207,12 @@ void Logger::InitRound(State* state) {
 		logi << "[POMDPLogger::InitRound] Created start state." << endl;
 		// Print initial state
 		if (!Globals::config.silence && out_) {
-			*out_ << "Initial state: " << endl;
-			model_->PrintState(*state_, *out_);
-			*out_ << endl;
+
+			if (state_){
+				*out_ << "Initial state: " << endl;
+				model_->PrintState(*state_, *out_);
+				*out_ << endl;
+			}
 		}
 	}
 
@@ -240,6 +243,8 @@ bool Logger::SummarizeStep(int step, int round, bool terminal, ACT_TYPE action,
 		*out_ << "- Action = ";
 		model_->PrintAction(action, *out_);
 	}
+
+	state_ = world_->GetCurrentState();
 
 	if (state_ != NULL) {
 		if (!Globals::config.silence && out_) {
