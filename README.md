@@ -72,7 +72,7 @@ $ ./pomdpx -m ./data/Tiger.pomdpx --runs 2
 ```
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt](doc/Usage.txt) for 
+performance for the tiger problem specified in POMDPX format. See [doc/Usage.txt](doc/usage.txt) for 
 more options. For more details on the POMPDX format, see [this page](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.)
 
 2.To run Tiger specified in [C++](doc/cpp_model_doc), compile and run: 
@@ -83,7 +83,7 @@ $ ./tiger --runs 2
 ```
 
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
-performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usage.txt) for more options.
+performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/usage.txt) for more options.
 
 
 ## Documentation
@@ -91,6 +91,9 @@ performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/Usag
 Documentation can be found in the "[doc](doc/)" directory. 
 
 For a description of our example domains and more POMDP problems see [the POMDP page](http://www.pomdp.org/examples/).
+
+## Using DESPOT with External Systems
+An example of integrating DESPOT with an external Gazebo simulator can be found in [the DESPOT tutorials page](https://github.com/AdaCompNUS/despot_tutorials.git)
 
 ## Package Contents
 
