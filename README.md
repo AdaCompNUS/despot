@@ -17,6 +17,7 @@ For bug reports and suggestions, please email <motion@comp.nus.edu.sg>.
 * [Installation](#installation)
 * [Quick Start](#quick-start)
 * [Documentation](#documentation)
+* [Using DESPOT with External Systems](#using-despot-with-external-systems)
 * [Package Contents](#package-contents)
 * [CMakeLists](#cmakelists)
 * [Acknowledgements](#acknowledgements)
@@ -93,7 +94,8 @@ Documentation can be found in the "[doc](doc/)" directory.
 For a description of our example domains and more POMDP problems see [the POMDP page](http://www.pomdp.org/examples/).
 
 ## Using DESPOT with External Systems
-An example of integrating DESPOT with an external Gazebo simulator can be found in [the DESPOT tutorials page](https://github.com/AdaCompNUS/despot_tutorials.git)
+
+An example of integrating DESPOT with an external Gazebo simulator can be found in [the DESPOT tutorials page](https://github.com/AdaCompNUS/despot_tutorials.git).
 
 ## Package Contents
 
@@ -155,4 +157,6 @@ Please use the issue tracker.
 2015/09/28 Initial release.
 
 2017/03/07 Public release. Revised documentation.
+
+2018/09/20 New API release.
 
