@@ -646,7 +646,7 @@ public:
 };
 ```
 
-The planner class offers two important built-in functions (Listing 26), `runPlanning` and `runEvaluation`, which can be called to launch two types of built-in pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
+The planner class offers two important built-in functions (Listing 26), `RunPlanning` and `RunEvaluation`, which can be called to launch two types of built-in pipelines: the *planning pipeline* and *evaluation pipeline*, respectively. 
 
 ##### Listing 26. The Planner class
 
@@ -654,24 +654,24 @@ The planner class offers two important built-in functions (Listing 26), `runPlan
 Class Planner: public PlannerBase {
 public:
    /*Perform one planning step*/
-   bool runStep(Solver* solver, World* world, Logger* logger);
+   bool RunStep(Solver* solver, World* world, Logger* logger);
    /*Perform planning for a fixed number of steps or till a terminal state is reached*/
    void PlanningLoop(Solver*& solver, World* world, Logger* logger);
    /*Run the planning pipeline*/
-   int runPlanning(int argc, char* argv[]);
+   int RunPlanning(int argc, char* argv[]);
    /*The evaluation pipeline: repeat the planning for multiple trials*/
    void EvaluationLoop(DSPOMDP *model, World* world, Belief* belief, std::string belief_type, Solver *&solver, Logger* logger, option::Option *options, clock_t main_clock_start, int num_runs, int start_run);
    /*Run the evaluation pipeline*/
-   int runEvaluation(int argc, char* argv[]);
+   int RunEvaluation(int argc, char* argv[]);
 }
 ```
 
-The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `runStep` function which performs one step of online planning. The `runStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the `World` interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). The planning pipeline can be customized through overriding the `runStep` function and the `PlanningLoop` function which calls `runStep` repetitively. 
+The planning pipeline uses DESPOT to perform online POMDP planning for a system untill a fixed number of steps are finished or untill a terminal state of the system has been reached. The core of the planning pipeline is the `RunStep` function which performs one step of online planning. The `RunStep` first uses DESPOT to generate an optimal action for the current time step (Listing 27 Line 3), and executes the action through the `World` interface (Listing 27 Line 5). The planner then receives a new observation from the world and uses it to update the belief (Listing 27 Line 7). The planning pipeline can be customized through overriding the `RunStep` function and the `PlanningLoop` function which calls `RunStep` repetitively. 
 
-##### Listing 27. The runStep function
+##### Listing 27. The RunStep function
 
 ```c++
-bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
+bool Planner::RunStep(Solver* solver, World* world, Logger* logger) {
     ...
     ACT_TYPE action = solver->Search().action; //Search for an optimal action
     ...
@@ -682,17 +682,17 @@ bool Planner::runStep(Solver* solver, World* world, Logger* logger) {
 }
 ```
 
-To launch the planning pipeline, the user need to inherit the `Planner` classes, and call `runPlanning` (e.g. in the `main` function), subsequently:
+To launch the planning pipeline, the user need to inherit the `Planner` classes, and call `RunPlanning` (e.g. in the `main` function), subsequently:
 ``` c++
 int main(int argc, char* argv[]) {
-   return MyPlanner().runPlanning(argc, argv);
+   return MyPlanner().RunPlanning(argc, argv);
 }
 ```
 
-The evaluation pipeline is built on top of the planning pipeline. It is designed for evaluating the performance of DESPOT through repetitive trials in a simulated world. The evaluation pipeline (controlled by the `EvaluationLoop` function) repeats the planning pipeline (controlled by the `PLanningLoop` function) for multiple trials and evaluate the average total rewards achieved by DESPOT in the conducted trials. Users can run the evaluation pipeline by calling `Planner::runEvaluation`:
+The evaluation pipeline is built on top of the planning pipeline. It is designed for evaluating the performance of DESPOT through repetitive trials in a simulated world. The evaluation pipeline (controlled by the `EvaluationLoop` function) repeats the planning pipeline (controlled by the `PLanningLoop` function) for multiple trials and evaluate the average total rewards achieved by DESPOT in the conducted trials. Users can run the evaluation pipeline by calling `Planner::RunEvaluation`:
 ``` c++
 int main(int argc, char* argv[]) {
-   return MyPlanner().runEvaluation(argc, argv);
+   return MyPlanner().RunEvaluation(argc, argv);
 }
 ```
  Check "[despot/planner.h](../../include/despot/planner.h)" for implementation details of the `Planner` class.
