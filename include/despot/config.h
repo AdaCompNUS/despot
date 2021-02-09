@@ -6,18 +6,18 @@
 namespace despot {
 
 struct Config {
-	int search_depth;
-	double discount;
-	unsigned int root_seed;
 	double time_per_move;  // CPU time available to construct the search tree
-	int num_scenarios;
-	double pruning_constant;
+	int sim_len; // The number of simulation steps for each episode.
+	int num_scenarios; // The number of scenarios usedto generate the DESPOT tree
+	int search_depth; // The maximum depth of the search tree
+	int max_policy_sim_len; // Maximum number of steps for simulating the default policy (rollout). Note that the depth of rollouts won't exceed the maximum search depth.
+	double discount; // The discount factor
+	double pruning_constant; // The pruning constant attached to each node for regularization purpose
 	double xi; // xi * gap(root) is the target uncertainty at the root.
-	int sim_len; // Number of steps to run the simulation for.
-  std::string default_action;
-	int max_policy_sim_len; // Maximum number of steps for simulating the default policy
+	unsigned int root_seed;
+        std::string default_action;
 	double noise;
-	bool silence;
+	bool silence; // toggle logging
 
 	Config() :
 		search_depth(90),
