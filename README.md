@@ -86,7 +86,7 @@ $ ./tiger --runs 2
 This command computes and simulates DESPOT's policy for `N = 2` runs and reports the
 performance for the tiger problem specified in C++. See [doc/Usage.txt](doc/usage.txt) for more options. 
 
-To specify the global configuration programmatically, see [include/despot/config.h](include/despot/config.h) for the parameters, and the `InitializeDefaultParameters` function in [this section](doc/cpp_model_doc/Tutorial%20on%20Using%20DESPOT%20with%20cpp%20model.md#4-running-the-planning) for an example.
+Most of options in [doc/Usage.txt](doc/usage.txt) can also be specified the programmatically, see [include/despot/config.h](include/despot/config.h) for the global parameters to use, and the `InitializeDefaultParameters` function in [this section](doc/cpp_model_doc/Tutorial%20on%20Using%20DESPOT%20with%20cpp%20model.md#4-running-the-planning) for an example.
 
 
 ## Documentation
