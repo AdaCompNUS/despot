@@ -64,7 +64,7 @@ DESPOT can be used to solve a POMDP specified in the **POMDPX** format or a POMD
 specified in **C++** according to the API. We illustrate this on the [Tiger](http://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf) problem.
 
 
-1.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
+(**Deprecated**) 1.To run Tiger specified in [POMDPX format](http://bigbird.comp.nus.edu.sg/pmwiki/farm/appl/index.php?n=Main.PomdpXDocumentation.), compile and run:
 
 ```bash
 $ cd despot/examples/pomdpx_models
