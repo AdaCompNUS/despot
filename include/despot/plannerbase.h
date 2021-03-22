@@ -23,6 +23,7 @@ enum OptionIndex {
 	E_UNKNOWN,
 	E_HELP,
 	E_PARAMS_FILE,
+	E_WORLD_FILE,
 	E_DEPTH,
 	E_DISCOUNT,
 	E_SIZE,

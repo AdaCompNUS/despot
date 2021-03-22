@@ -38,6 +38,10 @@ option::Descriptor* BuildUsage(string lower_bounds_str,
 							option::Arg::Required,
 							"-m <arg>  \t--model-params <arg>  \tPath to model-parameters file, if "
 									"any." },
+					{ E_WORLD_FILE, 0, "w", "world-params",
+							option::Arg::Required,
+							"-w <arg>  \t--world-params <arg>  \tPath to world-parameters file, if "
+									"any." },
 					{ E_SIZE, 0, "", "size", option::Arg::Required,
 							"  \t--size <arg>  \tSize of a problem (problem specific)." },
 					{ E_NUMBER, 0, "", "number", option::Arg::Required,

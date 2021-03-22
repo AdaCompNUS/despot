@@ -12,7 +12,7 @@ public:
   DSPOMDP* InitializeModel(option::Option* options) {
     DSPOMDP* model = NULL;
     if (options[E_PARAMS_FILE]) {
-        model = new POMDPX(options[E_PARAMS_FILE].arg);
+      model = new POMDPX(options[E_PARAMS_FILE].arg);
     } else {
       cerr << "ERROR: Specify a POMDPX model file name using -m!" << endl;
       exit(0);
@@ -22,6 +22,10 @@ public:
   
   World* InitializeWorld(std::string&  world_type, DSPOMDP* model, option::Option* options)
   {
+		if (options[E_WORLD_FILE]) {
+			model = new POMDPX(options[E_WORLD_FILE].arg);
+		}
+
     return InitializePOMDPWorld(world_type, model, options);
   }
 
