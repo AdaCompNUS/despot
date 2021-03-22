@@ -479,6 +479,10 @@ ScenarioLowerBound* POMDPX::CreateScenarioLowerBound(string name,
 		ComputeDefaultActions("MDP");
 		return new ModeStatePolicy(this, *indexer, *policy,
 			CreateParticleLowerBound(particle_bound_name));
+	} else if (name.substr(0, 5) == "BLIND") { 
+		int action = stoi(name.substr(5)); 
+		return new BlindPolicy(this, action, 
+				CreateParticleLowerBound(particle_bound_name)); 
 	} else {
 		cerr << "Unsupported scenario lower bound: " << name << endl;
 		exit(1);
