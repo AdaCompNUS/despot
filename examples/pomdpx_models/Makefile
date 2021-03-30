@@ -2,6 +2,9 @@
 # Compiler/linker options
 # -----------------------
 
+GPROF = # avoid externally defined GPROF
+#GPROF = -pg # uncomment to enable gprof
+
 CXX = g++
 LDFLAGS = -O3 -Wall -Wno-sign-compare $(GPROF)
 

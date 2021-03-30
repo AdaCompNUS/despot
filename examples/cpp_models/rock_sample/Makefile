@@ -3,7 +3,7 @@
 # -----------------------
 
 CXX = g++
-LDFLAGS = -O3 -Wall -Wno-sign-compare $(GPROF)
+LDFLAGS = -O3 -Wall -Wno-sign-compare 
 
 # -----------
 # Directories
