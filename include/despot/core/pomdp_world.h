@@ -13,6 +13,8 @@
 #include <despot/interface/world.h>
 #include <despot/util/random.h>
 
+using namespace std;
+
 namespace despot {
 
 class POMDPWorld: public World {
@@ -38,6 +40,8 @@ public:
 	State* Initialize();
 	//To help construct initial belief to print debug informations in Logger
 	State* GetCurrentState() const;
+	//Print a world state. Used to print debug information in Logger.
+	void PrintState(const State& s, ostream& out) const;
 	//send action, receive reward, obs, and terminal
 	bool ExecuteAction(ACT_TYPE action, OBS_TYPE& obs);
 };

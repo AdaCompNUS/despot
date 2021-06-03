@@ -20,4 +20,8 @@ State* World::GetCurrentState() const{
 	return NULL;
 }
 
+void World::PrintState(const State& s, ostream& out) const {
+	out << "Not Implemented" << endl;
+}
+
 } /* namespace despot */

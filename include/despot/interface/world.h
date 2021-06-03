@@ -10,6 +10,8 @@
 #include <despot/core/globals.h>
 #include <despot/interface/pomdp.h>
 
+using namespace std;
+
 namespace despot {
 
 /* =============================================================================
@@ -46,6 +48,12 @@ public:
 	 * To help construct initial belief to print debug informations in Logger
 	 */
 	virtual State* GetCurrentState() const;
+
+	/**
+	 * [Optional]
+	 * Print a world state. Used to print debug information in Logger.
+	 */
+	virtual void PrintState(const State& s, ostream& out) const;
 
 	/**
 	 * [Essential]

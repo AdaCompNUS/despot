@@ -210,7 +210,7 @@ void Logger::InitRound(State* state) {
 
 			if (state_){
 				*out_ << "Initial state: " << endl;
-				model_->PrintState(*state_, *out_);
+				world_->PrintState(*state_, *out_);
 				*out_ << endl;
 			}
 		}

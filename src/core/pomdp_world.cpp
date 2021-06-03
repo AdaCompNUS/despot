@@ -30,6 +30,10 @@ despot::State* POMDPWorld::GetCurrentState() const {
 	return state_;
 }
 
+void POMDPWorld::PrintState(const State& s, ostream& out) const {
+	model_->PrintState(s, out);
+}
+
 bool POMDPWorld::ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) {
 	bool terminal = model_->Step(*state_, random_.NextDouble(), action,
 			step_reward_, obs);
