@@ -22,11 +22,14 @@ public:
   
   World* InitializeWorld(std::string&  world_type, DSPOMDP* model, option::Option* options)
   {
-		if (options[E_WORLD_FILE]) {
-			model = new POMDPX(options[E_WORLD_FILE].arg);
-		}
+		if (options[E_WORLD_FILE]) { // ignore the provided model
+			DSPOMDP* world = new POMDPX(options[E_WORLD_FILE].arg);
+			POMDPX::current_ = (POMDPX*) world;
 
-    return InitializePOMDPWorld(world_type, model, options);
+			return InitializePOMDPWorld(world_type, world, options);
+		} else {
+			return InitializePOMDPWorld(world_type, model, options);
+		}
   }
 
   void InitializeDefaultParameters() {

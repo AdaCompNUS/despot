@@ -35,6 +35,11 @@ void POMDPWorld::PrintState(const State& s, ostream& out) const {
 }
 
 bool POMDPWorld::ExecuteAction(ACT_TYPE action, OBS_TYPE& obs) {
+	if (action >= model_->NumActions()) {
+		cout << "WARNING: Planned action " << action << 
+			" set to maximum allowed value " << (model_->NumActions() - 1) << endl;
+		action = model_->NumActions() - 1;
+	}
 	bool terminal = model_->Step(*state_, random_.NextDouble(), action,
 			step_reward_, obs);
 	return terminal;

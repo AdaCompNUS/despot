@@ -1354,8 +1354,15 @@ bool Parser::IsInTerminalStateSet(const vector<int>& state) const {
 void Parser::PrintState(const vector<int>& state, ostream& out) const {
 	out << "[";
 	for (int s = 0; s < state.size(); s++) {
-		out << (s == 0 ? "" : ", ") << curr_state_vars_[s].name() << ":"
-			<< curr_state_vars_[s].GetValue(state[s]);
+		out << (s == 0 ? "" : ", ") << curr_state_vars_[s].name() << ":";
+		if (state[s] >= curr_state_vars_[s].Size()) {
+			// allow POMDPX::current_->PrintState to work in POMDPXState::text when 
+			// state is not defined in current_, but the names of the state
+			// components are defined
+			out << state[s];
+		} else {
+			out << curr_state_vars_[s].GetValue(state[s]);
+		}
 	}
 	out << "]" << endl;
 }
