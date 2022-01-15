@@ -1,5 +1,8 @@
 LICENSE
 
-Files in src/util/tinyxml and include/util/tinyxml are from TinyXML
-(http://www.grinninglizard.com/tinyxml/) released under zlib License. All the
+Approximate POMDP Planning Online (APPL Online) is released under the GNU General Public License v3.0 for non-commercial use.
+
+Files in src/util/tinyxml and include/util/tinyxml are from TinyXML (http://www.grinninglizard.com/tinyxml/) released under zlib License. All other
 other files are original.
+
+For commercial use, separate licensing is available. Please contact Prof. David Hsu (dyhsu@comp.nus.edu.sg).
