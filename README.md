@@ -162,3 +162,7 @@ Please use the issue tracker.
 
 2018/09/20 New API release.
 
+## More Resources
+**HyP-DESPOT**: A parallel belief tree search algorithm that integrates DESPOT with both CPU and GPU parallelization. Check out the [paper](https://journals.sagepub.com/doi/abs/10.1177/0278364920937074) and the [code](https://github.com/AdaCompNUS/despot_tutorials.git).
+
+
