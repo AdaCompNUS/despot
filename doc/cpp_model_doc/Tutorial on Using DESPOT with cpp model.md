@@ -514,7 +514,7 @@ public:
     virtual ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
       string particle_bound_name = "DEFAULT") const {
         if (name == "TRIVIAL" || name == "DEFAULT") {
-            scenario_lower_bound_ = new TrivialParticleLowerBound(this);
+            return new TrivialParticleLowerBound(this);
         } else {
              cerr << "Unsupported scenario lower bound: " << name << endl;
              exit(0);
@@ -530,9 +530,9 @@ The following code adds this lower bound to `SimpleRockSample` and sets it as th
 ScenarioLowerBound* SimpleRockSample::CreateScenarioLowerBound(string name = "DEFAULT",
   string particle_bound_name = "DEFAULT") const {
     if (name == "TRIVIAL") {
-        scenario_lower_bound_ = new TrivialParticleLowerBound(this);
+        return new TrivialParticleLowerBound(this);
     } else if (name == "EAST" || name == "DEFAULT") {
-        scenario_lower_bound_ = new SimpleRockSampleEastPolicy(this,
+        return new SimpleRockSampleEastPolicy(this,
           new TrivialParticleLowerBound(this));
     } else {
         cerr << "Unsupported lower bound algorithm: " << name << endl;
