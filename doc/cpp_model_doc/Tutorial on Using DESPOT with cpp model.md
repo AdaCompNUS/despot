@@ -512,7 +512,7 @@ After implementing the lower bound class the user needs to add it to the solver.
 class DSPOMDP {
 public:
     virtual ScenarioLowerBound* CreateScenarioLowerBound(string name = "DEFAULT",
-      string particle_bound_name = "DEFAULT") {
+      string particle_bound_name = "DEFAULT") const {
         if (name == "TRIVIAL" || name == "DEFAULT") {
             scenario_lower_bound_ = new TrivialParticleLowerBound(this);
         } else {
@@ -528,7 +528,7 @@ The following code adds this lower bound to `SimpleRockSample` and sets it as th
 
 ``` c++	
 ScenarioLowerBound* SimpleRockSample::CreateScenarioLowerBound(string name = "DEFAULT",
-  string particle_bound_name = "DEFAULT") {
+  string particle_bound_name = "DEFAULT") const {
     if (name == "TRIVIAL") {
         scenario_lower_bound_ = new TrivialParticleLowerBound(this);
     } else if (name == "EAST" || name == "DEFAULT") {
