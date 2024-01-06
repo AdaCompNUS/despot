@@ -20,7 +20,7 @@ public:
 	}
 
 private:
-	bool allocated_;
+	bool allocated_ = false;
 };
 
 template<class T>
